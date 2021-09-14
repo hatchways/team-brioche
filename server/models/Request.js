@@ -3,7 +3,7 @@ const userSchema = require("../models/User")
 
 
 const requestSchema = new mongoose.Schema({
-  userId: userSchema,
+  user: userSchema,
   sitterId: {
     type: String,
     required: true
