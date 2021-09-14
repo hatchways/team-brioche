@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Grid, InputLabel } from '@material-ui/core';
+import { Grid, Select, InputLabel, FormControl } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
@@ -12,9 +12,11 @@ interface Props {
     {
       firstname,
       lastname,
+      gender,
     }: {
       firstname: string;
       lastname: string;
+      gender: string;
     },
     {
       setStatus,
@@ -22,6 +24,7 @@ interface Props {
     }: FormikHelpers<{
       firstname: string;
       lastname: string;
+      gender: string;
     }>,
   ) => void;
 }
@@ -32,10 +35,12 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
       initialValues={{
         firstname: '',
         lastname: '',
+        gender: '',
       }}
       validationSchema={Yup.object().shape({
         firstname: Yup.string().required('First Name is required'),
         lastname: Yup.string().required('Last Name is required'),
+        gender: Yup.string().required('Gender is required'),
       })}
       onSubmit={handleSubmit}
     >
@@ -61,20 +66,70 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <TextField
-            id="lastname"
-            label={<Typography className="">Doe</Typography>}
-            margin="normal"
-            onChange={handleChange}
-            value={values.lastname}
-            variant="outlined"
-            fullWidth
-            placeholder="John"
-            InputLabelProps={{
-              shrink: true,
-              variant: 'standard',
-            }}
-          />
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <InputLabel htmlFor="lastname">
+                <Typography variant="button" display="block" gutterBottom>
+                  Last Name
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="lastname"
+                margin="normal"
+                onChange={handleChange}
+                value={values.lastname}
+                variant="outlined"
+                fullWidth
+                placeholder="Doe"
+              />
+            </Grid>
+          </Grid>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="gender">
+              <Typography variant="button" display="block" gutterBottom>
+                Gender
+              </Typography>
+            </InputLabel>
+            <Select
+              id="gender"
+              value={values.gender}
+              onChange={handleChange}
+              className=""
+              variant="outlined"
+              name="gender"
+              inputProps={{ 'aria-label': 'age' }}
+            >
+              <option value="">None</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </Select>
+          </FormControl>
+          {/* <Grid container>
+            <Grid item>
+              <InputLabel htmlFor="gender">
+                <Typography variant="button" display="block" gutterBottom>
+                  Gender
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <NativeSelect
+                id="gender"
+                value={values.gender}
+                onChange={handleChange}
+                name="age"
+                className=""
+                variant="outlined"
+                inputProps={{ 'aria-label': 'age' }}
+              >
+                <option value="">None</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </NativeSelect>
+            </Grid>
+          </Grid> */}
         </form>
       )}
     </Formik>
