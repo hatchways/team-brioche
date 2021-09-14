@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
+
 const requestSchema = new mongoose.Schema({
-  user_id: {
+  userId: {
     type: String,
     required: true
   },
-  sitter_id: {
+  sitterId: {
     type: String,
     required: true
   },
@@ -18,10 +19,6 @@ const requestSchema = new mongoose.Schema({
     required: true
   },
   accepted: {
-      type: Boolean, 
-      default: false
-    },
-  declined: {
       type: Boolean, 
       default: false
     },
