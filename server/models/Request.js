@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
+const userSchema = require("../models/User")
+
 
 const requestSchema = new mongoose.Schema({
-  user_id: {
-    type: String,
-    required: true
-  },
-  sitter_id: {
+  userId: userSchema,
+  sitterId: {
     type: String,
     required: true
   },
@@ -21,10 +20,6 @@ const requestSchema = new mongoose.Schema({
       type: Boolean, 
       default: false
     },
-  declined: {
-      type: Boolean, 
-      default: false
-    },
   paid: {
       type: Boolean, 
       default: false
@@ -33,4 +28,4 @@ const requestSchema = new mongoose.Schema({
 
 const Request = mongoose.model("request", requestSchema);
 
-module.exports = Request
+module.exports.Request = Request
