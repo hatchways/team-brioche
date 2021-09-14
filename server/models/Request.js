@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
+const userSchema = require("../models/User")
 
 
 const requestSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true
-  },
+  userId: userSchema,
   sitterId: {
     type: String,
     required: true
@@ -30,4 +28,4 @@ const requestSchema = new mongoose.Schema({
 
 const Request = mongoose.model("request", requestSchema);
 
-module.exports = Request
+module.exports.Request = Request
