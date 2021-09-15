@@ -78,34 +78,13 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  let {
-    firstName,
-    lastName,
-    address,
-    phone,
-    dob,
-    userPhotoUrl,
-    description,
-    availability,
-    gender,
-  } = req.body; //Not sure about this one
-  const newProfile = await Profile.findByIdAndUpdate(
-    id,
-    firstName,
-    lastName,
-    address,
-    phone,
-    dob,
-    userPhotoUrl,
-    description,
-    availability,
-    gender
-  );
+  let newProfileData = req.body; //Not sure about this one
+  const newProfile = await Profile.findByIdAndUpdate(id, newProfileData);
   if (!newProfile) {
     res.status(404);
     throw new Error(
       "Somthing went wrong while updating you Profile. Please try again later."
     );
   }
-  res.status(200).send(newProfile);
+  res.status(200).send(newProfileData);
 });
