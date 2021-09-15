@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = require("./User");
-const email = User.find_by_id({});
+const userSchema = require("./User").Schema;
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -14,10 +13,10 @@ const profileSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  user: {
-    type: userSchema,
-    required: true,
-  },
+  // user: {
+  //   type: userSchema,
+  //   required: true,
+  // },
   userPhotoUrl: {
     type: String,
   },
