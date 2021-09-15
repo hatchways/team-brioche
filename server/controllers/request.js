@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Request = require("../models/Request");
-const User = require("../models/User");
 
 // @route GET /request
 // @desc get all request by user
