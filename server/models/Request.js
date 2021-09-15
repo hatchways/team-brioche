@@ -1,9 +1,19 @@
 const mongoose = require("mongoose");
-const userSchema = require("../models/User")
-
 
 const requestSchema = new mongoose.Schema({
-  user: userSchema,
+  user: { 
+    type: new mongoose.Schema({
+      username: {
+        type: String,
+        required: true
+      },
+      email: {
+        type: String,
+        required: true
+      }
+    }),
+    required: true
+  },
   sitterId: {
     type: String,
     required: true
@@ -20,6 +30,10 @@ const requestSchema = new mongoose.Schema({
       type: Boolean, 
       default: false
     },
+  declined: {
+      type: Boolean, 
+      default: false
+    },
   paid: {
       type: Boolean, 
       default: false
@@ -28,4 +42,4 @@ const requestSchema = new mongoose.Schema({
 
 const Request = mongoose.model("request", requestSchema);
 
-module.exports.Request = Request
+module.exports = Request
