@@ -7,6 +7,7 @@ const { savePhoto } = require("../controllers/profile");
 const upload = multer({dest: './uploads'});
 
 // router.route("/photo").post(protect, savePhoto);
-router.route("/savePhoto").post(upload.fields([{name: 'photos'}]), savePhoto);
+router.route("/savePhoto")
+	.post(upload.fields([{name: 'photos'}]), savePhoto);
 
 module.exports = router;
