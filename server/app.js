@@ -1,3 +1,6 @@
+/* Sets up the environment variables from your .env file*/
+require("dotenv").config();
+
 const colors = require("colors");
 const path = require("path");
 const http = require("http");
