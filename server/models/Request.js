@@ -2,16 +2,8 @@ const mongoose = require("mongoose");
 
 const requestSchema = new mongoose.Schema({
   user: { 
-    type: new mongoose.Schema({
-      username: {
-        type: String,
-        required: true
-      },
-      email: {
-        type: String,
-        required: true
-      }
-    }),
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true
   },
   sitterId: {
