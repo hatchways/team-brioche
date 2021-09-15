@@ -11,7 +11,7 @@ exports.getRequestByUser = asyncHandler(async (req, res, next) => {
     
     const requests = await Request.find({ user: id }).populate('user')
 
-    if(requests.length === 0){
+    if(!requests.length){
         res.status(404)
         throw new Error("No Request found for this user")
     }
@@ -47,10 +47,8 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
         throw new Error("this Request has already been saved")
     }
 
-    const user = await User.findOne({ _id: id })
-
     const request = await Request.create({
-        user: new mongoose.Types.ObjectId(user._id),
+        user: new mongoose.Types.ObjectId(id),
         sitterId,
         start,
         end
@@ -69,7 +67,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.updateRequest = asyncHandler(async (req, res, next) => {
     const id = req.params.id
-    const { accepted, paid, declined } = req.body
+    const { accepted, declined } = req.body
 
     if(!mongoose.isValidObjectId(id)){
         res.status(400)
