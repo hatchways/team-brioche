@@ -1,7 +1,7 @@
-const Request = require("../models/Request");
-const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
+const Request = require("../models/Request");
+const User = require("../models/User");
 
 // @route GET /request
 // @desc get all request by user
@@ -11,12 +11,12 @@ exports.getRequestByUser = asyncHandler(async (req, res, next) => {
     
     const requests = await Request.find({ 'user._id': id })
 
-    if(requests.length === 0){
+    if(!requests.length){
         res.status(404)
         throw new Error("No Request found for this user")
     }
 
-    res.send(requests)
+    res.status(200).send(requests)
 });
 
 // @route POST /request
@@ -65,7 +65,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
         throw new Error("Something went wrong with your request please try again later")
     }
 
-    res.send(request)
+    res.status(201).send(request)
 });
 
 // @route PUT /request/:id
@@ -100,5 +100,5 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
     }
 
     request = await request.save()
-    res.send(request)
+    res.status(200).send(request)
 });
