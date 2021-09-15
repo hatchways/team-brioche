@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const userSchema = require("./User");
 const email = User.find_by_id({});
 const profileSchema = new mongoose.Schema({
-  firstname: {
+  firstName: {
     type: String,
     required: true,
   },
-  lastname: {
+  lastName: {
     type: String,
     required: true,
   },
