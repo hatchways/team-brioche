@@ -28,6 +28,7 @@ exports.validateNewRequest = [
 exports.validateRequestUpdate = [
   check("accepted", "accepted must be a Boolean").optional().isBoolean(),
   check("paid", "Paid must be a Boolean").optional().isBoolean(),
+  check("declined", "Declined must be a Boolean").optional().isBoolean(),
   handleValidation
 ]
 

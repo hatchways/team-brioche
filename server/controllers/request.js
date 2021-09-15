@@ -73,7 +73,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.updateRequest = asyncHandler(async (req, res, next) => {
     const id = req.params.id
-    const { accepted, paid } = req.body
+    const { accepted, paid, declined } = req.body
 
     if(!mongoose.isValidObjectId(id)){
         res.status(400)
@@ -87,10 +87,17 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
         throw new Error("No Request found")
     }
 
+    if(declined)
+        request.declined = declined
     if(accepted) 
         request.accepted = accepted
-    if(paid) 
+    if(paid)
         request.paid = paid
+
+    if(request.isNotConsistent()){
+        res.status(400)
+        throw new Error("Inconsistent request, adjust the declined/accepted field")
+    }
 
     request = await request.save()
     res.send(request)
