@@ -1,7 +1,7 @@
-const Request = require("../models/Request");
-const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
+const Request = require("../models/Request");
+const User = require("../models/User");
 
 // @route GET /request
 // @desc get all request by user
@@ -9,14 +9,14 @@ const mongoose = require("mongoose");
 exports.getRequestByUser = asyncHandler(async (req, res, next) => {
     const { id } = req.user; 
     
-    const requests = await Request.find({ 'user._id': id })
+    const requests = await Request.find({ user: id }).populate('user')
 
     if(requests.length === 0){
         res.status(404)
         throw new Error("No Request found for this user")
     }
 
-    res.send(requests)
+    res.status(200).send(requests)
 });
 
 // @route POST /request
@@ -41,7 +41,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     }
 
     // make sure not to save the same request more than once
-    const checkRequest = await Request.findOne({ 'user._id': id, sitterId, start, end })
+    const checkRequest = await Request.findOne({ user: id, sitterId, start, end })
     if(checkRequest){
         res.status(400)
         throw new Error("this Request has already been saved")
@@ -50,11 +50,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ _id: id })
 
     const request = await Request.create({
-        user: {
-            _id: user._id,
-            username: user.username,
-            email: user.email
-        },
+        user: new mongoose.Types.ObjectId(user._id),
         sitterId,
         start,
         end
@@ -65,7 +61,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
         throw new Error("Something went wrong with your request please try again later")
     }
 
-    res.send(request)
+    res.status(200).send(request)
 });
 
 // @route PUT /request/:id
@@ -91,8 +87,6 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
         request.declined = declined
     if(accepted) 
         request.accepted = accepted
-    if(paid)
-        request.paid = paid
 
     if(request.isNotConsistent()){
         res.status(400)
@@ -100,5 +94,5 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
     }
 
     request = await request.save()
-    res.send(request)
+    res.status(200).send(request)
 });
