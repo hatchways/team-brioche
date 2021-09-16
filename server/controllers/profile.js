@@ -101,8 +101,6 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   //   throw new Error("You are not Authorized to change the data")
   // }
 
-  //Ask about this as even though the ID's are equal they are not showing they same
-
   const newProfile = await Profile.findByIdAndUpdate(id, newProfileData);
   if (!newProfile) {
     res.status(404);
