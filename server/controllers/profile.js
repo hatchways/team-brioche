@@ -24,7 +24,6 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   userId = user._id;
   if (!user) {
     res.status(401);
-    console.log(req);
     throw new Error("Not authorized");
   }
   let {
