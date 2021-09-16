@@ -4,6 +4,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(9),
     paddingBottom: theme.spacing(9),
+    maxWidth: 1200,
+    margin: '0 auto',
   },
   title: {
     marginBottom: theme.spacing(9),
