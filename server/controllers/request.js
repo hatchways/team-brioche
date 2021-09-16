@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const Request = require("../models/Request");
 
 // @route GET /request
-// @desc get all request by user
+// @desc gets all requests for loged-in dog sitter
 // @access Private
-exports.getRequestByUser = asyncHandler(async (req, res, next) => {
-    const { id } = req.user; 
+exports.getRequests = asyncHandler(async (req, res, next) => {
+    const { id: sitterId } = req.user; 
     
-    const requests = await Request.find({ user: id }).populate('User')
+    const requests = await Request.find({ sitterId })
+    .populate('userId')
+    .populate("sitterId")
 
     if(!requests.length){
         res.status(404)
@@ -19,10 +21,10 @@ exports.getRequestByUser = asyncHandler(async (req, res, next) => {
 });
 
 // @route POST /request
-// @desc create a new request
+// @desc dog-owner Create request for dog-sitters
 // @access Private
 exports.createRequest = asyncHandler(async (req, res, next) => {
-    const { id } = req.user; 
+    const { id: dogOwnerId } = req.user; 
     let { sitterId, start, end } = req.body
 
     start = new Date(start)
@@ -40,14 +42,14 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     }
 
     // make sure not to save the same request more than once
-    const checkRequest = await Request.findOne({ user: id, sitterId, start, end })
+    const checkRequest = await Request.findOne({ userId: dogOwnerId, sitterId, start, end })
     if(checkRequest){
         res.status(400)
         throw new Error("this Request has already been saved")
     }
 
     const request = await Request.create({
-        user: new mongoose.Types.ObjectId(id),
+        userId: dogOwnerId,
         sitterId,
         start,
         end
@@ -62,18 +64,18 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 });
 
 // @route PUT /request/:id
-// @desc update approved/declined field of an existing Request 
+// @desc dog-sitter update approved/decline an existing Request 
 // @access Private
 exports.updateRequest = asyncHandler(async (req, res, next) => {
-    const id = req.params.id
+    const requestId = req.params.id
     const { accepted, declined } = req.body
 
-    if(!mongoose.isValidObjectId(id)){
+    if(!mongoose.isValidObjectId(requestId)){
         res.status(400)
         throw new Error("Invalid Reqeust Id")
     }
 
-    let request = await Request.findById(id)
+    let request = await Request.findById(requestId)
     
     if(!request) {
         res.status(404)
