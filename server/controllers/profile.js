@@ -126,7 +126,7 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
     fs.unlinkSync(photo.path);
   });
   let updatedData = {
-    userPhotoUrls: urls,
+    userPhotosUrls: urls,
   };
   const addPics = await Profile.findByIdAndUpdate(id, updatedData);
   if (!addPics) {
