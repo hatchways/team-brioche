@@ -8,7 +8,7 @@ const Request = require("../models/Request");
 exports.getRequestByUser = asyncHandler(async (req, res, next) => {
     const { id } = req.user; 
     
-    const requests = await Request.find({ user: id }).populate('user')
+    const requests = await Request.find({ user: id }).populate('User')
 
     if(!requests.length){
         res.status(404)
