@@ -19,7 +19,7 @@ const profileSchema = new mongoose.Schema({
     required: true,
   },
   userPhotoUrl: {
-    type: String,
+    type: [String],
   },
   description: {
     type: String,
