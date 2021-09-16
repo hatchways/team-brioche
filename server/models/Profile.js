@@ -18,7 +18,7 @@ const profileSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  userPhotoUrl: {
+  userPhotosUrls: {
     type: [String],
   },
   description: {
