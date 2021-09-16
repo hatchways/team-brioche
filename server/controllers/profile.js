@@ -20,6 +20,13 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
 //@desc CREATE a new profile
 //@access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  userId = user._id;
+  if (!user) {
+    res.status(401);
+    console.log(req);
+    throw new Error("Not authorized");
+  }
   let {
     firstName,
     lastName,
@@ -47,6 +54,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
+    userId,
   });
   if (!profile) {
     res.status(500);
