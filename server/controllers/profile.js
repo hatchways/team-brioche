@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const fs = require("fs");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
-const asyncHandler = require("express-async-handler");
 const cloudinary = require("../utils/cloudinaryHelper");
 
 // @route GET /profiles
@@ -87,7 +86,7 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  let newProfileData = req.body; //Not sure about this one
+  let newProfileData = req.body;
   const newProfile = await Profile.findByIdAndUpdate(id, newProfileData);
   if (!newProfile) {
     res.status(404);
@@ -100,7 +99,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
 exports.savePhoto = asyncHandler(async (req, res, next) => {
   const { photos } = req.files;
-
+  const id = await User.findById(req.user.id._id);
   photos.forEach((photo) => {
     if (
       !(
@@ -126,6 +125,16 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
   photos.forEach((photo) => {
     fs.unlinkSync(photo.path);
   });
+  let updatedData = {
+    userPhotoUrls: urls,
+  };
+  const addPics = await Profile.findByIdAndUpdate(id, updatedData);
+  if (!addPics) {
+    res.status(404);
+    throw new Error(
+      "Somthing went wrong while add your photos. Please try again later."
+    );
+  }
 
   res.status(200).json(urls);
 });
