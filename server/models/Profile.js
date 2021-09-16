@@ -18,7 +18,10 @@ const profileSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  userPhotosUrls: {
+  profilePic: {
+    type: String,
+  },
+  galleryPics: {
     type: [String],
   },
   description: {
