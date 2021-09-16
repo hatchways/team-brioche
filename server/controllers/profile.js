@@ -22,7 +22,7 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
 //@access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  userId = user._id;
+  let userId = user._id;
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
@@ -87,6 +87,22 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   let newProfileData = req.body;
+
+  // Check if the logged in person is the owner of the profile
+  // NOT WORKING rn even though both ids are same
+
+  // const user = await User.findById(req.user.id);
+  // const profile=await Profile.findById(id);
+
+  // if(user._id !== profile.userId){
+  //   console.log(user._id,profile.userId);
+  //   console.log("not eq")
+  //   res.status(404);
+  //   throw new Error("You are not Authorized to change the data")
+  // }
+
+  //Ask about this as even though the ID's are equal they are not showing they same
+
   const newProfile = await Profile.findByIdAndUpdate(id, newProfileData);
   if (!newProfile) {
     res.status(404);
