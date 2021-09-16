@@ -25,7 +25,7 @@ const profileSchema = new mongoose.Schema({
     type: String,
   },
   availability: {
-    type: Array,
+    type: [String],
   },
   gender: {
     type: String,
