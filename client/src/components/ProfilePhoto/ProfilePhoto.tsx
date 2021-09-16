@@ -20,15 +20,15 @@ const ProfilePhoto = ({ loggedInUser }: Props): JSX.Element => {
     <Paper elevation={5} className={classes.root}>
       <Grid container justify="center">
         <Grid item container lg={4} md={6} xs={11} direction="column" alignItems="center">
-          <Box className={classes.title}>
-            <Typography variant="h4">Profile Photo</Typography>
-          </Box>
+          <Typography variant="h4" className={classes.title}>
+            Profile Photo
+          </Typography>
           <Box className={classes.avatarPanel}>
             <ProfileAvatar user={loggedInUser} />
           </Box>
-          <Box className={classes.description}>
-            <Typography color="secondary">Be sure to use a photo that clearly shows your face</Typography>
-          </Box>
+          <Typography color="secondary" className={classes.description}>
+            Be sure to use a photo that clearly shows your face
+          </Typography>
           <Box className={classes.upload}>
             <Button variant="outlined" color="primary" fullWidth>
               Upload a file from your device

@@ -8,9 +8,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginBottom: theme.spacing(9),
     textAlign: 'center',
-    '& .MuiTypography-root': {
-      fontWeight: 'bold',
-    },
+    fontWeight: 'bold',
   },
   avatarPanel: {
     marginBottom: theme.spacing(3),
@@ -20,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(10),
     marginBottom: theme.spacing(5),
     textAlign: 'center',
-    '& .MuiTypography-root': {
-      fontSize: 14,
-    },
+    fontSize: 14,
   },
   upload: {
     marginBottom: theme.spacing(4),
