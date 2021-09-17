@@ -6,11 +6,16 @@ const Request = require("../models/Request");
 // @desc gets all requests for loged-in dog sitter
 // @access Private
 exports.getRequests = asyncHandler(async (req, res, next) => {
-    const { id: sitterId } = req.user; 
-    
-    const requests = await Request.find({ sitterId })
-    .populate('userId')
-    .populate("sitterId")
+    const { id } = req.user
+    const requests = await Request.find({ 
+        $or: 
+        [
+            { ownerId: id }, 
+            { sitterId: id }
+        ] 
+    })
+    .populate('ownerId', { username: 1, email: 1 })
+    .populate("sitterId", { username: 1, email: 1 })
 
     if(!requests.length){
         res.status(404)
@@ -24,7 +29,7 @@ exports.getRequests = asyncHandler(async (req, res, next) => {
 // @desc dog-owner Create request for dog-sitters
 // @access Private
 exports.createRequest = asyncHandler(async (req, res, next) => {
-    const { id: dogOwnerId } = req.user; 
+    const { id: ownerId } = req.user; 
     let { sitterId, start, end } = req.body
 
     start = new Date(start)
@@ -42,14 +47,14 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     }
 
     // make sure not to save the same request more than once
-    const checkRequest = await Request.findOne({ userId: dogOwnerId, sitterId, start, end })
+    const checkRequest = await Request.findOne({ ownerId, sitterId, start, end })
     if(checkRequest){
         res.status(400)
         throw new Error("this Request has already been saved")
     }
 
     const request = await Request.create({
-        userId: dogOwnerId,
+        ownerId,
         sitterId,
         start,
         end
