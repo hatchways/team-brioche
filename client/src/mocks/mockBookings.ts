@@ -1,88 +1,20 @@
 import { BookingRequest } from '../interface/BookingApiData';
 
-export const upcoming: Array<BookingRequest> = [
-  {
-    accepted: false,
-    declined: false,
-    paid: false,
-    dogOwner: {
-      username: 'dogowner1',
-      email: 'dogowner1@g.com',
-    },
-    dogSitter: {
-      username: 'dogsitter1',
-      email: 'dogsitter1@g.com',
-    },
-    start: new Date(),
-    end: new Date(),
+export const upcoming: BookingRequest = {
+  accepted: false,
+  declined: false,
+  paid: false,
+  dogOwner: {
+    username: 'dogowner1',
+    email: 'dogowner1@g.com',
   },
-];
-
-export const current: Array<BookingRequest> = [
-  {
-    accepted: false,
-    declined: false,
-    paid: false,
-    dogOwner: {
-      username: 'dogowner3',
-      email: 'dogowner3@g.com',
-    },
-    dogSitter: {
-      username: 'dogsitter3',
-      email: 'dogsitter3@g.com',
-    },
-    start: new Date(),
-    end: new Date(),
+  dogSitter: {
+    username: 'dogsitter1',
+    email: 'dogsitter1@g.com',
   },
-  {
-    accepted: true,
-    declined: false,
-    paid: false,
-    dogOwner: {
-      username: 'dogowner4',
-      email: 'dogowner2@g.com',
-    },
-    dogSitter: {
-      username: 'dogsitter4',
-      email: 'dogsitter1@g.com',
-    },
-    start: new Date(),
-    end: new Date(),
-  },
-];
-
-export const past: Array<BookingRequest> = [
-  {
-    accepted: false,
-    declined: false,
-    paid: false,
-    dogOwner: {
-      username: 'dogowner5',
-      email: 'dogowner1@g.com',
-    },
-    dogSitter: {
-      username: 'dogsitter5',
-      email: 'dogsitter1@g.com',
-    },
-    start: new Date(),
-    end: new Date(),
-  },
-  {
-    accepted: true,
-    declined: false,
-    paid: false,
-    dogOwner: {
-      username: 'dogowner6',
-      email: 'dogowner2@g.com',
-    },
-    dogSitter: {
-      username: 'dogsitter6',
-      email: 'dogsitter1@g.com',
-    },
-    start: new Date(),
-    end: new Date(),
-  },
-];
+  start: new Date(),
+  end: new Date(),
+};
 
 export const bookings = [
   {
@@ -148,5 +80,37 @@ export const bookings = [
     },
     start: new Date('2021 sept 22 8:30 AM'),
     end: new Date('2021 sept 22 11:30 PM'),
+  },
+  {
+    // upcoming booking that has not been accepted
+    accepted: false,
+    declined: false,
+    paid: false,
+    dogOwner: {
+      username: 'dogowner4',
+      email: 'dogowner4@g.com',
+    },
+    dogSitter: {
+      username: 'dogsitter5',
+      email: 'dogsitter1@g.com',
+    },
+    start: new Date('2021 sept 25 8:30 AM'),
+    end: new Date('2021 sept 25 11:30 PM'),
+  },
+  {
+    // upcoming booking that has been declined
+    accepted: false,
+    declined: true,
+    paid: false,
+    dogOwner: {
+      username: 'dogowner6',
+      email: 'dogowner6@g.com',
+    },
+    dogSitter: {
+      username: 'dogsitter5',
+      email: 'dogsitter1@g.com',
+    },
+    start: new Date('2021 sept 25 8:30 AM'),
+    end: new Date('2021 sept 25 11:30 PM'),
   },
 ];

@@ -12,7 +12,7 @@ export default function Booking(): JSX.Element {
   const classes = useStyles();
 
   const [bookings, setBookings] = useState<BookingApiData>({
-    upcoming: [],
+    upcoming: null,
     current: [],
     past: [],
   });
@@ -41,7 +41,7 @@ export default function Booking(): JSX.Element {
             <Grid item>
               <Box style={{ backgroundColor: 'white' }}>
                 <Typography>YOUR NEXT BOOKING:</Typography>
-                <BookingCardList bookingList={bookings.upcoming} />
+                <BookingCard booking={bookings.upcoming} />
               </Box>
             </Grid>
             <Grid item>

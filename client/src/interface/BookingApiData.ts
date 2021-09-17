@@ -1,7 +1,7 @@
 import { User } from './User';
 
 export interface BookingApiData {
-  upcoming: Array<BookingRequest>;
+  upcoming: BookingRequest | undefined | null;
   current: Array<BookingRequest>;
   past: Array<BookingRequest>;
 }
