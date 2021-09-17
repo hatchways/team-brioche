@@ -1,17 +1,22 @@
-import React from 'react';
 import { BookingRequest } from '../../interface/BookingApiData';
+import { Box, Typography } from '@material-ui/core';
+
 interface Props {
-  current: BookingRequest[];
+  booking: BookingRequest;
 }
-export function BookingCard(props: Props): JSX.Element {
-  const { current } = props;
+
+export default function BookingCard(props: Props): JSX.Element {
+  const {
+    booking: { start },
+  } = props;
+
   return (
     <>
-      {current.map((booking, index) => (
-        <p key={index}>
-          name of dogOwner: {booking.dogOwner.username} name of sitter: {booking.dogSitter.username}
-        </p>
-      ))}
+      <Box>
+        <Typography>
+          Start date: {start.toDateString()} {start.getHours()}:{start.getMinutes()}
+        </Typography>
+      </Box>
     </>
   );
 }
