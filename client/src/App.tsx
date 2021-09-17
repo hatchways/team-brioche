@@ -5,6 +5,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Dashboard from './pages/Dashboard/Dashboard';
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -27,6 +28,7 @@ function App(): JSX.Element {
                 <Route exact path="/editprofile">
                   <EditProfile />
                 </Route>
+                <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
