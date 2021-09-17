@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import BookingCardList from '../../components/DisplayBookings/BookingCardList';
 import BookingCard from '../../components/DisplayBookings/BookingCard';
-import { getBookings } from '../../helpers/APICalls/MockBookingService';
+import { getBookings } from '../../helpers/APICalls/bookingService';
 import { BookingApiData } from '../../interface/BookingApiData';
 import Calendar from 'react-calendar';
 import useStyles from './useStyles';

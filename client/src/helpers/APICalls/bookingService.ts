@@ -7,8 +7,8 @@ export const getBookings = (): Promise<BookingApiData> => {
 
 /**
  * upcoming: The closes request to current date that has been accepted
- * current: All requests with start dates ahead of today - All future requests
- * past: All requests with start dates behind today - All past requests
+ * current: All requests with start dates ahead of current date
+ * past: All requests with start dates behind current date
  */
 const getMockBookings = (): BookingApiData => {
   // sort bookings from Newest to oldest
