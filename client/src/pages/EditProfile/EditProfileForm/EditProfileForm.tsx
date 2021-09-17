@@ -17,6 +17,13 @@ interface Props {
       firstname: string;
       lastname: string;
       gender: string;
+      month: string;
+      date: number;
+      year: number;
+      phone: number;
+      address: string;
+      description: string;
+      availability: [string];
     },
     {
       setStatus,
@@ -25,6 +32,13 @@ interface Props {
       firstname: string;
       lastname: string;
       gender: string;
+      month: string;
+      date: number;
+      year: number;
+      phone: number;
+      address: string;
+      description: string;
+      availability: [string];
     }>,
   ) => void;
 }
@@ -36,11 +50,24 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
         firstname: '',
         lastname: '',
         gender: '',
+        month: '',
+        date: 0,
+        year: 0,
+        address: '',
+        phone: 1234567890,
+        description: '',
+        availability: [''],
       }}
       validationSchema={Yup.object().shape({
         firstname: Yup.string().required('First Name is required'),
         lastname: Yup.string().required('Last Name is required'),
         gender: Yup.string().required('Gender is required'),
+        month: Yup.string().required('Month is required'),
+        date: Yup.number().required('Date is required'),
+        year: Yup.number().required('Year is required'),
+        phone: Yup.number().required('Phone number is required'),
+        availability: Yup.array().required('Availability is required'),
+        description: Yup.string(),
       })}
       onSubmit={handleSubmit}
     >
@@ -86,89 +113,145 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <FormControl fullWidth>
-            <InputLabel htmlFor="gender">
-              <Typography variant="button" display="block" gutterBottom>
-                Gender
-              </Typography>
-            </InputLabel>
-            <Select
-              id="gender"
-              value={values.gender}
-              onChange={handleChange}
-              className=""
-              variant="outlined"
-              name="gender"
-              inputProps={{ 'aria-label': 'age' }}
-            >
-              <option value="">None</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </Select>
-          </FormControl>
-          {/* <Grid container>
-            <Grid item>
-              <InputLabel htmlFor="gender">
+          <FormControl>
+            <Grid container>
+              <InputLabel id="genderlbl">
                 <Typography variant="button" display="block" gutterBottom>
                   Gender
                 </Typography>
               </InputLabel>
-            </Grid>
-            <Grid item>
-              <NativeSelect
+              <Select
                 id="gender"
+                labelId="genderlbl"
                 value={values.gender}
                 onChange={handleChange}
-                name="age"
                 className=""
                 variant="outlined"
+                name="gender"
                 inputProps={{ 'aria-label': 'age' }}
               >
                 <option value="">None</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-              </NativeSelect>
+              </Select>
             </Grid>
-          </Grid> */}
+          </FormControl>
+          {/* <FormControl>
+            <Grid container>
+              <InputLabel id="month">
+                <Typography variant="button" display="block" gutterBottom>
+                  Month
+                </Typography>
+              </InputLabel>
+              <Select
+                id="monthSelct"
+                labelId="month"
+                value={values.month}
+                onChange={handleChange}
+                className=""
+                variant="outlined"
+                name="date"
+                inputProps={{ 'aria-label': 'age' }}
+              >
+                <option value="jan">January</option>
+                <option value="male">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="aug">August</option>
+                <option value="sept">September</option>
+                <option value="oct">October</option>
+                <option value="nov">November</option>
+                <option value="dec">December</option>
+              </Select>
+            </Grid>
+          </FormControl>
+          <FormControl>
+            <Grid container>
+              <InputLabel id="date">
+                <Typography variant="button" display="block" gutterBottom>
+                  Date
+                </Typography>
+              </InputLabel>
+              <Select
+                id="dateSelect"
+                labelId="date"
+                value={values.date}
+                onChange={handleChange}
+                className=""
+                variant="outlined"
+                name="date"
+                inputProps={{ 'aria-label': 'age' }}
+              ></Select>
+            </Grid>
+          </FormControl> */}
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <InputLabel htmlFor="phone">
+                <Typography variant="button" display="block" gutterBottom>
+                  Phone
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="phone"
+                margin="normal"
+                onChange={handleChange}
+                value={values.phone}
+                variant="outlined"
+                fullWidth
+                placeholder=""
+              />
+            </Grid>
+          </Grid>
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <InputLabel htmlFor="address">
+                <Typography variant="button" display="block" gutterBottom>
+                  Address
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="address"
+                margin="normal"
+                onChange={handleChange}
+                value={values.address}
+                variant="outlined"
+                fullWidth
+                placeholder=""
+              />
+            </Grid>
+          </Grid>
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <InputLabel htmlFor="description">
+                <Typography variant="button" display="block" gutterBottom>
+                  Description
+                </Typography>
+              </InputLabel>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="description"
+                margin="normal"
+                multiline
+                rows={5}
+                onChange={handleChange}
+                value={values.description}
+                variant="outlined"
+                fullWidth
+                placeholder=""
+              />
+            </Grid>
+          </Grid>
         </form>
       )}
     </Formik>
   );
 };
 export default EditProfileForm;
-
-// firstname: {
-//   type: String,
-//   required: true,
-// },
-// lastname: {
-//   type: String,
-//   required: true,
-// },
-// dob: {
-//   type: Date,
-//   required: true,
-// },
-// user: {
-//   // ask about this..
-//   type: mongoose.Schema.Types.ObjectId,
-//   ref: "User",
-//   required: true,
-// },
-// description: {
-//   type: String,
-// },
-// availability: {
-//   type: String,
-// },
-// gender: {
-//   type: String,
-//   enum: ["Male", "Female"],
-// },
-// phone: {
-//   type: Number,
-//   unique: true,
-// },
-// address: {
-//   type: String,
-// },
