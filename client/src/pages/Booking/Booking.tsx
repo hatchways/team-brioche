@@ -1,12 +1,11 @@
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { useState, useEffect } from 'react';
-import BookingCardList from '../../components/DisplayBookings/BookingCardList';
-import BookingCard from '../../components/DisplayBookings/BookingCard';
 import { getBookings } from '../../helpers/APICalls/bookingService';
 import { BookingApiData } from '../../interface/BookingApiData';
 import Calendar from 'react-calendar';
 import useStyles from './useStyles';
 import 'react-calendar/dist/Calendar.css';
+import BookingGroup from '../../components/DisplayBookings/BookingGroup';
 
 export default function Booking(): JSX.Element {
   const classes = useStyles();
@@ -27,30 +26,12 @@ export default function Booking(): JSX.Element {
   console.log(date.toString());
   return (
     <Box component="main" className={classes.root}>
-      <Grid
-        container
-        wrap="wrap"
-        style={{ justifyContent: 'space-around', paddingTop: '2rem', paddingLeft: '4rem', paddingRight: '4rem' }}
-        direction="row-reverse"
-      >
-        <Grid item>
+      <Grid container wrap="wrap" className={classes.main} direction="row-reverse">
+        <Grid item className={classes.calendar}>
           <Calendar value={date} onChange={setDate} />
         </Grid>
-        <Grid item>
-          <Grid container direction="column" spacing={3}>
-            <Grid item>
-              <Box style={{ backgroundColor: 'white' }}>
-                <Typography>YOUR NEXT BOOKING:</Typography>
-                <BookingCard booking={bookings.upcoming} />
-              </Box>
-            </Grid>
-            <Grid item>
-              <Typography>CURRENT BOOKING:</Typography>
-              <BookingCardList bookingList={bookings.current} />
-              <Typography>PAST BOOKING:</Typography>
-              <BookingCardList bookingList={bookings.past} />
-            </Grid>
-          </Grid>
+        <Grid item className={classes.bookings}>
+          <BookingGroup bookings={bookings} />
         </Grid>
       </Grid>
     </Box>
