@@ -7,6 +7,7 @@ export interface BookingApiData {
 }
 
 export interface BookingRequest {
+  _id: string;
   accepted: Boolean;
   declined: Boolean;
   paid: Boolean;

@@ -4,33 +4,34 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.grey[200],
     minHeight: '100vh',
-    width: '100vw',
   },
   main: {
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     padding: theme.spacing(2),
   },
   current: {
+    height: '80vh',
+    overflow: 'auto',
     backgroundColor: 'white',
     padding: theme.spacing(1),
   },
   upcoming: {
     backgroundColor: 'white',
-    margin: theme.spacing(1),
+    margin: '0 0 3rem 0',
+    padding: '5px',
   },
-  calendar: {
-    margin: '20px',
-  },
-  bookings: {
-    margin: '20px',
-    border: '2px solid black',
-    height: '80vh',
-    overflow: 'auto',
-  },
+  calendar: {},
+  bookings: {},
   bookingCard: {
     border: '1px solid grey',
     padding: '5px',
     margin: '0.5rem 0 0.5rem 0',
+  },
+  image: {
+    height: '5rem',
+    width: '5rem',
+    objectFit: 'cover',
+    borderRadius: '50%',
   },
 }));
 
