@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./User").Schema;
+const userSchema = require("./User");
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -15,17 +16,20 @@ const profileSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
     required: true,
   },
-  userPhotosUrls: {
-    type: Array,
+  profilePic: {
+    type: String,
+  },
+  galleryPics: {
+    type: [String],
   },
   description: {
     type: String,
   },
   availability: {
-    type: Array,
+    type: [String],
   },
   gender: {
     type: String,
