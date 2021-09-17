@@ -81,6 +81,8 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
     }
 
     let request = await Request.findById(requestId)
+        .populate('ownerId', { username: 1, email: 1 })
+        .populate("sitterId", { username: 1, email: 1 })
     
     if(!request) {
         res.status(404)
