@@ -90,15 +90,17 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
     }
 
     if(declined)
-        request.declined = declined
+        request.set({
+            accepted: false,
+            declined: true
+        })
     if(accepted) 
-        request.accepted = accepted
-
-    if(request.isNotConsistent()){
-        res.status(400)
-        throw new Error("Inconsistent request, adjust the declined/accepted field")
-    }
-
+        request.set({
+            accepted: true,
+            declined: false,
+        })
+        
     request = await request.save()
+
     res.status(200).send(request)
 });
