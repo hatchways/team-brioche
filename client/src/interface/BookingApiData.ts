@@ -13,6 +13,6 @@ export interface BookingRequest {
   paid: Boolean;
   dogOwner: User;
   dogSitter: User;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
 }

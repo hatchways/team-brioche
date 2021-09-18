@@ -15,8 +15,8 @@ export const bookings: Array<BookingRequest> = [
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
-    start: new Date('2021 sept 12 8:00 PM'),
-    end: new Date('2021 sept 12 10:00 PM'),
+    start: '2021 sept 12 8:00 PM',
+    end: '2021 sept 12 10:00 PM',
   },
   {
     // past booking was declined
@@ -32,8 +32,8 @@ export const bookings: Array<BookingRequest> = [
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
-    start: new Date('2021 sept 13 11:00 AM'),
-    end: new Date('2021 sept 13 3:00 PM'),
+    start: '2021 sept 13 11:00 AM',
+    end: '2021 sept 13 3:00 PM',
   },
   {
     // upcoming booking that has been accepted
@@ -49,8 +49,8 @@ export const bookings: Array<BookingRequest> = [
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
-    start: new Date('2021 sept 23 4:00 PM'),
-    end: new Date('2021 sept 23 10:00 PM'),
+    start: '2021 sept 23 4:00 PM',
+    end: '2021 sept 23 10:00 PM',
   },
   {
     // upcoming booking that has not been accepted
@@ -66,8 +66,8 @@ export const bookings: Array<BookingRequest> = [
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
-    start: new Date('2021 sept 22 8:00 AM'),
-    end: new Date('2021 sept 22 11:00 PM'),
+    start: '2021 sept 22 8:00 AM',
+    end: '2021 sept 22 11:00 PM',
   },
   {
     // upcoming booking that has not been accepted
@@ -83,8 +83,8 @@ export const bookings: Array<BookingRequest> = [
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
-    start: new Date('2021 sept 25 8:00 AM'),
-    end: new Date('2021 sept 25 11:00 PM'),
+    start: '2021 sept 25 8:00 AM',
+    end: '2021 sept 25 11:00 PM',
   },
   {
     // upcoming booking that has been declined
@@ -100,7 +100,7 @@ export const bookings: Array<BookingRequest> = [
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
-    start: new Date('2021 sept 25 8:00 AM'),
-    end: new Date('2021 sept 25 11:00 PM'),
+    start: '2021 sept 25 8:00 AM',
+    end: '2021 sept 25 11:00 PM',
   },
 ];
