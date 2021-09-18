@@ -30,13 +30,18 @@ export const updateBooking = async (value: Modify, _id: string): Promise<Booking
  */
 const getMockBookings = (): BookingApiData => {
   // sort bookings from Newest to oldest
-  bookings.sort((bookingA, bookingB) => bookingB.start.getTime() - bookingA.start.getTime());
+  bookings.sort((bookingA, bookingB) => {
+    const startA = new Date(bookingA.start);
+    const startB = new Date(bookingB.start);
+    return startB.getTime() - startA.getTime();
+  });
 
   const today = Date.now();
   const past: BookingRequest[] = [];
 
   const current = bookings.filter((booking) => {
-    if (booking.start.getTime() > today) return true;
+    const start = new Date(booking.start);
+    if (start.getTime() > today) return true;
     past.push(booking);
     return false;
   });

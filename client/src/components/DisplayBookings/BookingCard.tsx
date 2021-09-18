@@ -12,8 +12,8 @@ interface Props {
 
 export default function BookingCard(props: Props): JSX.Element {
   const classes = useStyles();
-  const { _id, accepted, declined, start, end, dogOwner } = props.booking;
-  const { username } = dogOwner;
+  const { _id, accepted, declined, start, end, ownerId } = props.booking;
+  const { username } = ownerId;
   const { modifyBooking } = useRequest();
 
   return (
