@@ -22,12 +22,12 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
 //@access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  let userId = user._id;
+  const userId = user?._id;
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
   }
-  let {
+  const {
     firstName,
     lastName,
     address,
@@ -86,21 +86,39 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  let newProfileData = req.body;
+  let {
+    firstName,
+    lastName,
+    dob,
+    phone,
+    address,
+    description,
+    availability,
+    gender,
+  } = req.body;
 
   // Check if the logged in person is the owner of the profile
   // NOT WORKING rn even though both ids are same
 
   const user = await User.findById(req.user.id);
   const profile = await Profile.findById(id);
-  console.log(user._id, profile.userId);
-  if (user._id.toString() !== profile.userId.toString()) {
-    console.log(user._id, profile.userId);
-    console.log("not eq");
+  userId = user._id.toString();
+  profileId = profile.userId.toString();
+  if (userId !== profileId) {
     res.status(404);
     throw new Error("You are not Authorized to change the data");
   }
-  const newProfile = await Profile.findByIdAndUpdate(id, newProfileData);
+
+  const newProfile = await Profile.findByIdAndUpdate(id, {
+    firstName,
+    lastName,
+    dob,
+    phone,
+    address,
+    description,
+    availability,
+    gender,
+  });
   if (!newProfile) {
     res.status(404);
     throw new Error(
