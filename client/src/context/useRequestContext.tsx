@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, FunctionComponent, useContext } from 'react';
-import { getBookings, updateBooking } from '../helpers/APICalls/mockBookingService';
+import { getBookings, updateBooking } from '../helpers/APICalls/bookingService';
 import { BookingApiData } from '../interface/BookingApiData';
 import { useSnackBar } from './useSnackbarContext';
 
