@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext, FunctionComponent, useContext } from 'react';
-import { getBookings, updateBooking } from '../helpers/APICalls/bookingService';
-import { BookingApiData } from '../interface/BookingApiData';
+import { getBookings, sortBookings, updateBooking } from '../helpers/APICalls/bookingService';
+import { BookingApiData, BookingRequest } from '../interface/BookingApiData';
 import { useSnackBar } from './useSnackbarContext';
 
 export type Modify = 'Accept' | 'Decline';
@@ -22,6 +22,8 @@ const RequestContext = createContext<ReqContext>({
   modifyBooking: () => null,
 });
 
+let bookingList: Array<BookingRequest> = [];
+
 export const RequestProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [bookings, setBookings] = useState<BookingApiData>({
     upcoming: null,
@@ -33,19 +35,20 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
 
   const modifyBooking: ModifyBooking = async (value, _id) => {
     try {
-      await updateBooking(value, _id);
-      const result = await getBookings();
-      setBookings(result);
+      const booking = await updateBooking(value, _id);
+      const idx = bookingList.findIndex((b) => b._id === booking._id);
+      bookingList[idx] = booking;
+      setBookings(sortBookings(bookingList));
     } catch (error) {
-      updateSnackBarMessage('An error occured');
+      updateSnackBarMessage('An error occured while processing your Request');
     }
   };
 
   useEffect(() => {
-    console.log('rerender');
     try {
       getBookings().then((result) => {
-        setBookings(result);
+        bookingList = result;
+        setBookings(sortBookings(bookingList));
         setFetching(false);
       });
     } catch (error) {
