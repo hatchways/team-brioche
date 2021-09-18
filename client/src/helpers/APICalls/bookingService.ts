@@ -2,8 +2,8 @@ import { Modify } from '../../context/useRequestContext';
 import { BookingApiData, BookingRequest } from '../../interface/BookingApiData';
 import { bookings } from '../../mocks/mockBookings';
 
-export const getBookings = (): Promise<BookingApiData> => {
-  return Promise.resolve(getMockBookings());
+export const getBookings = (): Promise<Array<BookingRequest>> => {
+  return Promise.resolve(bookings);
 };
 
 export const updateBooking = async (value: Modify, _id: string): Promise<BookingRequest> => {
@@ -28,7 +28,7 @@ export const updateBooking = async (value: Modify, _id: string): Promise<Booking
  * Upcoming: The request in Current closest to the current date
  * Past: All requests with start dates behind current date
  */
-const getMockBookings = (): BookingApiData => {
+export const sortBookings = (bookings: Array<BookingRequest>): BookingApiData => {
   // sort bookings from Newest to oldest
   bookings.sort((bookingA, bookingB) => {
     const startA = new Date(bookingA.start);
