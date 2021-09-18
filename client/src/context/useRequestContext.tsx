@@ -33,27 +33,24 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
   const [fetching, setFetching] = useState(true);
   const { updateSnackBarMessage } = useSnackBar();
 
-  const modifyBooking: ModifyBooking = async (value, _id) => {
-    try {
-      const booking = await updateBooking(value, _id);
-      const idx = bookingList.findIndex((b) => b._id === booking._id);
-      bookingList[idx] = booking;
-      setBookings(sortBookings(bookingList));
-    } catch (error) {
-      updateSnackBarMessage('An error occured while processing your Request');
-    }
+  const modifyBooking: ModifyBooking = (value, _id) => {
+    updateBooking(value, _id)
+      .then((booking) => {
+        const idx = bookingList.findIndex((b) => b._id === booking._id);
+        bookingList[idx] = booking;
+        setBookings(sortBookings(bookingList));
+      })
+      .catch(() => updateSnackBarMessage('An error occured while processing your Request'));
   };
 
   useEffect(() => {
-    try {
-      getBookings().then((result) => {
+    getBookings()
+      .then((result) => {
         bookingList = result;
         setBookings(sortBookings(bookingList));
         setFetching(false);
-      });
-    } catch (error) {
-      updateSnackBarMessage('An error occured');
-    }
+      })
+      .catch(() => updateSnackBarMessage(''));
   }, [updateSnackBarMessage]);
   return <RequestContext.Provider value={{ bookings, fetching, modifyBooking }}>{children}</RequestContext.Provider>;
 };
