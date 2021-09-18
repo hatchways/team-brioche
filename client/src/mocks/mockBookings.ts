@@ -7,11 +7,11 @@ export const bookings: Array<BookingRequest> = [
     accepted: true,
     declined: false,
     paid: true,
-    dogOwner: {
+    ownerId: {
       username: 'dogowner1',
       email: 'dogowner1@g.com',
     },
-    dogSitter: {
+    sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
@@ -24,11 +24,11 @@ export const bookings: Array<BookingRequest> = [
     accepted: false,
     declined: true,
     paid: false,
-    dogOwner: {
+    ownerId: {
       username: 'dogowner11',
       email: 'dogowner11@g.com',
     },
-    dogSitter: {
+    sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
@@ -41,11 +41,11 @@ export const bookings: Array<BookingRequest> = [
     accepted: true,
     declined: false,
     paid: false,
-    dogOwner: {
+    ownerId: {
       username: 'dogowner2',
       email: 'dogowner2@g.com',
     },
-    dogSitter: {
+    sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
@@ -58,11 +58,11 @@ export const bookings: Array<BookingRequest> = [
     accepted: false,
     declined: false,
     paid: false,
-    dogOwner: {
+    ownerId: {
       username: 'dogowner3',
       email: 'dogowner3@g.com',
     },
-    dogSitter: {
+    sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
@@ -75,11 +75,11 @@ export const bookings: Array<BookingRequest> = [
     accepted: false,
     declined: false,
     paid: false,
-    dogOwner: {
+    ownerId: {
       username: 'dogowner4',
       email: 'dogowner4@g.com',
     },
-    dogSitter: {
+    sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },
@@ -92,11 +92,11 @@ export const bookings: Array<BookingRequest> = [
     accepted: false,
     declined: true,
     paid: false,
-    dogOwner: {
+    ownerId: {
       username: 'dogowner6',
       email: 'dogowner6@g.com',
     },
-    dogSitter: {
+    sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
     },

@@ -11,8 +11,8 @@ export interface BookingRequest {
   accepted: Boolean;
   declined: Boolean;
   paid: Boolean;
-  dogOwner: User;
-  dogSitter: User;
+  ownerId: User;
+  sitterId: User;
   start: string;
   end: string;
 }
