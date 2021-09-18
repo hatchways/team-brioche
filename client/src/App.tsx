@@ -5,7 +5,6 @@ import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
-import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
