@@ -91,16 +91,15 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   // Check if the logged in person is the owner of the profile
   // NOT WORKING rn even though both ids are same
 
-  // const user = await User.findById(req.user.id);
-  // const profile=await Profile.findById(id);
-
-  // if(user._id !== profile.userId){
-  //   console.log(user._id,profile.userId);
-  //   console.log("not eq")
-  //   res.status(404);
-  //   throw new Error("You are not Authorized to change the data")
-  // }
-
+  const user = await User.findById(req.user.id);
+  const profile = await Profile.findById(id);
+  console.log(user._id, profile.userId);
+  if (user._id.toString() !== profile.userId.toString()) {
+    console.log(user._id, profile.userId);
+    console.log("not eq");
+    res.status(404);
+    throw new Error("You are not Authorized to change the data");
+  }
   const newProfile = await Profile.findByIdAndUpdate(id, newProfileData);
   if (!newProfile) {
     res.status(404);
@@ -113,7 +112,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
 exports.savePhoto = asyncHandler(async (req, res, next) => {
   const { photos } = req.files;
-  const id = await User.findById(req.user.id._id);
+  const id = await User.findById(req.user.id);
   photos.forEach((photo) => {
     if (
       !(
@@ -140,13 +139,13 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
     fs.unlinkSync(photo.path);
   });
   let updatedData = {
-    userPhotosUrls: urls,
+    galleryPics: urls,
   };
-  const addPics = await Profile.findByIdAndUpdate(id, updatedData);
+  const addPics = await Profile.findByIdAndUpdate(id._id, updatedData);
   if (!addPics) {
     res.status(404);
     throw new Error(
-      "Somthing went wrong while add your photos. Please try again later."
+      "Somthing went wrong while adding your photos. Please try again later."
     );
   }
 
