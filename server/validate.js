@@ -9,24 +9,32 @@ exports.validateRegister = [
   ).isLength({
     min: 6
   }),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    console.log(errors);
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  }
+  handleValidation
 ];
 
 exports.validateLogin = [
   check("email", "Please enter a valid email address").isEmail(),
   check("password", "Password is required").not().isEmpty(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
-    next();
-  }
+  handleValidation
 ];
+
+exports.validateNewRequest = [
+  check("sitterId", "Include a valid sitter id").notEmpty(),
+  check("start", "Please enter a valid start date and time").notEmpty(),
+  check("end", "Please enter a valid end date and time").notEmpty(),
+  handleValidation
+]
+
+exports.validateRequestUpdate = [
+  check("accepted", "accepted must be a Boolean").optional().isBoolean(),
+  check("declined", "Declined must be a Boolean").optional().isBoolean(),
+  handleValidation
+]
+
+function handleValidation(req, res, next){
+  const errors = validationResult(req)
+
+    if(!errors.isEmpty()) 
+      return res.status(400).json({ errors: errors.array() })
+    next()
+} 
