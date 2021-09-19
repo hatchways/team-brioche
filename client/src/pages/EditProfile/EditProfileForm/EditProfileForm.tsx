@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import {
   Grid,
   InputLabel,
@@ -13,7 +13,7 @@ import {
   Checkbox,
 } from '@material-ui/core/';
 import Box from '@material-ui/core/Box';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import Theme, { useTheme } from '@material-ui/styles';
@@ -28,36 +28,30 @@ import Calendar from 'react-calendar';
 interface Props {
   handleSubmit: (
     {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       gender,
-      dob,
       phone,
       address,
       description,
-      availability,
     }: {
-      firstname: string;
-      lastname: string;
+      firstName: string;
+      lastName: string;
       gender: string;
-      dob: number;
       phone: number;
       address: string;
       description: string;
-      availability: [string];
     },
     {
       setStatus,
       setSubmitting,
     }: FormikHelpers<{
-      firstname: string;
-      lastname: string;
+      firstName: string;
+      lastName: string;
       gender: string;
-      dob: number;
       phone: number;
       address: string;
       description: string;
-      availability: [string];
     }>,
   ) => void;
 }
@@ -74,37 +68,31 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
       },
     },
   };
-  const [daysAvail, setDaysAvail] = useState<string[]>([]);
-
-  const handleAvailChange = (event: SelectChangeEvent<typeof daysAvail>) => {
-    const {
-      target: { value },
-    } = event;
-    setDaysAvail(
-      // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-  const [date, onDateChange] = useState(new Date());
+  // const [daysAvail, setDaysAvail] = useState<string[]>([]);
+  // const handleAvailChange = (event: SelectChangeEvent<typeof daysAvail>) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setDaysAvail(
+  //     // On autofill we get a the stringified value.
+  //     typeof value === 'string' ? value.split(',') : value,
+  //   );
+  // };
   return (
     <Formik
       initialValues={{
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         gender: '',
-        dob: 0,
         address: '',
         phone: 1234567890,
         description: '',
-        availability: [''],
       }}
       validationSchema={Yup.object().shape({
-        firstname: Yup.string().required('First Name is required'),
-        lastname: Yup.string().required('Last Name is required'),
+        firstName: Yup.string().required('First Name is required'),
+        lastName: Yup.string().required('Last Name is required'),
         gender: Yup.string().required('Gender is required'),
-        dob: Yup.date().required('Date of Birth is required'),
         phone: Yup.number().required('Phone number is required'),
-        availability: Yup.array().required('Availability is required'),
         description: Yup.string(),
       })}
       onSubmit={handleSubmit}
@@ -113,7 +101,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
         <form onSubmit={handleSubmit} noValidate>
           <Grid container alignItems="center" spacing={2}>
             <Grid item>
-              <InputLabel htmlFor="firstname">
+              <InputLabel htmlFor="firstName">
                 <Typography variant="button" display="block" gutterBottom>
                   First Name
                 </Typography>
@@ -121,10 +109,10 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
             </Grid>
             <Grid item>
               <TextField
-                id="firstname"
+                id="firstName"
                 margin="normal"
                 onChange={handleChange}
-                value={values.firstname}
+                value={values.firstName}
                 variant="outlined"
                 fullWidth
                 placeholder="John"
@@ -133,7 +121,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
           </Grid>
           <Grid container alignItems="center" spacing={2}>
             <Grid item>
-              <InputLabel htmlFor="lastname">
+              <InputLabel htmlFor="lastName">
                 <Typography variant="button" display="block" gutterBottom>
                   Last Name
                 </Typography>
@@ -141,10 +129,10 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
             </Grid>
             <Grid item>
               <TextField
-                id="lastname"
+                id="lastName"
                 margin="normal"
                 onChange={handleChange}
-                value={values.lastname}
+                value={values.lastName}
                 variant="outlined"
                 fullWidth
                 placeholder="Doe"
@@ -244,31 +232,6 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <Calendar onChange={onDateChange} value={date} />
-          <FormControl fullWidth color="primary">
-            <InputLabel htmlFor="availability">
-              <Typography variant="button" display="block" gutterBottom>
-                Availability
-              </Typography>
-            </InputLabel>
-            <Select
-              id="availability"
-              color="primary"
-              multiple
-              value={daysAvail}
-              onChange={handleAvailChange}
-              // input={<OutlinedInput label="availability" />}
-              renderValue={(selected) => selected.join(', ')}
-              MenuProps={MenuProps}
-            >
-              {days.map((day) => (
-                <MenuItem key={day} value={day}>
-                  <Checkbox checked={daysAvail.indexOf(day) > -1} />
-                  <ListItemText primary={day} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
           <Grid container alignItems="center" spacing={2}>
             <Grid item>
               <InputLabel htmlFor="address">

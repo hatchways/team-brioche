@@ -12,7 +12,6 @@ const profileSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

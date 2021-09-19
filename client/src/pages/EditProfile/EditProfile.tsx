@@ -6,7 +6,9 @@ import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import useStyles from './useStyles';
+import profileCreate from '../../helpers/APICalls/profile';
 import ProfileEditForm from './EditProfileForm/EditProfileForm';
+import { useSnackBar } from '../../context/useSnackbarContext';
 
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
@@ -15,6 +17,7 @@ export default function EditProfile(): JSX.Element {
   const { initSocket } = useSocket();
 
   const history = useHistory();
+  const { updateSnackBarMessage } = useSnackBar();
 
   useEffect(() => {
     initSocket();
@@ -27,38 +30,45 @@ export default function EditProfile(): JSX.Element {
   }
   const handleSubmit = (
     {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       gender,
-      dob,
       phone,
       address,
       description,
-      availability,
     }: {
-      firstname: string;
-      lastname: string;
+      firstName: string;
+      lastName: string;
       gender: string;
-      dob: number;
       phone: number;
       address: string;
       description: string;
-      availability: [string];
     },
     {
       setSubmitting,
     }: FormikHelpers<{
-      firstname: string;
-      lastname: string;
+      firstName: string;
+      lastName: string;
       gender: string;
-      dob: number;
       phone: number;
       address: string;
       description: string;
-      availability: [string];
     }>,
   ) => {
-    console.log(firstname, lastname, gender, dob, phone, address, description, availability);
+    profileCreate(firstName, lastName, gender, phone, address, description).then((data) => {
+      if (data.error) {
+        console.error({ error: data.error.message });
+        setSubmitting(false);
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        console.log('profile created');
+        setSubmitting(false);
+        updateSnackBarMessage('Profile Created');
+      } else {
+        console.log({ data });
+        setSubmitting(false);
+      }
+    });
   };
 
   return (
