@@ -1,7 +1,7 @@
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Box, MenuItem, Select, Typography } from '@material-ui/core';
 import { BookingRequest } from '../../interface/BookingApiData';
-import { displayDateTime } from './../../helpers/datTimeHelper';
+import { displayDateTime } from '../../helpers/dateTimeHelper';
 import useStyles from '../../pages/Booking/useStyles';
 import CardImage from './CardImage';
 import { Modify, useRequest } from '../../context/useRequestContext';

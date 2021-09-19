@@ -59,3 +59,13 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
 export function useRequest(): ReqContext {
   return useContext(RequestContext);
 }
+
+export function withReqeust(Component: React.FunctionComponent): FunctionComponent {
+  return function WithRequest(props) {
+    return (
+      <RequestProvider>
+        <Component {...props} />
+      </RequestProvider>
+    );
+  };
+}
