@@ -1,12 +1,12 @@
 import { Box, Grid, Typography } from '@material-ui/core';
-import { useState } from 'react';
+import { useState, FunctionComponent } from 'react';
 import Calendar from 'react-calendar';
 import useStyles from './useStyles';
 import 'react-calendar/dist/Calendar.css';
 import BookingGroup from '../../components/DisplayBookings/BookingGroup';
-import { useRequest } from '../../context/useRequestContext';
+import { useRequest, withReqeust } from '../../context/useRequestContext';
 
-export default function Booking(): JSX.Element {
+const Booking: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
   const { bookings, fetching } = useRequest();
 
@@ -30,4 +30,6 @@ export default function Booking(): JSX.Element {
       </Grid>
     </Box>
   );
-}
+};
+
+export default withReqeust(Booking);

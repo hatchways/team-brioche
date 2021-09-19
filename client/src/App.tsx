@@ -10,7 +10,6 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 
 import './App.css';
-import { RequestProvider } from './context/useRequestContext';
 
 function App(): JSX.Element {
   return (
@@ -19,19 +18,17 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <RequestProvider>
-                <Switch>
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/signup" component={Signup} />
-                  <Route exact path="/booking" component={Booking} />
-                  <Route exact path="/dashboard">
-                    <Dashboard />
-                  </Route>
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
-              </RequestProvider>
+              <Switch>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/booking" component={Booking} />
+                <Route exact path="/dashboard">
+                  <Dashboard />
+                </Route>
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>
