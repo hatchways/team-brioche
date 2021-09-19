@@ -1,4 +1,5 @@
 import { CssBaseline, Grid, Typography, Box, Paper } from '@material-ui/core';
+import { Formik, FormikHelpers } from 'formik';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
@@ -24,8 +25,40 @@ export default function EditProfile(): JSX.Element {
     // loading for a split seconds until history.push works
     return <CircularProgress />;
   }
-  const handleSubmit = () => {
-    console.log('it waklsdnkasd');
+  const handleSubmit = (
+    {
+      firstname,
+      lastname,
+      gender,
+      dob,
+      phone,
+      address,
+      description,
+      availability,
+    }: {
+      firstname: string;
+      lastname: string;
+      gender: string;
+      dob: number;
+      phone: number;
+      address: string;
+      description: string;
+      availability: [string];
+    },
+    {
+      setSubmitting,
+    }: FormikHelpers<{
+      firstname: string;
+      lastname: string;
+      gender: string;
+      dob: number;
+      phone: number;
+      address: string;
+      description: string;
+      availability: [string];
+    }>,
+  ) => {
+    console.log(firstname, lastname, gender, dob, phone, address, description, availability);
   };
 
   return (
