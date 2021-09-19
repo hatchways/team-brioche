@@ -22,6 +22,7 @@ const RequestContext = createContext<ReqContext>({
   modifyBooking: () => null,
 });
 
+// cache the list of bookings for faster updates
 let bookingList: Array<BookingRequest> = [];
 
 export const RequestProvider: FunctionComponent = ({ children }): JSX.Element => {
@@ -35,9 +36,9 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
 
   const modifyBooking: ModifyBooking = (value, _id) => {
     updateBooking(value, _id)
-      .then((booking) => {
-        const idx = bookingList.findIndex((b) => b._id === booking._id);
-        bookingList[idx] = booking;
+      .then((updatedBooking) => {
+        const idx = bookingList.findIndex((b) => b._id === updatedBooking._id);
+        bookingList[idx] = updatedBooking;
         setBookings(sortBookings(bookingList));
       })
       .catch(() => updateSnackBarMessage('An error occured while processing your Request'));
@@ -50,7 +51,7 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
         setBookings(sortBookings(bookingList));
         setFetching(false);
       })
-      .catch(() => updateSnackBarMessage(''));
+      .catch(() => updateSnackBarMessage('An error occured'));
   }, [updateSnackBarMessage]);
   return <RequestContext.Provider value={{ bookings, fetching, modifyBooking }}>{children}</RequestContext.Provider>;
 };

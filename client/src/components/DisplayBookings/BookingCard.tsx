@@ -1,7 +1,7 @@
-import { BookingRequest } from '../../interface/BookingApiData';
-import { Box, MenuItem, Select, Typography } from '@material-ui/core';
-import { displayDateTime } from './../../helpers/datTimeHelper';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { Box, MenuItem, Select, Typography } from '@material-ui/core';
+import { BookingRequest } from '../../interface/BookingApiData';
+import { displayDateTime } from './../../helpers/datTimeHelper';
 import useStyles from '../../pages/Booking/useStyles';
 import CardImage from './CardImage';
 import { Modify, useRequest } from '../../context/useRequestContext';
@@ -21,7 +21,7 @@ export default function BookingCard(props: Props): JSX.Element {
       <Typography variant="h6">{displayDateTime(start, end)}</Typography>
       <Typography>{username}</Typography>
       <CardImage />
-      <Box style={{ display: 'inline' }}>
+      <Box>
         <Select IconComponent={SettingsIcon} value={''} onChange={(e) => modifyBooking(e.target.value as Modify, _id)}>
           <MenuItem value="Accept">Accept</MenuItem>
           <MenuItem value="Decline">Decline</MenuItem>
