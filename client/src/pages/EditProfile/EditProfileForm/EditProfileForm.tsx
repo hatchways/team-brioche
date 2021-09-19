@@ -152,12 +152,13 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 value={values.gender}
                 onChange={handleChange}
                 className=""
+                defaultValue="male"
                 variant="outlined"
                 name="gender"
                 inputProps={{ 'aria-label': 'age' }}
               >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <MenuItem value="male">Male</MenuItem>
+                <MenuItem value="female">Female</MenuItem>
               </Select>
             </Grid>
           </FormControl>
