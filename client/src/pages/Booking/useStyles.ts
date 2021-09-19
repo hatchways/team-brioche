@@ -17,13 +17,15 @@ const useStyles = makeStyles((theme) => ({
   },
   upcoming: {
     backgroundColor: 'white',
+    width: '100%',
     margin: '0 0 3rem 0',
-    padding: '5px',
+    padding: '1rem',
   },
   calendar: {},
   bookings: {},
   bookingGroup: {
     justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   bookingCard: {
     border: '1px solid grey',
