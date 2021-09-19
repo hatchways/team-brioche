@@ -9,7 +9,9 @@ interface Props {
 export default function NextBooking(props: Props): JSX.Element {
   return (
     <Box>
-      <Typography>YOUR NEXT BOOKING:</Typography>
+      <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
+        YOUR NEXT BOOKING:
+      </Typography>
       {props.booking ? <BookingCard booking={props.booking} /> : 'No upcoming bookings Yet'}
     </Box>
   );

@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Paper, Box } from '@material-ui/core';
 import { BookingApiData } from '../../interface/BookingApiData';
 import useStyles from '../../pages/Booking/useStyles';
 import BookingCardList from './BookingCardList';
@@ -12,17 +12,25 @@ export default function BookingGroup(props: Props): JSX.Element {
   const classes = useStyles();
   const { bookings } = props;
   return (
-    <Grid container direction="column" className={classes.bookingGroup}>
-      <Grid item className={classes.upcoming}>
-        <NextBooking booking={bookings.upcoming} />
-      </Grid>
-      <Grid item className={classes.current}>
-        <Typography variant="h4">CURRENT BOOKING:</Typography>
-        <BookingCardList bookingList={bookings.current} />
+    <Grid item xl={5} lg={6} md={6} sm={10} xs={12} container justify="center">
+      <Box>
+        <Grid container direction="column" className={classes.bookingGroup}>
+          <Grid component={Paper} elevation={5} item className={classes.upcoming}>
+            <NextBooking booking={bookings.upcoming} />
+          </Grid>
+          <Grid component={Paper} elevation={5} item className={classes.current}>
+            <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
+              CURRENT BOOKING:
+            </Typography>
+            <BookingCardList bookingList={bookings.current} />
 
-        <Typography>PAST BOOKING:</Typography>
-        <BookingCardList bookingList={bookings.past} />
-      </Grid>
+            <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
+              PAST BOOKING:
+            </Typography>
+            <BookingCardList bookingList={bookings.past} />
+          </Grid>
+        </Grid>
+      </Box>
     </Grid>
   );
 }

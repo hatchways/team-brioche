@@ -18,8 +18,12 @@ export default function BookingCard(props: Props): JSX.Element {
 
   return (
     <Box className={classes.bookingCard}>
-      <Typography variant="h6">{displayDateTime(start, end)}</Typography>
-      <Typography>{username}</Typography>
+      <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
+        {displayDateTime(start, end)}
+      </Typography>
+      <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
+        {username}
+      </Typography>
       <CardImage />
       <Box>
         <Select IconComponent={SettingsIcon} value={''} onChange={(e) => modifyBooking(e.target.value as Modify, _id)}>

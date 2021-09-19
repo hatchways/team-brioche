@@ -1,10 +1,11 @@
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
 import { useState, FunctionComponent } from 'react';
 import Calendar from 'react-calendar';
 import useStyles from './useStyles';
 import 'react-calendar/dist/Calendar.css';
 import BookingGroup from '../../components/DisplayBookings/BookingGroup';
 import { useRequest, withReqeust } from '../../context/useRequestContext';
+import CalendarView from '../../components/DisplayBookings/CalendarView';
 
 const Booking: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
@@ -20,14 +21,12 @@ const Booking: FunctionComponent = (): JSX.Element => {
     );
   return (
     <Box component="main" className={classes.root}>
-      <Grid container wrap="wrap" className={classes.main} direction="row-reverse">
-        <Grid item className={classes.calendar}>
-          <Calendar value={date} onChange={setDate} />
-        </Grid>
-        <Grid item className={classes.bookings}>
+      <Box style={{ paddingTop: '3rem' }}>
+        <Grid container wrap="wrap" direction="row-reverse" justify="center">
+          <CalendarView date={date} setDate={setDate} />
           <BookingGroup bookings={bookings} />
         </Grid>
-      </Grid>
+      </Box>
     </Box>
   );
 };
