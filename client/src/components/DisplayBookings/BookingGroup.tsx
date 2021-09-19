@@ -3,6 +3,7 @@ import { BookingApiData } from '../../interface/BookingApiData';
 import useStyles from '../../pages/Booking/useStyles';
 import BookingCardList from './BookingCardList';
 import NextBooking from './NextBooking';
+
 interface Props {
   bookings: BookingApiData;
 }
@@ -11,7 +12,7 @@ export default function BookingGroup(props: Props): JSX.Element {
   const classes = useStyles();
   const { bookings } = props;
   return (
-    <Grid container direction="column" style={{ justifyContent: 'space-evenly' }}>
+    <Grid container direction="column" className={classes.bookingGroup}>
       <Grid item className={classes.upcoming}>
         <NextBooking booking={bookings.upcoming} />
       </Grid>

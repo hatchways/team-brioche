@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   calendar: {},
   bookings: {},
+  bookingGroup: {
+    justifyContent: 'space-evenly',
+  },
   bookingCard: {
     border: '1px solid grey',
     padding: '5px',

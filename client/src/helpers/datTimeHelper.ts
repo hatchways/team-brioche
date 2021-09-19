@@ -1,3 +1,4 @@
+// prints the date text
 export const displayDateTime = (startDate: string, endDate: string): string => {
   const start = new Date(startDate);
   const end = new Date(endDate);
