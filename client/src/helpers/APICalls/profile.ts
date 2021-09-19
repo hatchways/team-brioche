@@ -8,11 +8,12 @@ const profileCreate = async (
   phone: number,
   address: string,
   description: string,
+  availability: [string],
 ): Promise<AuthApiData> => {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, gender, phone, address, description }),
+    body: JSON.stringify({ firstName, lastName, gender, phone, address, description, availability }),
     credentials: 'include',
   };
   return await fetch(`/profile`, fetchOptions)

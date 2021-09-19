@@ -36,6 +36,7 @@ export default function EditProfile(): JSX.Element {
       phone,
       address,
       description,
+      availability,
     }: {
       firstName: string;
       lastName: string;
@@ -43,6 +44,7 @@ export default function EditProfile(): JSX.Element {
       phone: number;
       address: string;
       description: string;
+      availability: [string];
     },
     {
       setSubmitting,
@@ -53,9 +55,10 @@ export default function EditProfile(): JSX.Element {
       phone: number;
       address: string;
       description: string;
+      availability: [string];
     }>,
   ) => {
-    profileCreate(firstName, lastName, gender, phone, address, description).then((data) => {
+    profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
       if (data.error) {
         console.error({ error: data.error.message });
         setSubmitting(false);

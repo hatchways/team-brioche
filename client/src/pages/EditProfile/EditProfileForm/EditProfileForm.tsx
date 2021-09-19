@@ -34,6 +34,7 @@ interface Props {
       phone,
       address,
       description,
+      availability,
     }: {
       firstName: string;
       lastName: string;
@@ -41,6 +42,7 @@ interface Props {
       phone: number;
       address: string;
       description: string;
+      availability: [string];
     },
     {
       setStatus,
@@ -52,6 +54,7 @@ interface Props {
       phone: number;
       address: string;
       description: string;
+      availability: [string];
     }>,
   ) => void;
 }
@@ -68,16 +71,6 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
       },
     },
   };
-  // const [daysAvail, setDaysAvail] = useState<string[]>([]);
-  // const handleAvailChange = (event: SelectChangeEvent<typeof daysAvail>) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setDaysAvail(
-  //     // On autofill we get a the stringified value.
-  //     typeof value === 'string' ? value.split(',') : value,
-  //   );
-  // };
   return (
     <Formik
       initialValues={{
@@ -87,6 +80,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
         address: '',
         phone: 1234567890,
         description: '',
+        availability: [''],
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string().required('First Name is required'),
@@ -94,6 +88,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
         gender: Yup.string().required('Gender is required'),
         phone: Yup.number().required('Phone number is required'),
         description: Yup.string(),
+        availability: Yup.array().required('Availability is required'),
       })}
       onSubmit={handleSubmit}
     >
@@ -161,6 +156,31 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 <MenuItem value="female">Female</MenuItem>
               </Select>
             </Grid>
+          </FormControl>
+          <FormControl>
+            <InputLabel shrink={true} htmlFor="availability">
+              Availability
+            </InputLabel>
+            <Field
+              component={Select}
+              type="text"
+              name="availability"
+              multiple={true}
+              inputProps={{
+                name: 'availability',
+                id: 'availability',
+                value: values.availability,
+                onChange: handleChange,
+              }}
+            >
+              <MenuItem value="monday">Monday</MenuItem>
+              <MenuItem value="tuesday">Tuesday</MenuItem>
+              <MenuItem value="wednesday">Wednesday</MenuItem>
+              <MenuItem value="thursday">Thursday</MenuItem>
+              <MenuItem value="friday">Friday</MenuItem>
+              <MenuItem value="saturday">Saturday</MenuItem>
+              <MenuItem value="sunday">Sunday</MenuItem>
+            </Field>
           </FormControl>
           {/* <FormControl>
             <Grid container>
