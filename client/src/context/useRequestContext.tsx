@@ -3,8 +3,8 @@ import { getBookings, sortBookings, updateBooking } from '../helpers/APICalls/bo
 import { BookingApiData, BookingRequest } from '../interface/BookingApiData';
 import { useSnackBar } from './useSnackbarContext';
 
-export type Modify = 'Accept' | 'Decline';
-type ModifyBooking = (value: Modify, _id: string) => void;
+export type BookingStatusType = 'Accept' | 'Decline';
+type ModifyBooking = (value: BookingStatusType, _id: string) => void;
 
 interface ReqContext {
   bookings: BookingApiData;

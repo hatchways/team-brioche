@@ -72,6 +72,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 // @desc dog-sitter update approved/decline an existing Request 
 // @access Private
 exports.updateRequest = asyncHandler(async (req, res, next) => {
+    console.log('getting here')
     const requestId = req.params.id
     const { accepted, declined } = req.body
 

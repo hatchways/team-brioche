@@ -1,6 +1,6 @@
 import { Box, MenuItem, Select } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Modify, useRequest } from '../../../context/useRequestContext';
+import { BookingStatusType, useRequest } from '../../../context/useRequestContext';
 import useStyles from './useStyle';
 
 interface Props {
@@ -15,7 +15,7 @@ export default function SelectBooking({ id }: Props): JSX.Element {
       <Select
         IconComponent={SettingsIcon}
         value={''}
-        onChange={(e) => modifyBooking(e.target.value as Modify, id as string)}
+        onChange={(e) => modifyBooking(e.target.value as BookingStatusType, id as string)}
         disableUnderline
       >
         <MenuItem value="Accept">Accept</MenuItem>

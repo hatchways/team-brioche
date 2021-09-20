@@ -1,6 +1,6 @@
 import { BookingApiData, BookingRequest } from '../../interface/BookingApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
-import { Modify } from './../../context/useRequestContext';
+import { BookingStatusType } from './../../context/useRequestContext';
 
 interface UpdateBooking {
   accepted?: boolean;
@@ -20,19 +20,19 @@ export const getBookings = async (): Promise<Array<BookingRequest>> => {
   return await res.json();
 };
 
-export const updateBooking = async (value: Modify, _id: string): Promise<BookingRequest> => {
+export const updateBooking = async (value: BookingStatusType, id: string): Promise<BookingRequest> => {
   const body: UpdateBooking = {};
 
   if (value === 'Accept') body.accepted = true;
   if (value === 'Decline') body.declined = true;
 
   const fetchOptions: FetchOptions = {
-    method: 'PUT',
+    method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify(body),
   };
-  const res = await fetch(`/request/${_id}`, fetchOptions);
+  const res = await fetch(`/request/${id}`, fetchOptions);
   if (res.status !== 200) {
     handleError(res);
     throw new Error();
