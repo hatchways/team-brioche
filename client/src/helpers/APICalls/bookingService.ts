@@ -1,34 +1,46 @@
-import { Modify } from '../../context/useRequestContext';
 import { BookingApiData, BookingRequest } from '../../interface/BookingApiData';
-import { bookings } from '../../mocks/mockBookings';
+import { FetchOptions } from '../../interface/FetchOptions';
+import { Modify } from './../../context/useRequestContext';
 
-export const getBookings = (): Promise<Array<BookingRequest>> => {
-  return Promise.resolve(bookings);
+interface UpdateBooking {
+  accepted?: boolean;
+  declined?: boolean;
+}
+
+export const getBookings = async (): Promise<Array<BookingRequest>> => {
+  const fetchOptions: FetchOptions = {
+    method: 'GET',
+    credentials: 'include',
+  };
+  const res = await fetch('/request', fetchOptions);
+  if (res.status !== 200) {
+    handleError(res);
+    throw new Error();
+  }
+  return await res.json();
 };
 
 export const updateBooking = async (value: Modify, _id: string): Promise<BookingRequest> => {
-  const booking = bookings.find((booking) => booking._id === _id) as BookingRequest;
-  switch (value) {
-    case 'Accept':
-      booking.accepted = true;
-      booking.declined = false;
-      break;
-    case 'Decline':
-      booking.declined = true;
-      booking.accepted = false;
-      break;
-    default:
-      break;
+  const body: UpdateBooking = {};
+
+  if (value === 'Accept') body.accepted = true;
+  if (value === 'Decline') body.declined = true;
+
+  const fetchOptions: FetchOptions = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(body),
+  };
+  const res = await fetch(`/request/${_id}`, fetchOptions);
+  if (res.status !== 200) {
+    handleError(res);
+    throw new Error();
   }
-  return Promise.resolve(booking);
+  return await res.json();
 };
 
-/**
- * Current: All requests with start dates ahead of current date
- * Upcoming: The request in Current closest to the current date
- * Past: All requests with start dates behind current date
- */
-export const sortBookings = (bookings: Array<BookingRequest>): BookingApiData => {
+export function sortBookings(bookings: Array<BookingRequest>): BookingApiData {
   // sort bookings from Newest to oldest
   bookings.sort((bookingA, bookingB) => {
     const startA = new Date(bookingA.start);
@@ -49,10 +61,14 @@ export const sortBookings = (bookings: Array<BookingRequest>): BookingApiData =>
   const upcomingIdx = current.length - 1;
   const upcoming = current[upcomingIdx];
   current.splice(upcomingIdx, 1);
-
   return {
     upcoming,
     current,
     past,
   };
-};
+}
+
+function handleError(res: Response) {
+  // get error message returned from server if any and log it
+  res.json().then((error) => console.log(error));
+}
