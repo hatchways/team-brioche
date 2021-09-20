@@ -1,10 +1,10 @@
-import SettingsIcon from '@material-ui/icons/Settings';
-import { Box, Grid, MenuItem, Select, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { BookingRequest } from '../../interface/BookingApiData';
 import { displayDateTime } from '../../helpers/dateTimeHelper';
 import useStyles from '../../pages/Booking/useStyles';
 import CardImage from './CardImage';
-import { Modify, useRequest } from '../../context/useRequestContext';
+import SelectBooking from './SelectBooking';
+import BookingLabel from './BookingLabel';
 
 interface Props {
   booking: BookingRequest;
@@ -16,13 +16,15 @@ export default function BookingCard(props: Props): JSX.Element {
   const { _id, accepted, declined, start, end, ownerId } = props.booking;
   const { username } = ownerId;
 
-  const { modifyBooking } = useRequest();
-
   const getCssClass = () => {
     const baseClass = classes.bookingCard;
     const derivedClass = baseClass + classes.bookingCardNext;
-    if (props.nextBooking) return derivedClass;
-    return baseClass;
+    return props.nextBooking ? derivedClass : baseClass;
+  };
+
+  const displayCardImage = () => {
+    if (props.nextBooking) return <CardImage nextBooking={true} />;
+    return <CardImage />;
   };
   return (
     <Grid container className={getCssClass()}>
@@ -31,7 +33,7 @@ export default function BookingCard(props: Props): JSX.Element {
           {displayDateTime(start, end)}
         </Typography>
         <Box style={{ display: 'flex', alignItems: 'center' }}>
-          <CardImage />
+          {displayCardImage()}
           <Typography variant="subtitle2" style={{ padding: '0.5rem' }}>
             {username}
           </Typography>
@@ -46,20 +48,8 @@ export default function BookingCard(props: Props): JSX.Element {
           alignItems: 'flex-end',
         }}
       >
-        <Box style={{ height: '50%' }}>
-          <Select
-            IconComponent={SettingsIcon}
-            value={''}
-            onChange={(e) => modifyBooking(e.target.value as Modify, _id)}
-          >
-            <MenuItem value="Accept">Accept</MenuItem>
-            <MenuItem value="Decline">Decline</MenuItem>
-          </Select>
-        </Box>
-        <Box>
-          {accepted && !declined && <Typography>Accepted</Typography>}
-          {declined && <Typography>Declined</Typography>}
-        </Box>
+        {!props.nextBooking && <SelectBooking _id={_id} />}
+        <BookingLabel nextBooking={props.nextBooking} accepted={accepted} declined={declined} />
       </Grid>
     </Grid>
   );

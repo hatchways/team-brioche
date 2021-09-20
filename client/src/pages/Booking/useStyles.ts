@@ -48,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
   imageNext: {
     height: '5rem',
     width: '5rem',
+    objectFit: 'cover',
+    borderRadius: '50%',
   },
 }));
 
