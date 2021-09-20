@@ -20,6 +20,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     padding: theme.spacing(1),
   },
+  currentAndPast: {
+    height: '80vh',
+    overflowX: 'auto',
+  },
+  label: {
+    fontWeight: 'bolder',
+    fontSize: '10px',
+  },
 }));
 
 export default useStyles;

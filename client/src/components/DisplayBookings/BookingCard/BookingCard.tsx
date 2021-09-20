@@ -1,10 +1,8 @@
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { BookingRequest } from '../../../interface/BookingApiData';
 import { displayDateTime } from '../../../helpers/dateTimeHelper';
 import CardImage from '../CardImage/CardImage';
 import SelectBooking from '../SelectBooking/SelectBooking';
-import BookingLabel from '../BookingLabel/BookingLabel';
-import Label from '../Label/Label';
 import useStyles from './useStyle';
 import clsx from 'clsx';
 
@@ -31,16 +29,29 @@ export default function BookingCard(props: Props): JSX.Element {
       <Grid container direction="row" justify="space-between">
         <Box>
           <Box>
-            <Label type="date">{displayDateTime(start, end)}</Label>
+            <Typography variant="h6" className={clsx(classes.label)}>
+              {displayDateTime(start, end)}
+            </Typography>
             <Grid container alignItems="center">
               {displayCardImage()}
-              <Label type="name">{username}</Label>
+              <Typography variant="h6" className={clsx(classes.label, classes.padLeft)}>
+                {username}
+              </Typography>
             </Grid>
           </Box>
         </Box>
         <Box className={classes.selectBookingContainer}>
           {!props.nextBooking && <SelectBooking id={_id} />}
-          <BookingLabel accepted={accepted} declined={declined} />
+          {accepted && (
+            <Typography variant="h6" className={clsx(classes.label, classes.labelStatus)}>
+              Accepted
+            </Typography>
+          )}
+          {declined && (
+            <Typography variant="h6" className={clsx(classes.label, classes.labelStatus)}>
+              Declined
+            </Typography>
+          )}
         </Box>
       </Grid>
     </Box>

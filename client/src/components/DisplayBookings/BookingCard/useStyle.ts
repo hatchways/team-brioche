@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   bookingCardContainer: {
     border: '1px solid grey',
     margin: '8px 8px',
@@ -28,6 +28,17 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+  },
+  label: {
+    fontWeight: 'bolder',
+    fontSize: '12px',
+  },
+  labelStatus: {
+    color: theme.palette.grey[400],
+    marginRight: '16px',
+  },
+  padLeft: {
+    paddingLeft: '8px',
   },
 }));
 
