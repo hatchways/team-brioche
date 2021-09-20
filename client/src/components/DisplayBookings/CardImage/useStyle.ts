@@ -1,15 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   image: {
-    height: '3rem',
-    width: '3rem',
+    height: theme.spacing(6),
+    width: theme.spacing(6),
     objectFit: 'cover',
     borderRadius: '50%',
   },
   imageNext: {
-    height: '5rem',
-    width: '5rem',
+    height: theme.spacing(10),
+    width: theme.spacing(10),
     objectFit: 'cover',
     borderRadius: '50%',
   },

@@ -2,43 +2,41 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   bookingCardContainer: {
-    border: '1px solid grey',
-    margin: '8px 8px',
-    borderRadius: '8px',
-    padding: '8px 4px',
+    border: '2px solid',
+    borderColor: theme.palette.grey[200],
+    margin: theme.spacing(1),
+    borderRadius: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
-  selectBookingContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'end',
-  },
-  bookingCard: {
-    border: '1px solid grey',
-    borderRadius: '0.5rem',
-    padding: '5px',
-    margin: '1rem 0 1rem 0',
+  removeBorder: {
+    border: 'none',
+    marginTop: '0',
+    padding: '0',
   },
   bookingCardNext: {
     border: 'none',
     margin: '0',
     padding: '0',
   },
-  bookingSettings: {
-    width: '30%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-  },
   label: {
     fontWeight: 'bolder',
-    fontSize: '12px',
+    fontSize: theme.spacing(3 / 2),
+  },
+  upComingDateLabel: {
+    fontSize: theme.spacing(2),
   },
   labelStatus: {
     color: theme.palette.grey[400],
-    marginRight: '16px',
+    marginRight: theme.spacing(2),
   },
   padLeft: {
-    paddingLeft: '8px',
+    paddingLeft: theme.spacing(1),
+  },
+  padbottom: {
+    paddingBottom: theme.spacing(1),
   },
 }));
 

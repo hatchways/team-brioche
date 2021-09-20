@@ -3,12 +3,12 @@ import { BookingRequest } from '../../../interface/BookingApiData';
 import { displayDateTime } from '../../../helpers/dateTimeHelper';
 import CardImage from '../CardImage/CardImage';
 import SelectBooking from '../SelectBooking/SelectBooking';
-import useStyles from './useStyle';
 import clsx from 'clsx';
+import useStyles from './useStyle';
 
 interface Props {
   booking: BookingRequest;
-  nextBooking?: boolean;
+  isUpcoming?: boolean;
 }
 
 export default function BookingCard(props: Props): JSX.Element {
@@ -16,32 +16,34 @@ export default function BookingCard(props: Props): JSX.Element {
   const { _id, accepted, declined, start, end, ownerId } = props.booking;
   const { username } = ownerId;
 
-  const getCssClass = () => {
-    return props.nextBooking ? clsx(classes.bookingCard, classes.bookingCardNext) : classes.bookingCard;
-  };
-
   const displayCardImage = () => {
-    if (props.nextBooking) return <CardImage nextBooking={true} />;
+    if (props.isUpcoming) return <CardImage isUpcoming={true} />;
     return <CardImage />;
   };
   return (
-    <Box className={classes.bookingCardContainer}>
+    <Box className={clsx(classes.bookingCardContainer, props.isUpcoming && classes.removeBorder)}>
       <Grid container direction="row" justify="space-between">
         <Box>
           <Box>
-            <Typography variant="h6" className={clsx(classes.label)}>
+            <Typography
+              variant="h6"
+              className={clsx(classes.label, classes.padbottom, props.isUpcoming && classes.upComingDateLabel)}
+            >
               {displayDateTime(start, end)}
             </Typography>
             <Grid container alignItems="center">
               {displayCardImage()}
-              <Typography variant="h6" className={clsx(classes.label, classes.padLeft)}>
+              <Typography
+                variant="h6"
+                className={clsx(classes.label, classes.padLeft, props.isUpcoming && classes.upComingDateLabel)}
+              >
                 {username}
               </Typography>
             </Grid>
           </Box>
         </Box>
-        <Box className={classes.selectBookingContainer}>
-          {!props.nextBooking && <SelectBooking id={_id} />}
+        <Box display="flex" flexDirection="column" alignItems="end">
+          {!props.isUpcoming && <SelectBooking id={_id} />}
           {accepted && (
             <Typography variant="h6" className={clsx(classes.label, classes.labelStatus)}>
               Accepted
