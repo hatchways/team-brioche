@@ -1,10 +1,9 @@
-import { Box, Grid, Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
-import useStyles from './useStyles';
-import 'react-calendar/dist/Calendar.css';
-import BookingGroup from '../../components/DisplayBookings/BookingGroup/BookingGroup';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { useRequest, withReqeust } from '../../context/useRequestContext';
 import CalendarView from '../../components/DisplayBookings/CalendarView/CalendarView';
+import BookingGroup from '../../components/DisplayBookings/BookingGroup/BookingGroup';
+import useStyles from './useStyles';
 
 const Booking: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();

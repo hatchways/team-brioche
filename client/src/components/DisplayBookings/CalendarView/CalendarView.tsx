@@ -1,6 +1,7 @@
 import Calendar from 'react-calendar';
 import { Box, Grid, Paper } from '@material-ui/core';
 import useStyles from './useStyle';
+import './calendar.css';
 
 export default function CalendarView(): JSX.Element {
   const classes = useStyles();
