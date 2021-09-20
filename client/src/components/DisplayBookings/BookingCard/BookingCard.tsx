@@ -6,6 +6,7 @@ import SelectBooking from '../SelectBooking/SelectBooking';
 import BookingLabel from '../BookingLabel/BookingLabel';
 import Label from '../Label/Label';
 import useStyles from './useStyle';
+import clsx from 'clsx';
 
 interface Props {
   booking: BookingRequest;
@@ -18,9 +19,7 @@ export default function BookingCard(props: Props): JSX.Element {
   const { username } = ownerId;
 
   const getCssClass = () => {
-    const baseClass = classes.bookingCard;
-    const derivedClass = baseClass + classes.bookingCardNext;
-    return props.nextBooking ? derivedClass : baseClass;
+    return props.nextBooking ? clsx(classes.bookingCard, classes.bookingCardNext) : classes.bookingCard;
   };
 
   const displayCardImage = () => {
@@ -28,18 +27,22 @@ export default function BookingCard(props: Props): JSX.Element {
     return <CardImage />;
   };
   return (
-    <Grid container className={getCssClass()}>
-      <Grid item style={{ width: '70%' }}>
-        <Label type="date">{displayDateTime(start, end)}</Label>
-        <Box style={{ display: 'flex', alignItems: 'center' }}>
-          {displayCardImage()}
-          <Label type="name">{username}</Label>
+    <Box className={classes.bookingCardContainer}>
+      <Grid container direction="row" justify="space-between">
+        <Box>
+          <Box>
+            <Label type="date">{displayDateTime(start, end)}</Label>
+            <Grid container alignItems="center">
+              {displayCardImage()}
+              <Label type="name">{username}</Label>
+            </Grid>
+          </Box>
+        </Box>
+        <Box className={classes.selectBookingContainer}>
+          {!props.nextBooking && <SelectBooking id={_id} />}
+          <BookingLabel accepted={accepted} declined={declined} />
         </Box>
       </Grid>
-      <Grid item className={classes.bookingSettings}>
-        {!props.nextBooking && <SelectBooking _id={_id} />}
-        <BookingLabel accepted={accepted} declined={declined} />
-      </Grid>
-    </Grid>
+    </Box>
   );
 }

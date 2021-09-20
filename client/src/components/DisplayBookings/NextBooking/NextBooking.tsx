@@ -15,7 +15,7 @@ export default function NextBooking(props: Props): JSX.Element {
     <Box>
       <Box className={classes.upcomingHeading}>
         <Label type="heading">YOUR NEXT BOOKING:</Label>
-        <SelectBooking _id={props.booking?._id} />
+        <SelectBooking id={props.booking?._id} />
       </Box>
       {props.booking ? <BookingCard nextBooking={true} booking={props.booking} /> : 'No upcoming bookings Yet'}
     </Box>

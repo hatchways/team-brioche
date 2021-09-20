@@ -4,18 +4,18 @@ import { Modify, useRequest } from '../../../context/useRequestContext';
 import useStyles from './useStyle';
 
 interface Props {
-  _id: string | undefined;
+  id: string | undefined;
 }
 
-export default function SelectBooking({ _id }: Props): JSX.Element {
+export default function SelectBooking({ id }: Props): JSX.Element {
   const classes = useStyles();
   const { modifyBooking } = useRequest();
   return (
-    <Box className={classes.selectBox} fontSize="100">
+    <Box className={classes.selectBox}>
       <Select
         IconComponent={SettingsIcon}
         value={''}
-        onChange={(e) => modifyBooking(e.target.value as Modify, _id as string)}
+        onChange={(e) => modifyBooking(e.target.value as Modify, id as string)}
         disableUnderline
       >
         <MenuItem value="Accept">Accept</MenuItem>
