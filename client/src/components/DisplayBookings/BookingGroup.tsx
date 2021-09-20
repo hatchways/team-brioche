@@ -12,13 +12,13 @@ export default function BookingGroup(props: Props): JSX.Element {
   const classes = useStyles();
   const { bookings } = props;
   return (
-    <Grid item xl={5} lg={6} md={6} sm={10} xs={12} container justify="center">
-      <Box>
+    <Grid item xl={5} lg={6} md={6} sm={6} xs={12} container justify="center">
+      <Box style={{ width: '100%' }}>
         <Grid container direction="column" className={classes.bookingGroup}>
-          <Grid component={Paper} elevation={5} item className={classes.upcoming}>
+          <Grid xl={8} lg={8} md={8} sm={10} xs={10} component={Paper} elevation={5} item className={classes.upcoming}>
             <NextBooking booking={bookings.upcoming} />
           </Grid>
-          <Grid component={Paper} elevation={5} item className={classes.current}>
+          <Grid xl={8} lg={8} md={8} sm={10} xs={10} component={Paper} elevation={5} item className={classes.current}>
             <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
               CURRENT BOOKING:
             </Typography>

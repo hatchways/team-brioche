@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   current: {
+    width: '100%',
+    minWidth: '5rem',
     height: '80vh',
     overflow: 'auto',
     backgroundColor: 'white',
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   upcoming: {
     backgroundColor: 'white',
     width: '100%',
+    minWidth: '5rem',
     margin: '0 0 3rem 0',
     padding: '1rem',
   },
@@ -29,14 +32,22 @@ const useStyles = makeStyles((theme) => ({
   },
   bookingCard: {
     border: '1px solid grey',
+    borderRadius: '0.5rem',
     padding: '5px',
-    margin: '0.5rem 0 0.5rem 0',
+    margin: '1rem 0 1rem 0',
+  },
+  bookingCardNext: {
+    border: '',
   },
   image: {
-    height: '5rem',
-    width: '5rem',
+    height: '3rem',
+    width: '3rem',
     objectFit: 'cover',
     borderRadius: '50%',
+  },
+  imageNext: {
+    height: '5rem',
+    width: '5rem',
   },
 }));
 

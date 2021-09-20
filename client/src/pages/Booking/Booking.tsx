@@ -1,6 +1,5 @@
-import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
-import { useState, FunctionComponent } from 'react';
-import Calendar from 'react-calendar';
+import { Box, Grid, Typography } from '@material-ui/core';
+import { FunctionComponent } from 'react';
 import useStyles from './useStyles';
 import 'react-calendar/dist/Calendar.css';
 import BookingGroup from '../../components/DisplayBookings/BookingGroup';
@@ -10,8 +9,6 @@ import CalendarView from '../../components/DisplayBookings/CalendarView';
 const Booking: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
   const { bookings, fetching } = useRequest();
-
-  const [date, setDate] = useState<Date>(new Date());
 
   if (fetching)
     return (
@@ -23,7 +20,7 @@ const Booking: FunctionComponent = (): JSX.Element => {
     <Box component="main" className={classes.root}>
       <Box style={{ paddingTop: '3rem' }}>
         <Grid container wrap="wrap" direction="row-reverse" justify="center">
-          <CalendarView date={date} setDate={setDate} />
+          <CalendarView />
           <BookingGroup bookings={bookings} />
         </Grid>
       </Box>
