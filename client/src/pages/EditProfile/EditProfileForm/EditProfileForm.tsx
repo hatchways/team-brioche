@@ -173,66 +173,13 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 onChange: handleChange,
               }}
             >
-              <MenuItem value="monday">Monday</MenuItem>
-              <MenuItem value="tuesday">Tuesday</MenuItem>
-              <MenuItem value="wednesday">Wednesday</MenuItem>
-              <MenuItem value="thursday">Thursday</MenuItem>
-              <MenuItem value="friday">Friday</MenuItem>
-              <MenuItem value="saturday">Saturday</MenuItem>
-              <MenuItem value="sunday">Sunday</MenuItem>
+              {days.map((day) => (
+                <MenuItem key={day} value={day}>
+                  {day}
+                </MenuItem>
+              ))}
             </Field>
           </FormControl>
-          {/* <FormControl>
-            <Grid container>
-              <InputLabel id="month">
-                <Typography variant="button" display="block" gutterBottom>
-                  Month
-                </Typography>
-              </InputLabel>
-              <Select
-                id="monthSelct"
-                labelId="month"
-                value={values.month}
-                onChange={handleChange}
-                className=""
-                variant="outlined"
-                name="date"
-                inputProps={{ 'aria-label': 'age' }}
-              >
-                <option value="jan">January</option>
-                <option value="male">February</option>
-                <option value="march">March</option>
-                <option value="april">April</option>
-                <option value="may">May</option>
-                <option value="june">June</option>
-                <option value="july">July</option>
-                <option value="aug">August</option>
-                <option value="sept">September</option>
-                <option value="oct">October</option>
-                <option value="nov">November</option>
-                <option value="dec">December</option>
-              </Select>
-            </Grid>
-          </FormControl>
-          <FormControl>
-            <Grid container>
-              <InputLabel id="date">
-                <Typography variant="button" display="block" gutterBottom>
-                  Date
-                </Typography>
-              </InputLabel>
-              <Select
-                id="dateSelect"
-                labelId="date"
-                value={values.date}
-                onChange={handleChange}
-                className=""
-                variant="outlined"
-                name="date"
-                inputProps={{ 'aria-label': 'age' }}
-              ></Select>
-            </Grid>
-          </FormControl> */}
           <Grid container alignItems="center" spacing={2}>
             <Grid item>
               <InputLabel htmlFor="phone">
@@ -269,7 +216,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 value={values.address}
                 variant="outlined"
                 fullWidth
-                placeholder=""
+                placeholder="Enter your Address"
               />
             </Grid>
           </Grid>
