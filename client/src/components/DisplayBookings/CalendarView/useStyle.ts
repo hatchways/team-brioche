@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   calendarContainer: {
-    paddingBottom: '3rem',
+    marginBottom: theme.spacing(8),
   },
 }));
 

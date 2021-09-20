@@ -1,15 +1,17 @@
+import clsx from 'clsx';
 import useStyles from './useStyle';
 
 interface Props {
-  nextBooking?: boolean;
+  isUpcoming?: boolean;
 }
 
-export default function CardImage({ nextBooking }: Props): JSX.Element {
+export default function CardImage({ isUpcoming }: Props): JSX.Element {
   const classes = useStyles();
-  const getCssClass = () => {
-    const upcoming = classes.image;
-    const bookingGroup = classes.imageNext;
-    return nextBooking ? bookingGroup : upcoming;
-  };
-  return <img className={getCssClass()} src="https://source.unsplash.com/random/500x500" alt="Dog Owner"></img>;
+  return (
+    <img
+      className={clsx(classes.image, isUpcoming && classes.imageNext)}
+      src="https://source.unsplash.com/random/500x500"
+      alt="Dog Owner"
+    ></img>
+  );
 }

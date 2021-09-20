@@ -17,12 +17,10 @@ const Booking: FunctionComponent = (): JSX.Element => {
     );
   return (
     <Box component="main" className={classes.root}>
-      <Box style={{ paddingTop: '3rem' }}>
-        <Grid container wrap="wrap" direction="row-reverse" justify="center">
-          <CalendarView />
-          <BookingGroup bookings={bookings} />
-        </Grid>
-      </Box>
+      <Grid container wrap="wrap" direction="row-reverse" justify="center">
+        <CalendarView />
+        <BookingGroup bookings={bookings} />
+      </Grid>
     </Box>
   );
 };

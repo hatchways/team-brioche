@@ -4,16 +4,12 @@ const useStyles = makeStyles((theme) => ({
   bookingGroupContainer: {
     width: '100%',
   },
-  bookingGroup: {
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
   upcoming: {
     backgroundColor: 'white',
     width: '100%',
-    minWidth: '5rem',
-    margin: '0 0 3rem 0',
-    padding: '1rem',
+    minWidth: theme.spacing(20),
+    marginBottom: theme.spacing(8),
+    padding: theme.spacing(2),
   },
   current: {
     width: '100%',
@@ -21,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   currentAndPast: {
-    height: '80vh',
+    height: '60vh',
     overflowX: 'auto',
   },
   label: {
     fontWeight: 'bolder',
-    fontSize: '10px',
+    fontSize: theme.spacing(5 / 4),
   },
 }));
 
