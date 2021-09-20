@@ -13,7 +13,7 @@ interface Props {
 
 export default function BookingCard(props: Props): JSX.Element {
   const classes = useStyles();
-  const { _id, accepted, declined, start, end, ownerId } = props.booking;
+  const { _id: id, accepted, declined, start, end, ownerId } = props.booking;
   const { username } = ownerId;
 
   const displayCardImage = () => {
@@ -43,7 +43,7 @@ export default function BookingCard(props: Props): JSX.Element {
           </Box>
         </Box>
         <Box display="flex" flexDirection="column" alignItems="end">
-          {!props.isUpcoming && <SelectBooking id={_id} />}
+          {!props.isUpcoming && <SelectBooking id={id} />}
           {accepted && (
             <Typography variant="h6" className={clsx(classes.label, classes.labelStatus)}>
               Accepted

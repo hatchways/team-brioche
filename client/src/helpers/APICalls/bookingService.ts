@@ -1,4 +1,4 @@
-import { Modify } from '../../context/useRequestContext';
+import { BookingStatusType } from '../../context/useRequestContext';
 import { BookingApiData, BookingRequest } from '../../interface/BookingApiData';
 import { bookings } from '../../mocks/mockBookings';
 
@@ -6,7 +6,7 @@ export const getBookings = (): Promise<Array<BookingRequest>> => {
   return Promise.resolve(bookings);
 };
 
-export const updateBooking = async (value: Modify, _id: string): Promise<BookingRequest> => {
+export const updateBooking = async (value: BookingStatusType, _id: string): Promise<BookingRequest> => {
   const booking = bookings.find((booking) => booking._id === _id) as BookingRequest;
   switch (value) {
     case 'Accept':
