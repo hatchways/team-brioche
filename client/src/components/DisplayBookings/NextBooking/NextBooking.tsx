@@ -16,7 +16,7 @@ export default function NextBooking(props: Props): JSX.Element {
         <Typography variant="h6">YOUR NEXT BOOKING:</Typography>
         <SelectBooking id={props.booking?._id} />
       </Box>
-      {props.booking ? <BookingCard nextBooking={true} booking={props.booking} /> : 'No upcoming bookings Yet'}
+      {props.booking ? <BookingCard isUpcoming={true} booking={props.booking} /> : 'No upcoming bookings Yet'}
     </Box>
   );
 }
