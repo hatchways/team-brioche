@@ -1,5 +1,5 @@
 import { CssBaseline, Grid, Typography, Box, Paper } from '@material-ui/core';
-import { Formik, FormikHelpers } from 'formik';
+import { FormikHelpers } from 'formik';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
@@ -79,10 +79,10 @@ export default function EditProfile(): JSX.Element {
       <CssBaseline />
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
         <Box className="">
-          <Box width="100%" maxWidth={450} p={3} alignSelf="center">
-            <Grid container>
-              <Grid item xs>
-                <Typography className="" component="h1" variant="h5">
+          <Box width="100%" p={3} alignSelf="center">
+            <Grid container alignItems="center">
+              <Grid item xs={12}>
+                <Typography align="center" className={classes.welcome} component="h1" variant="h5">
                   Edit Profile
                 </Typography>
               </Grid>

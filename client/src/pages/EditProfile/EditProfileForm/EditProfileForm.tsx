@@ -1,23 +1,11 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { useState, useCallback } from 'react';
-import {
-  Grid,
-  InputLabel,
-  FormControl,
-  OutlinedInput,
-  MenuItem,
-  FormLabel,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-} from '@material-ui/core/';
+import { Grid, InputLabel, FormControl, MenuItem } from '@material-ui/core/';
 import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
-import Theme, { useTheme } from '@material-ui/styles';
-//import useStyles from './useStyles';
+import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import { CheckBox } from '@material-ui/icons';
 import { Key } from 'react';
@@ -60,7 +48,9 @@ interface Props {
 }
 
 const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
+  const classes = useStyles();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -93,11 +83,11 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
       onSubmit={handleSubmit}
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
-        <form onSubmit={handleSubmit} noValidate>
-          <Grid container alignItems="center" spacing={2}>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
+          <Grid container className={classes.container} spacing={2}>
             <Grid item>
               <InputLabel htmlFor="firstName">
-                <Typography variant="button" display="block" gutterBottom>
+                <Typography variant="button" className={classes.label} display="block" gutterBottom>
                   First Name
                 </Typography>
               </InputLabel>
@@ -111,13 +101,16 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 variant="outlined"
                 fullWidth
                 placeholder="John"
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
               />
             </Grid>
           </Grid>
-          <Grid container alignItems="center" spacing={2}>
+          <Grid container className={classes.container} spacing={2}>
             <Grid item>
               <InputLabel htmlFor="lastName">
-                <Typography variant="button" display="block" gutterBottom>
+                <Typography className={classes.label} variant="button" display="block" gutterBottom>
                   Last Name
                 </Typography>
               </InputLabel>
@@ -131,59 +124,76 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 variant="outlined"
                 fullWidth
                 placeholder="Doe"
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
               />
             </Grid>
           </Grid>
-          <FormControl>
-            <Grid container>
-              <InputLabel id="genderlbl">
-                <Typography variant="button" display="block" gutterBottom>
-                  Gender
-                </Typography>
-              </InputLabel>
-              <Select
-                id="gender"
-                labelId="genderlbl"
-                value={values.gender}
-                onChange={handleChange}
-                className=""
-                defaultValue="male"
-                variant="outlined"
-                name="gender"
-                inputProps={{ 'aria-label': 'age' }}
-              >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-              </Select>
+          <FormControl className={classes.genderControl}>
+            <Grid container justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+              <Grid item>
+                <InputLabel className={classes.genderLabel} id="genderlbl">
+                  <Typography className={classes.label} variant="button" display="block" gutterBottom>
+                    Gender
+                  </Typography>
+                </InputLabel>
+              </Grid>
+              <Grid item>
+                <Select
+                  id="gender"
+                  labelId="genderlbl"
+                  fullWidth
+                  value={values.gender}
+                  onChange={handleChange}
+                  className={classes.select}
+                  variant="outlined"
+                  name="gender"
+                  inputProps={{ 'aria-label': 'age', classes: { input: classes.inputs } }}
+                >
+                  <MenuItem value="male">Male</MenuItem>
+                  <MenuItem value="female">Female</MenuItem>
+                </Select>
+              </Grid>
             </Grid>
           </FormControl>
           <FormControl>
-            <InputLabel shrink={true} htmlFor="availability">
-              Availability
-            </InputLabel>
-            <Field
-              component={Select}
-              type="text"
-              name="availability"
-              multiple={true}
-              inputProps={{
-                name: 'availability',
-                id: 'availability',
-                value: values.availability,
-                onChange: handleChange,
-              }}
-            >
-              {days.map((day) => (
-                <MenuItem key={day} value={day}>
-                  {day}
-                </MenuItem>
-              ))}
-            </Field>
+            <Grid container className={classes.container} spacing={2}>
+              <Grid item>
+                <InputLabel className={classes.availLabel} htmlFor="availability">
+                  <Typography className={classes.label} variant="button" display="block" gutterBottom>
+                    Availability
+                  </Typography>
+                </InputLabel>
+              </Grid>
+              <Grid item>
+                <Field
+                  component={Select}
+                  type="text"
+                  name="availability"
+                  multiple={true}
+                  className={classes.availability}
+                  inputProps={{
+                    name: 'availability',
+                    id: 'availability',
+                    value: values.availability,
+                    onChange: handleChange,
+                    MenuProps: MenuProps,
+                  }}
+                >
+                  {days.map((day) => (
+                    <MenuItem key={day} value={day}>
+                      {day}
+                    </MenuItem>
+                  ))}
+                </Field>
+              </Grid>
+            </Grid>
           </FormControl>
-          <Grid container alignItems="center" spacing={2}>
+          <Grid container className={classes.container} spacing={2}>
             <Grid item>
               <InputLabel htmlFor="phone">
-                <Typography variant="button" display="block" gutterBottom>
+                <Typography className={classes.label} variant="button" display="block" gutterBottom>
                   Phone
                 </Typography>
               </InputLabel>
@@ -197,13 +207,16 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 variant="outlined"
                 fullWidth
                 placeholder=""
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
               />
             </Grid>
           </Grid>
-          <Grid container alignItems="center" spacing={2}>
+          <Grid container className={classes.container} spacing={2}>
             <Grid item>
               <InputLabel htmlFor="address">
-                <Typography variant="button" display="block" gutterBottom>
+                <Typography className={classes.label} variant="button" display="block" gutterBottom>
                   Address
                 </Typography>
               </InputLabel>
@@ -215,15 +228,17 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 onChange={handleChange}
                 value={values.address}
                 variant="outlined"
-                fullWidth
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
                 placeholder="Enter your Address"
               />
             </Grid>
           </Grid>
-          <Grid container alignItems="center" spacing={2}>
+          <Grid container className={classes.container} spacing={2}>
             <Grid item>
               <InputLabel htmlFor="description">
-                <Typography variant="button" display="block" gutterBottom>
+                <Typography className={classes.label} variant="button" display="block" gutterBottom>
                   Description
                 </Typography>
               </InputLabel>
@@ -238,7 +253,10 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 value={values.description}
                 variant="outlined"
                 fullWidth
-                placeholder=""
+                placeholder="Describe yourself.."
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
               />
             </Grid>
           </Grid>
