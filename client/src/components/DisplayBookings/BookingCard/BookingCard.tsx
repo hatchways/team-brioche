@@ -1,10 +1,11 @@
-import { Box, Grid, Typography } from '@material-ui/core';
-import { BookingRequest } from '../../interface/BookingApiData';
-import { displayDateTime } from '../../helpers/dateTimeHelper';
-import useStyles from '../../pages/Booking/useStyles';
-import CardImage from './CardImage';
-import SelectBooking from './SelectBooking';
-import BookingLabel from './BookingLabel';
+import { Box, Grid } from '@material-ui/core';
+import { BookingRequest } from '../../../interface/BookingApiData';
+import { displayDateTime } from '../../../helpers/dateTimeHelper';
+import CardImage from '../CardImage/CardImage';
+import SelectBooking from '../SelectBooking/SelectBooking';
+import BookingLabel from '../BookingLabel/BookingLabel';
+import Label from '../Label/Label';
+import useStyles from './useStyle';
 
 interface Props {
   booking: BookingRequest;
@@ -29,27 +30,15 @@ export default function BookingCard(props: Props): JSX.Element {
   return (
     <Grid container className={getCssClass()}>
       <Grid item style={{ width: '70%' }}>
-        <Typography variant="subtitle2" style={{ fontWeight: 'bolder' }}>
-          {displayDateTime(start, end)}
-        </Typography>
+        <Label type="date">{displayDateTime(start, end)}</Label>
         <Box style={{ display: 'flex', alignItems: 'center' }}>
           {displayCardImage()}
-          <Typography variant="subtitle2" style={{ padding: '0.5rem' }}>
-            {username}
-          </Typography>
+          <Label type="name">{username}</Label>
         </Box>
       </Grid>
-      <Grid
-        item
-        style={{
-          width: '30%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-        }}
-      >
+      <Grid item className={classes.bookingSettings}>
         {!props.nextBooking && <SelectBooking _id={_id} />}
-        <BookingLabel nextBooking={props.nextBooking} accepted={accepted} declined={declined} />
+        <BookingLabel accepted={accepted} declined={declined} />
       </Grid>
     </Grid>
   );
