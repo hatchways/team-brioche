@@ -7,12 +7,7 @@ import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-import { CheckBox } from '@material-ui/icons';
-import { Key } from 'react';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import ListItemText from '@mui/material/ListItemText';
-import Calendar from 'react-calendar';
-
+import Select from '@mui/material/Select';
 interface Props {
   handleSubmit: (
     {
@@ -98,6 +93,8 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 margin="normal"
                 onChange={handleChange}
                 value={values.firstName}
+                helperText={touched.firstName ? errors.firstName : ''}
+                error={touched.firstName && Boolean(errors.firstName)}
                 variant="outlined"
                 fullWidth
                 placeholder="John"
