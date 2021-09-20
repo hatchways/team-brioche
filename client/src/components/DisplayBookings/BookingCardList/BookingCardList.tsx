@@ -1,5 +1,5 @@
-import { BookingRequest } from '../../interface/BookingApiData';
-import BookingCard from './BookingCard';
+import { BookingRequest } from '../../../interface/BookingApiData';
+import BookingCard from '../BookingCard/BookingCard';
 
 interface Props {
   bookingList: BookingRequest[];

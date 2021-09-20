@@ -103,4 +103,38 @@ export const bookings: Array<BookingRequest> = [
     start: '2021 sept 25 8:00 AM',
     end: '2021 sept 25 11:00 PM',
   },
+  {
+    // upcoming booking that has not been accepted
+    _id: '7',
+    accepted: false,
+    declined: false,
+    paid: false,
+    ownerId: {
+      username: 'dogowner4',
+      email: 'dogowner4@g.com',
+    },
+    sitterId: {
+      username: 'dogsitter5',
+      email: 'dogsitter1@g.com',
+    },
+    start: '2021 sept 25 8:00 AM',
+    end: '2021 sept 25 11:00 PM',
+  },
+  {
+    // upcoming booking that has been declined
+    _id: '8',
+    accepted: false,
+    declined: true,
+    paid: false,
+    ownerId: {
+      username: 'dogowner6',
+      email: 'dogowner6@g.com',
+    },
+    sitterId: {
+      username: 'dogsitter5',
+      email: 'dogsitter1@g.com',
+    },
+    start: '2021 sept 25 8:00 AM',
+    end: '2021 sept 25 11:00 PM',
+  },
 ];
