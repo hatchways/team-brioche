@@ -10,16 +10,7 @@ import { CircularProgress } from '@material-ui/core';
 import Select from '@mui/material/Select';
 import profileCreate from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
-
-interface Profile {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  phone: number;
-  address: string;
-  description: string;
-  availability: [string];
-}
+import { Profile } from '../../../interface/Profile';
 
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
