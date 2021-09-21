@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.spacing(3 / 2),
   },
   upComingDateLabel: {
-    fontSize: theme.spacing(1.7),
+    fontSize: theme.spacing(2),
   },
   labelStatus: {
     color: theme.palette.grey[400],

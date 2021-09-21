@@ -68,7 +68,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     res.status(200).send(request)
 });
 
-// @route PUT /request/:id
+// @route PATCH /request/:id
 // @desc dog-sitter update approved/decline an existing Request 
 // @access Private
 exports.updateRequest = asyncHandler(async (req, res, next) => {
