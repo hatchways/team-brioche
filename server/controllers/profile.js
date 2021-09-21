@@ -3,15 +3,17 @@ const fs = require("fs");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
+const { profile } = require("console");
 
 // @route GET /profiles
 // @desc get all profiles
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
   const profiles = await Profile.find({});
+  profile.select();
 
   if (!profiles.length) {
-    res.status(404);
+    res.status(400);
     throw new Error("No Profiles found");
   }
   res.status(200).send(profiles);
@@ -23,10 +25,6 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
 exports.createProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   const userId = user?._id;
-  if (!user) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
   const {
     firstName,
     lastName,
@@ -86,7 +84,7 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  let {
+  const {
     firstName,
     lastName,
     dob,
@@ -102,10 +100,10 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
   const user = await User.findById(req.user.id);
   const profile = await Profile.findById(id);
-  userId = user._id.toString();
-  profileId = profile.userId.toString();
+  const userId = user._id.toString();
+  const profileId = profile.userId.toString();
   if (userId !== profileId) {
-    res.status(404);
+    res.status(403);
     throw new Error("You are not Authorized to change the data");
   }
 

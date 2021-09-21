@@ -45,9 +45,17 @@ interface Props {
 const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
   const classes = useStyles();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
+  const validateSchema = {
+    firstName: Yup.string().required('First Name is required'),
+    lastName: Yup.string().required('Last Name is required'),
+    gender: Yup.string().required('Gender is required'),
+    phone: Yup.number().required('Phone number is required'),
+    description: Yup.string(),
+    availability: Yup.array().required('Availability is required'),
+  };
+
   const MenuProps = {
     PaperProps: {
       style: {
@@ -67,14 +75,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
         description: '',
         availability: [''],
       }}
-      validationSchema={Yup.object().shape({
-        firstName: Yup.string().required('First Name is required'),
-        lastName: Yup.string().required('Last Name is required'),
-        gender: Yup.string().required('Gender is required'),
-        phone: Yup.number().required('Phone number is required'),
-        description: Yup.string(),
-        availability: Yup.array().required('Availability is required'),
-      })}
+      validationSchema={Yup.object().shape(validateSchema)}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
@@ -93,7 +94,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
                 margin="normal"
                 onChange={handleChange}
                 value={values.firstName}
-                helperText={touched.firstName ? errors.firstName : ''}
+                helperText={touched.firstName && errors.firstName}
                 error={touched.firstName && Boolean(errors.firstName)}
                 variant="outlined"
                 fullWidth
@@ -130,7 +131,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
           <FormControl className={classes.genderControl}>
             <Grid container justifyContent="flex-start" alignItems="flex-start" spacing={2}>
               <Grid item>
-                <InputLabel className={classes.genderLabel} id="genderlbl">
+                <InputLabel className={classes.genderLabel} id="genderLabel">
                   <Typography className={classes.label} variant="button" display="block" gutterBottom>
                     Gender
                   </Typography>
@@ -139,7 +140,7 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
               <Grid item>
                 <Select
                   id="gender"
-                  labelId="genderlbl"
+                  labelId="genderLabel"
                   fullWidth
                   value={values.gender}
                   onChange={handleChange}

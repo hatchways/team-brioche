@@ -19,9 +19,6 @@ export default function EditProfile(): JSX.Element {
   const history = useHistory();
   const { updateSnackBarMessage } = useSnackBar();
 
-  useEffect(() => {
-    initSocket();
-  }, [initSocket]);
   if (loggedInUser === undefined) return <CircularProgress />;
   if (!loggedInUser) {
     history.push('/login');
@@ -60,15 +57,12 @@ export default function EditProfile(): JSX.Element {
   ) => {
     profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
       if (data.error) {
-        console.error({ error: data.error.message });
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
-        console.log('profile created');
         setSubmitting(false);
         updateSnackBarMessage('Profile Created');
       } else {
-        console.log({ data });
         setSubmitting(false);
       }
     });
@@ -76,9 +70,8 @@ export default function EditProfile(): JSX.Element {
 
   return (
     <Grid container component="main" justifyContent="center" className={classes.root}>
-      <CssBaseline />
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
-        <Box className="">
+        <Box>
           <Box width="100%" p={3} alignSelf="center">
             <Grid container alignItems="center">
               <Grid item xs={12}>

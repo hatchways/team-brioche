@@ -10,7 +10,6 @@ const useStyles = makeStyles(() => ({
     paddingBottom: 20,
     color: '#000000',
     fontWeight: 700,
-    fontFamily: "'Open Sans'",
   },
 }));
 
