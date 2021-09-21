@@ -8,10 +8,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
   },
   imageNext: {
-    height: theme.spacing(10),
-    width: theme.spacing(10),
-    objectFit: 'cover',
-    borderRadius: '50%',
+    height: theme.spacing(7),
+    width: theme.spacing(7),
   },
 }));
 
