@@ -1,6 +1,6 @@
+import { BookingStatusType } from '../../context/useRequestContext';
 import { BookingApiData, BookingRequest } from '../../interface/BookingApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
-import { BookingStatusType } from './../../context/useRequestContext';
 
 interface UpdateBooking {
   accepted?: boolean;

@@ -1,17 +1,19 @@
 import { Box, MenuItem, Select } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
+import clsx from 'clsx';
 import { BookingStatusType, useRequest } from '../../../context/useRequestContext';
 import useStyles from './useStyle';
 
 interface Props {
   id: string | undefined;
+  isUpcoming?: boolean;
 }
 
-export default function SelectBooking({ id }: Props): JSX.Element {
+export default function SelectBooking({ id, isUpcoming }: Props): JSX.Element {
   const classes = useStyles();
   const { modifyBooking } = useRequest();
   return (
-    <Box className={classes.selectBox}>
+    <Box className={clsx(classes.selectBox, isUpcoming && classes.addFont)}>
       <Select
         IconComponent={SettingsIcon}
         value={''}

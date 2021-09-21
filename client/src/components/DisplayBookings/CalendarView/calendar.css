@@ -1,7 +1,7 @@
 .react-calendar {
   padding-top: 1rem;
   width: 400px;
-  height: 350px;
+  height: 400px;
   margin-left: 3rem;
   margin-right: 3rem;
   background: white;
@@ -142,7 +142,7 @@
 }
 .react-calendar__navigation__label {
   color: rgb(245, 67, 67);
-  font-weight: bold;
+  font-weight: 500;
   font-size: x-large;
 }
 .react-calendar__month-view__weekdays {
@@ -150,7 +150,7 @@
 }
 .react-calendar__tile {
   background: inherit;
-  height: 3rem;
+  height: 3.5rem;
   width: 3rem;
   font-weight: bold;
 }
@@ -168,6 +168,7 @@
 
 @media only screen and (max-width: 1000px) {
   .react-calendar {
+    height: 400px;
     margin: 5px;
     max-width: 450px;
   }
@@ -175,7 +176,14 @@
 
 @media only screen and (max-width: 500px) {
   .react-calendar {
+    height: 350px;
     margin: 5px;
+    max-width: 350px;
+  }
+
+  .react-calendar__tile {
+    height: 3rem;
+    width: 3rem;
     max-width: 350px;
   }
 }
