@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const fs = require("fs");
+const mongoose = require("mongoose");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
@@ -163,13 +164,16 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
     fs.unlinkSync(photo.path);
   });
 
-  let updatedData = {
-    galleryPics: urls,
-  };
+  // let updatedData = {
+  //   galleryPics: urls,
+  // };
   const id = mongoose.Types.ObjectId(user._id);
   console.log(id === user._id);
-  const addPics = await Profile.findOneAndUpdate({ userId: id }, updatedData);
-  if (!updatedData) {
+  const addPics = await Profile.findOneAndUpdate(
+    { userId: id },
+    { $push: { galleryPics: urls } }
+  );
+  if (!addPics) {
     res.status(404);
     throw new Error(
       "Somthing went wrong while adding your photos. Please try again later."
