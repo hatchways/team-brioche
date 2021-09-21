@@ -4,14 +4,16 @@ const User = require("../models/User");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
 const { profile } = require("console");
+const mongoose = require("mongoose");
 
 // @route GET /profiles
 // @desc get all profiles
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
-  const profiles = await Profile.find({});
-  profile.select();
-
+  const profiles = await Profile.find(
+    {},
+    "firstName lastName profilePic galleryPics availability dob gender phone address description"
+  );
   if (!profiles.length) {
     res.status(400);
     throw new Error("No Profiles found");
@@ -128,13 +130,13 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
 exports.savePhoto = asyncHandler(async (req, res, next) => {
   const { photos } = req.files;
-  const id = await User.findById(req.user.id);
-  photos.forEach((photo) => {
+  const user = await User.findById(req.user.id);
+  for (let i = 0; i < photos.length; i++) {
     if (
       !(
-        file.mimetype == "image/png" ||
-        file.mimetype == "image/jpg" ||
-        file.mimetype == "image/jpeg"
+        photos[i].mimetype == "image/png" ||
+        photos[i].mimetype == "image/jpg" ||
+        photos[i].mimetype == "image/jpeg"
       )
     ) {
       res
@@ -142,7 +144,7 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
         .json({ msg: "Only .png, .jpg and .jpeg format allowed!" });
       return;
     }
-  });
+  }
 
   const uploadPromises = photos.map((photo) =>
     cloudinary.uploader.upload(photo.path)
@@ -150,15 +152,18 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
 
   const results = await Promise.all(uploadPromises);
   const urls = results.map((result) => result.url);
-
+  console.log(urls);
   photos.forEach((photo) => {
     fs.unlinkSync(photo.path);
   });
+
   let updatedData = {
     galleryPics: urls,
   };
-  const addPics = await Profile.findByIdAndUpdate(id._id, updatedData);
-  if (!addPics) {
+  const id = mongoose.Types.ObjectId(user._id);
+  console.log(id === user._id);
+  const addPics = await Profile.findOneAndUpdate({ userId: id }, updatedData);
+  if (!updatedData) {
     res.status(404);
     throw new Error(
       "Somthing went wrong while adding your photos. Please try again later."

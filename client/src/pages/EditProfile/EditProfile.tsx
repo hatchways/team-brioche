@@ -14,7 +14,6 @@ export default function EditProfile(): JSX.Element {
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
-  const { initSocket } = useSocket();
 
   const history = useHistory();
   const { updateSnackBarMessage } = useSnackBar();
@@ -25,48 +24,6 @@ export default function EditProfile(): JSX.Element {
     // loading for a split seconds until history.push works
     return <CircularProgress />;
   }
-  const handleSubmit = (
-    {
-      firstName,
-      lastName,
-      gender,
-      phone,
-      address,
-      description,
-      availability,
-    }: {
-      firstName: string;
-      lastName: string;
-      gender: string;
-      phone: number;
-      address: string;
-      description: string;
-      availability: [string];
-    },
-    {
-      setSubmitting,
-    }: FormikHelpers<{
-      firstName: string;
-      lastName: string;
-      gender: string;
-      phone: number;
-      address: string;
-      description: string;
-      availability: [string];
-    }>,
-  ) => {
-    profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
-      if (data.error) {
-        setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        setSubmitting(false);
-        updateSnackBarMessage('Profile Created');
-      } else {
-        setSubmitting(false);
-      }
-    });
-  };
 
   return (
     <Grid container component="main" justifyContent="center" className={classes.root}>
@@ -80,7 +37,7 @@ export default function EditProfile(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <ProfileEditForm handleSubmit={handleSubmit} />
+            <ProfileEditForm />
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>

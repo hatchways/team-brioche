@@ -25,7 +25,7 @@ function App(): JSX.Element {
                 <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
-                <Route exact path="/editprofile">
+                <Route exact path="/edit-profile">
                   <EditProfile />
                 </Route>
                 <Route exact path="/profile" component={ProfileSetting} />

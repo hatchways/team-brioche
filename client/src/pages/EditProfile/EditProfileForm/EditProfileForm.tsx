@@ -8,45 +8,41 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import Select from '@mui/material/Select';
-interface Props {
-  handleSubmit: (
-    {
-      firstName,
-      lastName,
-      gender,
-      phone,
-      address,
-      description,
-      availability,
-    }: {
-      firstName: string;
-      lastName: string;
-      gender: string;
-      phone: number;
-      address: string;
-      description: string;
-      availability: [string];
-    },
-    {
-      setStatus,
-      setSubmitting,
-    }: FormikHelpers<{
-      firstName: string;
-      lastName: string;
-      gender: string;
-      phone: number;
-      address: string;
-      description: string;
-      availability: [string];
-    }>,
-  ) => void;
+import profileCreate from '../../../helpers/APICalls/profile';
+import { useSnackBar } from '../../../context/useSnackbarContext';
+
+interface Profile {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  phone: number;
+  address: string;
+  description: string;
+  availability: [string];
 }
 
-const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
+const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
+  const { updateSnackBarMessage } = useSnackBar();
+  const handleSubmit = (
+    { firstName, lastName, gender, phone, address, description, availability }: Profile,
+    { setSubmitting }: FormikHelpers<Profile>,
+  ) => {
+    profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
+      if (data.error) {
+        setSubmitting(false);
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        setSubmitting(false);
+        updateSnackBarMessage('Profile Created');
+      } else {
+        setSubmitting(false);
+      }
+    });
+  };
   const validateSchema = {
     firstName: Yup.string().required('First Name is required'),
     lastName: Yup.string().required('Last Name is required'),
@@ -55,7 +51,6 @@ const EditProfileForm = ({ handleSubmit }: Props): JSX.Element => {
     description: Yup.string(),
     availability: Yup.array().required('Availability is required'),
   };
-
   const MenuProps = {
     PaperProps: {
       style: {
