@@ -3,15 +3,12 @@ const userSchema = require("./User");
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   dob: {
     type: Date,
-    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -36,7 +33,6 @@ const profileSchema = new mongoose.Schema({
   },
   phone: {
     type: Number,
-    unique: true,
   },
   address: {
     type: String,

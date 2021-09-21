@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
@@ -36,6 +37,13 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
       httpOnly: true,
       maxAge: secondsInWeek * 1000
     });
+
+    const profileExists = await Profile.findOne({userId: user._id});
+    if (!profileExists) {
+      const profile = await Profile.create({
+        userId: user._id,
+      });
+    }
 
     res.status(201).json({
       success: {
