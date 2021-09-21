@@ -1,14 +1,9 @@
-import { CssBaseline, Grid, Typography, Box, Paper } from '@material-ui/core';
-import { FormikHelpers } from 'formik';
+import { Grid, Typography, Box, Paper } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useAuth } from '../../context/useAuthContext';
-import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
 import useStyles from './useStyles';
-import profileCreate from '../../helpers/APICalls/profile';
 import ProfileEditForm from './EditProfileForm/EditProfileForm';
-import { useSnackBar } from '../../context/useSnackbarContext';
 
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
@@ -16,7 +11,6 @@ export default function EditProfile(): JSX.Element {
   const { loggedInUser } = useAuth();
 
   const history = useHistory();
-  const { updateSnackBarMessage } = useSnackBar();
 
   if (loggedInUser === undefined) return <CircularProgress />;
   if (!loggedInUser) {

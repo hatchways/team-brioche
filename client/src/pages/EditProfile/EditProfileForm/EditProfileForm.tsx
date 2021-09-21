@@ -11,7 +11,7 @@ import Select from '@mui/material/Select';
 import profileCreate from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
-
+import Label from './Label';
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -67,13 +67,7 @@ const EditProfileForm = (): JSX.Element => {
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container className={classes.container} spacing={2}>
-            <Grid item>
-              <InputLabel htmlFor="firstName">
-                <Typography variant="button" className={classes.label} display="block" gutterBottom>
-                  First Name
-                </Typography>
-              </InputLabel>
-            </Grid>
+            <Label htmlFor="firstName" cls={classes.label} labelName="First Name" />
             <Grid item>
               <TextField
                 id="firstName"
@@ -92,13 +86,7 @@ const EditProfileForm = (): JSX.Element => {
             </Grid>
           </Grid>
           <Grid container className={classes.container} spacing={2}>
-            <Grid item>
-              <InputLabel htmlFor="lastName">
-                <Typography className={classes.label} variant="button" display="block" gutterBottom>
-                  Last Name
-                </Typography>
-              </InputLabel>
-            </Grid>
+            <Label htmlFor="lastName" cls={classes.label} labelName="Last Name" />
             <Grid item>
               <TextField
                 id="lastName"
@@ -116,17 +104,10 @@ const EditProfileForm = (): JSX.Element => {
           </Grid>
           <FormControl className={classes.genderControl}>
             <Grid container justifyContent="flex-start" alignItems="flex-start" spacing={2}>
-              <Grid item>
-                <InputLabel className={classes.genderLabel} id="genderLabel">
-                  <Typography className={classes.label} variant="button" display="block" gutterBottom>
-                    Gender
-                  </Typography>
-                </InputLabel>
-              </Grid>
+              <Label cls={classes.label} labelName="Gender" htmlFor="gender" />
               <Grid item>
                 <Select
                   id="gender"
-                  labelId="genderLabel"
                   fullWidth
                   value={values.gender}
                   onChange={handleChange}
@@ -143,13 +124,7 @@ const EditProfileForm = (): JSX.Element => {
           </FormControl>
           <FormControl>
             <Grid container className={classes.container} spacing={2}>
-              <Grid item>
-                <InputLabel className={classes.availLabel} htmlFor="availability">
-                  <Typography className={classes.label} variant="button" display="block" gutterBottom>
-                    Availability
-                  </Typography>
-                </InputLabel>
-              </Grid>
+              <Label htmlFor="availability" cls={`${classes.label} ${classes.availLabel}`} labelName="Availability" />
               <Grid item>
                 <Field
                   component={Select}
@@ -175,13 +150,7 @@ const EditProfileForm = (): JSX.Element => {
             </Grid>
           </FormControl>
           <Grid container className={classes.container} spacing={2}>
-            <Grid item>
-              <InputLabel htmlFor="phone">
-                <Typography className={classes.label} variant="button" display="block" gutterBottom>
-                  Phone
-                </Typography>
-              </InputLabel>
-            </Grid>
+            <Label htmlFor="phone" cls={classes.label} labelName="Phone Number" />
             <Grid item>
               <TextField
                 id="phone"
@@ -198,13 +167,7 @@ const EditProfileForm = (): JSX.Element => {
             </Grid>
           </Grid>
           <Grid container className={classes.container} spacing={2}>
-            <Grid item>
-              <InputLabel htmlFor="address">
-                <Typography className={classes.label} variant="button" display="block" gutterBottom>
-                  Address
-                </Typography>
-              </InputLabel>
-            </Grid>
+            <Label htmlFor="address" cls={classes.label} labelName="Address" />
             <Grid item>
               <TextField
                 id="address"
@@ -220,13 +183,7 @@ const EditProfileForm = (): JSX.Element => {
             </Grid>
           </Grid>
           <Grid container className={classes.container} spacing={2}>
-            <Grid item>
-              <InputLabel htmlFor="description">
-                <Typography className={classes.label} variant="button" display="block" gutterBottom>
-                  Description
-                </Typography>
-              </InputLabel>
-            </Grid>
+            <Label htmlFor="description" cls={classes.label} labelName="Description" />
             <Grid item>
               <TextField
                 id="description"

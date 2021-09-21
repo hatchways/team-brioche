@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   availLabel: {
     position: 'relative',
-    top: '-12px',
+    top: '10px',
+    right: '30px',
   },
   forgot: {
     paddingRight: 10,
@@ -40,9 +41,6 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: theme.spacing(2),
   },
-  genderLabel: {
-    color: 'white',
-  },
   select: {
     marginLeft: '51px',
     minWidth: '160px',
@@ -50,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   availability: {
     minWidth: '410px',
     margin: theme.spacing(2),
+    left: '35px',
   },
   submit: {
     margin: theme.spacing(3, 2, 2),
