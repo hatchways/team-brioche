@@ -50,7 +50,7 @@ const Requests = [
 users.forEach(async user => await User.create(user))
 
 async function seedDb(){
-  
+
 try {
   const sitter = await User.findOne({ username: "sitter1" })
   console.log(sitter)
@@ -58,12 +58,9 @@ try {
   const owner = await User.findOne({ username: "owner1"})
   console.log(owner)
 
-  await Request.create(wrap(owner, sitter, Requests[0]))
-  await Request.create(wrap(owner, sitter, Requests[1]))
-  await Request.create(wrap(owner, sitter, Requests[2]))
-  await Request.create(wrap(owner, sitter, Requests[3]))
-  await Request.create(wrap(owner, sitter, Requests[4]))
-  await Request.create(wrap(owner, sitter, Requests[5]))
+  for(let element of Requests){
+    await Request.create(wrap(owner, sitter, element))
+  }
 
   console.log('seeding complete')
   console.log("Please log in with the following credentials")
