@@ -39,7 +39,12 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     availability,
     gender,
   } = req.body;
-
+  //checks if there is a Profile with this userID already
+  const findProfile = await Profile.findOne({ userId: userId });
+  if (findProfile) {
+    res.status(400);
+    throw new Error("This user already has a profile");
+  }
   const phoneExists = await Profile.findOne({ phone });
   if (phoneExists) {
     res.status(400);
