@@ -17,18 +17,7 @@ export const displayDateTime = (startDate: string, endDate: string): string => {
     'December',
   ];
 
-  const displayTime = (date: Date) => {
-    let AM = true;
-    let hours = date.getHours();
-    if (hours > 12) {
-      hours = hours - 12;
-      AM = false;
-    }
-    if (hours === 12) AM = false;
-    const hourString = hours < 10 ? '0' + hours : hours;
-    const ampm = AM ? 'AM' : 'PM';
-    return `${hourString}${ampm}`;
-  };
+  const displayTime = (date: Date) => date.toLocaleString('en-us', { hour: 'numeric' });
 
   const day = start.getDate();
   const month = Month[start.getMonth()];
