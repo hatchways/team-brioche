@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   bookingGroupContainer: {
+    paddingTop: theme.spacing(4),
     minWidth: theme.spacing(350 / 8),
     [theme.breakpoints.up('xs')]: {
       width: '90%',
@@ -17,15 +18,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   upcoming: {
-    backgroundColor: 'white',
     width: '100%',
     minWidth: theme.spacing(20),
-    marginBottom: theme.spacing(8),
+    marginBottom: theme.spacing(4),
     padding: theme.spacing(2),
   },
   current: {
     width: '100%',
-    backgroundColor: 'white',
     padding: theme.spacing(1),
   },
   currentAndPast: {
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     textTransform: 'uppercase',
-    fontWeight: 'bolder',
+    fontWeight: theme.typography.fontWeightBold,
     fontSize: theme.spacing(5 / 4),
   },
 }));

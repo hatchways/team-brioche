@@ -2,8 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   calendarContainer: {
-    marginBottom: theme.spacing(8),
-    paddingTop: '1rem',
+    paddingTop: theme.spacing(4),
     height: '60%',
     [theme.breakpoints.up('md')]: {
       width: '40%',

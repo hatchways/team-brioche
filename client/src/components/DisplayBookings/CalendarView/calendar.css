@@ -136,12 +136,12 @@
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background-color: rgb(245, 67, 67);
+  background-color: #f04040;
   color: white;
   border-radius: 50%;
 }
 .react-calendar__navigation__label {
-  color: rgb(245, 67, 67);
+  color: #f04040;
   font-weight: 500;
   font-size: x-large;
 }
@@ -155,7 +155,7 @@
   font-weight: bold;
 }
 .react-calendar__tile--now {
-  background: rgb(245, 67, 67);
+  background: #f04040;
   border-radius: 50%;
 }
 
