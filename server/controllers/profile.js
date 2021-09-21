@@ -1,10 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const fs = require("fs");
+const mongoose = require("mongoose");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
 const { profile } = require("console");
-const mongoose = require("mongoose");
 
 // @route GET /profiles
 // @desc get all profiles
@@ -71,6 +71,11 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 //access public
 exports.getProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+
+  if (!id) {
+    res.status(400);
+    throw new Error("Bad request");
+  }
   const profile = await Profile.findById(id);
 
   if (!profile) {
@@ -97,9 +102,6 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     gender,
   } = req.body;
 
-  // Check if the logged in person is the owner of the profile
-  // NOT WORKING rn even though both ids are same
-
   const user = await User.findById(req.user.id);
   const profile = await Profile.findById(id);
   const userId = user._id.toString();
@@ -125,11 +127,15 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
       "Somthing went wrong while updating you Profile. Please try again later."
     );
   }
-  res.status(200).send(newProfileData);
+  res.status(200).send(newProfile);
 });
 
 exports.savePhoto = asyncHandler(async (req, res, next) => {
   const { photos } = req.files;
+  if (!photos) {
+    res.status(400);
+    throw new Error("Bad request");
+  }
   const user = await User.findById(req.user.id);
   for (let i = 0; i < photos.length; i++) {
     if (
@@ -157,13 +163,13 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
     fs.unlinkSync(photo.path);
   });
 
-  let updatedData = {
-    galleryPics: urls,
-  };
   const id = mongoose.Types.ObjectId(user._id);
   console.log(id === user._id);
-  const addPics = await Profile.findOneAndUpdate({ userId: id }, updatedData);
-  if (!updatedData) {
+  const addPics = await Profile.findOneAndUpdate(
+    { userId: id },
+    { $push: { galleryPics: urls } }
+  );
+  if (!addPics) {
     res.status(404);
     throw new Error(
       "Somthing went wrong while adding your photos. Please try again later."
