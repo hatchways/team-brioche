@@ -17,7 +17,7 @@ const Booking: FunctionComponent = (): JSX.Element => {
     );
   return (
     <Box component="main" className={classes.root}>
-      <Grid container wrap="wrap" direction="row-reverse" justify="center">
+      <Grid container wrap="wrap" direction="row-reverse" justify="space-around">
         <CalendarView />
         <BookingGroup bookings={bookings} />
       </Grid>

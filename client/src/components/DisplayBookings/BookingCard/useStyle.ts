@@ -11,6 +11,16 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
   },
+  image: {
+    height: theme.spacing(6),
+    width: theme.spacing(6),
+    objectFit: 'cover',
+    borderRadius: '50%',
+  },
+  imageNext: {
+    height: theme.spacing(7),
+    width: theme.spacing(7),
+  },
   removeBorder: {
     border: 'none',
     marginTop: '0',
@@ -27,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   upComingDateLabel: {
     fontSize: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.spacing(1.6),
+    },
   },
   labelStatus: {
     color: theme.palette.grey[400],

@@ -2,7 +2,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   bookingGroupContainer: {
-    width: '100%',
+    minWidth: theme.spacing(350 / 8),
+    [theme.breakpoints.up('xs')]: {
+      width: '90%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '65%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '40%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '35%',
+    },
   },
   upcoming: {
     backgroundColor: 'white',
@@ -21,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'auto',
   },
   label: {
+    textTransform: 'uppercase',
     fontWeight: 'bolder',
     fontSize: theme.spacing(5 / 4),
   },
