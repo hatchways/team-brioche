@@ -4,12 +4,19 @@ import { User } from '../../interface/User';
 
 interface Props {
   user: User;
+  profilePic: string;
 }
 
-const ProfileAvatar = ({ user }: Props): JSX.Element => {
+const ProfileAvatar = ({ user, profilePic }: Props): JSX.Element => {
   const classes = useStyles();
 
-  return <Avatar alt="Profile Image" src={`https://robohash.org/${user.email}.png`} className={classes.avatar} />;
+  return (
+    <Avatar
+      alt="Profile Image"
+      src={profilePic === '' ? `https://robohash.org/${user.email}.png` : profilePic}
+      className={classes.avatar}
+    />
+  );
 };
 
 export default ProfileAvatar;
