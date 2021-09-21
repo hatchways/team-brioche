@@ -25,9 +25,8 @@ exports.savePhoto = asyncHandler(async (req, res) => {
   const {photos} = req.files;
   
   photos.forEach(photo => {
-    if (!(photo.mimetype == "image/png" || photo.mimetype == "image/jpg" || photo.mimetype == "image/jpeg")) {
-      res.status(400).json({msg: "Only .png, .jpg and .jpeg format allowed!"});
-      return;
+    if (!(photo.mimetype === "image/png" || photo.mimetype === "image/jpg" || photo.mimetype === "image/jpeg")) {
+      return res.status(400).json({msg: "Only .png, .jpg and .jpeg format allowed!"});
     }
   });
 
@@ -44,12 +43,10 @@ exports.savePhoto = asyncHandler(async (req, res) => {
   
   if (profile) {
     const oldUrl = profile.profilePic;
-    const public_id = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
-    await cloudinary.uploader.destroy(public_id);
+    const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
+    await cloudinary.uploader.destroy(publicId);
     res.status(200).json({
-      success: {
-        profilePic: urls[0]
-      }
+      success: { profilePic: urls[0] }
     });
   }
   else {
@@ -65,8 +62,8 @@ exports.deletePhoto = asyncHandler(async (req, res) => {
 
   if (profile) {
     const oldUrl = profile.profilePic;
-    const public_id = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
-    await cloudinary.uploader.destroy(public_id);
+    const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
+    await cloudinary.uploader.destroy(publicId);
     res.status(200).json({
       success: true
     });

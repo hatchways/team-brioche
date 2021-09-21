@@ -13,7 +13,7 @@ const ProfileAvatar = ({ user, profilePic }: Props): JSX.Element => {
   return (
     <Avatar
       alt="Profile Image"
-      src={profilePic === '' ? `https://robohash.org/${user.email}.png` : profilePic}
+      src={profilePic || `https://robohash.org/${user.email}.png`}
       className={classes.avatar}
     />
   );
