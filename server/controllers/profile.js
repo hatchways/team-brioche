@@ -169,9 +169,6 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
     fs.unlinkSync(photo.path);
   });
 
-  // let updatedData = {
-  //   galleryPics: urls,
-  // };
   const id = mongoose.Types.ObjectId(user._id);
   console.log(id === user._id);
   const addPics = await Profile.findOneAndUpdate(
