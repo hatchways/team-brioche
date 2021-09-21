@@ -13,7 +13,7 @@ export default function BookingGroup(props: Props): JSX.Element {
   const { bookings } = props;
   const { upcoming, current, past } = bookings;
   return (
-    <Grid item lg={4} md={5} sm={7} xs={11} container justify="center">
+    <Grid item lg={4} md={5} sm={6} xs={11} container justify="center">
       <Box className={classes.bookingGroupContainer}>
         <Grid container direction="column" justify="space-evenly" alignItems="center">
           <Grid component={Paper} elevation={5} item className={classes.upcoming}>
