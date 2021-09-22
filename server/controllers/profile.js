@@ -97,7 +97,7 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  let {
+  const {
     firstName,
     lastName,
     dob,
@@ -110,14 +110,13 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
   const user = await User.findById(req.user.id);
   const profile = await Profile.findById(id);
-  userId = user._id.toString();
-  profileId = profile.userId.toString();
+  const userId = user._id.toString();
+  const profileId = profile.userId.toString();
   if (userId !== profileId) {
     res.status(404);
     throw new Error("You are not Authorized to change the data");
   }
-
-  const newProfile = await Profile.findByIdAndUpdate(id, {
+  const updatedData = {
     firstName,
     lastName,
     dob,
@@ -126,6 +125,9 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
+  };
+  const newProfile = await Profile.findByIdAndUpdate(id, updatedData, {
+    new: true,
   });
   if (!newProfile) {
     res.status(404);
@@ -164,13 +166,11 @@ exports.savePhoto = asyncHandler(async (req, res, next) => {
 
   const results = await Promise.all(uploadPromises);
   const urls = results.map((result) => result.url);
-  console.log(urls);
   photos.forEach((photo) => {
     fs.unlinkSync(photo.path);
   });
 
   const id = mongoose.Types.ObjectId(user._id);
-  console.log(id === user._id);
   const addPics = await Profile.findOneAndUpdate(
     { userId: id },
     { $push: { galleryPics: urls } }
