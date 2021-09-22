@@ -1,11 +1,11 @@
+import Typography from '@material-ui/core/Typography';
+import { CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { CircularProgress } from '@material-ui/core';
 
 interface Props {
   handleSubmit: (
@@ -49,7 +49,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
           <TextField
             id="email"
             placeholder="Your email"
-            label={<Typography className={classes.label}>E-mail address</Typography>}
+            label={<Typography className={classes.label}>Email address</Typography>}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -57,6 +57,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             }}
             InputProps={{
               classes: { input: classes.inputs },
+              disableUnderline: true,
             }}
             name="email"
             autoComplete="email"
@@ -65,6 +66,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             error={touched.email && Boolean(errors.email)}
             value={values.email}
             onChange={handleChange}
+            className={classes.textField}
           />
           <TextField
             id="password"
@@ -77,6 +79,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             }}
             InputProps={{
               classes: { input: classes.inputs },
+              disableUnderline: true,
               endAdornment: <Typography className={classes.forgot}>Forgot?</Typography>,
             }}
             type="password"
@@ -85,6 +88,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             error={touched.password && Boolean(errors.password)}
             value={values.password}
             onChange={handleChange}
+            className={classes.textField}
           />
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>

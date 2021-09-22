@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   forgot: {
     paddingRight: 10,
-    color: '#3a8dff',
+    color: theme.palette.primary.light,
   },
   submit: {
     margin: theme.spacing(3, 2, 2),
@@ -33,12 +33,22 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
   },
-  underline: {
-    '&&&:before': {
-      borderBottom: 'none',
-    },
-    '&&:after': {
-      borderBottom: 'none',
+  textField: {
+    '& .MuiInput-formControl': {
+      '& input': {
+        paddingLeft: theme.spacing(2),
+        paddingBottom: theme.spacing(1),
+        paddingTop: theme.spacing(1),
+        borderStyle: 'solid',
+        borderWidth: '3px',
+        borderColor: theme.palette.grey[200],
+        borderRadius: theme.shape.borderRadius,
+      },
+      '& p': {
+        marginTop: theme.spacing(6),
+        paddingLeft: '5px',
+        paddingRight: '0px',
+      },
     },
   },
 }));

@@ -1,11 +1,11 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { CircularProgress } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { CircularProgress } from '@material-ui/core';
 
 interface Props {
   handleSubmit: (
@@ -62,6 +62,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             }}
             InputProps={{
               classes: { input: classes.inputs },
+              disableUnderline: true,
             }}
             name="email"
             autoComplete="email"
@@ -69,7 +70,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             error={touched.email && Boolean(errors.email)}
             value={values.email}
             onChange={handleChange}
-            className={classes.underline}
+            className={classes.textField}
           />
           <TextField
             id="username"
@@ -82,6 +83,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             }}
             InputProps={{
               classes: { input: classes.inputs },
+              disableUnderline: true,
             }}
             name="username"
             autoComplete="username"
@@ -90,6 +92,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             error={touched.username && Boolean(errors.username)}
             value={values.username}
             onChange={handleChange}
+            className={classes.textField}
           />
           <TextField
             id="password"
@@ -102,6 +105,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             }}
             InputProps={{
               classes: { input: classes.inputs },
+              disableUnderline: true,
             }}
             type="password"
             autoComplete="current-password"
@@ -109,6 +113,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             error={touched.password && Boolean(errors.password)}
             value={values.password}
             onChange={handleChange}
+            className={classes.textField}
           />
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
