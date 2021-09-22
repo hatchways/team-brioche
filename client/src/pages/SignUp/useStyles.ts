@@ -25,7 +25,19 @@ const useStyles = makeStyles((theme) => ({
   },
   addMargin: {
     marginTop: theme.spacing(6),
-    marginBottom: theme.spacing(16),
+    height: 'min-content',
+    [theme.breakpoints.up('xs')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '85%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '70%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '50%',
+    },
   },
   redirect: {
     fontWeight: theme.typography.fontWeightBold,

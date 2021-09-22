@@ -40,7 +40,7 @@ export default function Register(): JSX.Element {
   return (
     <Grid container justify="center" component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={7} elevation={6} className={classes.addMargin} component={Paper} square>
+      <Grid item elevation={6} className={classes.addMargin} component={Paper} square>
         <Box className={classes.authWrapper}>
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
