@@ -1,19 +1,11 @@
-import { Link } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { FormikHelpers } from 'formik';
-import useStyles from '../useStyles';
+import AccountWrapper from '../../../components/AccountWrapper/AccountWrapper';
 import login from '../../../helpers/APICalls/login';
 import LoginForm from '../AuthForm/LoginForm/LoginForm';
 import { useAuth } from '../../../context/useAuthContext';
 import { useSnackBar } from '../../../context/useSnackbarContext';
-import DemoUser from '../../../components/DemoUser/DemoUser';
 
 export default function Login(): JSX.Element {
-  const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
@@ -36,29 +28,9 @@ export default function Login(): JSX.Element {
       }
     });
   };
-
   return (
-    <Grid container justify="center" component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item elevation={6} className={classes.addMargin} component={Paper} square>
-        <Box className={classes.authWrapper}>
-          <Box width="100%" maxWidth={450} p={3} alignSelf="center">
-            <Grid container>
-              <Grid item xs>
-                <Typography align="center" className={classes.welcome} component="h1" variant="h5">
-                  Sign in
-                </Typography>
-              </Grid>
-            </Grid>
-            <LoginForm handleSubmit={handleSubmit} />
-            <Typography align="center" className={classes.redirect}>
-              {"Don't have an account?"}
-              <Link to="/signup">Create account</Link>
-            </Typography>
-            <DemoUser />
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+    <AccountWrapper isLogin>
+      <LoginForm handleSubmit={handleSubmit} />
+    </AccountWrapper>
   );
 }
