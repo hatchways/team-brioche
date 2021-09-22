@@ -8,20 +8,6 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',
     },
   },
-  authWrapper: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    paddingTop: 23,
-  },
-  welcome: {
-    fontSize: 30,
-    paddingBottom: 20,
-    color: '#000000',
-    fontWeight: 700,
-    fontFamily: "'Open Sans'",
-  },
   addMargin: {
     marginTop: theme.spacing(6),
     height: 'min-content',
@@ -38,6 +24,21 @@ const useStyles = makeStyles((theme) => ({
       width: '50%',
     },
   },
+  authWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    paddingTop: 23,
+  },
+  welcome: {
+    fontSize: 30,
+    paddingBottom: 20,
+    color: '#000000',
+    fontWeight: 700,
+    fontFamily: "'Open Sans'",
+  },
+
   redirect: {
     fontWeight: theme.typography.fontWeightBold,
     margin: '2rem',
