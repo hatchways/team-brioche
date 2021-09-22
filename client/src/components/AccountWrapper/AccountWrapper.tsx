@@ -1,6 +1,7 @@
 import { Box, CssBaseline, Grid, Paper, Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import DemoUser from '../DemoUser/DemoUser';
 import useStyles from './useStyles';
 
 interface Props {
@@ -28,6 +29,7 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, isLogin }) => {
               {isLogin ? 'Dont have an Account?' : 'Already a member?'}
               <Link to={isLogin ? '/signup' : '/login'}>{isLogin ? 'Sign up' : 'Login'}</Link>
             </Typography>
+            <DemoUser />
           </Box>
         </Box>
       </Grid>
