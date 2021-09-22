@@ -1,28 +1,27 @@
+import { Link } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
-import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
-import useStyles from './useStyles';
-import register from '../../helpers/APICalls/register';
-import SignUpForm from './SignUpForm/SignUpForm';
-import { useAuth } from '../../context/useAuthContext';
-import { useSnackBar } from '../../context/useSnackbarContext';
+import { FormikHelpers } from 'formik';
+import useStyles from '../useStyles';
+import login from '../../../helpers/APICalls/login';
+import LoginForm from '../AuthForm/LoginForm/LoginForm';
+import { useAuth } from '../../../context/useAuthContext';
+import { useSnackBar } from '../../../context/useSnackbarContext';
 
-export default function Register(): JSX.Element {
+export default function Login(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
-    { username, email, password }: { email: string; password: string; username: string },
-    { setSubmitting }: FormikHelpers<{ email: string; password: string; username: string }>,
+    { email, password }: { email: string; password: string },
+    { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
   ) => {
-    register(username, email, password).then((data) => {
+    login(email, password).then((data) => {
       if (data.error) {
-        console.error({ error: data.error.message });
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
@@ -46,14 +45,14 @@ export default function Register(): JSX.Element {
             <Grid container>
               <Grid item xs>
                 <Typography align="center" className={classes.welcome} component="h1" variant="h5">
-                  Sign up
+                  Sign in
                 </Typography>
               </Grid>
             </Grid>
-            <SignUpForm handleSubmit={handleSubmit} />
+            <LoginForm handleSubmit={handleSubmit} />
             <Typography align="center" className={classes.redirect}>
-              Already a member?
-              <Link to="./login">Login</Link>
+              {"Don't have an account?"}
+              <Link to="/signup">Create account</Link>
             </Typography>
           </Box>
         </Box>
