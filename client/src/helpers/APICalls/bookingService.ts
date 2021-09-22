@@ -40,6 +40,11 @@ export const updateBooking = async (value: BookingStatusType, id: string): Promi
   return await res.json();
 };
 
+/**
+ * Current: All requests with start dates ahead of the current date
+ * Upcoming: The request in Current closest to the current date
+ * Past: All requests with start dates behind the current date
+ */
 export function sortBookings(bookings: Array<BookingRequest>): BookingApiData {
   // sort bookings from Newest to oldest
   bookings.sort((bookingA, bookingB) => {
