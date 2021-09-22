@@ -48,6 +48,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             id="email"
+            placeholder="Your email"
             label={<Typography className={classes.label}>E-mail address</Typography>}
             fullWidth
             margin="normal"
@@ -67,6 +68,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
           />
           <TextField
             id="password"
+            placeholder="Your password"
             label={<Typography className={classes.label}>Password</Typography>}
             fullWidth
             margin="normal"
@@ -89,7 +91,6 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Login'}
             </Button>
           </Box>
-          <div style={{ height: 95 }} />
         </form>
       )}
     </Formik>

@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 interface Props {
   handleSubmit: (
@@ -52,8 +53,29 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
+            id="email"
+            placeholder="Your email"
+            label={<Typography className={classes.label}>Email address</Typography>}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              classes: { input: classes.inputs },
+            }}
+            name="email"
+            autoComplete="email"
+            helperText={touched.email ? errors.email : ''}
+            error={touched.email && Boolean(errors.email)}
+            value={values.email}
+            onChange={handleChange}
+            className={classes.underline}
+          />
+          <TextField
             id="username"
-            label={<Typography className={classes.label}>Username</Typography>}
+            placeholder="Your name"
+            label={<Typography className={classes.label}>Name</Typography>}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -71,25 +93,8 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
           <TextField
-            id="email"
-            label={<Typography className={classes.label}>E-mail address</Typography>}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            InputProps={{
-              classes: { input: classes.inputs },
-            }}
-            name="email"
-            autoComplete="email"
-            helperText={touched.email ? errors.email : ''}
-            error={touched.email && Boolean(errors.email)}
-            value={values.email}
-            onChange={handleChange}
-          />
-          <TextField
             id="password"
+            placeholder="Create a password"
             label={<Typography className={classes.label}>Password</Typography>}
             fullWidth
             margin="normal"
@@ -106,10 +111,9 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             value={values.password}
             onChange={handleChange}
           />
-
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
-              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Create'}
+              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Sign up'}
             </Button>
           </Box>
         </form>
