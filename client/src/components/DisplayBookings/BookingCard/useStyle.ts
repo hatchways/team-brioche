@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid',
     borderColor: theme.palette.grey[200],
     margin: theme.spacing(1),
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius,
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(1),
@@ -32,14 +32,11 @@ const useStyles = makeStyles((theme) => ({
     padding: '0',
   },
   label: {
-    fontWeight: 'bolder',
+    fontWeight: theme.typography.fontWeightBold,
     fontSize: theme.spacing(3 / 2),
   },
   upComingDateLabel: {
-    fontSize: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      fontSize: theme.spacing(1.6),
-    },
+    fontSize: theme.typography.fontSize,
   },
   labelStatus: {
     color: theme.palette.grey[400],
