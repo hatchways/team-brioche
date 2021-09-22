@@ -15,13 +15,6 @@ export default function BookingCard(props: Props): JSX.Element {
   const { _id: id, accepted, declined, start, end, ownerId } = props.booking;
   const { username } = ownerId;
 
-  const cardImage = (
-    <img
-      className={clsx(classes.image, props.isUpcoming && classes.imageNext)}
-      src="https://source.unsplash.com/random/500x500"
-      alt="Dog Owner"
-    ></img>
-  );
   const getLabel = () => {
     if (accepted) return 'Accepted';
     if (declined) return 'Declined';
@@ -38,7 +31,11 @@ export default function BookingCard(props: Props): JSX.Element {
               {displayDateTime(start, end)}
             </Typography>
             <Grid container alignItems="center">
-              {cardImage}
+              <img
+                className={clsx(classes.image, props.isUpcoming && classes.imageNext)}
+                src="https://source.unsplash.com/random/500x500"
+                alt="Dog Owner"
+              ></img>
               <Typography
                 variant="h6"
                 className={clsx(classes.label, classes.padLeft, props.isUpcoming && classes.upComingDateLabel)}
