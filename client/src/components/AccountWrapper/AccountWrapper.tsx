@@ -19,7 +19,7 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, isLogin }) => {
             <Grid container>
               <Grid item xs>
                 <Typography align="center" className={classes.welcome} component="h1" variant="h5">
-                  Sign up
+                  {isLogin ? 'Login' : 'Sign up'}
                 </Typography>
               </Grid>
             </Grid>
