@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    minHeight: '70vh',
     paddingTop: 23,
   },
   welcome: {
@@ -41,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   redirect: {
     fontWeight: theme.typography.fontWeightBold,
+    margin: '2rem',
     '& a': {
       color: theme.palette.primary.main,
     },
