@@ -10,7 +10,6 @@ import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
-import { Button } from '@material-ui/core';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
