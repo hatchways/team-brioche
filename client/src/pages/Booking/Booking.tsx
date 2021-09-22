@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Box, Grid, Typography } from '@material-ui/core';
-import { useRequest, withReqeust } from '../../context/useRequestContext';
+import { useRequest, withRequest } from '../../context/useRequestContext';
 import CalendarView from '../../components/DisplayBookings/CalendarView/CalendarView';
 import BookingGroup from '../../components/DisplayBookings/BookingGroup/BookingGroup';
 import useStyles from './useStyles';
@@ -25,4 +25,4 @@ const Booking: FunctionComponent = (): JSX.Element => {
   );
 };
 
-export default withReqeust(Booking);
+export default withRequest(Booking);

@@ -60,7 +60,7 @@ export function useRequest(): ReqContext {
   return useContext(RequestContext);
 }
 
-export function withReqeust(Component: React.FunctionComponent): FunctionComponent {
+export function withRequest(Component: React.FunctionComponent): FunctionComponent {
   return function WithRequest(props) {
     return (
       <RequestProvider>
