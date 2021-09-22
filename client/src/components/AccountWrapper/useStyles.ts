@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '2rem',
     '& a': {
       color: theme.palette.primary.main,
+      marginLeft: theme.spacing(1),
     },
   },
 }));
