@@ -10,6 +10,7 @@ import LoginForm from './LoginForm/LoginForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { Link } from 'react-router-dom';
+import DemoUser from '../../components/DemoUser/DemoUser';
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
@@ -54,6 +55,7 @@ export default function Login(): JSX.Element {
               {"Don't have an account?"}
               <Link to="/signup">Create account</Link>
             </Typography>
+            <DemoUser />
           </Box>
         </Box>
       </Grid>
