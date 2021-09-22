@@ -1,28 +1,29 @@
-import { Link } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
-import useStyles from './useStyles';
-import login from '../../helpers/APICalls/login';
-import LoginForm from './LoginForm/LoginForm';
-import { useAuth } from '../../context/useAuthContext';
-import { useSnackBar } from '../../context/useSnackbarContext';
-import DemoUser from '../../components/DemoUser/DemoUser';
+import Typography from '@material-ui/core/Typography';
+import useStyles from '../useStyles';
+import register from '../../../helpers/APICalls/register';
+import SignUpForm from '../AuthForm/SignupForm/SignUpForm';
+import { useAuth } from '../../../context/useAuthContext';
+import { useSnackBar } from '../../../context/useSnackbarContext';
+import DemoUser from '../../../components/DemoUser/DemoUser';
 
-export default function Login(): JSX.Element {
+export default function Register(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
-    { email, password }: { email: string; password: string },
-    { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
+    { username, email, password }: { email: string; password: string; username: string },
+    { setSubmitting }: FormikHelpers<{ email: string; password: string; username: string }>,
   ) => {
-    login(email, password).then((data) => {
+    register(username, email, password).then((data) => {
       if (data.error) {
+        console.error({ error: data.error.message });
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
@@ -46,14 +47,14 @@ export default function Login(): JSX.Element {
             <Grid container>
               <Grid item xs>
                 <Typography align="center" className={classes.welcome} component="h1" variant="h5">
-                  Sign in
+                  Sign up
                 </Typography>
               </Grid>
             </Grid>
-            <LoginForm handleSubmit={handleSubmit} />
+            <SignUpForm handleSubmit={handleSubmit} />
             <Typography align="center" className={classes.redirect}>
-              {"Don't have an account?"}
-              <Link to="/signup">Create account</Link>
+              Already a member?
+              <Link to="./login">Login</Link>
             </Typography>
             <DemoUser />
           </Box>
