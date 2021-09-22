@@ -16,4 +16,14 @@ export const theme = createMuiTheme({
   shape: {
     borderRadius: 5,
   },
+  overrides: {
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          backgroundColor: 'inherit',
+        },
+        backgroundColor: 'inherit',
+      },
+    },
+  },
 });
