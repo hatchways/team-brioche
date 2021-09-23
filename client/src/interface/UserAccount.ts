@@ -1,15 +1,18 @@
 import { FormikHelpers } from 'formik';
 
-export interface Login {
+export interface LoginInput {
   email: string;
   password: string;
 }
 
-export interface Register {
+export interface RegisterInput {
   username: string;
   email: string;
   password: string;
 }
 
-export type HandleLogin = (login: Login, { setStatus, setSubmitting }: FormikHelpers<Login>) => void;
-export type HandleRegister = (register: Register, { setStatus, setSubmitting }: FormikHelpers<Register>) => void;
+export type HandleLogin = (login: LoginInput, { setStatus, setSubmitting }: FormikHelpers<LoginInput>) => void;
+export type HandleRegister = (
+  register: RegisterInput,
+  { setStatus, setSubmitting }: FormikHelpers<RegisterInput>,
+) => void;
