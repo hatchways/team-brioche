@@ -1,15 +1,25 @@
-import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { User } from '../../interface/User';
-export type ProtectedRouteProps = {
-  loggedInUser: User | null | undefined;
-} & RouteProps;
+import { Route, Redirect } from 'react-router-dom';
+import { useAuth } from '../../context/useAuthContext';
 
-const ProtectedRoute = ({ loggedInUser, ...routeProps }: ProtectedRouteProps): JSX.Element => {
-  if (loggedInUser) {
-    return <Route {...routeProps} />;
-  } else {
-    return <Redirect to={{ pathname: '/login' }} />;
-  }
+type ProtectedRouteProps = {
+  children: JSX.Element;
+  exact: boolean;
+  path: string;
+};
+
+const ProtectedRoute = ({ children, ...rest }: ProtectedRouteProps): JSX.Element => {
+  const { loggedInUser } = useAuth();
+
+  return (
+    <>
+      <Route
+        {...rest}
+        render={({ location }) =>
+          loggedInUser ? children : <Redirect to={{ pathname: '/login', state: { from: location } }} />
+        }
+      />
+    </>
+  );
 };
 
 export default ProtectedRoute;

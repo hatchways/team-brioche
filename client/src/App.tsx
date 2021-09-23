@@ -12,7 +12,6 @@ import './App.css';
 import { useAuth } from './context/useAuthContext';
 
 function App(): JSX.Element {
-  const { loggedInUser } = useAuth();
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -22,7 +21,9 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact loggedInUser={loggedInUser} path="/dashboard" component={Dashboard} />
+                <ProtectedRoute exact path="/dashboard">
+                  <Dashboard />
+                </ProtectedRoute>
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
