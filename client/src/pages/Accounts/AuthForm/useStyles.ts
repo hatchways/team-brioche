@@ -15,7 +15,13 @@ const useStyles = makeStyles((theme) => ({
   inputs: {
     marginTop: '.8rem',
     height: '2rem',
-    padding: '5px',
+    paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(1),
+    borderStyle: 'solid',
+    borderWidth: '3px',
+    borderColor: theme.palette.grey[200],
+    borderRadius: theme.shape.borderRadius,
   },
   forgot: {
     paddingRight: 10,
@@ -33,18 +39,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
   },
-  textField: {
-    '& .MuiInput-formControl': {
-      '& input': {
-        paddingLeft: theme.spacing(2),
-        paddingBottom: theme.spacing(1),
-        paddingTop: theme.spacing(1),
-        borderStyle: 'solid',
-        borderWidth: '3px',
-        borderColor: theme.palette.grey[200],
-        borderRadius: theme.shape.borderRadius,
-      },
-    },
+  circularProgress: {
+    color: 'white',
   },
 }));
 

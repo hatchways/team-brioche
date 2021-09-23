@@ -70,7 +70,6 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             error={touched.email && Boolean(errors.email)}
             value={values.email}
             onChange={handleChange}
-            className={classes.textField}
           />
           <TextField
             id="username"
@@ -92,7 +91,6 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             error={touched.username && Boolean(errors.username)}
             value={values.username}
             onChange={handleChange}
-            className={classes.textField}
           />
           <TextField
             id="password"
@@ -113,11 +111,10 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             error={touched.password && Boolean(errors.password)}
             value={values.password}
             onChange={handleChange}
-            className={classes.textField}
           />
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
-              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Sign up'}
+              {isSubmitting ? <CircularProgress className={classes.circularProgress} /> : 'Sign up'}
             </Button>
           </Box>
         </form>

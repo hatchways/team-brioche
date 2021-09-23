@@ -26,20 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   welcome: {
-    fontSize: 30,
     paddingBottom: 20,
-    color: '#000000',
-    fontWeight: 700,
-    fontFamily: "'Open Sans'",
-  },
-
-  redirect: {
-    fontWeight: theme.typography.fontWeightBold,
-    margin: theme.spacing(4),
-    '& a': {
-      color: theme.palette.primary.main,
-      marginLeft: theme.spacing(1),
-    },
   },
 }));
 
