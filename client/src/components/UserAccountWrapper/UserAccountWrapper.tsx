@@ -2,6 +2,7 @@ import { Box, CssBaseline, Grid, Paper, Typography } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import DemoUser from '../DemoUser/DemoUser';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import login from '../../helpers/APICalls/login';
@@ -65,6 +66,7 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, isLoginForm }) => 
               {isLoginForm ? 'Dont have an Account?' : 'Already a member?'}
               <Link to={isLoginForm ? '/signup' : '/login'}>{isLoginForm ? 'Sign up' : 'Login'}</Link>
             </Typography>
+            <DemoUser />
           </Box>
         </Box>
       </Grid>
