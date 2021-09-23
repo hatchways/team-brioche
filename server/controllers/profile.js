@@ -10,10 +10,7 @@ const { profile } = require("console");
 // @desc get all profiles
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
-  const profiles = await Profile.find(
-    {},
-    "firstName lastName profilePic galleryPics availability dob gender phone address description"
-  );
+  const profiles = await Profile.find({}, "-userId");
   if (!profiles.length) {
     res.status(400);
     throw new Error("No Profiles found");
