@@ -133,7 +133,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     new: true,
   });
   if (!newProfile) {
-    res.status(404);
+    res.status(500);
     throw new Error(
       "Somthing went wrong while updating you Profile. Please try again later."
     );

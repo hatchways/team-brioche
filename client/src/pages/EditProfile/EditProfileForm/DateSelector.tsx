@@ -37,9 +37,7 @@ const DateSelector = (): JSX.Element => {
       <FormControl>
         <Grid container>
           <Grid item>
-            <InputLabel>
-              <Typography>Year</Typography>
-            </InputLabel>
+            <InputLabel>Year</InputLabel>
           </Grid>
           <Grid item>
             <Select
@@ -60,7 +58,6 @@ const DateSelector = (): JSX.Element => {
           </Grid>
         </Grid>
       </FormControl>
-      {console.log(yearVal)}
       <FormControl>
         <Grid container>
           <InputLabel id="month">
