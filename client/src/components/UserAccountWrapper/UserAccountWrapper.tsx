@@ -51,8 +51,8 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, isLoginForm }) => 
   return (
     <Grid container justify="center" component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item elevation={6} className={classes.addMargin} component={Paper} square>
-        <Box className={classes.authWrapper}>
+      <Grid item elevation={6} className={classes.paper} component={Paper} square>
+        <Box display="flex" alignItems="flex-start" flexDirection="column" justifyContent="space-between">
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
