@@ -28,5 +28,4 @@ __snapshots__
 # debug & other vs code settings
 .vscode
 server/uploads/
-client/src/pages/EditProfile/EditProfileForm/betterDate.tsx
 client/src/pages/EditProfile/EditProfileForm/DateSelector.tsx
