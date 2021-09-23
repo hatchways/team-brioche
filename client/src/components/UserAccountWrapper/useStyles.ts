@@ -8,8 +8,9 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',
     },
   },
-  addMargin: {
+  paper: {
     marginTop: theme.spacing(6),
+    paddingTop: 23,
     height: 'min-content',
     [theme.breakpoints.up('xs')]: {
       width: '100%',
@@ -24,13 +25,6 @@ const useStyles = makeStyles((theme) => ({
       width: '50%',
     },
   },
-  authWrapper: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    paddingTop: 23,
-  },
   welcome: {
     fontSize: 30,
     paddingBottom: 20,
@@ -41,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
   redirect: {
     fontWeight: theme.typography.fontWeightBold,
-    margin: '2rem',
+    margin: theme.spacing(4),
     '& a': {
       color: theme.palette.primary.main,
       marginLeft: theme.spacing(1),

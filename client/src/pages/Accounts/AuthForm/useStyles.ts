@@ -44,11 +44,6 @@ const useStyles = makeStyles((theme) => ({
         borderColor: theme.palette.grey[200],
         borderRadius: theme.shape.borderRadius,
       },
-      '& p': {
-        marginTop: theme.spacing(6),
-        paddingLeft: '5px',
-        paddingRight: '0px',
-      },
     },
   },
 }));
