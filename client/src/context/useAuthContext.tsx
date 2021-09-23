@@ -2,19 +2,23 @@ import { useState, useContext, createContext, FunctionComponent, useEffect, useC
 import { useHistory } from 'react-router-dom';
 import { AuthApiData, AuthApiDataSuccess } from '../interface/AuthApiData';
 import { User } from '../interface/User';
+import { Profile, ProfileCreated, ProfileCreateSuccess } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
-
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
   logout: () => void;
+  profileData?: ProfileCreated | null | undefined;
+  updateProfileContext: (data: ProfileCreateSuccess) => void;
 }
 
 export const AuthContext = createContext<IAuthContext>({
   loggedInUser: undefined,
   updateLoginContext: () => null,
   logout: () => null,
+  profileData: undefined,
+  updateProfileContext: () => null,
 });
 
 export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
@@ -28,6 +32,15 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       history.push('/edit-profile');
     },
     [history],
+  );
+  const [profileData, setProfileData] = useState<ProfileCreated | null | undefined>();
+
+  const updateProfileContext = useCallback(
+    (data: ProfileCreateSuccess) => {
+      setProfileData(data?.profile);
+      history.push(`/edit-profile/${profileData?.profileId}`);
+    },
+    [history, profileData],
   );
 
   const logout = useCallback(async () => {
@@ -46,7 +59,9 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await loginWithCookies().then((data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);
-          history.push('/edit-profile');
+          if (profileData) {
+            history.push(`/edit-profile/${profileData.profileId}`);
+          }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
           setLoggedInUser(null);
@@ -55,9 +70,13 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       });
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, history]);
+  }, [updateLoginContext, history, profileData]);
 
-  return <AuthContext.Provider value={{ loggedInUser, updateLoginContext, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export function useAuth(): IAuthContext {

@@ -28,6 +28,9 @@ function App(): JSX.Element {
                 <Route exact path="/edit-profile">
                   <EditProfile />
                 </Route>
+                <Route path="/edit-profile/:id">
+                  <EditProfile />
+                </Route>
                 <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
                   <Redirect to="/login" />

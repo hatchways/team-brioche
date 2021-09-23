@@ -1,6 +1,5 @@
-import { AuthApiData } from '../../interface/AuthApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
-import { Profile } from '../../interface/Profile';
+import { Profile, ProfileCreateSuccess } from '../../interface/Profile';
 interface Props {
   id: string;
 }
@@ -13,7 +12,7 @@ interface UpdateProfile {
   description?: string;
   availability?: [string];
 }
-const profileCreate = async (
+export async function profileCreate(
   firstName: string,
   lastName: string,
   gender: string,
@@ -21,7 +20,7 @@ const profileCreate = async (
   address: string,
   description: string,
   availability: [string],
-): Promise<AuthApiData> => {
+): Promise<ProfileCreateSuccess> {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +32,7 @@ const profileCreate = async (
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
     }));
-};
+}
 export async function profileGet({ id }: Props): Promise<Profile> {
   const fetchOptions: FetchOptions = {
     method: 'GET',
@@ -46,15 +45,18 @@ export async function profileGet({ id }: Props): Promise<Profile> {
     }));
 }
 
-export async function profileUpdate(updatedData: UpdateProfile, id: string): Promise<Profile> {
+export async function profileUpdate(
+  { firstName, lastName, gender, phone, address, description, availability }: UpdateProfile,
+  id: string,
+): Promise<any> {
+  console.log({ firstName, lastName, gender, phone, address, description, availability });
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     credentials: 'include',
-    body: JSON.stringify(updatedData),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ firstName, lastName, gender, phone, address, description, availability }),
   };
   return await fetch(`/profile/${id}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({ error: { message: 'Unable to connect.Please try again' } }));
 }
-
-export default profileCreate;

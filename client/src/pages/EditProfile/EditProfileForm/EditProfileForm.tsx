@@ -8,31 +8,63 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import Select from '@mui/material/Select';
-import profileCreate from '../../../helpers/APICalls/profile';
+import { profileCreate, profileUpdate } from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
+import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
+
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
+  const { updateProfileContext, profileData } = useAuth();
   const handleSubmit = (
     { firstName, lastName, gender, phone, address, description, availability }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
-    profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
-      if (data.error) {
-        setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        setSubmitting(false);
-        updateSnackBarMessage('Profile Created');
-      } else {
-        setSubmitting(false);
-      }
-    });
+    !profileData
+      ? profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
+          if (data.error) {
+            setSubmitting(false);
+            updateSnackBarMessage(data.error.message);
+          } else if (data) {
+            setSubmitting(false);
+            updateSnackBarMessage('Profile Created');
+            updateProfileContext(data);
+          } else {
+            setSubmitting(false);
+          }
+        })
+      : profileUpdate(
+          { firstName, lastName, gender, phone, address, description, availability },
+          profileData.profileId,
+        ).then((data) => {
+          if (data.error) {
+            setSubmitting(false);
+            updateSnackBarMessage(data.error.message);
+          } else if (data) {
+            console.log('update worked');
+            setSubmitting(false);
+            updateSnackBarMessage('Profile Updated');
+            updateProfileContext(data);
+          }
+        });
+    //================
+    // profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
+    //   if (data.error) {
+    //     setSubmitting(false);
+    //     updateSnackBarMessage(data.error.message);
+    //   } else if (data) {
+    //     setSubmitting(false);
+    //     updateSnackBarMessage('Profile Created');
+    //     updateProfileContext(data);
+    //   } else {
+    //     setSubmitting(false);
+    //   }
+    // });
   };
   const validateSchema = {
     firstName: Yup.string().required('First Name is required'),
@@ -203,7 +235,7 @@ const EditProfileForm = (): JSX.Element => {
           </Grid>
           <Box textAlign="center">
             <Button type="submit" size="large" variant="contained" color="primary">
-              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Create'}
+              {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : profileData ? 'Update' : 'Create'}
             </Button>
           </Box>
         </form>

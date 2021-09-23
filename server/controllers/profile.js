@@ -67,8 +67,12 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
       "Something went wrong with your profile please try again later"
     );
   }
-
-  res.status(201).send(profile);
+  res.status(201).json({
+    profile: {
+      profileId: profile._id,
+      profileData: { profile },
+    },
+  });
 });
 
 //@route GET /profiles/:_id
