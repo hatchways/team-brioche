@@ -9,7 +9,6 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
-import { useAuth } from './context/useAuthContext';
 
 function App(): JSX.Element {
   return (
