@@ -52,19 +52,6 @@ const EditProfileForm = (): JSX.Element => {
             updateProfileContext(data);
           }
         });
-    //================
-    // profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
-    //   if (data.error) {
-    //     setSubmitting(false);
-    //     updateSnackBarMessage(data.error.message);
-    //   } else if (data) {
-    //     setSubmitting(false);
-    //     updateSnackBarMessage('Profile Created');
-    //     updateProfileContext(data);
-    //   } else {
-    //     setSubmitting(false);
-    //   }
-    // });
   };
   const validateSchema = {
     firstName: Yup.string().required('First Name is required'),
