@@ -7,10 +7,12 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
+import { useAuth } from './context/useAuthContext';
 
 function App(): JSX.Element {
+  const { loggedInUser } = useAuth();
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -20,9 +22,7 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
+                <ProtectedRoute exact loggedInUser={loggedInUser} path="/dashboard" component={Dashboard} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
