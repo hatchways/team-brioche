@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(3),
     fontWeight: theme.typography.fontWeightBold,
   },
+  progress: {
+    color: 'white',
+  },
 }));
 
 export default useStyles;

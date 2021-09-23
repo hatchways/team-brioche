@@ -1,4 +1,5 @@
-import { Button, Typography, Grid } from '@material-ui/core';
+import { useState } from 'react';
+import { Button, Typography, Grid, CircularProgress } from '@material-ui/core';
 import login from '../../helpers/APICalls/login';
 import useStyles from './useStyles';
 import { useSnackBar } from '../../context/useSnackbarContext';
@@ -10,12 +11,14 @@ const PASSWORD = '123456';
 
 export default function DemoUser(): JSX.Element {
   const classes = useStyles();
-
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { updateSnackBarMessage } = useSnackBar();
   const { updateLoginContext } = useAuth();
 
   const handleLogin = (email: string, password: string) => {
+    setIsSubmitting(true);
     login(email, password).then((data) => {
+      setIsSubmitting(false);
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
@@ -37,7 +40,7 @@ export default function DemoUser(): JSX.Element {
         color="primary"
         className={classes.demoButton}
       >
-        Login as a visitor
+        {isSubmitting ? <CircularProgress size={18} className={classes.progress} /> : 'Login as a visitor'}
       </Button>
     </Grid>
   );
