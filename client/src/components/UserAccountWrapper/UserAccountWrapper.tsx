@@ -56,7 +56,7 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
         <Box display="flex" alignItems="flex-start" flexDirection="column" justifyContent="space-between">
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
-              <Grid item xs
+              <Grid item xs>
                 <Typography align="center" className={classes.welcome} component="h1" variant="h3">
                   {title}
                 </Typography>
