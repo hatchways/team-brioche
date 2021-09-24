@@ -4,7 +4,7 @@ import { User } from '../../interface/User';
 
 interface Props {
   user: User;
-  profilePic: string;
+  profilePic?: string;
 }
 
 const ProfileAvatar = ({ user, profilePic }: Props): JSX.Element => {

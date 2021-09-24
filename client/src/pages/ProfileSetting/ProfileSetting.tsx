@@ -8,12 +8,13 @@ import { useHistory } from 'react-router-dom';
 import ProfilePhoto from '../../components/ProfilePhoto/ProfilePhoto';
 import getProfile from '../../helpers/APICalls/getProfile';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { ProfileResponse } from '../../interface/ProfileResponse';
 
 export default function ProfileSetting(): JSX.Element {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
 
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState<ProfileResponse>({});
 
   const { loggedInUser } = useAuth();
 

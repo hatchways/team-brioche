@@ -21,17 +21,18 @@ import {
   DialogTitle,
   Modal,
 } from '@material-ui/core';
+import { ProfileResponse } from '../../interface/ProfileResponse';
 
 interface Props {
   loggedInUser: User;
-  profile: any;
-  setProfile: (nextProfile: any) => void;
+  profile: ProfileResponse;
+  setProfile: (nextProfile: ProfileResponse) => void;
 }
 
 const ProfilePhoto = ({ loggedInUser, profile, setProfile }: Props): JSX.Element => {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
-
+  console.log(profile);
   const [open, setOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [checkDelete, setCheckDelete] = useState(false);

@@ -43,14 +43,16 @@ exports.savePhoto = asyncHandler(async (req, res) => {
   
   if (profile) {
     const oldUrl = profile.profilePic;
-    const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
-    await cloudinary.uploader.destroy(publicId);
+    if (oldUri) {
+      const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
+      await cloudinary.uploader.destroy(publicId);
+    }
     res.status(200).json({
       success: { profilePic: urls[0] }
     });
   }
   else {
-    res.status(401);
+    res.status(404);
     throw new Error('User info is not correct');
   }
 });

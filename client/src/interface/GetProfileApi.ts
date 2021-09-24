@@ -1,5 +1,6 @@
+import { ProfileResponse } from './ProfileResponse';
 export interface GetProfileApiSuccess {
-  profile: any;
+  profile: ProfileResponse;
 }
 
 export interface GetProfileApi {
