@@ -25,10 +25,6 @@ const useStyles = makeStyles((theme) => ({
     top: '10px',
     right: '20px',
   },
-  forgot: {
-    paddingRight: 10,
-    color: '#3a8dff',
-  },
   container: {
     maxWidth: '550px',
     justifyContent: 'center',
