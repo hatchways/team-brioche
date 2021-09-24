@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
+    paddingTop: '15px',
+    paddingBottom: '15px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
   demoText: {
     paddingRight: theme.spacing(3),

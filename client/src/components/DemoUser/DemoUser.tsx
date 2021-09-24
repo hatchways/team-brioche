@@ -32,7 +32,7 @@ export default function DemoUser(): JSX.Element {
     });
   };
   return (
-    <Grid container justify="center" className={classes.addMargin}>
+    <Grid container justify="center" alignItems="center" className={classes.addMargin}>
       <Typography className={classes.demoText}>Want to try it out first?</Typography>
       <Button
         onClick={() => handleLogin(EMAIL, PASSWORD)}
@@ -40,7 +40,7 @@ export default function DemoUser(): JSX.Element {
         color="primary"
         className={classes.demoButton}
       >
-        {isSubmitting ? <CircularProgress size={18} className={classes.progress} /> : 'Login as a visitor'}
+        {isSubmitting ? <CircularProgress size={18} className={classes.progress} /> : 'Guest login'}
       </Button>
     </Grid>
   );
