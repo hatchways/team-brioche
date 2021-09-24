@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./User").Schema;
 const userSchema = require("./User");
 const profileSchema = new mongoose.Schema({
   firstName: {
@@ -29,7 +30,7 @@ const profileSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ["Male", "Female"],
+    enum: ["male", "female"],
   },
   phone: {
     type: Number,

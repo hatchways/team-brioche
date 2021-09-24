@@ -8,6 +8,6 @@ router.route("/").get(protect, getRequests)
 
 router.route("/").post(protect, validateNewRequest, createRequest)
 
-router.route("/:id").put(protect, validateRequestUpdate, updateRequest)
+router.route("/:id").patch(protect, validateRequestUpdate, updateRequest)
 
 module.exports = router
