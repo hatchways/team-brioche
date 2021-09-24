@@ -6,20 +6,21 @@ const connectDB = require('./db')
 
 connectDB()
 
-// save a user
-const user1 = {
-  username: "sitter1",
-  email: "s1@g.com",
+// Dog sitter
+const demoUser1 = {
+  username: "demoUser1",
+  email: "d1@g.com",
   password: "123456"
 }
 
-const user2 = {
-  username: "owner1",
-  email: "o1@g.com",
+// Dog owner
+const demoUser2 = {
+  username: "demoUser2",
+  email: "d2@g.com",
   password: "123456"
 }
 
-const users = [user1, user2]
+const users = [demoUser1, demoUser2]
 const Requests = [
   {
     start: '2021 sept 12 8:00 PM',
@@ -52,20 +53,17 @@ users.forEach(async user => await User.create(user))
 async function seedDb(){
 
 try {
-  const sitter = await User.findOne({ username: "sitter1" })
-  console.log(sitter)
+  const sitter = await User.findOne({ username: demoUser1.username })
+  console.log("sitter: ", sitter)
 
-  const owner = await User.findOne({ username: "owner1"})
-  console.log(owner)
+  const owner = await User.findOne({ username: demoUser2.username})
+  console.log("owner: ", owner)
 
   for(let element of Requests){
     await Request.create(wrap(owner, sitter, element))
   }
 
   console.log('seeding complete')
-  console.log("Please log in with the following credentials")
-  console.log('username: ' + user1.email)
-  console.log('Password: ' + user1.password)
   console.log('Exiting Process')
   process.exit()
 } catch (error) {

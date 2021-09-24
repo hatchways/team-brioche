@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './useStyles';
 import { User } from '../../interface/User';
-import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
+import ProfileAvatar from './ProfileAvatar/ProfileAvatar';
 
 interface Props {
   loggedInUser: User;
