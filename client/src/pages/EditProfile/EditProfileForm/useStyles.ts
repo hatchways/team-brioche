@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   availLabel: {
     position: 'relative',
     top: '10px',
-    right: '30px',
+    right: '20px',
   },
   forgot: {
     paddingRight: 10,
@@ -40,15 +40,29 @@ const useStyles = makeStyles((theme) => ({
       minHeight: '2rem',
     },
     margin: theme.spacing(2),
+    left: '16px',
   },
   select: {
-    marginLeft: '51px',
+    marginLeft: '24px',
     minWidth: '160px',
+    left: '24px',
   },
   availability: {
     minWidth: '410px',
     margin: theme.spacing(2),
     left: '35px',
+  },
+  phoneContainer: {
+    position: 'relative',
+    right: '130px',
+  },
+  addressContainer: {
+    position: 'relative',
+    left: '7px',
+  },
+  descContainer: {
+    position: 'relative',
+    left: '12px',
   },
   submit: {
     margin: theme.spacing(3, 2, 2),

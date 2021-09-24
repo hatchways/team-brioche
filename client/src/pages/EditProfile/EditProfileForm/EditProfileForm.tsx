@@ -168,7 +168,7 @@ const EditProfileForm = (): JSX.Element => {
               </Grid>
             </Grid>
           </FormControl>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.container} ${classes.phoneContainer}`} spacing={2}>
             <Label htmlFor="phone" cls={classes.label} labelName="Phone Number" />
             <Grid item>
               <TextField
@@ -179,13 +179,10 @@ const EditProfileForm = (): JSX.Element => {
                 variant="outlined"
                 fullWidth
                 placeholder=""
-                InputProps={{
-                  classes: { input: classes.inputs },
-                }}
               />
             </Grid>
           </Grid>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.addressContainer} ${classes.container}`} spacing={2}>
             <Label htmlFor="address" cls={classes.label} labelName="Address" />
             <Grid item>
               <TextField
@@ -201,7 +198,7 @@ const EditProfileForm = (): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.descContainer} ${classes.container}`} spacing={2}>
             <Label htmlFor="description" cls={classes.label} labelName="Description" />
             <Grid item>
               <TextField

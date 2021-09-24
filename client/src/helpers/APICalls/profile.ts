@@ -11,6 +11,7 @@ interface UpdateProfile {
   address?: string;
   description?: string;
   availability?: [string];
+  error?: { message: string };
 }
 export async function profileCreate(
   firstName: string,
@@ -48,7 +49,7 @@ export async function profileGet({ id }: Props): Promise<Profile> {
 export async function profileUpdate(
   { firstName, lastName, gender, phone, address, description, availability }: UpdateProfile,
   id: string,
-): Promise<any> {
+): Promise<UpdateProfile> {
   console.log({ firstName, lastName, gender, phone, address, description, availability });
   const fetchOptions: FetchOptions = {
     method: 'PUT',
