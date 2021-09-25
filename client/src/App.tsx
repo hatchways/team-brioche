@@ -1,19 +1,22 @@
-import { MuiThemeProvider } from '@material-ui/core';
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import Login from './pages/Login/Login';
-import Signup from './pages/SignUp/SignUp';
+import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import Login from './pages/Accounts/Login/Login';
+import Signup from './pages/Accounts/Signup/SignUp';
 
 import './App.css';
 
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <SnackBarProvider>
           <AuthProvider>
@@ -21,9 +24,10 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
+                <Route exact path="/booking" component={Booking} />
+                <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
-                </Route>
+                </ProtectedRoute>
                 <Route exact path="/profile/:id">
                   <Profile />
                 </Route>

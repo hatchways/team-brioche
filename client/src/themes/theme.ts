@@ -10,9 +10,20 @@ export const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: { main: '#3A8DFF' },
+    primary: { main: '#f04040' },
+    secondary: { main: '#8c8c8c' },
   },
   shape: {
     borderRadius: 5,
+  },
+  overrides: {
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          backgroundColor: 'inherit',
+        },
+        backgroundColor: 'inherit',
+      },
+    },
   },
 });
