@@ -1,6 +1,5 @@
-import { Grid, Paper, Typography, ImageList, ImageListItem } from '@material-ui/core/';
+import { Grid, Paper, Typography } from '@material-ui/core/';
 import useStyles from './useStyles';
-import { useParams } from 'react-router-dom';
 
 export default function Profile(): JSX.Element {
   const classes = useStyles();
