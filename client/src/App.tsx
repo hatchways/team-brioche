@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+
 import './App.css';
 
 function App(): JSX.Element {
@@ -23,13 +25,10 @@ function App(): JSX.Element {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/booking" component={Booking} />
-                <Route exact path="/dashboard">
+                <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
-                </Route>
+                </ProtectedRoute>
                 <Route exact path="/edit-profile">
-                  <EditProfile />
-                </Route>
-                <Route path="/edit-profile/:id">
                   <EditProfile />
                 </Route>
                 {/* <Route exact path="/profile" component={ProfileSetting} /> */}
