@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   aboutContainer: {
     margin: theme.spacing(4),
+    position: 'relative',
+    bottom: '90px',
   },
   description: {
     maxWidth: '680px',
