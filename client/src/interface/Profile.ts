@@ -1,12 +1,22 @@
+import { User } from './User';
 export interface Profile {
+  _id: string;
   firstName: string;
   lastName: string;
-  gender: string;
+  dob: string;
+  user: User;
+  profilePics: string;
+  gallaryPics: string[];
+  gender: Gender;
   phone: number;
   address: string;
   description: string;
-  availability: [string];
+  availability: string[];
+  introduction: string;
+  pitch: string;
+  rate: number;
 }
+
 export interface Profiles {
   Profiles?: Profiles[];
   error?: { message: string };
@@ -19,3 +29,4 @@ export interface ProfileCreateSuccess {
   error?: { message: string };
   profile?: ProfileCreated;
 }
+type Gender = 'male' | 'female';

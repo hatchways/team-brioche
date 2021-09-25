@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const User = require("./User").Schema;
-const userSchema = require("./User");
+
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -41,6 +40,15 @@ const profileSchema = new mongoose.Schema({
   },
   address: {
     type: String,
+  },
+  introduction: {
+    type: String,
+  },
+  pitch: {
+    type: String,
+  },
+  rate: {
+    type: Number,
   },
 });
 

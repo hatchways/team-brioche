@@ -32,13 +32,7 @@ const requestSchema = new mongoose.Schema({
     default: false,
   },
 });
-requestSchema.methods.isNotConsistent = function(){
-  if(this.declined && this.accepted){
-    // request is not consistent
-    return true
-  }
-  return false
-}
+
 const Request = mongoose.model("request", requestSchema);
 
 module.exports = Request;
