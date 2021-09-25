@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Grid, InputLabel, FormControl, MenuItem } from '@material-ui/core/';
+import { Grid, FormControl, MenuItem } from '@material-ui/core/';
 import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
-import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import Select from '@mui/material/Select';
@@ -13,7 +13,6 @@ import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
-
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -21,8 +20,9 @@ const EditProfileForm = (): JSX.Element => {
   const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
+  const [value, setValue] = useState<Date | null>(null);
   const handleSubmit = (
-    { firstName, lastName, gender, phone, address, description, availability }: Profile,
+    { firstName, lastName, gender, phone, address, description, availability, dob }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
     !profileData
@@ -46,7 +46,6 @@ const EditProfileForm = (): JSX.Element => {
             setSubmitting(false);
             updateSnackBarMessage(data.error.message);
           } else if (data) {
-            console.log('update worked');
             setSubmitting(false);
             updateSnackBarMessage('Profile Updated');
             updateProfileContext(data);
@@ -58,6 +57,7 @@ const EditProfileForm = (): JSX.Element => {
     lastName: Yup.string().required('Last Name is required'),
     gender: Yup.string().required('Gender is required'),
     phone: Yup.number().required('Phone number is required'),
+    dob: Yup.string(),
     description: Yup.string(),
     availability: Yup.array().required('Availability is required'),
   };
@@ -74,16 +74,18 @@ const EditProfileForm = (): JSX.Element => {
       initialValues={{
         firstName: '',
         lastName: '',
-        gender: '',
+        gender: 'male',
         address: '',
+        dob: '',
         phone: 1234567890,
         description: '',
         availability: [''],
       }}
       validationSchema={Yup.object().shape(validateSchema)}
+      validateOnChange
       onSubmit={handleSubmit}
     >
-      {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
+      {({ handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container className={classes.container} spacing={2}>
             <Label htmlFor="firstName" cls={classes.label} labelName="First Name" />

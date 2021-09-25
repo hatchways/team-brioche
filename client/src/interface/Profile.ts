@@ -1,20 +1,21 @@
 import { User } from './User';
+import * as Yup from 'yup';
 export interface Profile {
-  _id: string;
+  _id?: string;
   firstName: string;
   lastName: string;
-  dob: string;
-  user: User;
-  profilePics: string;
-  gallaryPics: string[];
+  dob?: string;
+  user?: User;
+  profilePics?: string;
+  gallaryPics?: string[];
   gender: Gender;
   phone: number;
   address: string;
   description: string;
-  availability: string[];
-  introduction: string;
-  pitch: string;
-  rate: number;
+  availability: [string];
+  introduction?: string;
+  pitch?: string;
+  rate?: number;
 }
 
 export interface Profiles {

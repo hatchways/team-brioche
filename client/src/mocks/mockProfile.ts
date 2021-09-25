@@ -1,5 +1,5 @@
 import { Profile, ProfileCreated } from '../interface/Profile';
-
+import { mockLoggedInUser } from './mockUser';
 const mockProfile: Profile = {
   firstName: 'Abc',
   lastName: 'Jkl',
@@ -8,6 +8,14 @@ const mockProfile: Profile = {
   address: 'Some address',
   description: 'Somethinh',
   availability: [''],
+  _id: '',
+  dob: '',
+  user: mockLoggedInUser,
+  profilePics: '',
+  gallaryPics: [],
+  introduction: '',
+  pitch: '',
+  rate: 0,
 };
 const mockProfileCreated: ProfileCreated = {
   profileData: mockProfile,

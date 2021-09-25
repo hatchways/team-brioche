@@ -1,5 +1,5 @@
 import { FormControl, Grid, MenuItem, InputLabel, Typography, Select } from '@mui/material';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import useInputState from './useInputState';
 const DateSelector = (): JSX.Element => {
   const currentDate = new Date();
@@ -19,7 +19,7 @@ const DateSelector = (): JSX.Element => {
     'April',
     'May',
     'June',
-    'Julu',
+    'July',
     'August',
     'September',
     'October',
@@ -27,11 +27,17 @@ const DateSelector = (): JSX.Element => {
     'December',
   ];
   const [yearVal, handleYearChange] = useInputState(2000);
-  const [monthVal, handleMonthChange] = useInputState(2000);
-  const [dateVal, handleDateChange] = useInputState(2000);
+  const [monthVal, handleMonthChange] = useInputState(0);
+  const [dateVal, handleDateChange] = useInputState(0);
   const dates = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
+  const sMonths = ['April', 'June', 'September', 'November'];
+  const lMonths = ['January', 'March', 'May', 'July', 'August', 'October', 'December'];
+  const feb = [...dates].splice(0, 28);
+  const leapFeb = [...dates].splice(0, 29);
+  const sDates = [...dates].splice(0, 30);
+  const [dob, setDob] = useState('');
   return (
     <>
       <FormControl>
@@ -89,8 +95,41 @@ const DateSelector = (): JSX.Element => {
               Date
             </Typography>
           </InputLabel>
-          <Select id="dateSelect" labelId="date" variant="outlined" name="date" inputProps={{ 'aria-label': 'age' }}>
-            {/* {if(leapYear(yearVal)&& monthVal="February") return({days.splice()}) } */}
+          <Select
+            id="dateSelect"
+            labelId="date"
+            variant="outlined"
+            name="date"
+            onChange={handleDateChange}
+            value={dateVal}
+            inputProps={{ 'aria-label': 'date' }}
+          >
+            {leapYear(yearVal) &&
+              monthVal === 'February' &&
+              leapFeb.map((date) => (
+                <MenuItem key={date} value={date}>
+                  {date}
+                </MenuItem>
+              ))}
+            {!leapYear(yearVal) &&
+              monthVal === 'February' &&
+              feb.map((date) => (
+                <MenuItem key={date} value={date}>
+                  {date}
+                </MenuItem>
+              ))}
+            {sMonths.indexOf(monthVal) !== -1 &&
+              sDates.map((date) => (
+                <MenuItem key={date} value={date}>
+                  {date}
+                </MenuItem>
+              ))}
+            {lMonths.indexOf(monthVal) !== -1 &&
+              dates.map((date) => (
+                <MenuItem key={date} value={date}>
+                  {date}
+                </MenuItem>
+              ))}
           </Select>
         </Grid>
       </FormControl>

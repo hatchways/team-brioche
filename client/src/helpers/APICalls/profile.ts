@@ -9,6 +9,7 @@ interface UpdateProfile {
   gender?: string;
   phone?: number;
   address?: string;
+  dob?: string;
   description?: string;
   availability?: [string];
   error?: { message: string };
@@ -21,11 +22,12 @@ export async function profileCreate(
   address: string,
   description: string,
   availability: [string],
+  dob?: string,
 ): Promise<ProfileCreateSuccess> {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, gender, phone, address, description, availability }),
+    body: JSON.stringify({ firstName, lastName, gender, phone, address, description, dob, availability }),
     credentials: 'include',
   };
   return await fetch(`/profile`, fetchOptions)
@@ -50,7 +52,6 @@ export async function profileUpdate(
   { firstName, lastName, gender, phone, address, description, availability }: UpdateProfile,
   id: string,
 ): Promise<UpdateProfile> {
-  console.log({ firstName, lastName, gender, phone, address, description, availability });
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     credentials: 'include',
