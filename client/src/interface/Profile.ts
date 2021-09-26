@@ -6,7 +6,7 @@ export interface Profile {
   lastName: string;
   dob?: string;
   user?: User;
-  profilePics?: string;
+  profilePic?: string;
   gallaryPics?: string[];
   gender: Gender;
   phone: number;
