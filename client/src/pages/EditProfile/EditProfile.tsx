@@ -20,7 +20,7 @@ export default function EditProfile(): JSX.Element {
   }
 
   return (
-    <Grid container component="main" justifyContent="center" className={classes.root}>
+    <Grid container component="main" className={classes.root}>
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>
         <Box>
           <Box width="100%" p={3} alignSelf="center">

@@ -4,6 +4,7 @@ const useStyles = makeStyles(() => ({
   root: {
     minHeight: '100vh',
     marginTop: '6vh',
+    justifyContent: 'center',
   },
   welcome: {
     fontSize: 26,

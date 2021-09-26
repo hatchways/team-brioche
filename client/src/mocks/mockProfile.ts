@@ -12,7 +12,7 @@ const mockProfile: Profile = {
   dob: '',
   user: mockLoggedInUser,
   profilePics: '',
-  gallaryPics: [],
+  galleryPics: [],
   introduction: '',
   pitch: '',
   rate: 0,

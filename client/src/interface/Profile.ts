@@ -1,5 +1,4 @@
 import { User } from './User';
-import * as Yup from 'yup';
 export interface Profile {
   _id?: string;
   firstName: string;
@@ -7,14 +6,14 @@ export interface Profile {
   dob?: string;
   user?: User;
   profilePics?: string;
-  gallaryPics?: string[];
+  galleryPics?: string[];
   gender: Gender;
+  introduction?: string;
+  pitch?: string;
   phone: number;
   address: string;
   description: string;
   availability: [string];
-  introduction?: string;
-  pitch?: string;
   rate?: number;
 }
 

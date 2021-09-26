@@ -22,11 +22,21 @@ const EditProfileForm = (): JSX.Element => {
   const { updateProfileContext, profileData } = useAuth();
   const [value, setValue] = useState<Date | null>(null);
   const handleSubmit = (
-    { firstName, lastName, gender, phone, address, description, availability, dob }: Profile,
+    { firstName, lastName, gender, introduction, pitch, phone, address, description, availability }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
     !profileData
-      ? profileCreate(firstName, lastName, gender, phone, address, description, availability).then((data) => {
+      ? profileCreate(
+          firstName,
+          lastName,
+          gender,
+          introduction || '',
+          pitch || '',
+          phone,
+          address,
+          description,
+          availability,
+        ).then((data) => {
           if (data.error) {
             setSubmitting(false);
             updateSnackBarMessage(data.error.message);
@@ -39,7 +49,7 @@ const EditProfileForm = (): JSX.Element => {
           }
         })
       : profileUpdate(
-          { firstName, lastName, gender, phone, address, description, availability },
+          { firstName, lastName, gender, introduction, pitch, phone, address, description, availability },
           profileData.profileId,
         ).then((data) => {
           if (data.error) {
@@ -56,6 +66,8 @@ const EditProfileForm = (): JSX.Element => {
     firstName: Yup.string().required('First Name is required'),
     lastName: Yup.string().required('Last Name is required'),
     gender: Yup.string().required('Gender is required'),
+    introduction: Yup.string(),
+    pitch: Yup.string().required('Pitch is required'),
     phone: Yup.number().required('Phone number is required'),
     dob: Yup.string(),
     description: Yup.string(),
@@ -76,6 +88,8 @@ const EditProfileForm = (): JSX.Element => {
         lastName: '',
         gender: 'male',
         address: '',
+        introduction: 'Some Intro',
+        pitch: '',
         dob: '',
         phone: 1234567890,
         description: '',
@@ -124,7 +138,7 @@ const EditProfileForm = (): JSX.Element => {
             </Grid>
           </Grid>
           <FormControl className={classes.genderControl}>
-            <Grid container justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+            <Grid container alignItems="flex-start" spacing={2}>
               <Label cls={classes.label} labelName="Gender" htmlFor="gender" />
               <Grid item>
                 <Select
@@ -143,7 +157,41 @@ const EditProfileForm = (): JSX.Element => {
               </Grid>
             </Grid>
           </FormControl>
-          <FormControl>
+          <Grid container className={classes.container} spacing={2}>
+            <Label htmlFor="introduction" cls={classes.label} labelName="Introduction" />
+            <Grid item>
+              <TextField
+                id="introduction"
+                margin="normal"
+                onChange={handleChange}
+                value={values.introduction}
+                variant="outlined"
+                fullWidth
+                placeholder="Doe"
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
+              />
+            </Grid>
+          </Grid>
+          <Grid container className={classes.container} spacing={2}>
+            <Label htmlFor="pitch" cls={classes.label} labelName="Pitch" />
+            <Grid item>
+              <TextField
+                id="pitch"
+                margin="normal"
+                onChange={handleChange}
+                value={values.pitch}
+                variant="outlined"
+                fullWidth
+                placeholder="Dog sitting, bird sitting,etc"
+                InputProps={{
+                  classes: { input: classes.inputs },
+                }}
+              />
+            </Grid>
+          </Grid>
+          {/* <FormControl>
             <Grid container className={classes.container} spacing={2}>
               <Label htmlFor="availability" cls={`${classes.label} ${classes.availLabel}`} labelName="Availability" />
               <Grid item>
@@ -169,7 +217,7 @@ const EditProfileForm = (): JSX.Element => {
                 </Field>
               </Grid>
             </Grid>
-          </FormControl>
+          </FormControl> */}
           <Grid container className={`${classes.container} ${classes.phoneContainer}`} spacing={2}>
             <Label htmlFor="phone" cls={classes.label} labelName="Phone Number" />
             <Grid item>

@@ -7,6 +7,7 @@ const {
   createProfile,
   getProfile,
   updateProfile,
+  getProfileByUser,
   savePhoto,
 } = require("../controllers/profile");
 
@@ -16,7 +17,9 @@ router.route("/").get(protect, loadProfiles); //get all the profiles
 
 router.route("/").post(protect, createProfile); //create a new profile
 
-router.route("/:id").get(protect, getProfile); //Get a profile with ID
+router.route("/:id").get(protect, getProfile); //Get a profile with  profileID
+
+router.route("/user/:id").get(getProfileByUser); //Get profile with UserID
 
 router.route("/:id").put(protect, updateProfile); //Edit a profile with a particular ID
 

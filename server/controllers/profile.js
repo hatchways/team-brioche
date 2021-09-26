@@ -92,6 +92,25 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
   res.status(200).send(profile);
 });
 
+//@route GET /profiles/user/:userid
+//@desc find one profile with a particular ID
+//access Private
+exports.getProfileByUser = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(400);
+    throw new Error("Bad request");
+  }
+  const profile = await Profile.findOne({ userId: id });
+
+  if (!profile) {
+    res.status(404);
+    throw new Error("This User doesn't have a profile");
+  }
+
+  res.status(200).send(profile);
+});
+
 //@route UPDATE/PUT /profiles/:_id
 //@desc find one profile with a particular ID and update the info within
 //access private
