@@ -13,6 +13,7 @@ interface RouteLink {
   component: FunctionComponent;
 }
 
+// Add new features by updating this array
 const links: RouteLink[] = [
   {
     name: 'Edit profile',
