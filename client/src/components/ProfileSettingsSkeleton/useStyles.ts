@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   linkText: {
-    color: theme.palette.grey[400],
+    color: theme.palette.grey[500],
     fontWeight: theme.typography.fontWeightBold,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
