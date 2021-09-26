@@ -7,7 +7,7 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
-import ProfileSkeleton from './components/ProfileSkeleton/ProfileSkeleton';
+import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 
 import './App.css';
 

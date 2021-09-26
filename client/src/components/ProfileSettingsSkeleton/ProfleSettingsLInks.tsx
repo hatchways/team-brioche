@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
-import ProfilePhoto from './../../pages/ProfileSetting/ProfileSetting';
+import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
 
 // Render in place of unavailable features during development
 const Unavailable: FunctionComponent = (): JSX.Element => {

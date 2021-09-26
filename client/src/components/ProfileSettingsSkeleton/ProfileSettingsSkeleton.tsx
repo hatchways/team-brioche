@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Box, Grid, Typography, Button, Menu, MenuItem } from '@material-ui/core';
-import links from './ProfleLInks';
+import links from './ProfleSettingsLInks';
 import useStyles from './useStyles';
 
 export default function ProfileSkeleton(): JSX.Element {
