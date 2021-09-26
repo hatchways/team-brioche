@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100vh',
   },
   nav: {
+    paddingTop: theme.spacing(4),
     [theme.breakpoints.up('xs')]: {
       display: 'none',
     },
