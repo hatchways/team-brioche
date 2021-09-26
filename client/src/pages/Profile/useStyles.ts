@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid white',
     boxShadow: '-1px 9px 11px -5px rgb(0 0 0 / 35%)',
   },
+  locationIcon: {
+    position: 'relative',
+    top: '5px',
+  },
   aboutContainer: {
     margin: theme.spacing(4),
     position: 'relative',
@@ -49,6 +53,18 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     width: '400px',
     height: '500px',
+  },
+  dateContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  requestContainer: {
+    padding: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
   },
 }));
 
