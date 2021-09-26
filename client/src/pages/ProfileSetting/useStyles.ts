@@ -9,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(15),
-    paddingLeft: theme.spacing(10),
-    paddingRight: theme.spacing(10),
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(10),
+      paddingRight: theme.spacing(10),
+    },
   },
 }));
 
