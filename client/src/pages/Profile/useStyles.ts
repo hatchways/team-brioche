@@ -1,17 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '100vh',
-    '& .MuiInput-underline:before': {
-      borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',
-    },
-  },
   profileContainer: {
     margin: theme.spacing(4),
+    height: '900px',
     maxWidth: '760px',
   },
   coverImage: {
-    maxHeight: '360px',
+    maxHeight: '260px',
     width: '760px',
     borderRadius: theme.shape.borderRadius,
   },
