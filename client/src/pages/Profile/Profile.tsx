@@ -1,24 +1,60 @@
 import { Grid, Paper, Typography, Button } from '@material-ui/core/';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useStyles from './useStyles';
+import { useParams } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
+import { profileGet } from '../../helpers/APICalls/profile';
+interface ProfileParams {
+  id: string;
+}
+export interface ProfileI {
+  firstName: string;
+  lastName: string;
+  profilePics?: string;
+  gallaryPics?: string[];
+  gender: string;
+  description: string;
+  introduction?: string;
+  pitch?: string;
+  rate?: number;
+  error?: string;
+}
 export default function Profile(): JSX.Element {
   const classes = useStyles();
+  const { id } = useParams<ProfileParams>();
+  const initialData = {
+    firstName: '',
+    lastName: '',
+    city: '',
+    description: '',
+  };
+  const [profile, setProfile] = useState<ProfileI | null | undefined>();
   const [dropInValue, setDropInValue] = useState<Date | null>(new Date());
   const [dropOffValue, setDropOffValue] = useState<Date | null>(new Date());
+  useEffect(() => {
+    profileGet({ id }).then((data) => {
+      if (data.error) {
+        console.error(data.error);
+      } else if (data) {
+        console.log(data);
+        setProfile(data);
+      }
+    });
+  });
   return (
     <Grid container>
       <Paper className={classes.profileContainer}>
         <img className={classes.coverImage} src="/pics/cover-sample.jpg" alt="Cover Photo" />
         <Grid container className={classes.basicInfoContainer} direction="column" alignItems="center">
           <img className={classes.profilePic} src="/pics/profilepic-sample.jpg" alt="Profile Pic" />
-          <Typography variant="h4">Norma Byers</Typography>
+          <Typography variant="h4">
+            {profile?.firstName} {profile?.lastName}
+          </Typography>
           <Typography variant="subtitle1">Loving Pet Sitter</Typography>
-
           <Typography variant="subtitle2">
             <LocationOnIcon fontSize="small" className={classes.locationIcon} /> Toronto,ON
           </Typography>
