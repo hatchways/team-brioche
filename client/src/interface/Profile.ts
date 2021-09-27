@@ -5,7 +5,7 @@ export interface Profile {
   firstName: string;
   lastName: string;
   dob: string;
-  profilePic: string;
+  profilePic?: string;
   gallaryPics?: string[];
   gender: Gender;
   phone?: string;

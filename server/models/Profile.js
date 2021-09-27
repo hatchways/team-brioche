@@ -20,35 +20,43 @@ const profileSchema = new mongoose.Schema({
   },
   profilePic: {
     type: String,
+    default: "",
   },
   galleryPics: {
     type: [String],
+    default: [],
   },
   description: {
     type: String,
+    required: true,
   },
   availability: {
     type: [String],
+    default: [],
   },
   gender: {
     type: String,
-    enum: ["male", "female"],
+    enum: ["male", "female", "none binary", "prefer not to say"],
   },
   phone: {
-    type: Number,
+    type: String,
     unique: true,
   },
   address: {
     type: String,
+    required: true,
   },
   introduction: {
     type: String,
+    required: true,
   },
   pitch: {
     type: String,
+    required: true,
   },
   rate: {
     type: Number,
+    required: true,
   },
 });
 
