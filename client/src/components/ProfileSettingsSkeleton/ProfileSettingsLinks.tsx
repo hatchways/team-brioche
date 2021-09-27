@@ -24,7 +24,7 @@ interface RouteLink {
 
 const displayText = 'please modify the profileSettingsLinks.tsx file to add feature';
 // Add new features by updating this array
-const Links: RouteLink[] = [
+const links: RouteLink[] = [
   {
     name: 'Edit profile',
     path: '/edit-profile',
@@ -57,4 +57,4 @@ const Links: RouteLink[] = [
   },
 ];
 
-export default Links;
+export default links;
