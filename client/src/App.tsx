@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
 import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
@@ -22,10 +23,9 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route path="/profile" component={ProfileSkeleton} />
-                <Route exact path="/dashboard">
+                <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
-                </Route>
+                </ProtectedRoute>
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
