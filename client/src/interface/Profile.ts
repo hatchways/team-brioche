@@ -1,18 +1,23 @@
-type Gender = 'male' | 'female' | 'none binary' | 'prefer not to say';
+type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
+
+interface Availability {
+  dateRange: { startDate: string; endDate: string };
+  weeklyTimeRange: Array<{ startTime: string; endTime: string }>;
+}
 
 export interface Profile {
   _id?: string;
-  firstName: string;
-  lastName: string;
-  dob: string;
+  firstName?: string;
+  lastName?: string;
+  dob?: string;
   profilePic?: string;
   gallaryPics?: string[];
-  gender: Gender;
+  gender?: Gender;
   phone?: string;
-  address: string;
-  description: string;
-  availability: string[];
-  introduction: string;
-  pitch: string;
-  rate: number;
+  address?: string;
+  description?: string;
+  availability?: Availability;
+  introduction?: string;
+  pitch?: string;
+  rate?: number;
 }

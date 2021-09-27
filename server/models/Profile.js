@@ -28,35 +28,29 @@ const profileSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   availability: {
-    type: [String],
-    default: [],
+    dateRange: { startDate: String, endDate: String },
+    weeklyTimeRange: [{ startTime: String, endTime: String }],
   },
   gender: {
     type: String,
-    enum: ["male", "female", "none binary", "prefer not to say"],
+    enum: ["male", "female", "non-binary", "prefer not to say"],
   },
   phone: {
     type: String,
-    unique: true,
   },
   address: {
     type: String,
-    required: true,
   },
   introduction: {
     type: String,
-    required: true,
   },
   pitch: {
     type: String,
-    required: true,
   },
   rate: {
     type: Number,
-    required: true,
   },
 });
 
