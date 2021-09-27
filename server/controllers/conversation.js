@@ -19,12 +19,11 @@ exports.createConversationViaProfile = asyncHandler(async (req, res, next) => {
 
   res.status(201).json(conversation);
 });
+
 exports.createConversation = asyncHandler(async (req, res, next) => {
+  const { receiverId } = req.body;
   const senderId = req.user.id;
-  const { profileId } = req.body;
-  const receiver = await Profile.findById(profileId);
-  !receiver && res.status(400).json({ error });
-  const receiverId = receiver.userId;
+  !receiverId && res.status(400).json({ error });
   const conversation = await Conversation.create({
     members: [senderId, receiverId],
   });
@@ -35,6 +34,7 @@ exports.createConversation = asyncHandler(async (req, res, next) => {
 
   res.status(201).json(conversation);
 });
+
 exports.getConversations = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   const conversations = await Conversation.find({
