@@ -1,13 +1,10 @@
-import { User } from './User';
-
-type Gender = 'male' | 'female';
+type Gender = 'male' | 'female' | 'none binary' | 'prefer not to say';
 
 export interface Profile {
   _id: string;
   firstName: string;
   lastName: string;
   dob: string;
-  user: User;
   profilePics: string;
   gallaryPics: string[];
   gender: Gender;
