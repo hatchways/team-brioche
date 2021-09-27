@@ -1,6 +1,4 @@
 const asyncHandler = require("express-async-handler");
-const User = require("../models/User");
-const Profile = require("../models/Profile");
 const Conversation = require("../models/Conversation");
 exports.createConversation = asyncHandler(async (req, res, next) => {
   const senderId = req.user.id;
