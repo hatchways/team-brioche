@@ -8,11 +8,11 @@ const Notification = require("../models/Notification");
 // @access Private
 exports.allNotifications = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
-  const userId = user?._id;
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
   }
+  const userId = user._id;
 
   const notifications = await Notification.find({userId});
   res.status(200).send(notifications);
@@ -23,11 +23,11 @@ exports.allNotifications = asyncHandler(async (req, res) => {
 // @access Private
 exports.unreadNotifications = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
-  const userId = user?._id;
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
   }
+  const userId = user._id;
 
   const notifications = await Notification.find({userId, read: false});
   res.status(200).send(notifications);
@@ -38,11 +38,11 @@ exports.unreadNotifications = asyncHandler(async (req, res) => {
 //@access Private
 exports.createNotification = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
-  const userId = user?._id;unreadNotifications
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
   }
+  const userId = user._id;
   const {
     type,
     title,
