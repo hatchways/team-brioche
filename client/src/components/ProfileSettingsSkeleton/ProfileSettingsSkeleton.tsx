@@ -3,9 +3,10 @@ import { Link, Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Box, Grid, Typography, Button, Menu, MenuItem } from '@material-ui/core';
-import links from './ProfleSettingsLinks';
+import { Box, Grid, Typography, Button, Menu, MenuItem, List, ListItem, ListItemText } from '@material-ui/core';
+
 import useStyles from './useStyles';
+import Links from './ProfileSettingsLinks';
 
 export default function ProfileSkeleton(): JSX.Element {
   const classes = useStyles();
@@ -28,13 +29,22 @@ export default function ProfileSkeleton(): JSX.Element {
   return (
     <Grid container className={classes.root}>
       <Box component="nav" className={classes.nav}>
-        {links.map((link) => (
+        <List>
+          {Links.map((link) => (
+            <ListItem key={link.name} autoFocus={true}>
+              <Link to={`/profile${link.path}`}>
+                <ListItemText>{link.name}</ListItemText>
+              </Link>
+            </ListItem>
+          ))}
+        </List>
+        {/* {links.map((link) => (
           <Link className={classes.link} key={link.name} to={`/profile${link.path}`}>
             <Typography align="left" className={clsx(classes.linkText, isLinkActive(link.path) && classes.active)}>
               {link.name}
             </Typography>
           </Link>
-        ))}
+        ))} */}
       </Box>
       <Box component="section" className={classes.section}>
         {/* Hamburger menu button */}
@@ -58,13 +68,10 @@ export default function ProfileSkeleton(): JSX.Element {
               'aria-labelledby': 'basic-button',
             }}
           >
-            {links.map((link) => (
+            {Links.map((link) => (
               <MenuItem key={link.name} onClick={handleMenuClose}>
                 <Link className={classes.link} to={`/profile${link.path}`}>
-                  <Typography
-                    align="left"
-                    className={clsx(classes.linkText, isLinkActive(link.path) && classes.active)}
-                  >
+                  <Typography className={clsx(classes.linkText, isLinkActive(link.path) && classes.active)}>
                     {link.name}
                   </Typography>
                 </Link>
@@ -74,7 +81,7 @@ export default function ProfileSkeleton(): JSX.Element {
         </Box>
         <Box>
           <Switch>
-            {links.map((link) => (
+            {Links.map((link) => (
               <Route key={link.name} exact path={`/profile${link.path}`} render={() => link.component} />
             ))}
           </Switch>

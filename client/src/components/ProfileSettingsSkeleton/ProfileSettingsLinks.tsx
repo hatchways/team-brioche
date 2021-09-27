@@ -22,9 +22,9 @@ interface RouteLink {
   component: JSX.Element;
 }
 
-// Add new features by updating this array
 const displayText = 'please modify the profileSettingsLinks.tsx file to add feature';
-const links: RouteLink[] = [
+// Add new features by updating this array
+const Links: RouteLink[] = [
   {
     name: 'Edit profile',
     path: '/edit-profile',
@@ -57,4 +57,4 @@ const links: RouteLink[] = [
   },
 ];
 
-export default links;
+export default Links;
