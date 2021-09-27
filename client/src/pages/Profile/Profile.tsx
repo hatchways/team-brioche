@@ -19,7 +19,7 @@ export default function Profile(): JSX.Element {
           <Typography variant="h4">Norma Byers</Typography>
           <Typography variant="subtitle1">Loving Pet Sitter</Typography>
 
-          <Typography variant="subtitle2">
+          <Typography color="primary" variant="subtitle2">
             <LocationOnIcon fontSize="small" className={classes.locationIcon} /> Toronto,ON
           </Typography>
         </Grid>
