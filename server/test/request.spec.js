@@ -5,4 +5,4 @@ const app = require("../app.js");
 chai.should();
 chai.use(chaiHttp);
 
-describe("Testing the request endpoint", () => {})
+describe("Testing the request endpoint", () => {});
