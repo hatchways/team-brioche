@@ -20,23 +20,25 @@ const profileSchema = new mongoose.Schema({
   },
   profilePic: {
     type: String,
+    default: "",
   },
   galleryPics: {
     type: [String],
+    default: [],
   },
   description: {
     type: String,
   },
   availability: {
-    type: [String],
+    dateRange: { startDate: String, endDate: String },
+    weeklyTimeRange: [{ startTime: String, endTime: String }],
   },
   gender: {
     type: String,
-    enum: ["male", "female"],
+    enum: ["male", "female", "non-binary", "prefer not to say"],
   },
   phone: {
-    type: Number,
-    unique: true,
+    type: String,
   },
   address: {
     type: String,
