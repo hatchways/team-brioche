@@ -8,6 +8,7 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
+import ProfileListing from './components/ProfileListings/ProfileListings/ProfileListing';
 
 import './App.css';
 
@@ -23,6 +24,7 @@ function App(): JSX.Element {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/booking" component={Booking} />
+                <Route exact path="/profile-listings" component={ProfileListing} />
                 <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
