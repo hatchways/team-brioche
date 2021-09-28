@@ -8,12 +8,12 @@ const {
   notificationRead
 } = require("../controllers/notification");
 
-router.route("/").get(protect, allNotifications); //get all the notifications
+router.route("/").get(protect, allNotifications);
 
-router.route("/unread").get(protect, unreadNotifications); //get all unread notifications
+router.route("/unread").get(protect, unreadNotifications);
 
-router.route("/").post(protect, createNotification); //create a new notification
+router.route("/").post(protect, createNotification);
 
-router.route("/:id").put(protect, notificationRead); //set notification read
+router.route("/:id").put(protect, notificationRead);
 
 module.exports = router;
