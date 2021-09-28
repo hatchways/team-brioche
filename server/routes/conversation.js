@@ -7,8 +7,8 @@ const {
   createConversationViaProfile,
 } = require("../controllers/conversation");
 
-router.route("/").get(protect, getConversations); //GET a conversation
-router.route("/").post(protect, createConversation); //CREATE a conversation
-router.route("/profile").post(protect, createConversationViaProfile); //CREATE a conversation
+router.route("/").get(protect, getConversations);
+router.route("/").post(protect, createConversation);
+router.route("/profile").post(protect, createConversationViaProfile);
 
 module.exports = router;

@@ -2,10 +2,13 @@ const asyncHandler = require("express-async-handler");
 const Conversation = require("../models/Conversation");
 const Profile = require("../models/Profile");
 
-//For scenario where ownerId will contact other user Via profile
 exports.createConversationViaProfile = asyncHandler(async (req, res, next) => {
   const senderId = req.user.id;
   const { profileId } = req.body;
+  if (!profileId) {
+    res.status(400);
+    throw new Error("Bad Request");
+  }
   const receiver = await Profile.findById(profileId);
   !receiver && res.status(400).json({ error });
   const receiverId = receiver.userId;
