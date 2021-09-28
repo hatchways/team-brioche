@@ -5,6 +5,7 @@ import { User } from '../interface/User';
 import { Profile, ProfileCreated, ProfileCreateSuccess } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
+import { profileGetByUser } from '../helpers/APICalls/profile';
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
@@ -29,7 +30,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateLoginContext = useCallback(
     (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
-      history.push('/edit-profile');
+      history.push('/dashboard');
     },
     [history],
   );
@@ -38,9 +39,9 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateProfileContext = useCallback(
     (data: ProfileCreateSuccess) => {
       setProfileData(data?.profile);
-      history.push(`/edit-profile/${profileData?.profileId}`);
+      history.push(`/dashboard}`);
     },
-    [history, profileData],
+    [history],
   );
 
   const logout = useCallback(async () => {
@@ -49,9 +50,26 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       .then(() => {
         history.push('/login');
         setLoggedInUser(null);
+        setProfileData(null);
       })
       .catch((error) => console.error(error));
   }, [history]);
+
+  useEffect(() => {
+    const hasProfile = async () => {
+      await profileGetByUser().then((data: any) => {
+        console.log(data);
+        const profile: ProfileCreateSuccess = data;
+        if (data._id) {
+          updateProfileContext(profile);
+          history.push('/dashboard');
+        } else {
+          history.push('/edit-profile');
+        }
+      });
+    };
+    hasProfile();
+  }, [history, loggedInUser, updateProfileContext]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
@@ -60,9 +78,9 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
         if (data.success) {
           updateLoginContext(data.success);
           if (profileData) {
-            history.push(`dashboard`);
+            history.push(`/dashboard`);
           } else {
-            history.push(`profile`);
+            history.push(`/edit-profile`);
           }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend

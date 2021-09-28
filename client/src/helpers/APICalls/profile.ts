@@ -60,12 +60,12 @@ export async function profileGet({ id }: Props): Promise<Profile> {
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 }
-export async function profileGetByUser({ id }: Props): Promise<Profile> {
+export async function profileGetByUser(): Promise<ProfileCreateSuccess> {
   const fetchOptions: FetchOptions = {
     method: 'GET',
     credentials: 'include',
   };
-  return await fetch(`/profile/user/${id}`, fetchOptions)
+  return await fetch(`/users/profile/`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

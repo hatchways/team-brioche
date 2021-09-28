@@ -92,14 +92,14 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
   res.status(200).send(profile);
 });
 
-//@route GET /profiles/user/:userid
+//@route GET /profiles OF LOGGED IN USER
 //@desc find one profile with a particular ID
 //access Private
 exports.getProfileByUser = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  const id = mongoose.Types.ObjectId(req.user.id);
   if (!id) {
-    res.status(400);
-    throw new Error("Bad request");
+    res.status(400).json({ error });
+    // throw new Error("User not logged in");
   }
   const profile = await Profile.findOne({ userId: id });
 

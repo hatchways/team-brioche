@@ -50,7 +50,7 @@ const EditProfileForm = (): JSX.Element => {
         })
       : profileUpdate(
           { firstName, lastName, gender, introduction, pitch, phone, address, description, availability },
-          profileData.profileId,
+          profileData.profileId!,
         ).then((data) => {
           if (data.error) {
             setSubmitting(false);
