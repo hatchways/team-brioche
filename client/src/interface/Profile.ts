@@ -11,7 +11,7 @@ export interface Profile {
   lastName?: string;
   dob?: string;
   profilePic?: string;
-  gallaryPics?: string[];
+  galleryPics?: string[];
   gender?: Gender;
   phone?: string;
   address?: string;
