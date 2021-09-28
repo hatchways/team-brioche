@@ -10,7 +10,7 @@ import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 import './App.css';
 
 function App(): JSX.Element {
@@ -31,7 +31,7 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-profile">
                   <EditProfile />
                 </ProtectedRoute>
-                {/* <Route exact path="/profile" component={ProfileSetting} /> */}
+                <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
