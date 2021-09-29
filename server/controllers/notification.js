@@ -74,11 +74,11 @@ exports.notificationRead = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
   const notification = await Notification.findById(id);
   if (user._id !== notification.userId) {
-    res.status(404);
+    res.status(401);
     throw new Error("You are not Authorized to change this read state");
   }
 
-  const updatedNotification = await Notification.findByIdAndUpdate(id, {read: true});
+  const updatedNotification = await Notification.updateOne(id, {read: true});
   if (!updatedNotification) {
     res.status(404);
     throw new Error(
