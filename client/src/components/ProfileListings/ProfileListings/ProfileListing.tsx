@@ -71,7 +71,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
         setIsLoading(false);
         updateSnackBarMessage('An error occured while fetching your request please try again');
       });
-    return;
   }, [updateSnackBarMessage, addressQuery, startDateQuery, endDateQuery]);
 
   // Number of profile cards to display at a time
@@ -190,7 +189,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
             )}
           </Grid>
         )}
-        {showPagination && (
+        {!isLoading && showPagination && (
           <Pagination
             onChange={(e, value) => setCurrentPage(value)}
             page={currentPage}
