@@ -1,10 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  Skeleton: {
-    height: '50vh',
-    width: '20vh',
-  },
   loading: {
     margin: `${theme.spacing(10)}px 0`,
   },

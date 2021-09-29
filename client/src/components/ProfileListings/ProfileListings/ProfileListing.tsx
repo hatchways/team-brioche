@@ -22,7 +22,7 @@ interface Props {
   range?: DayRange;
 }
 
-// Optional props may be passed to the component directly or through query strings
+// Optional props may be passed to this component directly or through query strings
 export default function ProfileListings({ address, range }: Props): JSX.Element {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [uniqueAddress, setUniqueAddress] = useState<string[]>([]);
@@ -46,6 +46,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   const { search } = useLocation();
 
   useEffect(() => {
+    //
     const query = queryString.parse(search);
     const { addressTest, startDateTest, endDateTest } = verfyProfileQuery(query);
 
