@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   searchContainer: {
     margin: `${theme.spacing(4)}px 0`,
   },
-  bolder: {
+  bold: {
     fontWeight: 'bolder',
   },
   formContainer: {

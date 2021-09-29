@@ -11,30 +11,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   imageContainer: {
-    padding: theme.spacing(2),
-    marginTop: '0',
-    marginBottom: '0',
+    margin: '0',
     [theme.breakpoints.down('sm')]: {
       padding: '0.2rem',
     },
   },
   image: {
+    margin: '1rem 0',
     borderRadius: '50%',
-    height: theme.spacing(14),
-    width: theme.spacing(14),
+    height: theme.spacing(10),
+    width: theme.spacing(10),
     objectFit: 'cover',
   },
   paper: {
-    maxWidth: theme.spacing(45),
-    minHeight: theme.spacing(45),
-    margin: theme.spacing(2),
     display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: theme.spacing(30),
-      maxHeight: theme.spacing(40),
-      overflow: 'hidden',
-    },
+    margin: theme.spacing(4),
+    width: theme.spacing(30),
+    height: 'min-content',
+    maxHeight: theme.spacing(40),
+    overflow: 'hidden',
     '&:hover': {
       overflow: 'auto',
     },
@@ -44,16 +39,27 @@ const useStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar-thumb': {
       background: theme.palette.secondary.light,
     },
+    flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: theme.spacing(30),
+      maxHeight: theme.spacing(40),
+      margin: theme.spacing(2),
+    },
   },
+  imageText: {},
   textBold: {
     fontWeight: theme.typography.fontWeightBold,
+  },
+  pitch: {
+    fontWeight: theme.typography.fontWeightBold,
+    padding: '0 10px',
   },
   introduction: {
     color: theme.palette.grey[600],
   },
   footer: {
     borderTop: `2px solid ${theme.palette.grey[400]}`,
-    padding: `1.5rem 0.5rem`,
+    padding: `0.5rem 0.5rem`,
     marginTop: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
@@ -74,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[400],
   },
   rating: {
-    margin: '2rem 0',
+    margin: '0.5rem 0',
     [theme.breakpoints.down('sm')]: {
       margin: 0,
     },

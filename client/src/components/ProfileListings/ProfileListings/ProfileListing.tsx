@@ -52,6 +52,8 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       .then((data) => {
         setProfiles(data.profiles);
         setUniqueAddress(data.uniqueAddress);
+        // reset pagination after each Query
+        setPage({ pageStart: 0, pageEnd: PageLimit });
         setIsLoading(false);
       })
       .catch(() => {
@@ -80,7 +82,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Grid container direction="column" alignItems="center" className={classes.searchContainer}>
         <Grid item container alignItems="center" direction="column">
-          <Typography align="center" variant="h3" component="h1" className={classes.bolder}>
+          <Typography align="center" variant="h3" component="h1" className={classes.bold}>
             Your search Results
           </Typography>
           <form onSubmit={(e) => e.preventDefault()}>
@@ -163,7 +165,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
             {profiles.length > PageLimit && !showPagination && (
               <Grid container justify="center">
                 <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
-                  <Typography variant="h6" className={classes.bolder}>
+                  <Typography variant="h6" className={classes.bold}>
                     Show more
                   </Typography>
                 </Button>

@@ -8,7 +8,10 @@ interface ProfileResponse {
 }
 // eslint-disable-next-line
 export async function getList(address: string | undefined, range: DayRange): Promise<ProfileResponse> {
-  const mockProfiles = getMock();
+  const mockProfiles = getMock().filter((profile) => {
+    if (address) return profile.address.includes(address);
+    return true;
+  });
   return await Promise.resolve({
     profiles: mockProfiles,
     uniqueAddress: getUniqueAddress(mockProfiles),
