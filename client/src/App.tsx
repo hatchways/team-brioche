@@ -1,4 +1,6 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import { LocalizationProvider } from '@mui/lab';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Booking from './pages/Booking/Booking';
@@ -20,18 +22,20 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/booking" component={Booking} />
-                <Route exact path="/profile-listings" component={ProfileListings} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <Route exact path="/booking" component={Booking} />
+                  <Route exact path="/profile-listings" component={ProfileListings} />
+                  <Route exact path="/dashboard">
+                    <Dashboard />
+                  </Route>
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </LocalizationProvider>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>
