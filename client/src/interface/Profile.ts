@@ -5,6 +5,7 @@ export interface Profile {
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
+  coverPic?: string;
   gender?: Gender;
   phone?: string;
   address?: string;
@@ -13,6 +14,7 @@ export interface Profile {
   introduction?: string;
   pitch?: string;
   rate?: number;
+  error?: string;
 }
 
 export interface Profiles {

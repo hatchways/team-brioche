@@ -12,13 +12,14 @@ interface ProfileParams {
   id: string;
 }
 interface ProfileI {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   profilePic?: string;
   galleryPics?: string[];
-  gender: string;
-  description: string;
+  gender?: string;
+  description?: string;
   introduction?: string;
+  coverPic?: string;
   pitch?: string;
   rate?: number;
   error?: string;
@@ -48,7 +49,7 @@ export default function Profile(): JSX.Element {
   return (
     <Grid container>
       <Paper className={classes.profileContainer}>
-        <img className={classes.coverImage} src="/pics/cover-sample.jpg" alt="Cover Photo" />
+        <img className={classes.coverImage} src={profile?.coverPic} alt="Cover Photo" />
         <Grid container className={classes.basicInfoContainer} direction="column" alignItems="center">
           <img className={classes.profilePic} src={profile?.profilePic} alt="Profile Pic" />
           <Typography variant="h4">
@@ -74,8 +75,8 @@ export default function Profile(): JSX.Element {
       <Paper className={classes.bookingContainer}>
         <Grid container className={classes.requestContainer}>
           <Typography variant="h5">$14/hr</Typography>
-          <Grid container className={classes.dateContainer}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Grid container className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop In"
@@ -84,10 +85,8 @@ export default function Profile(): JSX.Element {
                   setDropInValue(newValue);
                 }}
               />
-            </LocalizationProvider>
-          </Grid>
-          <Grid container className={classes.dateContainer}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            </Grid>
+            <Grid container className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop Off"
@@ -96,8 +95,8 @@ export default function Profile(): JSX.Element {
                   setDropOffValue(newValue);
                 }}
               />
-            </LocalizationProvider>
-          </Grid>
+            </Grid>
+          </LocalizationProvider>
           <Button color="primary">Send Request</Button>
         </Grid>
       </Paper>
