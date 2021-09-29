@@ -22,34 +22,26 @@ const EditProfileForm = (): JSX.Element => {
   const { updateProfileContext, profileData } = useAuth();
   const [value, setValue] = useState<Date | null>(null);
   const handleSubmit = (
-    { firstName, lastName, gender, introduction, pitch, phone, address, description, availability }: Profile,
+    { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
     !profileData
-      ? profileCreate(
-          firstName,
-          lastName,
-          gender,
-          introduction || '',
-          pitch || '',
-          phone,
-          address,
-          description,
-          availability,
-        ).then((data) => {
-          if (data.error) {
-            setSubmitting(false);
-            updateSnackBarMessage(data.error.message);
-          } else if (data) {
-            setSubmitting(false);
-            updateSnackBarMessage('Profile Created');
-            updateProfileContext(data);
-          } else {
-            setSubmitting(false);
-          }
-        })
+      ? profileCreate(firstName, lastName, gender, introduction || '', pitch || '', phone, address, description)
+          .then()
+          .then((data) => {
+            if (data.error) {
+              setSubmitting(false);
+              updateSnackBarMessage(data.error.message);
+            } else if (data) {
+              setSubmitting(false);
+              updateSnackBarMessage('Profile Created');
+              updateProfileContext(data);
+            } else {
+              setSubmitting(false);
+            }
+          })
       : profileUpdate(
-          { firstName, lastName, gender, introduction, pitch, phone, address, description, availability },
+          { firstName, lastName, gender, introduction, pitch, phone, address, description },
           profileData.profileId!,
         ).then((data) => {
           if (data.error) {
@@ -93,7 +85,6 @@ const EditProfileForm = (): JSX.Element => {
         dob: '',
         phone: 1234567890,
         description: '',
-        availability: [''],
       }}
       validationSchema={Yup.object().shape(validateSchema)}
       validateOnChange

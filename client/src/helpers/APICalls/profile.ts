@@ -17,15 +17,14 @@ interface UpdateProfile {
   error?: { message: string };
 }
 export async function profileCreate(
-  firstName: string,
-  lastName: string,
-  gender: string,
-  introduction: string,
-  pitch: string,
-  phone: number,
-  address: string,
-  description: string,
-  availability: [string],
+  firstName?: string,
+  lastName?: string,
+  gender?: string,
+  introduction?: string,
+  pitch?: string,
+  phone?: number,
+  address?: string,
+  description?: string,
 ): Promise<ProfileCreateSuccess> {
   const fetchOptions: FetchOptions = {
     method: 'POST',
@@ -39,7 +38,6 @@ export async function profileCreate(
       phone,
       address,
       description,
-      availability,
     }),
     credentials: 'include',
   };

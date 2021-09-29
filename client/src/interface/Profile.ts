@@ -3,13 +3,13 @@ import * as Yup from 'yup';
 
 export interface Profile {
   _id?: string;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
   gender?: Gender;
-  phone?: string;
+  phone?: number;
   address?: string;
   description?: string;
   availability?: Availability;

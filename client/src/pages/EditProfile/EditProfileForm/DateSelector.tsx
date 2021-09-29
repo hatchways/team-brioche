@@ -1,6 +1,6 @@
 import { FormControl, Grid, MenuItem, InputLabel, Typography, Select } from '@mui/material';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import useInputState from './useInputState';
 const DateSelector = (): JSX.Element => {

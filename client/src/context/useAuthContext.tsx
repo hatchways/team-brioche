@@ -62,7 +62,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
         const profile: ProfileCreateSuccess = data;
         if (data._id) {
           updateProfileContext(profile);
-          history.push('/dashboard');
+          history.push('/edit-profile/availability');
         } else {
           history.push('/edit-profile');
         }
@@ -78,7 +78,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
         if (data.success) {
           updateLoginContext(data.success);
           if (profileData) {
-            history.push(`/dashboard`);
+            history.push(`/edit-profile/availability`);
           } else {
             history.push(`/edit-profile`);
           }
