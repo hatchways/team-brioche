@@ -1,4 +1,6 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import { LocalizationProvider } from '@mui/lab';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';

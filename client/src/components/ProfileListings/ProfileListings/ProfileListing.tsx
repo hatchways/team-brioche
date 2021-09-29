@@ -6,8 +6,8 @@ import queryString from 'query-string';
 import { Box, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Pagination, TextField, Autocomplete } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/lab';
-import AdapterMoment from '@mui/lab/AdapterMoment';
+import { DatePicker } from '@mui/lab';
+
 import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import { useSnackBar } from '../../../context/useSnackbarContext';
@@ -96,109 +96,107 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <Grid container direction="column" alignItems="center" className={classes.searchContainer}>
-        <Grid item container alignItems="center" direction="column">
-          <Typography align="center" variant="h3" component="h1" className={classes.bold}>
-            Your search Results
-          </Typography>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <Grid container justify="center" className={classes.formContainer}>
-              <Autocomplete
-                id="asynchronous address search"
-                options={uniqueAddress}
-                onInputChange={(e, value) => setAddressText(value)}
-                noOptionsText="No Match Found"
-                freeSolo
-                autoSelect
-                blurOnSelect
-                loading={isLoading}
-                className={clsx(classes.input, classes.autocomplete)}
+    <Grid container direction="column" alignItems="center" className={classes.searchContainer}>
+      <Grid item container alignItems="center" direction="column">
+        <Typography align="center" variant="h3" component="h1" className={classes.bold}>
+          Your search Results
+        </Typography>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <Grid container justify="center" className={classes.formContainer}>
+            <Autocomplete
+              id="asynchronous address search"
+              options={uniqueAddress}
+              onInputChange={(e, value) => setAddressText(value)}
+              noOptionsText="No Match Found"
+              freeSolo
+              autoSelect
+              blurOnSelect
+              loading={isLoading}
+              className={clsx(classes.input, classes.autocomplete)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Address"
+                  placeholder="Location e.g Toronto"
+                  color="warning"
+                  InputProps={{
+                    ...params.InputProps,
+                    startAdornment: <SearchIcon color="primary" />,
+                  }}
+                />
+              )}
+            />
+            <Box className={classes.input}>
+              <DatePicker
+                value={startDate}
+                onChange={(value) => setStartDate(value)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Address"
-                    placeholder="Location e.g Toronto"
                     color="warning"
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: <SearchIcon color="primary" />,
-                    }}
+                    inputProps={{ ...params.inputProps, className: classes.datePicker }}
+                    label="Drop in"
                   />
                 )}
               />
-              <Box className={classes.input}>
-                <DatePicker
-                  value={startDate}
-                  onChange={(value) => setStartDate(value)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      color="warning"
-                      inputProps={{ ...params.inputProps, className: classes.datePicker }}
-                      label="Drop in"
-                    />
-                  )}
-                />
-              </Box>
-              <Box className={classes.input}>
-                <DatePicker
-                  value={endDate}
-                  onChange={(value) => setEndDate(value)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      color="warning"
-                      inputProps={{ ...params.inputProps, className: classes.datePicker }}
-                      label="Drop off"
-                    />
-                  )}
-                />
-              </Box>
-            </Grid>
-          </form>
-        </Grid>
-        {isLoading ? (
-          <Box>
-            <Typography variant="h5" align="center">
-              Getting search results
-            </Typography>
-            {[
-              ['Address', addressText],
-              ['Drop in', getDateString(startDate)],
-              ['Drop off', getDateString(endDate)],
-            ].map((message) => (
-              <Typography key={message[0]}>
-                {message[0]}: {message[1]}
-              </Typography>
-            ))}
-            <Box display="flex" justifyContent="center">
-              <CircularProgress size="10rem" className={classes.loading} />
             </Box>
-          </Box>
-        ) : (
-          <Grid xl={8} lg={9} md={10} item container justify="center">
-            {profiles.length ? profileCards : <Typography variant="h4">No Results to display</Typography>}
-            {profiles.length > PageLimit && !showPagination && (
-              <Grid container justify="center">
-                <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
-                  <Typography variant="h6" className={classes.bold}>
-                    Show more
-                  </Typography>
-                </Button>
-              </Grid>
-            )}
+            <Box className={classes.input}>
+              <DatePicker
+                value={endDate}
+                onChange={(value) => setEndDate(value)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    color="warning"
+                    inputProps={{ ...params.inputProps, className: classes.datePicker }}
+                    label="Drop off"
+                  />
+                )}
+              />
+            </Box>
           </Grid>
-        )}
-        {!isLoading && showPagination && (
-          <Pagination
-            onChange={(e, value) => setCurrentPage(value)}
-            page={currentPage}
-            count={numberOfPages}
-            className={classes.pagination}
-          />
-        )}
+        </form>
       </Grid>
-    </LocalizationProvider>
+      {isLoading ? (
+        <Box>
+          <Typography variant="h5" align="center">
+            Getting search results
+          </Typography>
+          {[
+            ['Address', addressText],
+            ['Drop in', getDateString(startDate)],
+            ['Drop off', getDateString(endDate)],
+          ].map((message) => (
+            <Typography key={message[0]}>
+              {message[0]}: {message[1]}
+            </Typography>
+          ))}
+          <Box display="flex" justifyContent="center">
+            <CircularProgress size="10rem" className={classes.loading} />
+          </Box>
+        </Box>
+      ) : (
+        <Grid xl={8} lg={9} md={10} item container justify="center">
+          {profiles.length ? profileCards : <Typography variant="h4">No Results to display</Typography>}
+          {profiles.length > PageLimit && !showPagination && (
+            <Grid container justify="center">
+              <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
+                <Typography variant="h6" className={classes.bold}>
+                  Show more
+                </Typography>
+              </Button>
+            </Grid>
+          )}
+        </Grid>
+      )}
+      {!isLoading && showPagination && (
+        <Pagination
+          onChange={(e, value) => setCurrentPage(value)}
+          page={currentPage}
+          count={numberOfPages}
+          className={classes.pagination}
+        />
+      )}
+    </Grid>
   );
 }
