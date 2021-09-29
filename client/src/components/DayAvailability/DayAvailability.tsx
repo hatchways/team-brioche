@@ -11,7 +11,6 @@ export default function DayAvailability({ day }: Props): JSX.Element {
   const classes = useStyles();
   const [fromVal, handleFromChange] = useInputState('');
   const [toVal, handleToChange] = useInputState('');
-  const [toHours, setToHours] = useState([]);
   const { loggedInUser } = useAuth();
   const history = useHistory();
   const hours = [
@@ -41,12 +40,6 @@ export default function DayAvailability({ day }: Props): JSX.Element {
     '11PM',
   ];
 
-  // useEffect(() => {
-  //   const pos = hours.indexOf(fromVal);
-  //   const newHours = hours.filter((hour, i) => i >= pos);
-  //   setToHours(newHours);
-  // }, [fromVal, hours]);
-
   if (loggedInUser === undefined) return <CircularProgress />;
   if (!loggedInUser) {
     history.push('/login');
@@ -55,45 +48,43 @@ export default function DayAvailability({ day }: Props): JSX.Element {
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container direction="row" component="main" className={classes.root}>
       <Typography variant="h5">{day}</Typography>
-      <form action="">
-        <FormControl className={classes.selectContainer} fullWidth>
-          <InputLabel id="demo-simple-select-label">From</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={fromVal}
-            onChange={handleFromChange}
-            label="Age"
-          >
-            {hours.map((hour) => (
-              <MenuItem key={hour} value={hour}>
-                {hour}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">To</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            value={toVal}
-            onChange={handleToChange}
-            id="demo-simple-select"
-            label="Age"
-          >
-            {hours.map(
-              (hour, i) =>
-                i > hours.indexOf(fromVal) && (
-                  <MenuItem key={hour} value={hour}>
-                    {hour}
-                  </MenuItem>
-                ),
-            )}
-          </Select>
-        </FormControl>
-      </form>
+      <FormControl className={classes.selectContainer} fullWidth>
+        <InputLabel id="demo-simple-select-label">From</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={fromVal}
+          onChange={handleFromChange}
+          label="Age"
+        >
+          {hours.map((hour) => (
+            <MenuItem key={hour} value={hour}>
+              {hour}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">To</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          value={toVal}
+          onChange={handleToChange}
+          id="demo-simple-select"
+          label="Age"
+        >
+          {hours.map(
+            (hour, i) =>
+              i > hours.indexOf(fromVal) && (
+                <MenuItem key={hour} value={hour}>
+                  {hour}
+                </MenuItem>
+              ),
+          )}
+        </Select>
+      </FormControl>
     </Grid>
   );
 }

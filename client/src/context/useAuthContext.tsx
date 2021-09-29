@@ -58,7 +58,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   useEffect(() => {
     const hasProfile = async () => {
       await profileGetByUser().then((data: any) => {
-        console.log(data);
         const profile: ProfileCreateSuccess = data;
         if (data._id) {
           updateProfileContext(profile);
