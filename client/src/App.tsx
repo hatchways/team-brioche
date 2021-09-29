@@ -3,11 +3,11 @@ import AdapterMoment from '@mui/lab/AdapterMoment';
 import { LocalizationProvider } from '@mui/lab';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
@@ -26,7 +26,6 @@ function App(): JSX.Element {
                 <Switch>
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/signup" component={Signup} />
-                  <Route exact path="/booking" component={Booking} />
                   <Route exact path="/profile-listings" component={ProfileListings} />
                   <Route exact path="/dashboard">
                     <Dashboard />
