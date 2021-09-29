@@ -1,22 +1,18 @@
-import { User } from './User';
-
 export interface Profile {
   _id?: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   dob?: string;
-  user?: User;
   profilePic?: string;
-  gallaryPics?: string[];
-  gender: Gender;
-  phone: number;
-  address: string;
-  description: string;
-  availability: [string];
+  galleryPics?: string[];
+  gender?: Gender;
+  phone?: string;
+  address?: string;
+  description?: string;
+  availability?: Availability;
   introduction?: string;
   pitch?: string;
   rate?: number;
-  error?: string;
 }
 
 export interface Profiles {
@@ -31,4 +27,9 @@ export interface ProfileCreateSuccess {
   error?: { message: string };
   profile?: ProfileCreated;
 }
-type Gender = 'male' | 'female';
+type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
+
+interface Availability {
+  dateRange: { startDate: string; endDate: string };
+  weeklyTimeRange: Array<{ startTime: string; endTime: string }>;
+}
