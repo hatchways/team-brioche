@@ -17,12 +17,14 @@ const useStyles = makeStyles((theme) => ({
   link: {
     padding: theme.spacing(1, 5),
     marginRight: theme.spacing(1),
+    textTransform: 'uppercase',
   },
   member: {
     padding: theme.spacing(1, 5),
     marginRight: theme.spacing(1),
     fontWeight: 900,
     textDecoration: 'underline',
+    textTransform: 'uppercase',
   },
   avatar: {
     marginRight: theme.spacing(4),
