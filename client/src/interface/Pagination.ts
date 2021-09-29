@@ -1,4 +1,4 @@
 export interface Page {
-  pageStart: number;
-  pageEnd: number;
+  start: number;
+  end: number;
 }

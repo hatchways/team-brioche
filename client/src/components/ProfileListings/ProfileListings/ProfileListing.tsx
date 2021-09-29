@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router';
 import clsx from 'clsx';
 import { useDebounce } from 'use-debounce/lib';
+import queryString from 'query-string';
 import { Box, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Pagination, TextField, Autocomplete } from '@mui/material';
@@ -11,25 +13,25 @@ import ProfileCard from '../ProfileCard/ProfileCard';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { getList } from '../../../helpers/APICalls/profileListService';
 import { getCurrentSliceIndex } from './../../../helpers/paginationHelpers';
+import { verfyProfileQuery } from '../../../helpers/queryStringHelpers';
 import { DayRange, Profile } from '../../../interface/Profile';
-import { Page } from '../../../interface/Pagination';
 import useStyles from './useStyles';
-
-// Number of profile cards to display at a time
-const PageLimit = 6;
 
 interface Props {
   address?: string;
   range?: DayRange;
 }
+
+// Optional props may be passed to the component directly or through query strings
 export default function ProfileListings({ address, range }: Props): JSX.Element {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [uniqueAddress, setUniqueAddress] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [showPagination, setShowPagination] = useState(false);
-  const [page, setPage] = useState<Page>({ pageStart: 0, pageEnd: PageLimit });
 
-  // Search parameters
+  const [showPagination, setShowPagination] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // search parameters
   const [startDate, setStartDate] = useState<ParseableDate<undefined>>(range?.startDate || null);
   const [endDate, setEndDate] = useState<ParseableDate<undefined>>(range?.endDate || null);
   const [addressText, setAddressText] = useState(address || '');
@@ -41,8 +43,17 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
 
   const { updateSnackBarMessage } = useSnackBar();
   const classes = useStyles();
+  const { search } = useLocation();
 
-  const numberOfPages = Math.ceil(profiles.length / PageLimit);
+  useEffect(() => {
+    const query = queryString.parse(search);
+    const { addressTest, startDateTest, endDateTest } = verfyProfileQuery(query);
+
+    if (addressTest) setAddressText(query.address as string);
+    if (startDateTest) setStartDate(query.startDate as string);
+    if (endDateTest) setEndDate(query.endDate as string);
+  }, [search]);
+
   useEffect(() => {
     setIsLoading(true);
     getList(addressQuery, {
@@ -53,7 +64,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
         setProfiles(data.profiles);
         setUniqueAddress(data.uniqueAddress);
         // reset pagination after each Query
-        setPage({ pageStart: 0, pageEnd: PageLimit });
+        setCurrentPage(1);
         setIsLoading(false);
       })
       .catch(() => {
@@ -63,11 +74,17 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
     return;
   }, [updateSnackBarMessage, addressQuery, startDateQuery, endDateQuery]);
 
-  const handlePageSelect = (currentPage: number) =>
-    setPage(getCurrentSliceIndex(profiles.length, PageLimit, currentPage));
+  // Number of profile cards to display at a time
+  const PageLimit = 6;
 
-  const displayCurrentSlice = () =>
-    profiles.slice(page.pageStart, page.pageEnd).map((profile) => <ProfileCard key={profile._id} profile={profile} />);
+  const numberOfPages = Math.ceil(profiles.length / PageLimit);
+
+  const profileCards = useMemo(() => {
+    const sliceIndex = getCurrentSliceIndex(profiles.length, PageLimit, currentPage);
+    return profiles
+      .slice(sliceIndex.start, sliceIndex.end)
+      .map((profile) => <ProfileCard key={profile._id} profile={profile} />);
+  }, [profiles, currentPage]);
 
   // The "toLocaleString" method of type "ParseableDate<undefined>" differs from that of type "Date"
   const getDateString = (date: ParseableDate<undefined>): string => {
@@ -161,7 +178,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
           </Box>
         ) : (
           <Grid xl={8} lg={9} md={10} item container justify="center">
-            {profiles.length ? displayCurrentSlice() : <Typography variant="h4">No Results to display</Typography>}
+            {profiles.length ? profileCards : <Typography variant="h4">No Results to display</Typography>}
             {profiles.length > PageLimit && !showPagination && (
               <Grid container justify="center">
                 <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
@@ -175,7 +192,8 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
         )}
         {showPagination && (
           <Pagination
-            onChange={(e, value) => handlePageSelect(value)}
+            onChange={(e, value) => setCurrentPage(value)}
+            page={currentPage}
             count={numberOfPages}
             className={classes.pagination}
           />

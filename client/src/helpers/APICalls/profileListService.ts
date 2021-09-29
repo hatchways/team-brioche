@@ -7,9 +7,9 @@ interface ProfileResponse {
   uniqueAddress: string[];
 }
 // eslint-disable-next-line
-export async function getList(address: string | undefined, range: DayRange): Promise<ProfileResponse> {
+export async function getList(addressQuery: string | undefined, range: DayRange): Promise<ProfileResponse> {
   const mockProfiles = getMock().filter((profile) => {
-    if (address) return profile.address.includes(address);
+    if (addressQuery) return profile.address.toLowerCase().includes(addressQuery.toLowerCase());
     return true;
   });
   return await Promise.resolve({

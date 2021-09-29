@@ -4,7 +4,7 @@ export function getCurrentSliceIndex(arrayLength: number, pageLimit: number, cur
   const stopIndex = currentPage * pageLimit;
   const startIndex = stopIndex - pageLimit;
   return {
-    pageStart: startIndex,
-    pageEnd: stopIndex > arrayLength ? arrayLength : stopIndex,
+    start: startIndex,
+    end: stopIndex > arrayLength ? arrayLength : stopIndex,
   };
 }

@@ -25,3 +25,5 @@ export const displayDateTime = (startDate: string, endDate: string): string => {
 
   return `${day} ${month} ${year}, ${displayTime(start)} - ${displayTime(end)}`;
 };
+
+export const isValidDateString = (testString: string): boolean => Boolean(Date.parse(testString));
