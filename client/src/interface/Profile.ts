@@ -7,7 +7,7 @@ export interface Profile {
   galleryPics?: string[];
   coverPic?: string;
   gender?: Gender;
-  phone?: string;
+  phone?: number;
   address?: string;
   description?: string;
   availability?: Availability;
@@ -22,8 +22,8 @@ export interface Profiles {
   error?: { message: string };
 }
 export interface ProfileCreated {
-  profileData: Profile;
-  profileId: string;
+  profileData?: Profile;
+  profileId?: string | '';
 }
 export interface ProfileCreateSuccess {
   error?: { message: string };

@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   },
   coverImage: {
     maxHeight: '260px',
-    width: '760px',
+    width: '100%',
     borderRadius: theme.shape.borderRadius,
   },
   basicInfoContainer: {
@@ -52,8 +52,6 @@ const useStyles = makeStyles((theme) => ({
     height: '500px',
   },
   dateContainer: {
-    display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'space-between',
   },
   requestContainer: {
