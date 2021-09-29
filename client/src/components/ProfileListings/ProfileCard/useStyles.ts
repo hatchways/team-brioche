@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imageContainer: {
     padding: theme.spacing(2),
+    marginTop: '0',
+    marginBottom: '0',
     [theme.breakpoints.down('sm')]: {
       padding: '0.2rem',
     },
@@ -23,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'cover',
   },
   paper: {
-    maxWidth: theme.spacing(40),
-    minHeight: theme.spacing(40),
+    maxWidth: theme.spacing(45),
+    minHeight: theme.spacing(45),
     margin: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
@@ -50,19 +52,16 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[600],
   },
   footer: {
-    borderTopColor: theme.palette.grey[400],
-    borderTopStyle: 'solid',
-    borderTopWidth: '2px',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
+    borderTop: `2px solid ${theme.palette.grey[400]}`,
+    padding: `1.5rem 0.5rem`,
+    marginTop: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
+      marginTop: theme.spacing(1),
     },
   },
   cardBody: {
-    padding: theme.spacing(3),
+    padding: `${theme.spacing(1)} 0`,
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
     },
@@ -75,7 +74,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[400],
   },
   rating: {
-    color: '#ebc934',
+    margin: '2rem 0',
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+    },
   },
 }));
 

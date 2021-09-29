@@ -5,7 +5,6 @@ const testProfile: Profile = {
   firstName: 'Mike',
   lastName: 'Tyson',
   description: 'Description',
-  availability: ['string1', 'string2'],
   profilePic: 'https://source.unsplash.com/random/100x100',
   dob: 'dob',
   gender: 'male',
@@ -13,11 +12,10 @@ const testProfile: Profile = {
   pitch: 'I would love to work with your dog',
   address: 'Toronto Ontario',
   rate: 30,
-  phone: [],
 };
 
 export default function getMock(): Array<Profile> {
-  const sampleCount = 10;
+  const sampleCount = 15;
   const mockProfileList = new Array<Profile>(sampleCount).fill(testProfile);
   let i = 0;
   return mockProfileList.map((profile) => {
