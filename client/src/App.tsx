@@ -11,10 +11,11 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Profile from './pages/ProfileSetting/ProfileSetting';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-
+import Layout from './Layout/DashboardLayout';
 import './App.css';
-import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
+
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -24,16 +25,24 @@ function App(): JSX.Element {
           <AuthProvider>
             <SocketProvider>
               <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/booking" component={Booking} />
+                <Route exact path="/login">
+                  <Layout component={<Login />} />
+                </Route>
+                <Route exact path="/signup">
+                  <Layout component={<Signup />} />
+                </Route>
+                <Route exact path="/booking">
+                  <Layout component={<Booking />} />
+                </Route>
+                <Route exact path="/profile">
+                  <Layout component={<Profile />} />
+                </Route>
                 <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
+                  <Layout component={<Dashboard />} />
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/edit-profile">
-                  <EditProfile />
+                  <Layout component={<EditProfile />} />
                 </ProtectedRoute>
-                <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>

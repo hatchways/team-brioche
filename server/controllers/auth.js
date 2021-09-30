@@ -38,6 +38,13 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
       maxAge: secondsInWeek * 1000
     });
 
+    const profileExists = await Profile.findOne({userId: user._id});
+    if (!profileExists) {
+      const profile = await Profile.create({
+        userId: user._id,
+      });
+    }
+
     res.status(201).json({
       success: {
         user: {
