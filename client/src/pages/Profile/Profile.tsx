@@ -1,5 +1,6 @@
-import { Grid, Paper, Typography, Button } from '@material-ui/core/';
-import { useEffect, useState } from 'react';
+import { Grid, Paper, Typography } from '@material-ui/core/';
+import { Rating, Button } from '@mui/material';
+import { useState } from 'react';
 import useStyles from './useStyles';
 import { useParams } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -72,11 +73,12 @@ export default function Profile(): JSX.Element {
           </Grid>
         </Grid>
       </Paper>
-      <Paper className={classes.bookingContainer}>
-        <Grid container className={classes.requestContainer}>
-          <Typography variant="h5">$14/hr</Typography>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Grid container className={classes.dateContainer}>
+      <Paper component="form" className={classes.bookingContainer}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Grid container direction="column" className={classes.requestContainer}>
+            <Typography variant="h5">$14/hr</Typography>
+            <Rating name="read-only" value={4} readOnly />
+            <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop In"
@@ -96,9 +98,11 @@ export default function Profile(): JSX.Element {
                 }}
               />
             </Grid>
-          </LocalizationProvider>
-          <Button color="primary">Send Request</Button>
-        </Grid>
+            <Button type="submit" variant="contained" color="error" size="large" className={classes.button}>
+              Send Request
+            </Button>
+          </Grid>
+        </LocalizationProvider>
       </Paper>
     </Grid>
   );
