@@ -7,7 +7,7 @@ import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import { generateQueryString } from '../../helpers/queryStringHelpers';
 import useStyles from './useStyles';
 
-export default function LandingPage(): JSX.Element {
+export default function HomePage(): JSX.Element {
   const [address, setAddress] = useState('');
   const [dropInDate, setDropInDate] = useState<ParseableDate<undefined>>(null);
   const [dropOffDate, setDropOffDate] = useState<ParseableDate<undefined>>(null);
@@ -18,7 +18,7 @@ export default function LandingPage(): JSX.Element {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const search = generateQueryString({ address, dropInDate, dropOffDate });
-    if (search) history.push(`/profile-listing?${search}`);
+    if (search) history.push(`/profile-listings?${search}`);
   };
 
   return (

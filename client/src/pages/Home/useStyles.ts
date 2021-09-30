@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
   intro: {
     width: '50%',
-    height: '100vh',
+    minHeight: '100vh',
     padding: '3rem 3rem',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: '50%',
-    height: '100vh',
+    minHeight: '100vh',
     backgroundImage: `url(${Image})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   form: {
-    width: '70%', // Fix IE 11 issue.
+    width: '80%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   label: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     border: `2px solid ${theme.palette.grey[400]}`,
     borderRadius: theme.shape.borderRadius,
-    padding: '0.5rem 0.5rem',
+    padding: '1rem 0.5rem',
   },
   rightBorder: {
     borderRadius: `0px 5px 5px 0px`,
@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
   picker: {
     marginTop: theme.spacing(2),
+    padding: '1rem 0',
   },
   button: {
     padding: '1.5rem 3rem',

@@ -22,7 +22,7 @@ function DashboardLayout({ component }: Props): JSX.Element {
 
   return (
     <Box className={classes.root}>
-      <AppBar position="relative" color="inherit" elevation={6}>
+      <AppBar position="sticky" color="inherit" elevation={6}>
         <Toolbar>
           <Box className={classes.logo}>
             <img src={Logo} alt="Logo Image" />
