@@ -11,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
+import LandingPage from './pages/landingPage/LandingPage';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ function App(): JSX.Element {
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/signup" component={Signup} />
                   <Route exact path="/profile-listings" component={ProfileListings} />
+                  <Route exact path="/home" component={LandingPage} />
                   <ProtectedRoute exact path="/dashboard">
                     <Dashboard />
                   </ProtectedRoute>
