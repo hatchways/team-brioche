@@ -8,17 +8,6 @@ import ProfileEditForm from './EditProfileForm/EditProfileForm';
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
 
-  const { loggedInUser } = useAuth();
-
-  const history = useHistory();
-
-  if (loggedInUser === undefined) return <CircularProgress />;
-  if (!loggedInUser) {
-    history.push('/login');
-    // loading for a split seconds until history.push works
-    return <CircularProgress />;
-  }
-
   return (
     <Grid container component="main" className={classes.root}>
       <Grid item xs={12} sm={8} md={7} elevation={6} component={Paper} square>

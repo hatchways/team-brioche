@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, MenuItem } from '@material-ui/core/';
 import Box from '@material-ui/core/Box';
-import { Formik, FormikHelpers, Field } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
@@ -15,7 +15,6 @@ import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
@@ -25,21 +24,20 @@ const EditProfileForm = (): JSX.Element => {
     { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
+    console.log(firstName);
     !profileData
-      ? profileCreate(firstName, lastName, gender, introduction || '', pitch || '', phone, address, description)
-          .then()
-          .then((data) => {
-            if (data.error) {
-              setSubmitting(false);
-              updateSnackBarMessage(data.error.message);
-            } else if (data) {
-              setSubmitting(false);
-              updateSnackBarMessage('Profile Created');
-              updateProfileContext(data);
-            } else {
-              setSubmitting(false);
-            }
-          })
+      ? profileCreate(firstName, lastName, gender, introduction, pitch, phone, address, description).then((data) => {
+          if (data.error) {
+            setSubmitting(false);
+            updateSnackBarMessage(data.error.message);
+          } else if (data) {
+            setSubmitting(false);
+            updateSnackBarMessage('Profile Created');
+            updateProfileContext(data);
+          } else {
+            setSubmitting(false);
+          }
+        })
       : profileUpdate(
           { firstName, lastName, gender, introduction, pitch, phone, address, description },
           profileData.profileId!,
@@ -58,11 +56,10 @@ const EditProfileForm = (): JSX.Element => {
     firstName: Yup.string().required('First Name is required'),
     lastName: Yup.string().required('Last Name is required'),
     gender: Yup.string().required('Gender is required'),
-    introduction: Yup.string(),
+    introduction: Yup.string().required('Introduction is required'),
     pitch: Yup.string().required('Pitch is required'),
     phone: Yup.number().required('Phone number is required'),
-    dob: Yup.string(),
-    description: Yup.string(),
+    description: Yup.string().required('Description is required'),
     availability: Yup.array().required('Availability is required'),
   };
   const MenuProps = {
@@ -90,7 +87,7 @@ const EditProfileForm = (): JSX.Element => {
       validateOnChange
       onSubmit={handleSubmit}
     >
-      {({ handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting }) => (
+      {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container className={classes.container} spacing={2}>
             <Label htmlFor="firstName" cls={classes.label} labelName="First Name" />

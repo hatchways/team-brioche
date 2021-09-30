@@ -66,7 +66,7 @@ export async function profileGetByUser(): Promise<ProfileCreateSuccess> {
   return await fetch(`/users/profile/`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
-      error: { message: 'Unable to connect to server. Please try again' },
+      error: { message: 'User does not have Profile' },
     }));
 }
 
