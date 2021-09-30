@@ -24,7 +24,6 @@ const EditProfileForm = (): JSX.Element => {
     { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
-    console.log(firstName);
     !profileData
       ? profileCreate(firstName, lastName, gender, introduction, pitch, phone, address, description).then((data) => {
           if (data.error) {

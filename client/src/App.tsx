@@ -12,6 +12,7 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import './App.css';
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -30,7 +31,7 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-profile">
                   <EditProfile />
                 </ProtectedRoute>
-                {/* <Route exact path="/profile" component={ProfileSetting} /> */}
+                <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
