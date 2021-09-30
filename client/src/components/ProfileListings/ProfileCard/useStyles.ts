@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
   },
-  imageText: {},
   textBold: {
     fontWeight: theme.typography.fontWeightBold,
   },

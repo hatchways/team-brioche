@@ -4,7 +4,6 @@ import Location from '@material-ui/icons/LocationOn';
 import Rating from '@material-ui/lab/Rating';
 import { Profile } from '../../../interface/Profile';
 import useStyles from './useStyles';
-import clsx from 'clsx';
 
 interface Props {
   profile: Profile;
@@ -39,12 +38,7 @@ export default function ProfileCard({ profile }: Props): JSX.Element {
           className={classes.imageContainer}
         >
           <img src={profilePic} className={classes.image} alt={`${firstName} ${lastName}`} />
-          <Typography
-            component="figcaption"
-            className={clsx(classes.imageText, classes.textBold)}
-            align="center"
-            variant="h5"
-          >
+          <Typography component="figcaption" className={classes.textBold} align="center" variant="h5">
             {firstName} {lastName}
           </Typography>
         </Box>
