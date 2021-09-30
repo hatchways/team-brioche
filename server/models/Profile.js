@@ -11,12 +11,12 @@ const profileSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    unique: true,
   },
   profilePic: {
     type: String,
@@ -45,4 +45,4 @@ const profileSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Profile = mongoose.model("profile", profileSchema);
+module.exports = Profile = mongoose.model("Profile", profileSchema);
