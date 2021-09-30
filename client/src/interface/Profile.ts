@@ -1,8 +1,8 @@
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
 export interface DayRange {
-  startDate: string | undefined;
-  endDate: string | undefined;
+  dropInDate: string | undefined;
+  dropOffDate: string | undefined;
 }
 
 type TimeRange = Array<{ startTime: string; endTime: string }>;
