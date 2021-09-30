@@ -39,7 +39,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateProfileContext = useCallback(
     (data: ProfileCreateSuccess) => {
       setProfileData(data?.profile);
-      history.push(`/dashboard}`);
+      history.push(`/edit-profile/availability`);
     },
     [history],
   );
@@ -60,7 +60,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await profileGetByUser().then((data: ProfileCreateSuccess) => {
         if (data.profile) {
           updateProfileContext(data);
-          history.push('/dashboard');
+          history.push('/edit-profile/availability');
         } else if (data.error) {
           history.push('/edit-profile');
         }
@@ -78,7 +78,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
           if (profileData) {
             history.push(`/dashboard`);
           } else {
-            history.push(`/edit-profile`);
+            history.push(`/edit-profile/availability`);
           }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend

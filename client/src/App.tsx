@@ -13,6 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import './App.css';
 import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
+import Availability from './pages/Availability/Availability';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -30,6 +31,9 @@ function App(): JSX.Element {
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/edit-profile">
                   <EditProfile />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/edit-profile/availability">
+                  <Availability />
                 </ProtectedRoute>
                 <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
