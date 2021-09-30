@@ -4,15 +4,15 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
+const { profile } = require("console");
 
 // @route GET /profiles
 // @desc get all profiles
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
-  const profiles = await Profile.find({});
-
+  const profiles = await Profile.find({}, "-userId");
   if (!profiles.length) {
-    res.status(404);
+    res.status(400);
     throw new Error("No Profiles found");
   }
   res.status(200).send(profiles);
@@ -23,11 +23,15 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
 //@access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
+<<<<<<< Updated upstream
   if (!user) {
     res.status(401);
     throw new Error("Not authorized");
   }
   const userId = user._id;
+=======
+  const userId = user?._id;
+>>>>>>> Stashed changes
   const {
     firstName,
     lastName,
@@ -68,8 +72,12 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
       "Something went wrong with your profile please try again later"
     );
   }
-
-  res.status(201).send(profile);
+  res.status(201).json({
+    profile: {
+      profileId: profile._id,
+      profileData: { profile },
+    },
+  });
 });
 
 //@route GET /profiles/:_id
@@ -87,6 +95,25 @@ exports.getProfile = asyncHandler(async (req, res, next) => {
   if (!profile) {
     res.status(404);
     throw new Error("No Profile found for this user");
+  }
+
+  res.status(200).send(profile);
+});
+
+//@route GET /profiles OF LOGGED IN USER
+//@desc find one profile with a particular ID
+//access Private
+exports.getProfileByUser = asyncHandler(async (req, res, next) => {
+  const id = mongoose.Types.ObjectId(req.user.id);
+  if (!id) {
+    res.status(400).json({ error });
+    // throw new Error("User not logged in");
+  }
+  const profile = await Profile.findOne({ userId: id });
+
+  if (!profile) {
+    res.status(404);
+    throw new Error("This User doesn't have a profile");
   }
 
   res.status(200).send(profile);
@@ -113,7 +140,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   const userId = user._id.toString();
   const profileId = profile.userId.toString();
   if (userId !== profileId) {
-    res.status(404);
+    res.status(403);
     throw new Error("You are not Authorized to change the data");
   }
   const updatedData = {
@@ -130,7 +157,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     new: true,
   });
   if (!newProfile) {
-    res.status(404);
+    res.status(500);
     throw new Error(
       "Somthing went wrong while updating you Profile. Please try again later."
     );
