@@ -55,19 +55,19 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       .catch((error) => console.error(error));
   }, [history]);
 
-  // useEffect(() => {
-  //   const hasProfile = async () => {
-  //     await profileGetByUser().then((data: ProfileCreateSuccess) => {
-  //       if (data.profile) {
-  //         updateProfileContext(data);
-  //         history.push('/dashboard');
-  //       } else if (data.error) {
-  //         history.push('/edit-profile');
-  //       }
-  //     });
-  //   };
-  //   hasProfile();
-  // }, [history, loggedInUser, updateProfileContext]);
+  useEffect(() => {
+    const hasProfile = async () => {
+      await profileGetByUser().then((data: ProfileCreateSuccess) => {
+        if (data.profile) {
+          updateProfileContext(data);
+          history.push('/dashboard');
+        } else if (data.error) {
+          history.push('/edit-profile');
+        }
+      });
+    };
+    hasProfile();
+  }, [history, loggedInUser, updateProfileContext]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
