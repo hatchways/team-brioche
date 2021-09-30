@@ -1,10 +1,12 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
+import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';

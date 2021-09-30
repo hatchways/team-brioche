@@ -43,15 +43,6 @@ const profileSchema = new mongoose.Schema({
   address: {
     type: String,
   },
-  introduction: {
-    type: String,
-  },
-  pitch: {
-    type: String,
-  },
-  rate: {
-    type: Number,
-  },
 });
 
 module.exports = Profile = mongoose.model("Profile", profileSchema);
