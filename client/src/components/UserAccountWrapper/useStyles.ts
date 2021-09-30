@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   welcome: {
     paddingBottom: 20,
+    fontWeight: theme.typography.fontWeightBold,
   },
 }));
 

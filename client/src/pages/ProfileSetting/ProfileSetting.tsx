@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
@@ -42,7 +41,6 @@ export default function ProfileSetting(): JSX.Element {
 
   return (
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
-      <CssBaseline />
       <Grid item className={classes.content} xs={12}>
         <ProfilePhoto loggedInUser={loggedInUser} profile={profile} setProfile={setProfile} />
       </Grid>

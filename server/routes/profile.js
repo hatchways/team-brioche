@@ -8,6 +8,7 @@ const {
   createProfile,
   getProfile,
   updateProfile,
+  getProfileByUser,
   savePhoto,
   deletePhoto,
   getProfileFromUserId,

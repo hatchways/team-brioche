@@ -1,6 +1,6 @@
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './useStyles';
-import { User } from '../../interface/User';
+import { User } from '../../../interface/User';
 
 interface Props {
   user: User;

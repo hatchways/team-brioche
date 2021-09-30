@@ -10,7 +10,7 @@ import useStyles from './useStyles';
 import { User } from '../../interface/User';
 import profilePhoto from '../../helpers/APICalls/profilePhoto';
 import deleteProfilePhoto from '../../helpers/APICalls/deleteProfilePhoto';
-import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
+import ProfileAvatar from './ProfileAvatar/ProfileAvatar';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import {
   CircularProgress,
