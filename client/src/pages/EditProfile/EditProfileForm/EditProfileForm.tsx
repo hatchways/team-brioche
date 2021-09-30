@@ -179,6 +179,33 @@ const EditProfileForm = (): JSX.Element => {
               />
             </Grid>
           </Grid>
+          {/* <FormControl>
+            <Grid container className={classes.container} spacing={2}>
+              <Label htmlFor="availability" cls={`${classes.label} ${classes.availLabel}`} labelName="Availability" />
+              <Grid item>
+                <Field
+                  component={Select}
+                  type="text"
+                  name="availability"
+                  multiple={true}
+                  className={classes.availability}
+                  inputProps={{
+                    name: 'availability',
+                    id: 'availability',
+                    value: values.availability,
+                    onChange: handleChange,
+                    MenuProps: MenuProps,
+                  }}
+                >
+                  {days.map((day) => (
+                    <MenuItem key={day} value={day}>
+                      {day}
+                    </MenuItem>
+                  ))}
+                </Field>
+              </Grid>
+            </Grid>
+          </FormControl> */}
           <Grid container className={`${classes.container} ${classes.phoneContainer}`} spacing={2}>
             <Label htmlFor="phone" cls={classes.label} labelName="Phone Number" />
             <Grid item>
