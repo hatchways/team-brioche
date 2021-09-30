@@ -78,12 +78,7 @@ exports.notificationRead = asyncHandler(async (req, res) => {
     throw new Error("You are not Authorized to change this read state");
   }
 
-  const updatedNotification = await Notification.updateOne(id, {read: true});
-  if (!updatedNotification) {
-    res.status(404);
-    throw new Error(
-      "Somthing went wrong while updating you notification. Please try again later."
-    );
-  }
+  notification.read = true;
+  notification.save();
   res.status(200).send(updatedNotification);
 });
