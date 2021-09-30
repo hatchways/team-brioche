@@ -10,10 +10,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner1',
       email: 'dogowner1@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 12 8:00 PM',
     end: '2021 sept 12 10:00 PM',
@@ -27,10 +29,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner11',
       email: 'dogowner11@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 13 11:00 AM',
     end: '2021 sept 13 3:00 PM',
@@ -44,10 +48,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner2',
       email: 'dogowner2@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 23 4:00 PM',
     end: '2021 sept 23 10:00 PM',
@@ -61,10 +67,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner3',
       email: 'dogowner3@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 22 8:00 AM',
     end: '2021 sept 22 11:00 PM',
@@ -78,10 +86,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner4',
       email: 'dogowner4@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 25 8:00 AM',
     end: '2021 sept 25 11:00 PM',
@@ -95,10 +105,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner6',
       email: 'dogowner6@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 25 8:00 AM',
     end: '2021 sept 25 11:00 PM',
@@ -112,10 +124,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner4',
       email: 'dogowner4@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 25 8:00 AM',
     end: '2021 sept 25 11:00 PM',
@@ -129,10 +143,12 @@ export const bookings: Array<BookingRequest> = [
     ownerId: {
       username: 'dogowner6',
       email: 'dogowner6@g.com',
+      profilePic: '',
     },
     sitterId: {
       username: 'dogsitter5',
       email: 'dogsitter1@g.com',
+      profilePic: '',
     },
     start: '2021 sept 25 8:00 AM',
     end: '2021 sept 25 11:00 PM',

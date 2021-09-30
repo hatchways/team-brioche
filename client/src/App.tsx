@@ -3,17 +3,19 @@ import AdapterMoment from '@mui/lab/AdapterMoment';
 import { LocalizationProvider } from '@mui/lab';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import Login from './pages/Accounts/Login/Login';
+import Signup from './pages/Accounts/Signup/SignUp';
+import EditProfile from './pages/EditProfile/EditProfile';
+import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Profile from './pages/ProfileSetting/ProfileSetting';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import Login from './pages/Accounts/Login/Login';
-import Signup from './pages/Accounts/Signup/SignUp';
-import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
-import LandingPage from './pages/landingPage/LandingPage';
-
+import Layout from './Layout/DashboardLayout';
 import './App.css';
+import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 
 function App(): JSX.Element {
   return (
@@ -25,12 +27,26 @@ function App(): JSX.Element {
             <SocketProvider>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Switch>
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/signup" component={Signup} />
-                  <Route exact path="/profile-listings" component={ProfileListings} />
-                  <Route exact path="/home" component={LandingPage} />
+                  <Route exact path="/login">
+                    <Layout component={<Login />} />
+                  </Route>
+                  <Route exact path="/signup">
+                    <Layout component={<Signup />} />
+                  </Route>
+                  <Route exact path="/booking">
+                    <Layout component={<Booking />} />
+                  </Route>
+                  <Route exact path="/profile/:id?">
+                    <Layout component={<Profile />} />
+                  </Route>
+                  <Route exact path="/profile-listings">
+                    <Layout component={<ProfileListings />} />
+                  </Route>
                   <ProtectedRoute exact path="/dashboard">
-                    <Dashboard />
+                    <Layout component={<Dashboard />} />
+                  </ProtectedRoute>
+                  <ProtectedRoute exact path="/edit-profile">
+                    <Layout component={<EditProfile />} />
                   </ProtectedRoute>
                   <Route path="*">
                     <Redirect to="/login" />

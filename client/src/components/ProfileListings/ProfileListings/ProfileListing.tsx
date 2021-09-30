@@ -47,6 +47,8 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   useEffect(() => {
     // samplequery: .../profiles-list?address=text&dropInDate=text&dropOffDate=text
     const query = queryString.parse(search);
+    if (!query.address && !query.dropInDate && !query.dropOffDate) return;
+
     const { address, dropInDate, dropOffDate } = verfyProfileQuery(query);
 
     if (address.test) setAddressText(address.value);

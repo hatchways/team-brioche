@@ -13,18 +13,30 @@ export interface Availability {
 }
 
 export interface Profile {
-  _id: string;
+  _id?: string;
   firstName?: string;
   lastName?: string;
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
   gender?: Gender;
-  phone?: string;
+  phone?: number;
   address: string;
   description?: string;
   availability?: Availability;
   introduction?: string;
   pitch?: string;
   rate?: number;
+}
+export interface Profiles {
+  Profiles?: Profiles[];
+  error?: { message: string };
+}
+export interface ProfileCreated {
+  profileData?: Profile;
+  profileId?: string | '';
+}
+export interface ProfileCreateSuccess {
+  error?: { message: string };
+  profile?: ProfileCreated;
 }

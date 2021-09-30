@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import { Box, Paper, Typography } from '@material-ui/core';
 import Location from '@material-ui/icons/LocationOn';
 import Rating from '@material-ui/lab/Rating';
@@ -11,11 +12,13 @@ interface Props {
 export default function ProfileCard({ profile }: Props): JSX.Element {
   const classes = useStyles();
   const [isMouseOver, setIsMouseOver] = useState(false);
+  const history = useHistory();
 
   const { address, _id: id, profilePic, introduction, pitch, rate, firstName, lastName } = profile;
 
   const handleCardSelect = () => {
-    // TODO: redirect to profile details page
+    // redirect to profile details page
+    history.push(`/profile/${id}`);
   };
 
   return (
