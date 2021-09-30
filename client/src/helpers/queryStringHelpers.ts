@@ -1,3 +1,4 @@
+import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import queryString from 'query-string';
 import { isValidDateString } from './dateTimeHelper';
 
@@ -22,3 +23,32 @@ export const verfyProfileQuery = (queryString: queryString.ParsedQuery<string>):
     value: new Date(queryString.dropOffDate as string).toString(),
   },
 });
+
+interface GenerateQuery {
+  address: string;
+  dropInDate: ParseableDate<undefined>;
+  dropOffDate: ParseableDate<undefined>;
+}
+
+const cleanUp = (str: string): string => str.trim().split(' ').join('-');
+
+export const generateQueryString = (value: GenerateQuery): string => {
+  const { address, dropInDate, dropOffDate } = value;
+
+  let search = '';
+  let addAmpersand = false;
+  if (address) {
+    search += `address=${cleanUp(address)}`;
+    addAmpersand = true;
+  }
+  if (dropInDate) {
+    const text = `dropInDate=${cleanUp(dropInDate.toLocaleString())}`;
+    search += addAmpersand ? `&${text}` : `${text}`;
+    addAmpersand = true;
+  }
+  if (dropOffDate) {
+    const text = `dropOffDate=${cleanUp(dropOffDate.toLocaleString())}`;
+    search += addAmpersand ? `&${text}` : `${text}`;
+  }
+  return search;
+};
