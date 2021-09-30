@@ -8,6 +8,7 @@ import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
 import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Profile from './pages/Profile/Profile';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -30,10 +31,9 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
                 </ProtectedRoute>
-                <ProtectedRoute exact path="/edit-profile">
-                  <EditProfile />
+                <ProtectedRoute exact path="/profiles/:id">
+                  <Profile />
                 </ProtectedRoute>
-                <Route exact path="/profile" component={ProfileSetting} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
