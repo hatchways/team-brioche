@@ -1,5 +1,4 @@
-import { Grid, Paper, Typography } from '@material-ui/core/';
-import { Rating, Button } from '@mui/material';
+import { Grid, Paper, Typography, Button } from '@material-ui/core/';
 import { useState } from 'react';
 import useStyles from './useStyles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -42,9 +41,8 @@ export default function Profile(): JSX.Element {
       </Paper>
       <Paper component="form" className={classes.bookingContainer}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Grid container direction="column" className={classes.requestContainer}>
+          <Grid container className={classes.requestContainer}>
             <Typography variant="h5">$14/hr</Typography>
-            <Rating name="read-only" value={4} readOnly />
             <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
@@ -65,7 +63,7 @@ export default function Profile(): JSX.Element {
                 }}
               />
             </Grid>
-            <Button type="submit" variant="contained" color="error" size="large" className={classes.button}>
+            <Button type="submit" color="primary">
               Send Request
             </Button>
           </Grid>
