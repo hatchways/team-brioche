@@ -28,9 +28,9 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
                 </ProtectedRoute>
-                <Route exact path="/profile/:id">
+                <ProtectedRoute exact path="/profiles/:id">
                   <Profile />
-                </Route>
+                </ProtectedRoute>
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
