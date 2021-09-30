@@ -22,17 +22,19 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/profile-listings" component={ProfileListings} />
-                <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
-                </ProtectedRoute>
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <Route exact path="/profile-listings" component={ProfileListings} />
+                  <ProtectedRoute exact path="/dashboard">
+                    <Dashboard />
+                  </ProtectedRoute>
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </LocalizationProvider>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>
