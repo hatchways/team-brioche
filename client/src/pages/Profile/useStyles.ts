@@ -51,9 +51,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     width: '400px',
     height: '500px',
+    justifyContent: 'center',
   },
   dateContainer: {
-    justifyContent: 'space-between',
+    alignItems: 'space-between',
   },
   requestContainer: {
     padding: theme.spacing(4),

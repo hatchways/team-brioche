@@ -1,6 +1,6 @@
 import { Grid, Paper, Typography } from '@material-ui/core/';
 import { Rating, Button } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useStyles from './useStyles';
 import { useParams } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -88,7 +88,7 @@ export default function Profile(): JSX.Element {
                 }}
               />
             </Grid>
-            <Grid container className={classes.dateContainer}>
+            <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop Off"
