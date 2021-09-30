@@ -11,7 +11,6 @@ export interface Profile {
   phone: number;
   address: string;
   description: string;
-  availability: [string];
   coverPic?: string;
   introduction?: string;
   pitch?: string;
