@@ -1,4 +1,4 @@
-import { Profile ProfileCreated} from '../interface/Profile';
+import { Profile, ProfileCreated } from '../interface/Profile';
 
 const testProfile1: Profile = {
   _id: '',
