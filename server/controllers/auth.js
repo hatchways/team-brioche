@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
@@ -37,6 +38,13 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
       maxAge: secondsInWeek * 1000,
     });
 
+    const profileExists = await Profile.findOne({ userId: user._id });
+    if (!profileExists) {
+      const profile = await Profile.create({
+        userId: user._id,
+      });
+    }
+
     res.status(201).json({
       success: {
         user: {
@@ -69,12 +77,15 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
       maxAge: secondsInWeek * 1000,
     });
 
+    const profile = await Profile.findOne({ userId: user._id });
+
     res.status(200).json({
       success: {
         user: {
           id: user._id,
           username: user.username,
           email: user.email,
+          profilePic: profile ? profile.profilePic : "",
         },
       },
     });
@@ -95,12 +106,15 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized");
   }
 
+  const profile = await Profile.findOne({ userId: user._id });
+
   res.status(200).json({
     success: {
       user: {
         id: user._id,
         username: user.username,
         email: user.email,
+        profilePic: profile ? profile.profilePic : "",
       },
     },
   });
