@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, AppBar, Toolbar, Button, Link, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
+import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import useStyles from './useStyles';
 import Logo from '../assets/img/logo.png';
 import { useAuth } from '../context/useAuthContext';
@@ -24,36 +25,30 @@ function DashboardLayout({ component }: Props): JSX.Element {
       <AppBar position="relative" color="inherit" elevation={6}>
         <Toolbar>
           <Box className={classes.logo}>
-            <img src={Logo} />
+            <img src={Logo} alt="Logo Image" />
           </Box>
           {!loggedInUser ? (
             <Box className={classes.wrapper}>
-              <Link href="#" color="inherit" className={classes.member}>
-                BECOME A SITTER
-              </Link>
-              <Button href="/login" variant="outlined" color="primary" className={classes.link}>
-                LOGIN
+              <Button component={Link} to={'#'} color="inherit" className={classes.member}>
+                Become a sitter
               </Button>
-              <Button href="/signup" variant="contained" color="primary" className={classes.link}>
-                SIGN UP
+              <Button component={Link} to={'/login'} variant="outlined" color="primary" className={classes.link}>
+                Login
+              </Button>
+              <Button component={Link} to={'/signup'} variant="contained" color="primary" className={classes.link}>
+                Sign up
               </Button>
             </Box>
           ) : (
             <Box className={classes.wrapper}>
               <Badge variant="dot" invisible={false} className={classes.badge}>
-                <Box component="div" className={classes.tooltipButton}>
-                  Notifications
-                </Box>
+                <Box className={classes.tooltipButton}>Notifications</Box>
               </Badge>
               <Badge variant="dot" invisible={false} className={classes.badge}>
-                <Box component="div" className={classes.tooltipButton}>
-                  My Jobs
-                </Box>
+                <Box className={classes.tooltipButton}>My Jobs</Box>
               </Badge>
               <Badge variant="dot" color="primary" invisible={false} className={classes.badge}>
-                <Box component="div" className={classes.tooltipButton}>
-                  Messages
-                </Box>
+                <Box className={classes.tooltipButton}>Messages</Box>
               </Badge>
               <Box>
                 <IconButton
@@ -86,7 +81,9 @@ function DashboardLayout({ component }: Props): JSX.Element {
                   }}
                   getContentAnchorEl={null}
                 >
-                  <MenuItem>My Profile</MenuItem>
+                  <MenuItem component={Link} to={'/profile'}>
+                    My Profile
+                  </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </Box>
