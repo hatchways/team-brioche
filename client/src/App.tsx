@@ -14,8 +14,8 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import Profile from './pages/ProfileSetting/ProfileSetting';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Layout from './Layout/DashboardLayout';
-import './App.css';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
+import './App.css';
 
 function App(): JSX.Element {
   return (
