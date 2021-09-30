@@ -77,12 +77,15 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
       maxAge: secondsInWeek * 1000
     });
 
+    const profile = await Profile.findOne({userId: user._id});
+
     res.status(200).json({
       success: {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          profilePic: profile ? profile.profilePic : "",
         }
       }
     });
@@ -103,12 +106,15 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized");
   }
 
+  const profile = await Profile.findOne({userId: user._id});
+
   res.status(200).json({
     success: {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        profilePic: profile ? profile.profilePic : "",
       }
     }
   });

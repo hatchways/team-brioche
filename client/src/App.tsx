@@ -1,6 +1,7 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import Layout from './Layout/DashboardLayout';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
@@ -21,12 +22,20 @@ function App(): JSX.Element {
           <AuthProvider>
             <SocketProvider>
               <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/booking" component={Booking} />
-                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/login">
+                  <Layout component={<Login />} />
+                </Route>
+                <Route exact path="/signup">
+                  <Layout component={<Signup />} />
+                </Route>
+                <Route exact path="/booking">
+                  <Layout component={<Booking />} />
+                </Route>
+                <Route exact path="/profile">
+                  <Layout component={<Profile />} />
+                </Route>
                 <Route exact path="/dashboard">
-                  <Dashboard />
+                  <Layout component={<Dashboard />} />
                 </Route>
                 <Route path="*">
                   <Redirect to="/login" />
