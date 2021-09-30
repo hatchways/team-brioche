@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, MenuItem } from '@material-ui/core/';
@@ -13,13 +12,11 @@ import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
+
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
-  const [value, setValue] = useState<Date | null>(null);
   const handleSubmit = (
     { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
@@ -60,14 +57,7 @@ const EditProfileForm = (): JSX.Element => {
     phone: Yup.number().required('Phone number is required'),
     description: Yup.string().required('Description is required'),
   };
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+
   return (
     <Formik
       initialValues={{
