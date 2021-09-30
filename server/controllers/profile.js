@@ -179,7 +179,7 @@ exports.savePhoto = asyncHandler(async (req, res) => {
   
   if (profile) {
     const oldUrl = profile.profilePic;
-    if (oldUri) {
+    if (oldUrl) {
       const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
       await cloudinary.uploader.destroy(publicId);
     }
