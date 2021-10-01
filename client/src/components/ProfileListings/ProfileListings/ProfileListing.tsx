@@ -96,7 +96,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
     return '';
   };
 
-  const tooltipMessage = 'You results are displayed automatically when you type in your search query';
+  const tooltipMessage = 'Your results are displayed automatically when you enter a search query';
   const handleSearchIconClick = () => updateSnackBarMessage(tooltipMessage);
 
   return (
