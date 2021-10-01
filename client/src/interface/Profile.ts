@@ -1,10 +1,8 @@
-import { User } from './User';
 export interface Profile {
   _id?: string;
   firstName: string;
   lastName: string;
   dob?: string;
-  user?: User;
   profilePic?: string;
   galleryPics?: string[];
   gender: Gender;
@@ -26,8 +24,13 @@ export interface ProfileCreated {
   profileData?: Profile;
   profileId?: string | '';
 }
+type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
+
+interface Availability {
+  dateRange: { startDate: string; endDate: string };
+  weeklyTimeRange: Array<{ startTime: string; endTime: string }>;
+}
 export interface ProfileCreateSuccess {
   error?: { message: string };
   profile?: ProfileCreated;
 }
-type Gender = 'male' | 'female';

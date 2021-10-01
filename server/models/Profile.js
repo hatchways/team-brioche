@@ -1,47 +1,46 @@
 const mongoose = require("mongoose");
-const User = require("./User").Schema;
-const userSchema = require("./User");
+
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   dob: {
     type: Date,
-    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    unique: true,
   },
   profilePic: {
     type: String,
+    default: "",
   },
   galleryPics: {
     type: [String],
+    default: [],
   },
   description: {
     type: String,
   },
   availability: {
-    type: [String],
+    dateRange: { startDate: String, endDate: String },
+    weeklyTimeRange: [{ startTime: String, endTime: String }],
   },
   gender: {
     type: String,
-    enum: ["male", "female"],
+    enum: ["male", "female", "non-binary", "prefer not to say"],
   },
   phone: {
-    type: Number,
-    unique: true,
+    type: String,
   },
   address: {
     type: String,
   },
 });
 
-module.exports = Profile = mongoose.model("profile", profileSchema);
+module.exports = Profile = mongoose.model("Profile", profileSchema);
