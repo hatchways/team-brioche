@@ -1,5 +1,6 @@
 import { Grid, Paper, Typography } from '@material-ui/core/';
 import { Rating, Button } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import useStyles from './useStyles';
 import { useParams } from 'react-router-dom';
@@ -47,6 +48,12 @@ export default function Profile(): JSX.Element {
       }
     });
   }, [id]);
+  const theme = createTheme({
+    palette: {
+      primary: { main: '#f04040' },
+      secondary: { main: '#8c8c8c' },
+    },
+  });
   return (
     <Grid container>
       <Paper className={classes.profileContainer}>
@@ -98,9 +105,11 @@ export default function Profile(): JSX.Element {
                 }}
               />
             </Grid>
-            <Button type="submit" variant="contained" color="error" size="large" className={classes.button}>
-              Send Request
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button type="submit" variant="contained" color="primary" size="large">
+                Send Request
+              </Button>
+            </ThemeProvider>
           </Grid>
         </LocalizationProvider>
       </Paper>
