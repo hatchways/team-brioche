@@ -26,7 +26,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   const user = await User.create({
     username,
     email,
-    password
+    password,
   });
 
   if (user) {
@@ -35,10 +35,10 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
-    const profileExists = await Profile.findOne({userId: user._id});
+    const profileExists = await Profile.findOne({ userId: user._id });
     if (!profileExists) {
       const profile = await Profile.create({
         userId: user._id,
@@ -50,9 +50,9 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email
-        }
-      }
+          email: user.email,
+        },
+      },
     });
   } else {
     res.status(400);
@@ -74,10 +74,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: secondsInWeek * 1000
+      maxAge: secondsInWeek * 1000,
     });
 
-    const profile = await Profile.findOne({userId: user._id});
+    const profile = await Profile.findOne({ userId: user._id });
 
     res.status(200).json({
       success: {
@@ -86,8 +86,8 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
           username: user.username,
           email: user.email,
           profilePic: profile ? profile.profilePic : "",
-        }
-      }
+        },
+      },
     });
   } else {
     res.status(401);
@@ -106,7 +106,7 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized");
   }
 
-  const profile = await Profile.findOne({userId: user._id});
+  const profile = await Profile.findOne({ userId: user._id });
 
   res.status(200).json({
     success: {
@@ -115,8 +115,8 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
         username: user.username,
         email: user.email,
         profilePic: profile ? profile.profilePic : "",
-      }
-    }
+      },
+    },
   });
 });
 
