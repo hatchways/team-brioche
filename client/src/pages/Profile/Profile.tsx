@@ -1,5 +1,6 @@
 import { Grid, Paper, Typography } from '@material-ui/core/';
 import { Rating, Button } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import useStyles from './useStyles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,6 +14,12 @@ export default function Profile(): JSX.Element {
   const [dropInValue, setDropInValue] = useState<Date | null>(new Date());
   const [dropOffValue, setDropOffValue] = useState<Date | null>(new Date());
   const { firstName, lastName, introduction, address, description, galleryPics, profilePic, coverPic } = mockProfile;
+  const theme = createTheme({
+    palette: {
+      primary: { main: '#f04040' },
+      secondary: { main: '#8c8c8c' },
+    },
+  });
   return (
     <Grid container>
       <Paper className={classes.profileContainer}>
@@ -65,9 +72,11 @@ export default function Profile(): JSX.Element {
                 }}
               />
             </Grid>
-            <Button type="submit" variant="contained" color="error" size="large" className={classes.button}>
-              Send Request
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button type="submit" variant="contained" color="primary" size="large">
+                Send Request
+              </Button>
+            </ThemeProvider>
           </Grid>
         </LocalizationProvider>
       </Paper>

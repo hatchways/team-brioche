@@ -59,9 +59,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '100%',
   },
-  button: {
-    backgroundColor: '#f04040',
-  },
 }));
 
 export default useStyles;
