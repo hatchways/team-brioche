@@ -16,10 +16,7 @@ export default function ProfileCard({ profile }: Props): JSX.Element {
 
   const { address, _id: id, profilePic, introduction, pitch, rate, firstName, lastName } = profile;
 
-  const handleCardSelect = () => {
-    // redirect to profile details page
-    history.push(`/profile/${id}`);
-  };
+  const handleCardSelect = () => history.push(`/profile/${id}`);
 
   return (
     <Paper
@@ -49,7 +46,6 @@ export default function ProfileCard({ profile }: Props): JSX.Element {
           {introduction}
         </Typography>
         <Box className={classes.rating} display="flex" justifyContent="center">
-          {/*TODO: The ratings control logic is yet to be developed */}
           <Rating name="rating" value={5} />
         </Box>
         <Typography className={classes.pitch} align="center" variant="subtitle1">

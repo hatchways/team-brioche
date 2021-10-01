@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 import clsx from 'clsx';
 import { useDebounce } from 'use-debounce/lib';
 import queryString from 'query-string';
-import { Box, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Grid, Typography, Tooltip } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Pagination, TextField, Autocomplete } from '@mui/material';
 import { DatePicker } from '@mui/lab';
@@ -11,7 +11,7 @@ import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { getList } from '../../../helpers/APICalls/profileListService';
-import { getCurrentSliceIndex } from './../../../helpers/paginationHelpers';
+import { getCurrentSlice } from './../../../helpers/paginationHelpers';
 import { verfyProfileQuery } from '../../../helpers/queryStringHelpers';
 import { DayRange, Profile } from '../../../interface/Profile';
 import useStyles from './useStyles';
@@ -21,7 +21,6 @@ interface Props {
   range?: DayRange;
 }
 
-// Optional props may be passed to this component directly or through query strings
 export default function ProfileListings({ address, range }: Props): JSX.Element {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [uniqueAddress, setUniqueAddress] = useState<string[]>([]);
@@ -30,12 +29,10 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   const [showPagination, setShowPagination] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // search parameters
   const [addressText, setAddressText] = useState(address || '');
   const [dropInDate, setDropInDate] = useState<ParseableDate<undefined>>(range?.dropInDate || null);
   const [dropOffDate, setDropOffDate] = useState<ParseableDate<undefined>>(range?.dropOffDate || null);
 
-  // limit Api call to max of 1 in 500ms
   const [dropInDateQuery] = useDebounce(dropInDate, 500);
   const [dropOffDateQuery] = useDebounce(dropOffDate, 500);
   const [addressQuery] = useDebounce(addressText, 500);
@@ -45,7 +42,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   const { search } = useLocation();
 
   useEffect(() => {
-    // samplequery: .../profiles-list?address=text&dropInDate=text&dropOffDate=text
     const query = queryString.parse(search);
     if (!query.address && !query.dropInDate && !query.dropOffDate) return;
 
@@ -75,19 +71,16 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       });
   }, [updateSnackBarMessage, addressQuery, dropInDateQuery, dropOffDateQuery]);
 
-  // Number of profile cards to display at a time
-  const pageLimit = 6;
-
-  const numberOfPages = Math.ceil(profiles.length / pageLimit);
+  const maxCardsPerPage = 6;
+  const numberOfPages = Math.ceil(profiles.length / maxCardsPerPage);
 
   const profileCards = useMemo(() => {
-    const sliceIndex = getCurrentSliceIndex(profiles.length, pageLimit, currentPage);
+    const currentSlice = getCurrentSlice(profiles.length, maxCardsPerPage, currentPage);
     return profiles
-      .slice(sliceIndex.start, sliceIndex.end)
+      .slice(currentSlice.startIndex, currentSlice.stopIndex)
       .map((profile) => <ProfileCard key={profile._id} profile={profile} />);
   }, [profiles, currentPage]);
 
-  // The "toLocaleString" method of type "ParseableDate<undefined>" differs from that of type "Date"
   const getDateString = (date: ParseableDate<undefined>): string => {
     if (date)
       return new Date(date?.toLocaleString() as string).toLocaleDateString('en-US', {
@@ -95,6 +88,9 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       });
     return '';
   };
+
+  const tooltipMessage = 'Your results are displayed automatically when you enter a search query';
+  const handleSearchIconClick = () => updateSnackBarMessage(tooltipMessage);
 
   return (
     <Grid container direction="column" alignItems="center" className={classes.searchContainer}>
@@ -121,7 +117,11 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
                   color="warning"
                   InputProps={{
                     ...params.InputProps,
-                    startAdornment: <SearchIcon color="primary" />,
+                    startAdornment: (
+                      <Tooltip title={tooltipMessage}>
+                        <SearchIcon color="primary" className={classes.iconTooltip} onClick={handleSearchIconClick} />
+                      </Tooltip>
+                    ),
                   }}
                 />
               )}
@@ -178,7 +178,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       ) : (
         <Grid xl={8} lg={9} md={10} item container justify="center">
           {profiles.length ? profileCards : <Typography variant="h4">No Results to display</Typography>}
-          {profiles.length > pageLimit && !showPagination && (
+          {profiles.length > maxCardsPerPage && !showPagination && (
             <Grid container justify="center">
               <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
                 <Typography variant="h6" className={classes.bold}>

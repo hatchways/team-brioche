@@ -1,4 +1,4 @@
 export interface Page {
-  start: number;
-  end: number;
+  startIndex: number;
+  stopIndex: number;
 }
