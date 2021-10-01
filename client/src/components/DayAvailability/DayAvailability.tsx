@@ -2,17 +2,19 @@ import { useEffect, useMemo, useState } from 'react';
 import { Grid, Typography, InputLabel, Select, MenuItem, FormControl, CircularProgress } from '@material-ui/core';
 import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
+import { useAvailability } from '../../context/useAvailabilityContext';
 import { useHistory } from 'react-router-dom';
 import useInputState from '../../pages/EditProfile/EditProfileForm/useInputState';
 interface Props {
   day: string;
+  index: number;
+  addToArr: any;
 }
-export default function DayAvailability({ day }: Props): JSX.Element {
+export default function DayAvailability({ day, index, addToArr }: Props): JSX.Element {
   const classes = useStyles();
   const [fromVal, handleFromChange] = useInputState('');
   const [toVal, handleToChange] = useInputState('');
-  const { loggedInUser } = useAuth();
-  const history = useHistory();
+
   const hours = [
     '12AM',
     '1AM',
@@ -39,14 +41,13 @@ export default function DayAvailability({ day }: Props): JSX.Element {
     '10PM',
     '11PM',
   ];
-
-  if (loggedInUser === undefined) return <CircularProgress />;
-  if (!loggedInUser) {
-    history.push('/login');
-    // loading for a split seconds until history.push works
-    return <CircularProgress />;
-  }
-
+  useEffect(() => {
+    const slot = {
+      startTime: fromVal,
+      endTime: toVal,
+    };
+    addToArr(slot, index);
+  }, [toVal, fromVal, index, addToArr]);
   return (
     <Grid container direction="row" component="main" className={classes.root}>
       <Typography variant="h5">{day}</Typography>

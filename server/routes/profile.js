@@ -7,7 +7,6 @@ const {
   createProfile,
   getProfile,
   updateProfile,
-  getProfileByUser,
   savePhoto,
 } = require("../controllers/profile");
 

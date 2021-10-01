@@ -32,7 +32,7 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-profile">
                   <EditProfile />
                 </ProtectedRoute>
-                <ProtectedRoute exact path="/edit-profile/availability">
+                <ProtectedRoute exact path="/edit-profile/availability/">
                   <Availability />
                 </ProtectedRoute>
                 <Route exact path="/profile" component={ProfileSetting} />
