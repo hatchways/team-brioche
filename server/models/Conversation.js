@@ -6,6 +6,11 @@ const conversationSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  lastMessage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Message",
+    required: false,
+  },
 });
 
 module.exports = Conversation = mongoose.model(

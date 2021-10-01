@@ -25,8 +25,17 @@ exports.createConversationViaProfile = asyncHandler(async (req, res, next) => {
 
 exports.createConversation = asyncHandler(async (req, res, next) => {
   const { receiverId } = req.body;
+  console.log(req.user);
   const senderId = req.user.id;
   !receiverId && res.status(400).json({ error });
+
+  const existingConvo = await Conversation.find({
+    participants: { $all: [senderId, receiverId] },
+  });
+
+  if (existingConvo[0]) {
+    return res.status(200).json(existingConvo[0]);
+  }
   const conversation = await Conversation.create({
     members: [senderId, receiverId],
   });

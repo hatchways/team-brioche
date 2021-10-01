@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Message = require("../models/Message");
+const Conversation = require("../models/Conversation");
 exports.sendMessage = asyncHandler(async (req, res, next) => {
   const senderId = req.user.id;
   const { conversationId, message } = req.body;
@@ -10,6 +11,13 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
   });
   if (!messageSuccess) {
     res.status(500).json({ error });
+  }
+  const lastMessage = await Conversation.findByIdAndUpdate(conversationId, {
+    lastMessage: messageSuccess._id,
+  });
+  if (!lastMessage) {
+    res.status(500);
+    throw new Error("Something went wrong while updating conversation");
   }
   res.status(201).json({ messageSent: { message: messageSuccess } });
 });
