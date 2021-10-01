@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     margin: `${theme.spacing(10)}px 0`,
   },
   searchContainer: {
-    margin: `${theme.spacing(4)}px 0`,
+    marginTop: theme.spacing(4),
   },
   bold: {
     fontWeight: 'bolder',
