@@ -6,6 +6,7 @@ interface ProfileResponse {
   profiles: Profile[];
   uniqueAddress: string[];
 }
+
 // eslint-disable-next-line
 export async function getList(addressQuery: string | undefined, range: DayRange): Promise<ProfileResponse> {
   const mockProfiles = getMock().filter((profile) => {
@@ -18,7 +19,6 @@ export async function getList(addressQuery: string | undefined, range: DayRange)
   });
 }
 
-// The returned list of unique addresses is used to populate a combo box for a more directed search
 function getUniqueAddress(profiles: Profile[]): string[] {
   const addressList = profiles.map((profile) => profile.address);
   const uniqueAddress = new Set(addressList);

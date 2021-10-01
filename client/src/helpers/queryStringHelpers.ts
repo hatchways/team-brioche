@@ -10,7 +10,6 @@ interface ProfileQuery {
   dropOffDate: { test: boolean; value: string };
 }
 
-// queryStrings use '-' to separate words i.e Toronto-Ontario => Toronto Ontario
 const recoverWhiteSpace = (str: string): string => str.split('-').join(' ');
 
 export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuery => ({
@@ -34,7 +33,6 @@ interface GenerateProfileQuery {
   dropOffDate: ParseableDate<undefined>;
 }
 
-// Remove surrounding whitespace. Replace word seperations with '-' i.e Toronto Ontario => Toronto-Ontario
 const removeWhiteSpace = (str: string): string => str.trim().split(' ').join('-');
 
 export const generateQueryString = (value: GenerateProfileQuery): string => {

@@ -21,7 +21,6 @@ interface Props {
   range?: DayRange;
 }
 
-// Optional props may be passed to this component directly or through query strings
 export default function ProfileListings({ address, range }: Props): JSX.Element {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [uniqueAddress, setUniqueAddress] = useState<string[]>([]);
@@ -30,12 +29,10 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   const [showPagination, setShowPagination] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // search parameters
   const [addressText, setAddressText] = useState(address || '');
   const [dropInDate, setDropInDate] = useState<ParseableDate<undefined>>(range?.dropInDate || null);
   const [dropOffDate, setDropOffDate] = useState<ParseableDate<undefined>>(range?.dropOffDate || null);
 
-  // limit Api call to max of 1 in 500ms
   const [dropInDateQuery] = useDebounce(dropInDate, 500);
   const [dropOffDateQuery] = useDebounce(dropOffDate, 500);
   const [addressQuery] = useDebounce(addressText, 500);
@@ -45,7 +42,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   const { search } = useLocation();
 
   useEffect(() => {
-    // samplequery: .../profiles-list?address=text&dropInDate=text&dropOffDate=text
     const query = queryString.parse(search);
     if (!query.address && !query.dropInDate && !query.dropOffDate) return;
 
@@ -75,7 +71,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       });
   }, [updateSnackBarMessage, addressQuery, dropInDateQuery, dropOffDateQuery]);
 
-  // Number of profile cards to display at a time
   const maxCardsPerPage = 6;
   const numberOfPages = Math.ceil(profiles.length / maxCardsPerPage);
 
@@ -86,7 +81,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       .map((profile) => <ProfileCard key={profile._id} profile={profile} />);
   }, [profiles, currentPage]);
 
-  // The "toLocaleString" method of type "ParseableDate<undefined>" differs from that of type "Date"
   const getDateString = (date: ParseableDate<undefined>): string => {
     if (date)
       return new Date(date?.toLocaleString() as string).toLocaleDateString('en-US', {
