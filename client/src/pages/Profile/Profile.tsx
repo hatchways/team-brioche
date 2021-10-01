@@ -10,6 +10,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { profileGet } from '../../helpers/APICalls/profile';
+import { useSnackBar } from '../../context/useSnackbarContext';
 interface ProfileParams {
   id: string;
 }
@@ -27,6 +28,7 @@ interface ProfileI {
   error?: string;
 }
 export default function Profile(): JSX.Element {
+  const { updateSnackBarMessage } = useSnackBar();
   const classes = useStyles();
   const { id } = useParams<ProfileParams>();
   const initialData = {
@@ -42,12 +44,12 @@ export default function Profile(): JSX.Element {
   useEffect(() => {
     profileGet({ id }).then((data) => {
       if (data.error) {
-        console.error(data.error);
+        updateSnackBarMessage('Something went wrong');
       } else if (data) {
         setProfile(data);
       }
     });
-  }, [id]);
+  }, [id, updateSnackBarMessage]);
   const theme = createTheme({
     palette: {
       primary: { main: '#f04040' },
