@@ -72,7 +72,7 @@ export default function DayAvailability({ day, index, addToArr }: Props): JSX.El
           </Select>
         </FormControl>
         <FormControl className={classes.selectContainer}>
-          <InputLabel id="to" shrink={false} className={classes.label}>
+          <InputLabel id="to" shrink={false} className={`${classes.label} ${classes.toLabel}`}>
             TO
           </InputLabel>
           <Select

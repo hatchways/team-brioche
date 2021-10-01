@@ -30,7 +30,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateLoginContext = useCallback(
     (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
-      history.push('/dashboard');
+      history.push('/dashboard/');
     },
     [history],
   );
@@ -60,7 +60,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await profileGetByUser().then((data: ProfileCreateSuccess) => {
         if (data.profile) {
           updateProfileContext(data);
-          history.push('/edit-profile/availability');
+          history.push('/dashboard');
         } else if (data.error) {
           history.push('/edit-profile');
         }

@@ -3,12 +3,14 @@ import { Paper, Typography, Box, Button, List } from '@material-ui/core';
 import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useHistory, useParams } from 'react-router-dom';
+import { useSnackBar } from '../../context/useSnackbarContext';
 import DayAvailability from '../../components/DayAvailability/DayAvailability';
 import { updateAvailability } from '../../helpers/APICalls/profile';
 export default function Availability(): JSX.Element {
   const classes = useStyles();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
+  const { updateSnackBarMessage } = useSnackBar();
+  const history = useHistory();
   interface Slot {
     startTime?: string;
     endTime?: string;
@@ -24,6 +26,8 @@ export default function Availability(): JSX.Element {
     };
     e.preventDefault();
     updateAvailability(data);
+    updateSnackBarMessage('Availability is saved');
+    history.push('/dashboard');
   };
 
   return (

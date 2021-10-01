@@ -10,8 +10,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    '&:first-child': {
+      borderRadius: `5px 5px 0 0`,
+    },
     '&:last-child': {
       borderBottom: '1px solid #cfcbca',
+      borderRadius: `0 0 5px 5px`,
     },
   },
   container: {
@@ -27,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     left: '-46px',
     top: '10px',
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  toLabel: {
+    left: '-24px',
   },
 }));
 

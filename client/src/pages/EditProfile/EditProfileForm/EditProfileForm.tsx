@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
+import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 import Select from '@mui/material/Select';
 import { profileCreate, profileUpdate } from '../../../helpers/APICalls/profile';
@@ -15,11 +16,9 @@ import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
-  const [value, setValue] = useState<Date | null>(null);
+  const history = useHistory();
   const handleSubmit = (
     { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
@@ -33,6 +32,7 @@ const EditProfileForm = (): JSX.Element => {
             setSubmitting(false);
             updateSnackBarMessage('Profile Created');
             updateProfileContext(data);
+            history.push('/edit-profile/availability');
           } else {
             setSubmitting(false);
           }
