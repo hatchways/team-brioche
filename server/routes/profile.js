@@ -20,15 +20,13 @@ router.route("/").get(protect, loadProfiles); //get all the profiles
 
 router.route("/").post(protect, createProfile); //create a new profile
 
-router.route("/get-profile")
-	.get(protect, getProfileFromUserId);
+router.route("/get-profile").get(protect, getProfileFromUserId);
 
-router.route("/save-photo")
-	.post(protect, upload.fields([{name: 'photos'}]), savePhoto);
+router
+  .route("/save-photo")
+  .post(protect, upload.fields([{ name: "photos" }]), savePhoto);
 
-router.route("/delete-photo")
-	.delete(protect, deletePhoto);
-
+router.route("/delete-photo").delete(protect, deletePhoto);
 
 router.route("/:id").get(protect, getProfile); //Get a profile with ID
 

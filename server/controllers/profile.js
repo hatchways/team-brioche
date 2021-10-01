@@ -8,17 +8,16 @@ const User = require("../models/User");
 exports.getProfileFromUserId = asyncHandler(async (req, res) => {
   const user = req.user;
 
-  const profile = await Profile.findOne({userId: user.id});
+  const profile = await Profile.findOne({ userId: user.id });
   if (profile) {
     res.status(200).json({
       success: {
-        profile: profile
-      }
+        profile: profile,
+      },
     });
-  }
-  else {
+  } else {
     res.status(404);
-    throw new Error('User info is not correct');
+    throw new Error("User info is not correct");
   }
 });
 const { profile } = require("console");
@@ -176,11 +175,19 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
 exports.savePhoto = asyncHandler(async (req, res) => {
   const user = req.user;
-  const {photos} = req.files;
-  
-  photos.forEach(photo => {
-    if (!(photo.mimetype === "image/png" || photo.mimetype === "image/jpg" || photo.mimetype === "image/jpeg")) {
-      return res.status(400).json({msg: "Only .png, .jpg and .jpeg format allowed!"});
+  const { photos } = req.files;
+
+  photos.forEach((photo) => {
+    if (
+      !(
+        photo.mimetype === "image/png" ||
+        photo.mimetype === "image/jpg" ||
+        photo.mimetype === "image/jpeg"
+      )
+    ) {
+      return res
+        .status(400)
+        .json({ msg: "Only .png, .jpg and .jpeg format allowed!" });
     }
   });
 
@@ -194,39 +201,49 @@ exports.savePhoto = asyncHandler(async (req, res) => {
     fs.unlinkSync(photo.path);
   });
 
-  const profile = await Profile.findOneAndUpdate({userId: user.id}, {profilePic: urls[0]});
-  
+  const profile = await Profile.findOneAndUpdate(
+    { userId: user.id },
+    { profilePic: urls[0] }
+  );
+
   if (profile) {
     const oldUrl = profile.profilePic;
     if (oldUrl) {
-      const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
+      const publicId = oldUrl.substring(
+        oldUrl.lastIndexOf("/") + 1,
+        oldUrl.lastIndexOf(".")
+      );
       await cloudinary.uploader.destroy(publicId);
     }
     res.status(200).json({
-      success: { profilePic: urls[0] }
+      success: { profilePic: urls[0] },
     });
-  }
-  else {
+  } else {
     res.status(404);
-    throw new Error('User info is not correct');
+    throw new Error("User info is not correct");
   }
 });
 
 exports.deletePhoto = asyncHandler(async (req, res) => {
   const user = req.user;
-  
-  const profile = await Profile.findOneAndUpdate({userId: user.id}, {profilePic: ''});
+
+  const profile = await Profile.findOneAndUpdate(
+    { userId: user.id },
+    { profilePic: "" }
+  );
 
   if (profile) {
     const oldUrl = profile.profilePic;
-    const publicId = oldUrl.substring(oldUrl.lastIndexOf('/') + 1, oldUrl.lastIndexOf('.'));
+    const publicId = oldUrl.substring(
+      oldUrl.lastIndexOf("/") + 1,
+      oldUrl.lastIndexOf(".")
+    );
     await cloudinary.uploader.destroy(publicId);
     res.status(200).json({
-      success: true
+      success: true,
     });
-  }
-  else {
+  } else {
     res.status(401);
-    throw new Error('User info is not correct');
+    throw new Error("User info is not correct");
   }
 });

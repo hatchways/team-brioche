@@ -8,10 +8,10 @@ import Signup from './pages/Accounts/Signup/SignUp';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Profile from './pages/Profile/Profile';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-import Profile from './pages/ProfileSetting/ProfileSetting';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
@@ -28,6 +28,12 @@ function App(): JSX.Element {
             <SocketProvider>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Switch>
+                  <Route exact path="/home">
+                    <Layout component={<HomePage />} />
+                  </Route>
+                  <Route path="/profile-listings">
+                    <Layout component={<ProfileListings />} />
+                  </Route>
                   <Route exact path="/login">
                     <Layout component={<Login />} />
                   </Route>
@@ -37,14 +43,8 @@ function App(): JSX.Element {
                   <Route exact path="/booking">
                     <Layout component={<Booking />} />
                   </Route>
-                  <Route exact path="/home">
-                    <Layout component={<HomePage />} />
-                  </Route>
-                  <Route exact path="/profile/:id?">
+                  <Route exact path="/profile">
                     <Layout component={<Profile />} />
-                  </Route>
-                  <Route path="/profile-listings">
-                    <Layout component={<ProfileListings />} />
                   </Route>
                   <ProtectedRoute exact path="/dashboard">
                     <Layout component={<Dashboard />} />
@@ -52,7 +52,9 @@ function App(): JSX.Element {
                   <ProtectedRoute exact path="/edit-profile">
                     <Layout component={<EditProfile />} />
                   </ProtectedRoute>
-
+                  <ProtectedRoute exact path="/profiles/:id">
+                    <Profile />
+                  </ProtectedRoute>
                   <Route path="*">
                     <Redirect to="/login" />
                   </Route>
