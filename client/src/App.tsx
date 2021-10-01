@@ -13,8 +13,9 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Profile from './pages/ProfileSetting/ProfileSetting';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import Layout from './Layout/DashboardLayout';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
+import Layout from './Layout/DashboardLayout';
+import HomePage from './pages/Home/HomePage';
 import './App.css';
 
 function App(): JSX.Element {
@@ -36,10 +37,13 @@ function App(): JSX.Element {
                   <Route exact path="/booking">
                     <Layout component={<Booking />} />
                   </Route>
+                  <Route exact path="/home">
+                    <Layout component={<HomePage />} />
+                  </Route>
                   <Route exact path="/profile/:id?">
                     <Layout component={<Profile />} />
                   </Route>
-                  <Route exact path="/profile-listings">
+                  <Route path="/profile-listings">
                     <Layout component={<ProfileListings />} />
                   </Route>
                   <ProtectedRoute exact path="/dashboard">
@@ -48,6 +52,7 @@ function App(): JSX.Element {
                   <ProtectedRoute exact path="/edit-profile">
                     <Layout component={<EditProfile />} />
                   </ProtectedRoute>
+
                   <Route path="*">
                     <Redirect to="/login" />
                   </Route>

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import useStyles from './useStyles';
-import Logo from '../assets/img/logo.png';
 import { useAuth } from '../context/useAuthContext';
+import useStyles from './useStyles';
+
+import Logo from '../assets/img/logo.png';
 
 interface Props {
   component: React.ReactNode;
@@ -12,8 +14,14 @@ interface Props {
 function DashboardLayout({ component }: Props): JSX.Element {
   const classes = useStyles();
   const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
+  const [isHomePage, setIsHomePage] = useState(false);
 
   const { loggedInUser, logout } = useAuth();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsHomePage(pathname === '/home');
+  }, [pathname]);
 
   const handleLogout = () => {
     setProfileEl(null);
@@ -22,17 +30,28 @@ function DashboardLayout({ component }: Props): JSX.Element {
 
   return (
     <Box className={classes.root}>
-      <AppBar position="relative" color="inherit" elevation={6}>
+      <AppBar position="sticky" color="inherit" elevation={6} className={clsx(isHomePage && classes.HomePage)}>
         <Toolbar>
           <Box className={classes.logo}>
             <img src={Logo} alt="Logo Image" />
           </Box>
           {!loggedInUser ? (
             <Box className={classes.wrapper}>
-              <Button component={Link} to={'#'} color="inherit" className={classes.member}>
+              <Button
+                component={Link}
+                to={'#'}
+                color="inherit"
+                className={clsx(classes.member, isHomePage && classes.textWhite)}
+              >
                 Become a sitter
               </Button>
-              <Button component={Link} to={'/login'} variant="outlined" color="primary" className={classes.link}>
+              <Button
+                component={Link}
+                to={'/login'}
+                variant="outlined"
+                color="primary"
+                className={clsx(classes.link, isHomePage && classes.textWhite)}
+              >
                 Login
               </Button>
               <Button component={Link} to={'/signup'} variant="contained" color="primary" className={classes.link}>
