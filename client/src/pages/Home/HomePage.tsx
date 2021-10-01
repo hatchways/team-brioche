@@ -6,6 +6,7 @@ import { DatePicker } from '@mui/lab';
 import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import { generateQueryString } from '../../helpers/queryStringHelpers';
 import useStyles from './useStyles';
+import { useSnackBar } from './../../context/useSnackbarContext';
 
 export default function HomePage(): JSX.Element {
   const [address, setAddress] = useState('');
@@ -13,12 +14,14 @@ export default function HomePage(): JSX.Element {
   const [dropOffDate, setDropOffDate] = useState<ParseableDate<undefined>>(null);
 
   const classes = useStyles();
+  const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const search = generateQueryString({ address, dropInDate, dropOffDate });
-    if (search) history.push(`/profile-listings?${search}`);
+    const queryString = generateQueryString({ address, dropInDate, dropOffDate });
+    if (queryString) history.push(`/profile-listings?${queryString}`);
+    updateSnackBarMessage('Please select at least one search item');
   };
 
   return (

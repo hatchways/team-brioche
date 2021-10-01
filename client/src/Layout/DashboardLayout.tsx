@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
-import useStyles from './useStyles';
-import Logo from '../assets/img/logo.png';
-import { useAuth } from '../context/useAuthContext';
 import clsx from 'clsx';
+import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
+import { useAuth } from '../context/useAuthContext';
+import useStyles from './useStyles';
+
+import Logo from '../assets/img/logo.png';
 
 interface Props {
   component: React.ReactNode;

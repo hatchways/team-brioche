@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   intro: {
     width: '50%',
     minHeight: '100vh',
-    padding: '3rem 3rem',
+    padding: theme.spacing(6),
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
