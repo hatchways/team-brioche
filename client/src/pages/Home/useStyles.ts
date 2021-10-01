@@ -3,6 +3,8 @@ import Image from '../../Images/cover.jpg';
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    position: 'absolute',
+    top: 0,
     minHeight: '100vh',
     backgroundColor: theme.palette.grey[100],
   },
@@ -56,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     width: '180px !important',
   },
   address: {
-    marginTop: theme.spacing(6),
     width: '100%',
   },
   picker: {

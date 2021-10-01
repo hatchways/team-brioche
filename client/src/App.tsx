@@ -24,42 +24,42 @@ function App(): JSX.Element {
       <CssBaseline />
       <BrowserRouter>
         <SnackBarProvider>
-          {/* <AuthProvider> */}
-          <SocketProvider>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <Switch>
-                <Route exact path="/login">
-                  <Layout component={<Login />} />
-                </Route>
-                <Route exact path="/signup">
-                  <Layout component={<Signup />} />
-                </Route>
-                <Route exact path="/booking">
-                  <Layout component={<Booking />} />
-                </Route>
-                <Route exact path="/home">
-                  <Layout component={<HomePage />} />
-                </Route>
-                <Route exact path="/profile/:id?">
-                  <Layout component={<Profile />} />
-                </Route>
-                <Route path="/profile-listings">
-                  <Layout component={<ProfileListings />} />
-                </Route>
-                <ProtectedRoute exact path="/dashboard">
-                  <Layout component={<Dashboard />} />
-                </ProtectedRoute>
-                <ProtectedRoute exact path="/edit-profile">
-                  <Layout component={<EditProfile />} />
-                </ProtectedRoute>
+          <AuthProvider>
+            <SocketProvider>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <Switch>
+                  <Route exact path="/login">
+                    <Layout component={<Login />} />
+                  </Route>
+                  <Route exact path="/signup">
+                    <Layout component={<Signup />} />
+                  </Route>
+                  <Route exact path="/booking">
+                    <Layout component={<Booking />} />
+                  </Route>
+                  <Route exact path="/home">
+                    <Layout component={<HomePage />} />
+                  </Route>
+                  <Route exact path="/profile/:id?">
+                    <Layout component={<Profile />} />
+                  </Route>
+                  <Route path="/profile-listings">
+                    <Layout component={<ProfileListings />} />
+                  </Route>
+                  <ProtectedRoute exact path="/dashboard">
+                    <Layout component={<Dashboard />} />
+                  </ProtectedRoute>
+                  <ProtectedRoute exact path="/edit-profile">
+                    <Layout component={<EditProfile />} />
+                  </ProtectedRoute>
 
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </LocalizationProvider>
-          </SocketProvider>
-          {/* </AuthProvider> */}
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </LocalizationProvider>
+            </SocketProvider>
+          </AuthProvider>
         </SnackBarProvider>
       </BrowserRouter>
     </MuiThemeProvider>
