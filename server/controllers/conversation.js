@@ -25,26 +25,26 @@ exports.createConversationViaProfile = asyncHandler(async (req, res, next) => {
 
 exports.createConversation = asyncHandler(async (req, res, next) => {
   const { receiverId } = req.body;
-  console.log(req.user);
   const senderId = req.user.id;
   !receiverId && res.status(400).json({ error });
 
-  const existingConvo = await Conversation.find({
-    participants: { $all: [senderId, receiverId] },
+  const existingConvo = await Conversation.findOne({
+    members: { $all: [senderId, receiverId] },
   });
 
-  if (existingConvo[0]) {
-    return res.status(200).json(existingConvo[0]);
-  }
-  const conversation = await Conversation.create({
-    members: [senderId, receiverId],
-  });
-  if (!conversation) {
-    res.status(500);
-    throw new Error("Something went wrong with the conversation");
-  }
+  if (existingConvo) {
+    return res.status(200).json(existingConvo);
+  } else {
+    const conversation = await Conversation.create({
+      members: [senderId, receiverId],
+    });
+    if (!conversation) {
+      res.status(500);
+      throw new Error("Something went wrong with the conversation");
+    }
 
-  res.status(201).json(conversation);
+    res.status(201).json(conversation);
+  }
 });
 
 exports.getConversations = asyncHandler(async (req, res, next) => {
