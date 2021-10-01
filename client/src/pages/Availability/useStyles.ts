@@ -1,16 +1,24 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { theme } from '../../themes/theme';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: '100vh',
-    marginTop: '6vh',
-    justifyContent: 'center',
+    maxWidth: '800px',
+    margin: `${theme.spacing(4)}px auto`,
+    padding: theme.spacing(4),
+    alignSelf: 'center',
   },
-  welcome: {
-    fontSize: 26,
-    paddingBottom: 20,
-    color: '#000000',
-    fontWeight: 700,
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  list: {
+    width: '100%',
+    margin: theme.spacing(2),
+  },
+  saveBtn: {
+    maxWidth: '200px',
   },
 }));
 

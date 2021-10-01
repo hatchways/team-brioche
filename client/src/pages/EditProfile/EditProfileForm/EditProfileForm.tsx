@@ -60,14 +60,6 @@ const EditProfileForm = (): JSX.Element => {
     phone: Yup.number().required('Phone number is required'),
     description: Yup.string().required('Description is required'),
   };
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
   return (
     <Formik
       initialValues={{

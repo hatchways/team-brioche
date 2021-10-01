@@ -110,20 +110,6 @@ exports.getProfileByUser = asyncHandler(async (req, res, next) => {
   res.status(200).send(profile);
 });
 
-// exports.updateAvailability = asyncHandler(async (req, res, next) => {
-//   //const {id} = req.user;
-//   console.log(req.user.id);
-//   // if (!id) {
-//   //   res.status(400).json({ error });
-//   // }
-//   // const {availability}= req.body;
-//   // const newProfile = await Profile.findOneAndUpdate({ userId: id },availability,{new:true});
-//   // if(!newProfile) {
-//   //   res.status(500).json({error})
-//   // }
-//   // res.status(200).json(newProfile);
-// })
-
 //@route UPDATE/PUT /profiles/:_id
 //@desc find one profile with a particular ID and update the info within
 //access private

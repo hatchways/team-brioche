@@ -51,41 +51,49 @@ export default function DayAvailability({ day, index, addToArr }: Props): JSX.El
   return (
     <Grid container direction="row" component="main" className={classes.root}>
       <Typography variant="h5">{day}</Typography>
-      <FormControl className={classes.selectContainer} fullWidth>
-        <InputLabel id="demo-simple-select-label">From</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={fromVal}
-          onChange={handleFromChange}
-          label="Age"
-        >
-          {hours.map((hour) => (
-            <MenuItem key={hour} value={hour}>
-              {hour}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">To</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          value={toVal}
-          onChange={handleToChange}
-          id="demo-simple-select"
-          label="Age"
-        >
-          {hours.map(
-            (hour, i) =>
-              i > hours.indexOf(fromVal) && (
-                <MenuItem key={hour} value={hour}>
-                  {hour}
-                </MenuItem>
-              ),
-          )}
-        </Select>
-      </FormControl>
+      <Grid container direction="row" className={classes.container}>
+        <FormControl className={classes.selectContainer}>
+          <InputLabel id="from" shrink={false} className={classes.label}>
+            FROM
+          </InputLabel>
+          <Select
+            labelId="from"
+            id="fromSelect"
+            variant="outlined"
+            placeholder="10AM"
+            value={fromVal}
+            onChange={handleFromChange}
+          >
+            {hours.map((hour) => (
+              <MenuItem key={hour} value={hour}>
+                {hour}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.selectContainer}>
+          <InputLabel id="to" shrink={false} className={classes.label}>
+            TO
+          </InputLabel>
+          <Select
+            labelId="from"
+            value={toVal}
+            variant="outlined"
+            placeholder="10PM"
+            onChange={handleToChange}
+            id="toSelect"
+          >
+            {hours.map(
+              (hour, i) =>
+                i > hours.indexOf(fromVal) && (
+                  <MenuItem key={hour} value={hour}>
+                    {hour}
+                  </MenuItem>
+                ),
+            )}
+          </Select>
+        </FormControl>
+      </Grid>
     </Grid>
   );
 }

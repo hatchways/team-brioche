@@ -1,5 +1,5 @@
 import { useState, SyntheticEvent } from 'react';
-import { Grid, Typography, Box, Button, CircularProgress } from '@material-ui/core';
+import { Paper, Typography, Box, Button, List } from '@material-ui/core';
 import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useHistory, useParams } from 'react-router-dom';
@@ -27,14 +27,20 @@ export default function Availability(): JSX.Element {
   };
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <Box component="form" onSubmit={handleSubmit}>
-        <Typography variant="h4">Availability</Typography>
-        {daysOfWeek.map((day, i) => (
-          <DayAvailability key={day} day={day} index={i} addToArr={addToArr} />
-        ))}
-        <Button type="submit">Submit</Button>
+    <Paper elevation={3} component="main" className={classes.root}>
+      <Box className={classes.form} component="form" onSubmit={handleSubmit}>
+        <Typography align="center" variant="h4">
+          Availability
+        </Typography>
+        <List className={classes.list}>
+          {daysOfWeek.map((day, i) => (
+            <DayAvailability key={day} day={day} index={i} addToArr={addToArr} />
+          ))}
+        </List>
+        <Button variant="outlined" color="primary" className={classes.saveBtn} size="large" type="submit">
+          Save
+        </Button>
       </Box>
-    </Grid>
+    </Paper>
   );
 }

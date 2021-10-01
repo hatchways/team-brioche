@@ -9,7 +9,6 @@ exports.updateAvailability = asyncHandler(async (req, res, next) => {
     res.status(400).json({ error });
   }
   const { weeklyTimeRange } = req.body;
-  console.log(weeklyTimeRange);
   const newProfile = await Profile.findOneAndUpdate(
     { userId: id },
     { availability: { weeklyTimeRange: weeklyTimeRange } },
