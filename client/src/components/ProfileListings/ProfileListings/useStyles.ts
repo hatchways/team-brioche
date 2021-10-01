@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   pagination: {
     margin: `${theme.spacing(4)}px 0`,
   },
+  iconTooltip: {
+    cursor: 'pointer',
+  },
 }));
 
 export default useStyles;

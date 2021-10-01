@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 import clsx from 'clsx';
 import { useDebounce } from 'use-debounce/lib';
 import queryString from 'query-string';
-import { Box, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Grid, Typography, Tooltip } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Pagination, TextField, Autocomplete } from '@mui/material';
 import { DatePicker } from '@mui/lab';
@@ -96,6 +96,9 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
     return '';
   };
 
+  const tooltipMessage = 'You results are displayed automatically when you type in your search query';
+  const handleSearchIconClick = () => updateSnackBarMessage(tooltipMessage);
+
   return (
     <Grid container direction="column" alignItems="center" className={classes.searchContainer}>
       <Grid item container alignItems="center" direction="column">
@@ -121,7 +124,11 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
                   color="warning"
                   InputProps={{
                     ...params.InputProps,
-                    startAdornment: <SearchIcon color="primary" />,
+                    startAdornment: (
+                      <Tooltip title={tooltipMessage}>
+                        <SearchIcon color="primary" className={classes.iconTooltip} onClick={handleSearchIconClick} />
+                      </Tooltip>
+                    ),
                   }}
                 />
               )}
