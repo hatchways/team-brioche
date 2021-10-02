@@ -4,6 +4,7 @@ const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
 const mongoose = require("mongoose");
 const User = require("../models/User");
+const { profile } = require("console");
 
 exports.getProfileFromUserId = asyncHandler(async (req, res) => {
   const user = req.user;
@@ -20,7 +21,6 @@ exports.getProfileFromUserId = asyncHandler(async (req, res) => {
     throw new Error("User info is not correct");
   }
 });
-const { profile } = require("console");
 
 // @route GET /profiles
 // @desc get all profiles
@@ -85,6 +85,36 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
       profileId: profile._id,
       profileData: { profile },
     },
+  });
+});
+
+//@route POST /profiles/search
+//@desc returns a list of profiles that match the search parameters
+//@access Public
+exports.searchSitterProfiles = asyncHandler(async (req, res) => {
+  let { address, dropInDate, dropOffDate } = req.body;
+
+  let profiles = await Profile.find({
+    address: { $regex: address || "", $options: "i" },
+    isSitter: true,
+  });
+
+  const uniqueAddress = new Set();
+  const isValidDate = (date) => Boolean(Date.parse(date));
+  dropInDate = isValidDate(dropInDate) ? new Date(dropInDate) : null;
+  dropOffDate = isValidDate(dropOffDate) ? new Date(dropOffDate) : null;
+
+  profiles = profiles.filter((profile) => {
+    const dateTestResult = profile.dateTest(dropInDate, dropOffDate);
+    if (dateTestResult && !uniqueAddress.has(profile.address))
+      uniqueAddress.add(profile.address);
+
+    return dateTestResult;
+  });
+
+  res.status(200).json({
+    profiles,
+    uniqueAddress: Array.from(uniqueAddress),
   });
 });
 

@@ -28,7 +28,7 @@ const profileSchema = new mongoose.Schema({
     type: String,
   },
   availability: {
-    dateRange: { startDate: String, endDate: String },
+    dateRange: { startDate: Date, endDate: Date },
     weeklyTimeRange: [{ startTime: String, endTime: String }],
   },
   gender: {
@@ -41,6 +41,35 @@ const profileSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  isSitter: {
+    type: Boolean,
+  },
+  introduction: {
+    type: String,
+  },
+  pitch: {
+    type: String,
+  },
+  rate: {
+    type: String,
+  },
 });
 
-module.exports = Profile = mongoose.model("Profile", profileSchema);
+profileSchema.methods.dateTest = function (dropInDate, dropOffDate) {
+  const { startDate, endDate } = this.availability.dateRange;
+
+  let dropInDateTest = true;
+  let dropOffDateTest = true;
+
+  if (dropInDate) dropInDateTest = startDate.getTime() <= dropInDate.getTime();
+  if (dropOffDate) dropOffDateTest = endDate.getTime() >= dropOffDate.getTime();
+
+  if (!dropInDate && !dropOffDate)
+    dropOffDateTest = endDate.getTime() > Date.now();
+
+  return dropInDateTest && dropOffDateTest;
+};
+
+const Profile = mongoose.model("Profile", profileSchema);
+
+module.exports = Profile;

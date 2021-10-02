@@ -10,7 +10,7 @@ import { DatePicker } from '@mui/lab';
 import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import { useSnackBar } from '../../../context/useSnackbarContext';
-import { getList } from '../../../helpers/APICalls/profileListService';
+import { getProfileList } from '../../../helpers/APICalls/profileListService';
 import { getCurrentSliceIndex } from './../../../helpers/paginationHelpers';
 import { verfyProfileQuery } from '../../../helpers/queryStringHelpers';
 import { DayRange, Profile } from '../../../interface/Profile';
@@ -54,7 +54,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
 
   useEffect(() => {
     setIsLoading(true);
-    getList(addressQuery, {
+    getProfileList(addressQuery, {
       dropInDate: dropInDateQuery?.toLocaleString(),
       dropOffDate: dropOffDateQuery?.toLocaleString(),
     })
