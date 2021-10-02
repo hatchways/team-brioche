@@ -104,6 +104,11 @@ exports.searchSitterProfiles = asyncHandler(async (req, res) => {
   dropInDate = isValidDate(dropInDate) ? new Date(dropInDate) : null;
   dropOffDate = isValidDate(dropOffDate) ? new Date(dropOffDate) : null;
 
+  if (dropInDate && dropOffDate && dropInDate.getTime() > dropOffDate.getTime())
+    return res.status(400).json({
+      message: "Drop off date must be ahead of drop in date",
+    });
+
   profiles = profiles.filter((profile) => {
     const dateTestResult = profile.dateTest(dropInDate, dropOffDate);
     if (dateTestResult && !uniqueAddress.has(profile.address))

@@ -64,10 +64,10 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
         setCurrentPage(1);
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         setShowPagination(false);
         setIsLoading(false);
-        updateSnackBarMessage('An error occured while fetching your request please try again');
+        updateSnackBarMessage(error.message || 'An error has occured please try again');
       });
   }, [updateSnackBarMessage, addressQuery, dropInDateQuery, dropOffDateQuery]);
 
@@ -100,7 +100,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
           Your search Results
         </Typography>
         <form onSubmit={(e) => e.preventDefault()}>
-          <Grid container justify="center" className={classes.formContainer}>
+          <Grid container justifyContent="center" className={classes.formContainer}>
             <Autocomplete
               id="asynchronous address search"
               options={uniqueAddress}
@@ -171,10 +171,10 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
           </Box>
         </Box>
       ) : (
-        <Grid xl={8} lg={9} md={10} item container justify="center">
+        <Grid xl={8} lg={9} md={10} item container justifyContent="center">
           {profiles.length ? profileCards : <Typography variant="h4">No Results to display</Typography>}
           {profiles.length > pageLimit && !showPagination && (
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
               <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
                 <Typography variant="h6" className={classes.bold}>
                   Show more

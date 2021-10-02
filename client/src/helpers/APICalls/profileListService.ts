@@ -15,10 +15,7 @@ interface ReqBody {
 }
 
 export async function getProfileList(addressQuery: string, range: DayRange): Promise<ProfileResponse> {
-  let body: ReqBody = { address: addressQuery };
-  if (isValidDateString(range.dropInDate as string)) body = { ...body, dropInDate: range.dropInDate };
-  if (isValidDateString(range.dropOffDate as string)) body = { ...body, dropOffDate: range.dropOffDate };
-
+  const body = GenerateReqBody(addressQuery, range);
   const options: FetchOptions = {
     method: 'POST',
     headers: {
@@ -27,12 +24,21 @@ export async function getProfileList(addressQuery: string, range: DayRange): Pro
     credentials: 'include',
     body: JSON.stringify(body),
   };
-
-  try {
-    const res = await fetch('/profile/search', options);
-    if (res.status !== 200) throw new Error('something went wrong');
-    return await res.json();
-  } catch (error) {
-    throw new Error('something went Wrong');
+  const res = await fetch('/profile/search', options);
+  const data = await res.json();
+  if (res.status !== 200) {
+    throw new Error(data.message);
   }
+  return data;
+}
+
+function GenerateReqBody(addressQuery: string, range: DayRange): ReqBody {
+  let body: ReqBody = { address: addressQuery };
+
+  const formatDate = (date: string) => new Date(date).toLocaleDateString('en-Us', { dateStyle: 'full' });
+  const dropInDate = range.dropInDate as string;
+  const dropOffDate = range.dropOffDate as string;
+  if (isValidDateString(dropInDate)) body = { ...body, dropInDate: formatDate(dropInDate) };
+  if (isValidDateString(dropOffDate)) body = { ...body, dropOffDate: formatDate(dropOffDate) };
+  return body;
 }

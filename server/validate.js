@@ -32,15 +32,15 @@ exports.validateRequestUpdate = [
 ];
 
 exports.validateSearchParams = [
-  check("address", "address must be a string").optional().isString().trim(),
-  check("dropInDate", "dropInDate must be a valid date")
+  check("address", "address must be a string").optional().trim().isString(),
+  check("dropInDate", "dropInDate must be a string")
     .optional()
     .trim()
-    .isDate(),
-  check("dropOffDate", "dropOffDate must be a valid date")
+    .isString(),
+  check("dropOffDate", "dropOffDate must be a string")
     .optional()
     .trim()
-    .isDate(),
+    .isString(),
   handleValidation,
 ];
 
