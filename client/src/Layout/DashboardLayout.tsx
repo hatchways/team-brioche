@@ -8,10 +8,10 @@ import useStyles from './useStyles';
 import Logo from '../assets/img/logo.png';
 
 interface Props {
-  component: React.ReactNode;
+  component?: React.ReactNode;
 }
 
-function DashboardLayout({ component }: Props): JSX.Element {
+const DashboardLayout: React.FunctionComponent<Props> = ({ children }): JSX.Element => {
   const classes = useStyles();
   const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
   const [isHomePage, setIsHomePage] = useState(false);
@@ -110,9 +110,9 @@ function DashboardLayout({ component }: Props): JSX.Element {
           )}
         </Toolbar>
       </AppBar>
-      {component}
+      {children}
     </Box>
   );
-}
+};
 
 export default DashboardLayout;
