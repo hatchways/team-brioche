@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, MenuItem } from '@material-ui/core/';
@@ -19,6 +18,7 @@ const EditProfileForm = (): JSX.Element => {
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
   const history = useHistory();
+
   const handleSubmit = (
     { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
@@ -39,7 +39,7 @@ const EditProfileForm = (): JSX.Element => {
         })
       : profileUpdate(
           { firstName, lastName, gender, introduction, pitch, phone, address, description },
-          profileData.profileId!,
+          profileData.profileId,
         ).then((data) => {
           if (data.error) {
             setSubmitting(false);
@@ -60,6 +60,7 @@ const EditProfileForm = (): JSX.Element => {
     phone: Yup.number().required('Phone number is required'),
     description: Yup.string().required('Description is required'),
   };
+
   return (
     <Formik
       initialValues={{
