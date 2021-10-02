@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, MenuItem } from '@material-ui/core/';
@@ -39,7 +38,7 @@ const EditProfileForm = (): JSX.Element => {
         })
       : profileUpdate(
           { firstName, lastName, gender, introduction, pitch, phone, address, description },
-          profileData.profileId!,
+          profileData.profileId,
         ).then((data) => {
           if (data.error) {
             setSubmitting(false);

@@ -4,6 +4,6 @@ const protect = require("../middleware/auth");
 
 const { updateAvailability } = require("../controllers/availability");
 
-router.route("/").put(protect, updateAvailability);
+router.route("/").patch(protect, updateAvailability);
 
 module.exports = router;

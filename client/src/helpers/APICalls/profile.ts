@@ -71,7 +71,7 @@ export async function profileGetByUser(): Promise<ProfileCreateSuccess> {
 }
 export async function updateAvailability(availability: unknown[]): Promise<any> {
   const fetchOptions: FetchOptions = {
-    method: 'PUT',
+    method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(availability),

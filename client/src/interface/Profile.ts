@@ -23,7 +23,7 @@ export interface Profiles {
 }
 export interface ProfileCreated {
   profileData?: Profile;
-  profileId?: string | '';
+  profileId: string | '';
 }
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
