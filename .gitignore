@@ -19,6 +19,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+#file upload
+/server/uploads
 
 #TODO add .env to your gitignore
 __snapshots__
@@ -26,4 +28,4 @@ __snapshots__
 # debug & other vs code settings
 .vscode
 server/uploads/
-client/src/pages/EditProfile/EditProfileForm/betterDate.tsx
+client/src/pages/EditProfile/EditProfileForm/DateSelector.tsx
