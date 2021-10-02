@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
@@ -14,14 +14,10 @@ interface Props {
 const DashboardLayout: React.FunctionComponent<Props> = ({ children }): JSX.Element => {
   const classes = useStyles();
   const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
-  const [isHomePage, setIsHomePage] = useState(false);
 
   const { loggedInUser, logout } = useAuth();
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    setIsHomePage(pathname === '/home');
-  }, [pathname]);
+  const isHomePage = pathname === '/home';
 
   const handleLogout = () => {
     setProfileEl(null);

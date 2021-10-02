@@ -10,12 +10,6 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'column',
     },
   },
-  imageContainer: {
-    margin: '0',
-    [theme.breakpoints.down('sm')]: {
-      padding: '0.2rem',
-    },
-  },
   image: {
     margin: '1rem 0',
     borderRadius: '50%',
@@ -65,11 +59,8 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1),
     },
   },
-  cardBody: {
-    padding: `${theme.spacing(1)} 0`,
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1),
-    },
+  CardContent: {
+    padding: 0,
   },
   addressContainer: {
     width: '75%',

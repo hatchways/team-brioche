@@ -163,15 +163,9 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
           <Typography variant="h5" align="center">
             Getting search results
           </Typography>
-          {[
-            ['Address', addressText],
-            ['Drop in', getDateString(dropInDate)],
-            ['Drop off', getDateString(dropOffDate)],
-          ].map((message) => (
-            <Typography key={message[0]}>
-              {message[0]}: {message[1]}
-            </Typography>
-          ))}
+          <Typography>Address: {addressText}</Typography>
+          <Typography>Drop In: {getDateString(dropInDate)}</Typography>
+          <Typography>Drop Off: {getDateString(dropOffDate)}</Typography>
           <Box display="flex" justifyContent="center">
             <CircularProgress size="10rem" className={classes.loading} />
           </Box>

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'uppercase',
   },
   textWhite: {
-    color: 'white',
+    color: theme.palette.text.secondary,
   },
   avatar: {
     marginRight: theme.spacing(4),
