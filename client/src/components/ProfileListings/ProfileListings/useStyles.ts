@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bolder',
   },
   formContainer: {
-    marginBottom: theme.spacing(4),
+    marginBottom: '2rem',
   },
   button: {
     margin: `${theme.spacing(4)}px 0`,

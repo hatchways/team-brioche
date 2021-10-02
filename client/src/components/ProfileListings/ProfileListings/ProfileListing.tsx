@@ -11,7 +11,7 @@ import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { getList } from '../../../helpers/APICalls/profileListService';
-import { getCurrentSlice } from './../../../helpers/paginationHelpers';
+import { getCurrentSliceIndex } from './../../../helpers/paginationHelpers';
 import { verfyProfileQuery } from '../../../helpers/queryStringHelpers';
 import { DayRange, Profile } from '../../../interface/Profile';
 import useStyles from './useStyles';
@@ -75,9 +75,9 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
   const numberOfPages = Math.ceil(profiles.length / maxCardsPerPage);
 
   const profileCards = useMemo(() => {
-    const currentSlice = getCurrentSlice(profiles.length, maxCardsPerPage, currentPage);
+    const sliceIndex = getCurrentSliceIndex(profiles.length, pageLimit, currentPage);
     return profiles
-      .slice(currentSlice.startIndex, currentSlice.stopIndex)
+      .slice(sliceIndex.start, sliceIndex.end)
       .map((profile) => <ProfileCard key={profile._id} profile={profile} />);
   }, [profiles, currentPage]);
 
@@ -145,7 +145,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
                 value={dropOffDate}
                 onChange={(value) => setDropOffDate(value)}
                 renderInput={(params) => (
-                  <TextField
+                I  <TextField
                     {...params}
                     color="warning"
                     inputProps={{ ...params.inputProps, className: classes.datePicker }}
@@ -178,7 +178,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       ) : (
         <Grid xl={8} lg={9} md={10} item container justify="center">
           {profiles.length ? profileCards : <Typography variant="h4">No Results to display</Typography>}
-          {profiles.length > maxCardsPerPage && !showPagination && (
+          {profiles.length > pageLimit && !showPagination && (
             <Grid container justify="center">
               <Button onClick={() => setShowPagination(true)} variant="outlined" className={classes.button}>
                 <Typography variant="h6" className={classes.bold}>
