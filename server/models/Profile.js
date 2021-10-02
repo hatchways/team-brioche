@@ -3,11 +3,9 @@ const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   dob: {
     type: Date,
@@ -42,15 +40,6 @@ const profileSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-  },
-  introduction: {
-    type: String,
-  },
-  pitch: {
-    type: String,
-  },
-  rate: {
-    type: Number,
   },
 });
 
