@@ -2,9 +2,8 @@ import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import { ParsedQuery } from 'query-string';
 import { isValidDateString } from './dateTimeHelper';
 
-const maxStringLength = 20;
-
-interface ProfileQuery {
+const maxLengthPermitted = 20;
+interface Query {
   address: { test: boolean; value: string };
   dropInDate: { test: boolean; value: string };
   dropOffDate: { test: boolean; value: string };
@@ -12,9 +11,9 @@ interface ProfileQuery {
 
 const recoverWhiteSpace = (str: string): string => str.split('-').join(' ');
 
-export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuery => ({
+export const verfyProfileQuery = (queryString: queryString.ParsedQuery<string>): Query => ({
   address: {
-    test: queryString.address && queryString.address.length < maxStringLength ? true : false,
+    test: queryString && queryString.address && queryString.address.length < maxLengthPermitted ? true : false,
     value: queryString.address ? recoverWhiteSpace(queryString.address as string) : '',
   },
   dropInDate: {

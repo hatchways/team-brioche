@@ -71,8 +71,10 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       });
   }, [updateSnackBarMessage, addressQuery, dropInDateQuery, dropOffDateQuery]);
 
-  const maxCardsPerPage = 6;
-  const numberOfPages = Math.ceil(profiles.length / maxCardsPerPage);
+  // Number of profile cards to display at a time
+  const pageLimit = 6;
+
+  const numberOfPages = Math.ceil(profiles.length / pageLimit);
 
   const profileCards = useMemo(() => {
     const sliceIndex = getCurrentSliceIndex(profiles.length, pageLimit, currentPage);
