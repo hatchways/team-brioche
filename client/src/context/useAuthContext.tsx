@@ -6,7 +6,7 @@ import { ProfileCreated, ProfileCreateSuccess } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
 import { profileGetByUser } from '../helpers/APICalls/profile';
-//import { profileGetByUser } from '../helpers/APICalls/profile';
+
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
