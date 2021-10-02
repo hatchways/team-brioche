@@ -9,11 +9,10 @@ const conversationSchema = new mongoose.Schema({
   lastMessage: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Message",
-    required: true,
   },
 });
 
 module.exports = Conversation = mongoose.model(
-  "conversation",
+  "Conversation",
   conversationSchema
 );
