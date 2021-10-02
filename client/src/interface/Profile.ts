@@ -19,6 +19,7 @@ export interface Profile {
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
+  coverPic?: string;
   gender?: Gender;
   phone?: number;
   address: string;

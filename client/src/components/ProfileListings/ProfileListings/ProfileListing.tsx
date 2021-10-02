@@ -71,7 +71,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       });
   }, [updateSnackBarMessage, addressQuery, dropInDateQuery, dropOffDateQuery]);
 
-  // Number of profile cards to display at a time
   const pageLimit = 6;
 
   const numberOfPages = Math.ceil(profiles.length / pageLimit);
@@ -147,7 +146,7 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
                 value={dropOffDate}
                 onChange={(value) => setDropOffDate(value)}
                 renderInput={(params) => (
-                I  <TextField
+                  <TextField
                     {...params}
                     color="warning"
                     inputProps={{ ...params.inputProps, className: classes.datePicker }}

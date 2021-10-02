@@ -15,7 +15,6 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
-import HomePage from './pages/Home/HomePage';
 import './App.css';
 
 function App(): JSX.Element {
@@ -24,44 +23,41 @@ function App(): JSX.Element {
       <CssBaseline />
       <BrowserRouter>
         <SnackBarProvider>
-          <AuthProvider>
-            <SocketProvider>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <Switch>
-                  <Route exact path="/home">
-                    <Layout component={<HomePage />} />
-                  </Route>
-                  <Route path="/profile-listings">
-                    <Layout component={<ProfileListings />} />
-                  </Route>
-                  <Route exact path="/login">
-                    <Layout component={<Login />} />
-                  </Route>
-                  <Route exact path="/signup">
-                    <Layout component={<Signup />} />
-                  </Route>
-                  <Route exact path="/booking">
-                    <Layout component={<Booking />} />
-                  </Route>
-                  <Route exact path="/profile">
-                    <Layout component={<Profile />} />
-                  </Route>
-                  <ProtectedRoute exact path="/dashboard">
-                    <Layout component={<Dashboard />} />
-                  </ProtectedRoute>
-                  <ProtectedRoute exact path="/edit-profile">
-                    <Layout component={<EditProfile />} />
-                  </ProtectedRoute>
-                  <ProtectedRoute exact path="/profiles/:id">
-                    <Profile />
-                  </ProtectedRoute>
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
-              </LocalizationProvider>
-            </SocketProvider>
-          </AuthProvider>
+          {/* <AuthProvider> */}
+          <SocketProvider>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <Switch>
+                <Route path="/profile-listings">
+                  <Layout component={<ProfileListings />} />
+                </Route>
+                <Route exact path="/login">
+                  <Layout component={<Login />} />
+                </Route>
+                <Route exact path="/signup">
+                  <Layout component={<Signup />} />
+                </Route>
+                <Route exact path="/booking">
+                  <Layout component={<Booking />} />
+                </Route>
+                <Route exact path="/profile">
+                  <Layout component={<Profile />} />
+                </Route>
+                <ProtectedRoute exact path="/dashboard">
+                  <Layout component={<Dashboard />} />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/edit-profile">
+                  <Layout component={<EditProfile />} />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/profiles/:id">
+                  <Profile />
+                </ProtectedRoute>
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
+            </LocalizationProvider>
+          </SocketProvider>
+          {/* </AuthProvider> */}
         </SnackBarProvider>
       </BrowserRouter>
     </MuiThemeProvider>

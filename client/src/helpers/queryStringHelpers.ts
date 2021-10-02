@@ -1,4 +1,3 @@
-import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import { ParsedQuery } from 'query-string';
 import { isValidDateString } from './dateTimeHelper';
 
@@ -11,7 +10,7 @@ interface Query {
 
 const recoverWhiteSpace = (str: string): string => str.split('-').join(' ');
 
-export const verfyProfileQuery = (queryString: queryString.ParsedQuery<string>): Query => ({
+export const verfyProfileQuery = (queryString: ParsedQuery<string>): Query => ({
   address: {
     test: queryString && queryString.address && queryString.address.length < maxLengthPermitted ? true : false,
     value: queryString.address ? recoverWhiteSpace(queryString.address as string) : '',
@@ -25,32 +24,3 @@ export const verfyProfileQuery = (queryString: queryString.ParsedQuery<string>):
     value: new Date(queryString.dropOffDate as string).toString(),
   },
 });
-
-interface GenerateProfileQuery {
-  address: string;
-  dropInDate: ParseableDate<undefined>;
-  dropOffDate: ParseableDate<undefined>;
-}
-
-const removeWhiteSpace = (str: string): string => str.trim().split(' ').join('-');
-
-export const generateQueryString = (value: GenerateProfileQuery): string => {
-  const { address, dropInDate, dropOffDate } = value;
-
-  let search = '';
-  let addAmpersand = false;
-  if (address) {
-    search += `address=${removeWhiteSpace(address)}`;
-    addAmpersand = true;
-  }
-  if (dropInDate) {
-    const text = `dropInDate=${removeWhiteSpace(dropInDate.toLocaleString())}`;
-    search += addAmpersand ? `&${text}` : `${text}`;
-    addAmpersand = true;
-  }
-  if (dropOffDate) {
-    const text = `dropOffDate=${removeWhiteSpace(dropOffDate.toLocaleString())}`;
-    search += addAmpersand ? `&${text}` : `${text}`;
-  }
-  return search;
-};
