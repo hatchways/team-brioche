@@ -9,7 +9,7 @@ export interface Profile {
   phone: number;
   address: string;
   description: string;
-  availability: [string];
+  availability?: Availability;
   coverPic?: string;
   introduction?: string;
   pitch?: string;
@@ -21,14 +21,14 @@ export interface Profiles {
   error?: { message: string };
 }
 export interface ProfileCreated {
-  profileData?: Profile;
-  profileId?: string | '';
+  profileData: Profile;
+  profileId: string;
 }
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
 interface Availability {
-  dateRange: { startDate: string; endDate: string };
-  weeklyTimeRange: Array<{ startTime: string; endTime: string }>;
+  dateRange?: { startDate: string; endDate: string };
+  weeklyTimeRange?: Array<{ startTime: string; endTime: string }>;
 }
 export interface ProfileCreateSuccess {
   error?: { message: string };
