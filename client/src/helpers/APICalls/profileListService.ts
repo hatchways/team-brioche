@@ -33,7 +33,7 @@ export async function getProfileList(addressQuery: string, range: DayRange): Pro
 }
 
 function GenerateReqBody(addressQuery: string, range: DayRange): ReqBody {
-  let body: ReqBody = { address: addressQuery };
+  let body: ReqBody = { address: addressQuery || '' };
 
   const formatDate = (date: string) => new Date(date).toLocaleDateString('en-Us', { dateStyle: 'full' });
   const dropInDate = range.dropInDate as string;

@@ -51,7 +51,7 @@ const profileSchema = new mongoose.Schema({
     type: String,
   },
   rate: {
-    type: String,
+    type: Number,
   },
 });
 
@@ -61,13 +61,11 @@ profileSchema.methods.dateTest = function (dropInDate, dropOffDate) {
   let dropInDateTest = true;
   let dropOffDateTest = true;
 
+  const sanityCheck = endDate.getTime() > Date.now();
   if (dropInDate) dropInDateTest = startDate.getTime() <= dropInDate.getTime();
   if (dropOffDate) dropOffDateTest = endDate.getTime() >= dropOffDate.getTime();
 
-  if (!dropInDate && !dropOffDate)
-    dropOffDateTest = endDate.getTime() > Date.now();
-
-  return dropInDateTest && dropOffDateTest;
+  return dropInDateTest && dropOffDateTest && sanityCheck;
 };
 
 const Profile = mongoose.model("Profile", profileSchema);
