@@ -1,3 +1,4 @@
+
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
 export interface DayRange {
@@ -19,12 +20,12 @@ export interface Profile {
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
-  coverPic?: string;
   gender?: Gender;
   phone?: number;
   address: string;
-  description?: string;
+  description: string;
   availability?: Availability;
+  coverPic?: string;
   introduction?: string;
   pitch?: string;
   rate?: number;
@@ -35,8 +36,8 @@ export interface Profiles {
   error?: { message: string };
 }
 export interface ProfileCreated {
-  profileData?: Profile;
-  profileId?: string | '';
+  profileData: Profile;
+  profileId: string;
 }
 export interface ProfileCreateSuccess {
   error?: { message: string };

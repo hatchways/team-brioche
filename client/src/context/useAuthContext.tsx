@@ -6,7 +6,7 @@ import { ProfileCreated, ProfileCreateSuccess } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
 import { profileGetByUser } from '../helpers/APICalls/profile';
-//import { profileGetByUser } from '../helpers/APICalls/profile';
+
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
@@ -32,7 +32,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateLoginContext = useCallback(
     (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
-      history.push('/profile');
+      history.push('/dashboard');
     },
     [history],
   );
