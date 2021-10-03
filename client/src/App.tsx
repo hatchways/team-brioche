@@ -8,6 +8,7 @@ import Signup from './pages/Accounts/Signup/SignUp';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
+import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';

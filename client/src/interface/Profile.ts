@@ -1,3 +1,4 @@
+
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
 export interface DayRange {
