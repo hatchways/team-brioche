@@ -3,6 +3,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(2),
   },
+  messengerApp: {
+    flexDirection: 'column',
+  },
   drawerRoot: {
     marginTop: theme.spacing(5),
   },
