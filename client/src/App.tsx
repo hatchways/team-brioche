@@ -9,6 +9,7 @@ import Booking from './pages/Booking/Booking';
 import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
+import Messages from './pages/Messages/Messages';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -43,6 +44,9 @@ function App(): JSX.Element {
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/edit-profile">
                   <Layout component={<EditProfile />} />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/messages">
+                  <Layout component={<Messages />} />
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/profiles/:id">
                   <ProfileDetails />
