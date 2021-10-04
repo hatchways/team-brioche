@@ -14,7 +14,7 @@ const recoverWhiteSpace = (str: string): string => str.split('-').join(' ');
 
 export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuery => ({
   address: {
-    test: queryString.address && queryString.address.length < maxStringLength ? true : false,
+    test: queryString.address && queryString.address.length < maxLengthPermitted ? true : false,
     value: queryString.address ? recoverWhiteSpace(queryString.address as string) : '',
   },
   dropInDate: {
