@@ -56,19 +56,17 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       .catch((error) => console.error(error));
   }, [history]);
 
-  useEffect(() => {
-    const hasProfile = async () => {
-      await profileGetByUser().then((data: ProfileCreateSuccess) => {
-        if (data.profile) {
-          updateProfileContext(data);
-          history.push('/dashboard');
-        } else if (data.error) {
-          history.push('/edit-profile');
-        }
-      });
-    };
-    hasProfile();
-  }, [history, loggedInUser, updateProfileContext]);
+  // useEffect(() => {
+  //   const hasProfile = async () => {
+  //     await profileGetByUser().then((data: ProfileCreateSuccess) => {
+  //       if (data.profile) {
+  //         updateProfileContext(data);
+  //         history.push('/dashboard');
+  //       }
+  //     });
+  //   };
+  //   hasProfile();
+  // }, [history, loggedInUser, updateProfileContext]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
@@ -78,8 +76,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
           updateLoginContext(data.success);
           if (profileData) {
             history.push(`/dashboard`);
-          } else {
-            history.push(`/edit-profile`);
           }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
