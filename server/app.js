@@ -11,7 +11,8 @@ const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const jwt = require("jsonwebtoken");
+const ioCookieParser = require("socket.io-cookie-parser");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const requestRouter = require("./routes/request");
@@ -19,6 +20,7 @@ const profileRouter = require("./routes/profile");
 const messageRouter = require("./routes/message");
 const conversationRouter = require("./routes/conversation");
 const { json, urlencoded } = express;
+//const { addUser, getUser } = require('./utils/users');
 
 connectDB();
 const app = express();
@@ -27,11 +29,32 @@ const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
     origin: "*",
+    credentials: true,
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("connected");
+io.use(ioCookieParser());
+io.use(function (socket, next) {
+  console.log(token);
+  const token = socket.req.cookies["token"];
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = decoded;
+      next();
+    } catch (err) {
+      return next(new Error("Authentication Error"));
+    }
+  } else {
+    return next(new Error("Authentication Error"));
+  }
+}).on("connection", (socket) => {
+  console.log(socket.id);
+  io.emit("Socket server connection successful");
+  socket.on("addUser", (userId) => {
+    const users = addUser(userId, socket.id);
+    io.emit("getUsers", users);
+  });
 });
 
 if (process.env.NODE_ENV === "development") {

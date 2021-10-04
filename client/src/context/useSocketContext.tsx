@@ -1,6 +1,6 @@
-import { useState, useContext, createContext, FunctionComponent, useCallback } from 'react';
+import { useState, useEffect, useContext, createContext, FunctionComponent, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
-
+import { useAuth } from './useAuthContext';
 interface ISocketContext {
   socket: Socket | undefined;
   initSocket: () => void;
@@ -23,6 +23,15 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
     );
   }, []);
 
+  useEffect(() => {
+    if (socket) {
+      console.log(socket);
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    initSocket();
+  }, [initSocket]);
   return <SocketContext.Provider value={{ socket, initSocket }}>{children}</SocketContext.Provider>;
 };
 
