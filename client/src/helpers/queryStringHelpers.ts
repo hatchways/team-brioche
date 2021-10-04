@@ -2,8 +2,7 @@ import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import { ParsedQuery } from 'query-string';
 import { isValidDateString } from './dateTimeHelper';
 
-const maxStringLength = 20;
-
+const maxLengthPermitted = 20;
 interface ProfileQuery {
   address: { test: boolean; value: string };
   dropInDate: { test: boolean; value: string };
