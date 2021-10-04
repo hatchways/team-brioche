@@ -1,9 +1,9 @@
+import { Link } from 'react-router-dom';
 import { Box, Typography, Card, CardMedia, CardContent, CardActionArea } from '@material-ui/core';
 import Location from '@material-ui/icons/LocationOn';
 import Rating from '@material-ui/lab/Rating';
 import { Profile } from '../../../interface/Profile';
 import useStyles from './useStyles';
-import { Link } from 'react-router-dom';
 
 interface Props {
   profile: Profile;
@@ -13,7 +13,7 @@ export default function ProfileCard({ profile }: Props): JSX.Element {
 
   const { address, _id: id, profilePic, introduction, pitch, rate, firstName, lastName } = profile;
   return (
-    <Card raised component="article" className={classes.paper}>
+    <Card component="article" className={classes.paper} raised>
       <CardActionArea component={Link} to={`/profile/${id}`}>
         <Box display="flex" justifyContent="center">
           <CardMedia

@@ -1,15 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  profileList: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: 'center',
-      flexDirection: 'column',
-    },
-  },
   image: {
     margin: '1rem 0',
     borderRadius: '50%',
