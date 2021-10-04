@@ -5,7 +5,7 @@ import { useState } from 'react';
 import useStyles from './useStyles';
 import { theme } from '../../themes/theme';
 import MessengerApp from './MessengerApp/MessengerApp';
-
+import ConvoListDrawer from './MessengerApp/ConvoListDrawer';
 const drawerWidth = 320;
 
 interface Props {
@@ -23,21 +23,7 @@ export default function Messages(props: Props): JSX.Element {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Typography variant="h5">Inbox Messages</Typography>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -57,7 +43,7 @@ export default function Messages(props: Props): JSX.Element {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          {drawer}
+          <ConvoListDrawer />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -68,7 +54,7 @@ export default function Messages(props: Props): JSX.Element {
           }}
           open
         >
-          {drawer}
+          <ConvoListDrawer />
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
