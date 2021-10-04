@@ -3,11 +3,9 @@ const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   dob: {
     type: Date,
@@ -16,6 +14,7 @@ const profileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    unique: true,
   },
   profilePic: {
     type: String,
@@ -44,4 +43,4 @@ const profileSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Profile = mongoose.model("profile", profileSchema);
+module.exports = Profile = mongoose.model("Profile", profileSchema);

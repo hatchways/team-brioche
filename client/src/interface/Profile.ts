@@ -1,16 +1,16 @@
 export interface Profile {
   _id?: string;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
-  coverPic?: string;
-  gender?: Gender;
-  phone?: number;
-  address?: string;
-  description?: string;
+  gender: Gender;
+  phone: number;
+  address: string;
+  description: string;
   availability?: Availability;
+  coverPic?: string;
   introduction?: string;
   pitch?: string;
   rate?: number;
@@ -22,16 +22,16 @@ export interface Profiles {
   error?: { message: string };
 }
 export interface ProfileCreated {
-  profileData?: Profile;
-  profileId?: string | '';
-}
-export interface ProfileCreateSuccess {
-  error?: { message: string };
-  profile?: ProfileCreated;
+  profileData: Profile;
+  profileId: string;
 }
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
 interface Availability {
-  dateRange: { startDate: string; endDate: string };
-  weeklyTimeRange: Array<{ startTime: string; endTime: string }>;
+  dateRange?: { startDate: string; endDate: string };
+  weeklyTimeRange?: Array<{ startTime: string; endTime: string }>;
+}
+export interface ProfileCreateSuccess {
+  error?: { message: string };
+  profile?: ProfileCreated;
 }

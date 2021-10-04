@@ -8,6 +8,8 @@ interface UpdateProfile {
   lastName?: string;
   gender?: string;
   phone?: number;
+  introduction?: string;
+  pitch?: string;
   address?: string;
   dob?: string;
   description?: string;
@@ -15,19 +17,28 @@ interface UpdateProfile {
   error?: { message: string };
 }
 export async function profileCreate(
-  firstName: string,
-  lastName: string,
-  gender: string,
-  phone: number,
-  address: string,
-  description: string,
-  availability: [string],
-  dob?: string,
+  firstName?: string,
+  lastName?: string,
+  gender?: string,
+  introduction?: string,
+  pitch?: string,
+  phone?: number,
+  address?: string,
+  description?: string,
 ): Promise<ProfileCreateSuccess> {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, gender, phone, address, description, dob, availability }),
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      gender,
+      introduction,
+      pitch,
+      phone,
+      address,
+      description,
+    }),
     credentials: 'include',
   };
   return await fetch(`/profile`, fetchOptions)
@@ -47,16 +58,37 @@ export async function profileGet({ id }: Props): Promise<Profile> {
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 }
+export async function profileGetByUser(): Promise<ProfileCreateSuccess> {
+  const fetchOptions: FetchOptions = {
+    method: 'GET',
+    credentials: 'include',
+  };
+  return await fetch(`/users/profile/`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'User does not have Profile' },
+    }));
+}
 
 export async function profileUpdate(
-  { firstName, lastName, gender, phone, address, description, availability }: UpdateProfile,
+  { firstName, lastName, gender, introduction, pitch, phone, address, description, availability }: UpdateProfile,
   id: string,
 ): Promise<UpdateProfile> {
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, gender, phone, address, description, availability }),
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      gender,
+      introduction,
+      pitch,
+      phone,
+      address,
+      description,
+      availability,
+    }),
   };
   return await fetch(`/profile/${id}`, fetchOptions)
     .then((res) => res.json())
