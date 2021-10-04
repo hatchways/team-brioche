@@ -91,7 +91,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       });
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, history, profileData, location.pathname]);
+  }, [updateLoginContext, history, location.pathname, profileData]);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>

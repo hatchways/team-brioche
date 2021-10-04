@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, MenuItem } from '@material-ui/core/';
@@ -7,7 +6,6 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-import Select from '@mui/material/Select';
 import { profileCreate, profileUpdate } from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
@@ -15,11 +13,8 @@ import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
-  const [value, setValue] = useState<Date | null>(null);
   const handleSubmit = (
     { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
@@ -39,7 +34,7 @@ const EditProfileForm = (): JSX.Element => {
         })
       : profileUpdate(
           { firstName, lastName, gender, introduction, pitch, phone, address, description },
-          profileData.profileId!,
+          profileData.profileId,
         ).then((data) => {
           if (data.error) {
             setSubmitting(false);
@@ -59,14 +54,6 @@ const EditProfileForm = (): JSX.Element => {
     pitch: Yup.string().required('Pitch is required'),
     phone: Yup.number().required('Phone number is required'),
     description: Yup.string().required('Description is required'),
-  };
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
   };
   return (
     <Formik
