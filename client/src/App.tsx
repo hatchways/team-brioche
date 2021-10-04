@@ -1,13 +1,10 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-<<<<<<< Updated upstream
-=======
 import Layout from './Layout/DashboardLayout';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
 import EditProfile from './pages/EditProfile/EditProfile';
->>>>>>> Stashed changes
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
@@ -26,13 +23,6 @@ function App(): JSX.Element {
           <AuthProvider>
             <SocketProvider>
               <Switch>
-<<<<<<< Updated upstream
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/booking" component={Booking} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-=======
                 <Route exact path="/login">
                   <Layout component={<Login />} />
                 </Route>
@@ -50,7 +40,6 @@ function App(): JSX.Element {
                 </ProtectedRoute>
                 <Route exact path="/profile">
                   <Layout component={<ProfileSetting />} />
->>>>>>> Stashed changes
                 </Route>
                 <Route path="*">
                   <Redirect to="/login" />

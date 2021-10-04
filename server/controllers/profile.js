@@ -23,15 +23,7 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
 //@access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-<<<<<<< Updated upstream
-  if (!user) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
-  const userId = user._id;
-=======
   const userId = user?._id;
->>>>>>> Stashed changes
   const {
     firstName,
     lastName,
