@@ -38,7 +38,6 @@ io.use(function (socket, next) {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded);
       user = decoded;
       next();
     } catch (err) {
@@ -56,7 +55,6 @@ io.use(function (socket, next) {
     io.emit("getUsers", users);
   });
   socket.on("disconnect", () => {
-    console.log("User has disconnected");
     const users = removeUser(socket.id);
     io.emit("getUsers", users);
   });
