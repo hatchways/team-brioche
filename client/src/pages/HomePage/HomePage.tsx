@@ -1,28 +1,27 @@
 import { FormEventHandler, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import clsx from 'clsx';
 import { Box, Grid, Typography, TextField, Button } from '@material-ui/core';
 import { DatePicker } from '@mui/lab';
 import { ParseableDate } from '@mui/lab/internal/pickers/constants/prop-types';
 import { generateQueryString } from '../../helpers/queryStringHelpers';
 import useStyles from './useStyles';
-import { useSnackBar } from './../../context/useSnackbarContext';
 
 export default function HomePage(): JSX.Element {
   const [address, setAddress] = useState('');
   const [dropInDate, setDropInDate] = useState<ParseableDate<undefined>>(null);
   const [dropOffDate, setDropOffDate] = useState<ParseableDate<undefined>>(null);
+  const [redirectLink, setRedirectLink] = useState('');
 
   const classes = useStyles();
-  const { updateSnackBarMessage } = useSnackBar();
-  const history = useHistory();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const queryString = generateQueryString({ address, dropInDate, dropOffDate });
-    if (queryString) history.push(`/profile-listings?${queryString}`);
-    updateSnackBarMessage('Please select at least one search item');
+    setRedirectLink(`/profile-listings?${queryString}`);
   };
+
+  if (redirectLink) return <Redirect to={redirectLink} />;
 
   return (
     <Grid container justify="center" direction="row-reverse" className={classes.container} style={{}}>
