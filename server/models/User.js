@@ -20,11 +20,6 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  isOnline: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
