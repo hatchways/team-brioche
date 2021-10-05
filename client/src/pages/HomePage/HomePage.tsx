@@ -24,7 +24,7 @@ export default function HomePage(): JSX.Element {
   if (redirectLink) return <Redirect to={redirectLink} />;
 
   return (
-    <Grid container justify="center" direction="row-reverse" className={classes.container} style={{}}>
+    <Grid container justify="center" direction="row-reverse" className={classes.container}>
       <Grid item container justify="center" className={classes.image}></Grid>
       <Grid item container justify="center" direction="column" className={classes.intro}>
         <Typography variant="h2" component="h1" className={classes.introText}>
