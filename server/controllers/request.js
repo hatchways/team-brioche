@@ -132,7 +132,7 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
         successUrl,
         cancelUrl,
       };
-      session = checkoutCustomer(params);
+      session = await checkoutCustomer(params);
     } catch (error) {
       return res.status(400).json({
         message:

@@ -1,7 +1,7 @@
 const { differenceInHours } = require("./dateTimeHelper");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-module.exports.checkoutCustomer = ({
+module.exports.checkoutCustomer = async ({
   dogOwnerProfile,
   dogSitterProfile,
   cancelUrl,
