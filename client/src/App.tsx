@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
 import './App.css';
-
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
