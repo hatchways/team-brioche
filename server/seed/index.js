@@ -8,7 +8,10 @@ const connectDB = require("../db");
 connectDB();
 
 console.log("loading mock users");
-userArray.forEach(async (user) => await User.create(user));
+const loadUser = async (user) => await User.create(user);
+for (let user of userArray) {
+  loadUser(user);
+}
 
 async function createProfile() {
   try {

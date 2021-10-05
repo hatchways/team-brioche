@@ -68,7 +68,6 @@ const mockProfile: Profile = {
   dob: '',
   profilePic: '',
   galleryPics: [],
-  introduction: '',
   pitch: '',
   rate: 0,
 };
