@@ -2,9 +2,6 @@ import { BookingStatusType } from '../../context/useRequestContext';
 import { BookingApiData, BookingRequest } from '../../interface/BookingApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-// TODO: this should be moved to an enviroment variable
-const APP_DOMAIN = 'http://localhost:3000';
-
 interface UpdateBooking {
   accepted?: boolean;
   declined?: boolean;
@@ -26,6 +23,7 @@ export const getBookings = async (): Promise<Array<BookingRequest>> => {
 };
 
 export const updateBooking = async (value: BookingStatusType, id: string): Promise<BookingRequest> => {
+  const APP_DOMAIN = process.env.REACT_APP_DOMAIN;
   const body: UpdateBooking = {
     successUrl: `${APP_DOMAIN}/bookings?success=true`,
     cancelUrl: `${APP_DOMAIN}/bookings?cancel=true`,
