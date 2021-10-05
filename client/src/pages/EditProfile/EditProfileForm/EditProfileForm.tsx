@@ -11,6 +11,7 @@ import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
+
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
