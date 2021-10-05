@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import useStyles from './useStyles';
 import Logo from '../assets/img/logo.png';
 import { useAuth } from '../context/useAuthContext';
 
-interface Props {
-  component: React.ReactNode;
-}
-
-function DashboardLayout({ component }: Props): JSX.Element {
+const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
   const classes = useStyles();
   const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
 
@@ -91,9 +87,9 @@ function DashboardLayout({ component }: Props): JSX.Element {
           )}
         </Toolbar>
       </AppBar>
-      {component}
+      {children}
     </Box>
   );
-}
+};
 
 export default DashboardLayout;

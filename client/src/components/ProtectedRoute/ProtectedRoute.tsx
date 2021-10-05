@@ -1,24 +1,20 @@
+import { FunctionComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../../context/useAuthContext';
 
-type ProtectedRouteProps = {
-  children: JSX.Element;
-  exact: boolean;
+type Props = {
+  exact?: boolean;
+  component?: FunctionComponent;
   path: string;
 };
 
-const ProtectedRoute = ({ children, ...rest }: ProtectedRouteProps): JSX.Element => {
+const ProtectedRoute: FunctionComponent<Props> = ({ children, component: Component, ...rest }): JSX.Element => {
   const { loggedInUser } = useAuth();
-
+  if (loggedInUser) {
+    return <Route {...rest} render={() => (Component ? <Component /> : children)} />;
+  }
   return (
-    <>
-      <Route
-        {...rest}
-        render={({ location }) =>
-          loggedInUser ? children : <Redirect to={{ pathname: '/login', state: { from: location } }} />
-        }
-      />
-    </>
+    <Route {...rest} render={({ location }) => <Redirect to={{ pathname: '/login', state: { from: location } }} />} />
   );
 };
 

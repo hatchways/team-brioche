@@ -25,32 +25,18 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <Switch>
-                <Route exact path="/login">
-                  <Layout component={<Login />} />
-                </Route>
-                <Route exact path="/signup">
-                  <Layout component={<Signup />} />
-                </Route>
-                <Route exact path="/booking">
-                  <Layout component={<Booking />} />
-                </Route>
-                <Route exact path="/profile">
-                  <Layout component={<Profile />} />
-                </Route>
-                <ProtectedRoute exact path="/dashboard">
-                  <Layout component={<Dashboard />} />
-                </ProtectedRoute>
-                <ProtectedRoute exact path="/edit-profile">
-                  <Layout component={<EditProfile />} />
-                </ProtectedRoute>
-                <ProtectedRoute exact path="/profiles/:id">
-                  <ProfileDetails />
-                </ProtectedRoute>
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
+              <Layout>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <Route exact path="/booking" component={Booking} />
+                  <Route exact path="/profile" component={Profile} />
+                  <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+                  <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
+                  <ProtectedRoute exact path="/profiles/:id" component={ProfileDetails} />
+                  <Route path="*" render={() => <Redirect to="/login" />} />
+                </Switch>
+              </Layout>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>
