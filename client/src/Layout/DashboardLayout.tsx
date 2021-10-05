@@ -1,4 +1,6 @@
-import React, { useState, FunctionComponent } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import clsx from 'clsx';
+import { useState, FunctionComponent } from 'react';
 import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
 import { useAuth } from '../context/useAuthContext';
 import useStyles from './useStyles';
