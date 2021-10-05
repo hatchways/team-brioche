@@ -1,11 +1,16 @@
+import { useState, useEffect } from 'react';
 import { Toolbar, Divider, Typography, List, Box, Drawer, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useAuth } from '../../context/useAuthContext';
 import useStyles from './useStyles';
 import { theme } from '../../themes/theme';
 import MessengerApp from './MessengerApp/MessengerApp';
 import ConvoListDrawer from './MessengerApp/ConvoListDrawer';
+import { getConversations } from '../../helpers/APICalls/conversation';
+import { Conversation, ConversationList } from '../../interface/Conversation';
+import { getMessages } from '../../helpers/APICalls/messages';
+
 const drawerWidth = 320;
 
 interface Props {
@@ -15,15 +20,24 @@ interface Props {
    */
   window?: () => Window;
 }
-export default function Messages(props: Props): JSX.Element {
+export default function Messenger(props: Props): JSX.Element {
   const classes = useStyles();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const [currentConvo, setCurrentConvo] = useState<Conversation | null>(null);
+  const [conversations, setConversations] = useState<ConversationList | null>(null);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const { loggedInUser } = useAuth();
+  useEffect(() => {
+    if (loggedInUser) {
+      getConversations().then((conversations) => {
+        console.log(conversations);
+        return setConversations(conversations);
+      });
+    }
+  }, [loggedInUser]);
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -43,7 +57,7 @@ export default function Messages(props: Props): JSX.Element {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          <ConvoListDrawer />
+          <ConvoListDrawer conversations={conversations} setCurrentConvo={setCurrentConvo} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -54,11 +68,11 @@ export default function Messages(props: Props): JSX.Element {
           }}
           open
         >
-          <ConvoListDrawer />
+          <ConvoListDrawer conversations={conversations} setCurrentConvo={setCurrentConvo} />
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <MessengerApp />
+        <MessengerApp currentConvo={currentConvo} />
       </Box>
     </Box>
   );

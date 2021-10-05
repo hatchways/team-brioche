@@ -50,7 +50,9 @@ exports.getConversations = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   const conversations = await Conversation.find({
     members: { $in: [userId] },
-  }).populate("lastMessage");
+  })
+    .populate("lastMessage")
+    .populate("members");
   if (!conversations) {
     res.status(500);
     throw new Error("Something went wrong with getting the conversations");
