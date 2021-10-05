@@ -6,12 +6,12 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-import Select from '@mui/material/Select';
 import { profileCreate, profileUpdate } from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
+
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
@@ -56,7 +56,6 @@ const EditProfileForm = (): JSX.Element => {
     phone: Yup.number().required('Phone number is required'),
     description: Yup.string().required('Description is required'),
   };
-
   return (
     <Formik
       initialValues={{
