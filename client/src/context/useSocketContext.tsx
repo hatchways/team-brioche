@@ -27,7 +27,7 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
   useEffect(() => {
     socket && loggedInUser && socket.emit('addUser', loggedInUser.email);
 
-    if (loggedInUser === null) {
+    if (!loggedInUser) {
       socket?.disconnect();
     }
   }, [socket, loggedInUser]);

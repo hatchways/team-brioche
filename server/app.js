@@ -47,8 +47,7 @@ io.use(function (socket, next) {
     return next(new Error("Authentication Error"));
   }
 }).on("connection", (socket) => {
-  console.log("New user connected");
-  io.emit(`welcome to the socket serverd ${socket.id}`);
+  io.emit(`welcome to the socket server ${socket.id}`);
 
   socket.on("addUser", (email) => {
     const users = addUser(email, socket.id);
