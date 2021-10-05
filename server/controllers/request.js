@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Request = require("../models/Request");
+const User = require("../models/User");
+const Profile = require("../models/Profile");
+const { checkoutCustomer } = require("../utils/paymentHelper");
 
 // @route GET /request
 // @desc gets all requests for loged-in dog sitter
@@ -42,6 +45,21 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     throw new Error("End time must be ahead of the start time");
   }
 
+  // make sure the supplied sitter Id is valid
+  const sitter = await User.findOne({ _id: sitterId });
+  if (!sitter) {
+    res.status(400);
+    throw new Error("Invalid sitter Id");
+  }
+
+  const ownerProfile = await Profile.findOne({ _id: ownerId });
+  if (!ownerProfile || ownerProfile.customerId) {
+    res.status(400).json({
+      message:
+        "Please create a profile and add a payment method before you can make requests",
+    });
+  }
+
   // make sure not to save the same request more than once
   const checkRequest = await Request.findOne({ ownerId, sitterId, start, end });
   if (checkRequest) {
@@ -71,7 +89,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.updateRequest = asyncHandler(async (req, res, next) => {
   const requestId = req.params.id;
-  const { accepted, declined } = req.body;
+  const { accepted, declined, successUrl, cancelUrl } = req.body;
 
   if (!mongoose.isValidObjectId(requestId)) {
     res.status(400);
@@ -92,11 +110,42 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
       accepted: false,
       declined: true,
     });
-  if (accepted)
+
+  if (accepted) {
+    const [dogOwnerProfile, dogSitterProfile] = await Promise.all([
+      Profile.findOne({ _id: request.ownerId }),
+      Profile.findOne({ _id: request.sitterId }),
+    ]);
+
+    // check is added here because "rate" is not required in the profile model and may be undefined
+    if (!dogSitterProfile || !dogSitterProfile.rate)
+      return res.status(400).json({
+        message:
+          "Please create a profile specifying your rates before you can accept requests",
+      });
+
+    let session;
+    try {
+      const params = {
+        dogOwnerProfile,
+        dogSitterProfile,
+        successUrl,
+        cancelUrl,
+      };
+      session = checkoutCustomer(params);
+    } catch (error) {
+      return res.status(400).json({
+        message:
+          "Please notify customer to update payment method and try again",
+      });
+    }
+
     request.set({
       accepted: true,
       declined: false,
+      payment: session.id,
     });
+  }
 
   request = await request.save();
 

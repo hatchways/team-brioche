@@ -27,9 +27,8 @@ const requestSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  paid: {
-    type: Boolean,
-    default: false,
+  payment: {
+    checkoutSession: String,
   },
 });
 

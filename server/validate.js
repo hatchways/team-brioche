@@ -26,6 +26,8 @@ exports.validateNewRequest = [
 ];
 
 exports.validateRequestUpdate = [
+  check("successUrl", "successUrl must be a url string").notEmpty().isURL(),
+  check("cancelUrl", "cancelUrl must be a url string").notEmpty().isURL(),
   check("accepted", "accepted must be a Boolean").optional().isBoolean(),
   check("declined", "Declined must be a Boolean").optional().isBoolean(),
   handleValidation,
