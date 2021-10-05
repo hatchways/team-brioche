@@ -29,9 +29,9 @@ function App(): JSX.Element {
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Layout>
                   <Switch>
+                    <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
-                    <Route exact path="/home" component={HomePage} />
                     <Route exact path="/booking" component={Booking} />
                     <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
