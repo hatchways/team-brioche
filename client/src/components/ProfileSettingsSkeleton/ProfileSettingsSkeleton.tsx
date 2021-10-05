@@ -30,7 +30,7 @@ export default function ProfileSkeleton(): JSX.Element {
     <Grid container className={classes.root}>
       <Box component="nav" className={classes.nav}>
         {links.map((link) => (
-          <Link className={classes.link} key={link.name} to={`/profile${link.path}`}>
+          <Link className={classes.link} key={link.name} to={`/profile-settings${link.path}`}>
             <Typography align="left" className={clsx(classes.linkText, isLinkActive(link.path) && classes.active)}>
               {link.name}
             </Typography>
@@ -61,7 +61,7 @@ export default function ProfileSkeleton(): JSX.Element {
           >
             {links.map((link) => (
               <MenuItem key={link.name} onClick={handleMenuClose}>
-                <Link className={classes.link} to={`/profile${link.path}`}>
+                <Link className={classes.link} to={`/profile-settings${link.path}`}>
                   <Typography className={clsx(classes.linkText, isLinkActive(link.path) && classes.active)}>
                     {link.name}
                   </Typography>
@@ -73,7 +73,7 @@ export default function ProfileSkeleton(): JSX.Element {
         <Box>
           <Switch>
             {links.map((link) => (
-              <Route key={link.name} exact path={`/profile${link.path}`} render={() => link.component} />
+              <Route key={link.name} exact path={`/profile-settings${link.path}`} render={() => link.component} />
             ))}
           </Switch>
         </Box>
