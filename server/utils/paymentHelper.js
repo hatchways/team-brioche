@@ -48,6 +48,8 @@ async function getPaymentMethods(profile) {
       email: billingDetails.email,
       expMonth: card.exp_month,
       expYear: card.exp_year,
+      name: billingDetails.name,
+      email: billingDetails.email,
     };
   });
 }
