@@ -10,10 +10,10 @@ module.exports.getListOfPaymentMethods = asyncHandler(async (req, res) => {
   const { id } = req.user;
   const profile = await Profile.findOne({ userId: id });
 
-  if (!profile)
-    return res
-      .status(404)
-      .json({ message: "No profile found. Please create a profile." });
+  if (!profile) {
+    res.status(404);
+    throw new Error("No profile found. Please create a profile.");
+  }
 
   if (!profile.customerId)
     return res
@@ -21,6 +21,11 @@ module.exports.getListOfPaymentMethods = asyncHandler(async (req, res) => {
       .json({ paymentMethods: [], defaultPaymentMethod: "" });
 
   const paymentMethods = await getPaymentMethods(profile);
+
+  if (!paymentMethods.length)
+    return res
+      .status(200)
+      .json({ paymentMethods: [], defaultPaymentMethod: "" });
 
   const customer = await stripe.customers.retrieve(profile.customerId);
   let defaultPaymentMethod = customer.invoice_settings.default_payment_method;
@@ -43,19 +48,19 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
   let profile = await Profile.findOne({ userId: id }).populate("userId", {
     email: 1,
   });
-  if (!profile)
-    return res
-      .status(404)
-      .json({ message: "No profile found. Please create a profile." });
+  if (!profile) {
+    res.status(404);
+    throw new Error("No profile found. Please create a profile.");
+  }
 
   if (!profile.customerId) {
     try {
       profile = createCustomer(profile);
     } catch (error) {
-      return res.status(500).json({
-        message:
-          "An error occured while accessing stripe. Please try again later",
-      });
+      res.status(500);
+      throw new Error(
+        "An error occured while accessing stripe. Please try again later"
+      );
     }
   }
 
@@ -81,23 +86,23 @@ module.exports.setDefaultPaymentMethod = asyncHandler(async (req, res) => {
   const methodId = req.params.methodId;
 
   try {
-    const paymentMethod = await stripe.paymentMethods.retrieve(methodId);
-    if (!paymentMethod.id) throw new Error();
+    await stripe.paymentMethods.retrieve(methodId);
   } catch (error) {
-    res.status(400).json({ message: "invalid payment method Id" });
+    res.status(400);
+    throw new Error("invalid payment method Id");
   }
 
   const profile = await Profile.findOne({ userId: id });
 
-  if (!profile)
-    return res
-      .status(404)
-      .json({ message: "No profile found. Please create a profile." });
+  if (!profile) {
+    res.status(404);
+    throw new Error("No profile found. Please create a profile.");
+  }
 
-  if (!profile.customerId)
-    return res
-      .status(404)
-      .json({ message: "Please add a payment method to your profile" });
+  if (!profile.customerId) {
+    res.status(404);
+    throw new Error("Please add a payment method to your profile");
+  }
 
   await stripe.customers.update(profile.customerId, {
     invoice_settings: { default_payment_method: methodId },

@@ -1,3 +1,4 @@
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Request = require("../models/Request");
@@ -52,20 +53,22 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
   }
 
   const [dogOwnerProfile, dogSitterProfile] = await Promise.all([
-    Profile.findOne({ _id: ownerId }),
+    Profile.findOne({ userId: ownerId }),
     Profile.findOne({ userId: sitterId }),
   ]);
 
   // check is added here because "rate" is not required in the profile model and may be undefined
-  if (!dogSitterProfile || !dogSitterProfile.rate)
-    return res.status(400).json({ message: "Incomplete sitter Profile" });
+  if (!dogSitterProfile || !dogSitterProfile.rate) {
+    res.status(400);
+    throw new Error("Incomplete sitter Profile");
+  }
 
-  if (!dogOwnerProfile.customerId)
-    return res.status(400).json({
-      message: "Please add a payment method before making a request",
-    });
+  if (!dogOwnerProfile.customerId) {
+    res.status(400);
+    throw new Error("Please add a payment method before making a request");
+  }
 
-  const { id } = await createPaymentIntent(
+  const paymentIntent = await createPaymentIntent(
     dogSitterProfile,
     dogOwnerProfile,
     start,
@@ -77,7 +80,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     sitterId,
     start,
     end,
-    paymentIntentId: id,
+    paymentIntentId: paymentIntent.id,
   });
 
   if (!request) {
@@ -102,7 +105,7 @@ exports.updateRequest = asyncHandler(async (req, res) => {
     throw new Error("Invalid Reqeust Id");
   }
 
-  const request = await Request.findById(requestId)
+  let request = await Request.findById(requestId)
     .populate("ownerId", { username: 1, email: 1 })
     .populate("sitterId", { username: 1, email: 1 });
 
@@ -111,8 +114,9 @@ exports.updateRequest = asyncHandler(async (req, res) => {
     throw new Error("No Request found");
   }
 
+  let intent;
   if (declined) {
-    await stripe.paymentIntents.cancel(request.paymentIntentId);
+    intent = await stripe.paymentIntents.cancel(request.paymentIntentId);
     request.set({
       accepted: false,
       declined: true,
@@ -120,16 +124,11 @@ exports.updateRequest = asyncHandler(async (req, res) => {
   }
 
   if (accepted) {
-    try {
-      const paymentIntent = await stripe.paymentIntents.confirm(
-        request.paymentIntentId
-      );
-      if (paymentIntent.status !== "succeeded") throw new Error();
-    } catch (error) {
-      res.status().json({
-        message:
-          "Notify the dog owner to update the payment method and try agian",
-      });
+    intent = await stripe.paymentIntents.confirm(request.paymentIntentId);
+
+    if (intent.status !== "succeeded") {
+      res.status(402);
+      throw new Error("Notify customer to update payment method and try again");
     }
     request.set({
       accepted: true,
@@ -139,5 +138,5 @@ exports.updateRequest = asyncHandler(async (req, res) => {
 
   request = await request.save();
 
-  res.status(200).send(request);
+  res.status(200).json({ request });
 });
