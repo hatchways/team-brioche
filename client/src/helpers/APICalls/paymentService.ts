@@ -18,14 +18,15 @@ export const addPaymentMethodToCustomer = async (): Promise<AddPaymentResponse> 
   const res = await fetch('/payments/add-payment-method', fetchOptions);
 
   if (res.status !== 200) {
-    throw new Error('An error occured while processing your request');
+    const { error } = await res.json();
+    throw new Error(error.message);
   }
 
   return await res.json();
 };
 
 interface GetPaymentMethodsResponse {
-  PaymentMethods: PaymentMethod[];
+  paymentMethods: PaymentMethod[];
   defaultPaymentMethod: string;
 }
 
@@ -37,17 +38,21 @@ export const getAllPaymentMethodsByCustomer = async (): Promise<GetPaymentMethod
 
   const res = await fetch('/payments/payment-methods', fetchOptions);
   if (res.status !== 200) {
-    throw new Error();
+    const { error } = await res.json();
+    throw new Error(error.message);
   }
   return await res.json();
 };
 
 export const setDefaultPayment = async (methodId: string) => {
   const fetchOptions: FetchOptions = {
-    method: 'POST',
+    method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
   };
   const res = await fetch('/set-default-method/:methodId', fetchOptions);
-  if (res.status !== 200) throw new Error('Unable to card as default');
+  if (res.status !== 200) {
+    const { error } = await res.json();
+    throw new Error(error.message);
+  }
 };
