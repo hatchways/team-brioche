@@ -1,12 +1,14 @@
 import { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Button, Grid, Paper, Typography, CircularProgress } from '@material-ui/core';
+import { useSnackBar } from '../../context/useSnackbarContext';
 import { addPaymentMethodToCustomer, getAllPaymentMethodsByCustomer } from '../../helpers/APICalls/paymentService';
+import { PaymentMethod } from '../../interface/PaymentMethods';
 import withStripe from './withStripe';
 import useStyles from './useStyles';
 
 const ProfilePayment: FunctionComponent = (): JSX.Element => {
-  const [paymentMethods, setPaymentMethods] = useState([]);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [addCard, setAddCard] = useState(false);
   const [savingCard, setSavingCard] = useState(false);
   const [error, setError] = useState(false);
@@ -14,14 +16,16 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
   const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
+  const { updateSnackBarMessage } = useSnackBar();
 
   useEffect(() => {
     async function getCards() {
-      const paymentMethods = await getAllPaymentMethodsByCustomer();
-      // setPaymentMethods(paymentMethods);
+      getAllPaymentMethodsByCustomer()
+        .then((paymentMethods) => setPaymentMethods(paymentMethods))
+        .catch((error) => updateSnackBarMessage(error.message || 'Can not get payment methods.'));
     }
     getCards();
-  }, [stripe]);
+  }, [updateSnackBarMessage]);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -39,18 +43,25 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
       // @ts-ignore
       card: cardElement,
     });
-
-    if (error) {
-      setError(true);
-      console.log('[error]', error);
-    } else {
-      //await addPaymentMethodToCustomer(paymentMethod?.id);
-      console.log('[PaymentMethod]', paymentMethod);
-    }
-    setTimeout(() => {
+    const resetUI = () => {
       setAddCard(false);
       setSavingCard(false);
-    }, 3000);
+    };
+    if (error) {
+      // TODO: add error handling logic
+      setError(true);
+      resetUI();
+    } else {
+      addPaymentMethodToCustomer(paymentMethod?.id)
+        .then((data) => {
+          setPaymentMethods((paymentMethods) => [...paymentMethods, data]);
+          resetUI();
+        })
+        .catch((error) => {
+          resetUI();
+          updateSnackBarMessage(error.message || 'An error occured and your request could not be processed');
+        });
+    }
   };
 
   return (
@@ -63,8 +74,8 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
           Saved Payment Profiles:
         </Typography>
         <Grid container justifyContent="center" alignItems="center" className={classes.cardContainer}>
-          {paymentMethods.map((method, index) => (
-            <p key={index}>Payment card</p>
+          {paymentMethods.map((method) => (
+            <Box key={method.id}>{/* TODO: Implement Payment card here */}</Box>
           ))}
         </Grid>
         <Box display="flex" alignContent="flex-start" width="100%">
