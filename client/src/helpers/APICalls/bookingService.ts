@@ -5,8 +5,6 @@ import { FetchOptions } from '../../interface/FetchOptions';
 interface UpdateBooking {
   accepted?: boolean;
   declined?: boolean;
-  successUrl?: string;
-  cancelUrl?: string;
 }
 
 export const getBookings = async (): Promise<Array<BookingRequest>> => {
@@ -23,11 +21,7 @@ export const getBookings = async (): Promise<Array<BookingRequest>> => {
 };
 
 export const updateBooking = async (value: BookingStatusType, id: string): Promise<BookingRequest> => {
-  const APP_DOMAIN = process.env.REACT_APP_DOMAIN;
-  const body: UpdateBooking = {
-    successUrl: `${APP_DOMAIN}/bookings?success=true`,
-    cancelUrl: `${APP_DOMAIN}/bookings?cancel=true`,
-  };
+  const body: UpdateBooking = {};
 
   if (value === 'Accept') body.accepted = true;
   if (value === 'Decline') body.declined = true;

@@ -1,7 +1,16 @@
 const express = require("express");
-const { createCustomer, checkout } = require("../controllers/payments");
+const {
+  getListOfPaymentMethods,
+  addPaymentMethod,
+  setDefaultPaymentMethod,
+} = require("../controllers/payments");
 const protect = require("../middleware/auth");
 const router = express.Router();
 
-router.route("/create-customer/:profileId").post(protect, createCustomer);
+router.route("/payment-methods").get(protect, getListOfPaymentMethods);
+router.route("/add-payment-method").post(protect, addPaymentMethod);
+
+router
+  .route("/set-default-method/:methodId")
+  .post(protect, setDefaultPaymentMethod);
 module.exports = router;
