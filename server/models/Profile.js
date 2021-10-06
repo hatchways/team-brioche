@@ -44,6 +44,9 @@ const profileSchema = new mongoose.Schema({
   customerId: {
     type: String,
   },
+  rate: {
+    type: String,
+  },
 });
 
 const Profile = mongoose.model("Profile", profileSchema);

@@ -12,5 +12,5 @@ router.route("/add-payment-method").post(protect, addPaymentMethod);
 
 router
   .route("/set-default-method/:methodId")
-  .post(protect, setDefaultPaymentMethod);
+  .patch(protect, setDefaultPaymentMethod);
 module.exports = router;
