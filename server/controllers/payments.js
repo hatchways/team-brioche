@@ -2,14 +2,13 @@ const asyncHandler = require("express-async-handler");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Profile = require("../models/Profile");
 const { createCustomer, getPaymentMethods } = require("../utils/paymentHelper");
-const mongoose = require("mongoose");
 
 //@route POST /payment-methods
 //@desc returns the list payment methods attached to a customer
 //access private
 module.exports.getListOfPaymentMethods = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
-  const profile = await Profile.findOne({ userId });
+  const { id } = req.user;
+  const profile = await Profile.findOne({ userId: id });
 
   if (!profile)
     return res
@@ -40,8 +39,9 @@ module.exports.getListOfPaymentMethods = asyncHandler(async (req, res) => {
 //@desc Generates a client secret for adding a payment method to customer if one exists, if one does not exist, first creates a customer
 //access private
 module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
-  const profile = await Profile.findOne({ userId }).populate("userId", {
+  const { id } = req.user;
+  if (id) res.send(id);
+  const profile = await Profile.findOne({ userId: id }).populate("userId", {
     email: 1,
   });
 
@@ -65,10 +65,10 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
     payment_method_types: ["card"],
     customer: profile.customerId,
   });
-  const { firstName, lastName, userId: user } = profile;
+  const { firstName, lastName, userId } = profile;
   const attachedDetails = {
     name: `${firstName} ${lastName}`,
-    email: user.email,
+    email: userId.email,
   };
   res
     .status(200)
@@ -79,7 +79,7 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
 //@desc sets the default Payment method
 //access private
 module.exports.setDefaultPaymentMethod = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+  const { id } = req.user;
   const methodId = req.params.methodId;
 
   try {
@@ -89,7 +89,7 @@ module.exports.setDefaultPaymentMethod = asyncHandler(async (req, res) => {
     res.status(400).json({ message: "invalid payment method Id" });
   }
 
-  const profile = await Profile.findOne({ userId });
+  const profile = await Profile.findOne({ userId: id });
 
   if (!profile)
     return res
