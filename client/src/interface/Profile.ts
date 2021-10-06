@@ -1,3 +1,15 @@
+export interface DayRange {
+  dropInDate: string | undefined;
+  dropOffDate: string | undefined;
+}
+
+type TimeRange = Array<{ startTime: string; endTime: string }>;
+
+export interface Availability {
+  dateRange: DayRange;
+  weeklyTimeRange: TimeRange;
+}
+
 export interface Profile {
   _id?: string;
   firstName?: string;
@@ -34,10 +46,6 @@ export interface ProfileObject {
 }
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
-interface Availability {
-  dateRange?: { startDate: string; endDate: string };
-  weeklyTimeRange?: Array<{ startTime: string; endTime: string }>;
-}
 export interface ProfileCreateSuccess {
   error?: { message: string };
   profile?: Profile | undefined;
