@@ -16,20 +16,32 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[400],
   },
   cardContainer: {
-    border: '1px solid black',
     margin: '2rem 0',
     borderRadius: theme.shape.borderRadius,
     width: '90%',
-    height: '200px',
+    height: '300px',
     overflow: 'auto',
   },
   card: {
     border: `2px solid ${theme.palette.grey[300]}`,
     padding: '1rem',
     margin: '1rem',
-    width: '250px',
-    height: '150px',
+    width: '300px',
+    minHeight: '200px',
+    height: 'min-content',
     borderRadius: theme.shape.borderRadius,
+  },
+  bold: {
+    marginTop: '10px',
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  light: {
+    color: theme.palette.grey[400],
+  },
+  image: {
+    height: '50px',
+    width: '100px',
+    objectFit: 'cover',
   },
 }));
 
