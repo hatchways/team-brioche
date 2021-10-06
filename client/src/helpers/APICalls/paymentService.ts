@@ -13,11 +13,11 @@ export const addPaymentMethodToCustomer = async (): Promise<AddPaymentResponse> 
 };
 
 interface GetPaymentMethodsResponse {
-  PaymentMethods: PaymentMethod[];
+  paymentMethods: PaymentMethod[];
   defaultPaymentMethod: string;
 }
 export const getAllPaymentMethodsByCustomer = async (): Promise<GetPaymentMethodsResponse> => {
-  return { PaymentMethods: [], defaultPaymentMethod: '' };
+  return { paymentMethods: [], defaultPaymentMethod: '' };
 };
 
 export const setDefaultPayment = async (methodId: string) => {
