@@ -18,7 +18,7 @@ import ProfileListings from './components/ProfileListings/ProfileListings/Profil
 import Profile from './pages/ProfileDetails/ProfileDetails';
 import Layout from './Layout/DashboardLayout';
 import './App.css';
-
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
