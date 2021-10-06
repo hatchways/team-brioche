@@ -1,9 +1,11 @@
 import { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Button, Grid, Paper, Typography, CircularProgress } from '@material-ui/core';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 import { useSnackBar } from '../../context/useSnackbarContext';
-import { addPaymentMethodToCustomer, getAllPaymentMethodsByCustomer } from '../../helpers/APICalls/paymentService';
 import { PaymentMethod } from '../../interface/PaymentMethods';
+import { formatCardDate } from '../../helpers/dateTimeHelper';
+import { addPaymentMethodToCustomer, getAllPaymentMethodsByCustomer } from '../../helpers/APICalls/paymentService';
 import withStripe from './withStripe';
 import useStyles from './useStyles';
 
@@ -22,7 +24,7 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
     async function getCards() {
       getAllPaymentMethodsByCustomer()
         .then((result) => {
-          setPaymentMethods(result.PaymentMethods);
+          setPaymentMethods(result.paymentMethods);
           setDefaultPaymentMethod(result.defaultPaymentMethod);
         })
         .catch((error) => updateSnackBarMessage(error.message || 'Can not get payment methods.'));
@@ -44,8 +46,9 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
     };
 
     const { clientSecret, attachedDetails } = await addPaymentMethodToCustomer();
+    console.log(clientSecret, attachedDetails);
     try {
-      const { error } = await stripe.confirmCardSetup(clientSecret, {
+      const { error, setupIntent } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -56,15 +59,18 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
           },
         },
       });
+      console.log('Intent :', setupIntent);
+      console.log('error :', error);
       if (error) throw new Error();
     } catch (error) {
       updateSnackBarMessage('An error occured while processing your card. Please try a different card');
       resetUI();
       return;
     }
+    resetUI();
     updateSnackBarMessage('New card successfully added');
   };
-
+  console.log(paymentMethods);
   return (
     <Box padding="3rem 6rem">
       <Grid container justifyContent="center" component={Paper} className={classes.container}>
@@ -74,9 +80,25 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
         <Typography align="left" variant="body1" className={classes.subheading}>
           Saved Payment Profiles:
         </Typography>
-        <Grid container justifyContent="center" alignItems="center" className={classes.cardContainer}>
+        <Grid
+          container
+          direction="row-reverse"
+          justifyContent="center"
+          alignItems="center"
+          className={classes.cardContainer}
+        >
           {paymentMethods.length ? (
-            paymentMethods.map((method) => <Box key={method.id}>{/* TODO: Implement Payment card here */}New card</Box>)
+            paymentMethods.map((method) => (
+              <Box key={method.id} display="flex" flexDirection="column" className={classes.card}>
+                <img src="" alt={method.brand} />
+                {defaultPaymentMethod === method.id && <CheckCircle color="primary" />}
+                <Typography>**** **** **** {method.last4}</Typography>
+                <Typography>
+                  {formatCardDate(method.expMonth)}/{formatCardDate(method.expYear)}
+                </Typography>
+                <Typography>{method.name}</Typography>
+              </Box>
+            ))
           ) : (
             <p>No cards to display</p>
           )}

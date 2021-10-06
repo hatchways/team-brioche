@@ -16,10 +16,20 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[400],
   },
   cardContainer: {
+    border: '1px solid black',
     margin: '2rem 0',
     borderRadius: theme.shape.borderRadius,
     width: '90%',
-    minHeight: '6rem',
+    height: '200px',
+    overflow: 'auto',
+  },
+  card: {
+    border: `2px solid ${theme.palette.grey[300]}`,
+    padding: '1rem',
+    margin: '1rem',
+    width: '250px',
+    height: '150px',
+    borderRadius: theme.shape.borderRadius,
   },
 }));
 
