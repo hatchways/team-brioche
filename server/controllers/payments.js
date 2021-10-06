@@ -40,11 +40,9 @@ module.exports.getListOfPaymentMethods = asyncHandler(async (req, res) => {
 //access private
 module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
   const { id } = req.user;
-  if (id) res.send(id);
-  const profile = await Profile.findOne({ userId: id }).populate("userId", {
+  let profile = await Profile.findOne({ userId: id }).populate("userId", {
     email: 1,
   });
-
   if (!profile)
     return res
       .status(404)
@@ -52,7 +50,7 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
 
   if (!profile.customerId) {
     try {
-      createCustomer(profile);
+      profile = createCustomer(profile);
     } catch (error) {
       return res.status(500).json({
         message:
