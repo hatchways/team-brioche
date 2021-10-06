@@ -65,10 +65,10 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
     payment_method_types: ["card"],
     customer: profile.customerId,
   });
-  const { firstName, lastName, userId } = profile;
+  const { firstName, lastName, userId: user } = profile;
   const attachedDetails = {
     name: `${firstName} ${lastName}`,
-    email: userId.email,
+    email: user.email,
   };
   res
     .status(200)
@@ -101,7 +101,7 @@ module.exports.setDefaultPaymentMethod = asyncHandler(async (req, res) => {
       .status(404)
       .json({ message: "Please add a payment method to your profile" });
 
-  const customer = await stripe.customers.update(profile.customerId, {
+  await stripe.customers.update(profile.customerId, {
     invoice_settings: { default_payment_method: methodId },
   });
 
