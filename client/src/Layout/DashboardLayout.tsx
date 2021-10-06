@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
+import { useState, FunctionComponent } from 'react';
 import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
 import { useAuth } from '../context/useAuthContext';
 import useStyles from './useStyles';
 
 import Logo from '../assets/img/logo.png';
 
-interface Props {
-  component?: React.ReactNode;
-}
-
-const DashboardLayout: React.FunctionComponent<Props> = ({ children }): JSX.Element => {
+const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
   const classes = useStyles();
   const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
 

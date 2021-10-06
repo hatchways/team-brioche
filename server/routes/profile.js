@@ -19,6 +19,7 @@ const upload = multer({ dest: "./uploads" });
 
 router.route("/").get(protect, loadProfiles); //get all the profiles
 router.route("/:id").get(protect, getProfile); //Get a profile with ID
+router.route("/").post(protect, createProfile); //create a new profile
 router.route("/get-profile").get(protect, getProfileFromUserId);
 
 router.route("/").post(protect, createProfile); //create a new profile
