@@ -1,6 +1,7 @@
 import { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Button, Grid, Paper, Typography, CircularProgress } from '@material-ui/core';
+import clsx from 'clsx';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { PaymentMethod } from '../../interface/PaymentMethods';
@@ -8,6 +9,8 @@ import { formatCardDate } from '../../helpers/dateTimeHelper';
 import { addPaymentMethodToCustomer, getAllPaymentMethodsByCustomer } from '../../helpers/APICalls/paymentService';
 import withStripe from './withStripe';
 import useStyles from './useStyles';
+import visa from '../../Images/Visa.png';
+import masterCard from '../../Images/mastercard.svg';
 
 const ProfilePayment: FunctionComponent = (): JSX.Element => {
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
@@ -80,23 +83,23 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
         <Typography align="left" variant="body1" className={classes.subheading}>
           Saved Payment Profiles:
         </Typography>
-        <Grid
-          container
-          direction="row-reverse"
-          justifyContent="center"
-          alignItems="center"
-          className={classes.cardContainer}
-        >
+        <Grid container direction="row" alignItems="center" className={classes.cardContainer}>
           {paymentMethods.length ? (
             paymentMethods.map((method) => (
               <Box key={method.id} display="flex" flexDirection="column" className={classes.card}>
-                <img src="" alt={method.brand} />
-                {defaultPaymentMethod === method.id && <CheckCircle color="primary" />}
-                <Typography>**** **** **** {method.last4}</Typography>
-                <Typography>
-                  {formatCardDate(method.expMonth)}/{formatCardDate(method.expYear)}
+                <Box display="flex" justifyContent="space-between">
+                  <img src={visa} alt={method.brand} className={classes.image} />
+                  {defaultPaymentMethod === method.id && <CheckCircle color="primary" />}
+                </Box>
+                <Typography variant="body1" className={classes.bold}>
+                  **** **** **** {method.last4}
                 </Typography>
-                <Typography>{method.name}</Typography>
+                <Typography variant="button" className={clsx(classes.bold, classes.light)}>
+                  Exp. date {formatCardDate(method.expMonth)}/{formatCardDate(method.expYear)}
+                </Typography>
+                <Typography variant="h6" className={classes.bold}>
+                  {method.name}
+                </Typography>
               </Box>
             ))
           ) : (
