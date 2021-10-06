@@ -1,19 +1,24 @@
 export interface Profile {
   _id?: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
-  gender: Gender;
-  phone: number;
-  address: string;
+  gender?: Gender;
+  phone?: number;
+  address?: string;
   description: string;
   availability?: Availability;
   coverPic?: string;
   introduction?: string;
+  isSitter?: boolean;
   pitch?: string;
   rate?: number;
+  error?: Error;
+}
+interface Error {
+  message: string;
 }
 
 export interface Profiles {
@@ -24,6 +29,9 @@ export interface ProfileCreated {
   profileData: Profile;
   profileId: string;
 }
+export interface ProfileObject {
+  profile?: Profile | undefined;
+}
 type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
 
 interface Availability {
@@ -32,5 +40,5 @@ interface Availability {
 }
 export interface ProfileCreateSuccess {
   error?: { message: string };
-  profile?: ProfileCreated;
+  profile?: Profile | undefined;
 }
