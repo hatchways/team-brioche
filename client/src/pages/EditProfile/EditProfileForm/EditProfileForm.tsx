@@ -72,9 +72,9 @@ const EditProfileForm = (): JSX.Element => {
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.sitter} ${classes.container}`} spacing={2}>
             <Label htmlFor="isSitter" cls={classes.label} labelName="Are you a Sitter" />
-            <Switch id="isSitter" onChange={handleChange} value={values.isSitter} />
+            <Switch id="isSitter" onChange={handleChange} value={values.isSitter} color="primary" />
           </Grid>
           <Grid container className={classes.container} spacing={2}>
             <Label htmlFor="firstName" cls={classes.label} labelName="First Name" />
@@ -132,7 +132,7 @@ const EditProfileForm = (): JSX.Element => {
               </Grid>
             </Grid>
           </FormControl>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.introduction} ${classes.container}`} spacing={2}>
             <Label htmlFor="introduction" cls={classes.label} labelName="Introduction" />
             <Grid item>
               <TextField
@@ -149,7 +149,7 @@ const EditProfileForm = (): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.pitch} ${classes.container}`} spacing={2}>
             <Label htmlFor="pitch" cls={classes.label} labelName="Pitch" />
             <Grid item>
               <TextField
