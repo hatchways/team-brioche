@@ -1,5 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
+import EditProfile from '../../pages/EditProfile/EditProfile';
+import ProfileSetting from '../../pages/ProfileSetting/ProfileSetting';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
 
 // Render in place of unavailable features during development
@@ -28,7 +30,7 @@ const links: RouteLink[] = [
   {
     name: 'Edit profile',
     path: '/edit-profile',
-    component: <Unavailable text={displayText} />,
+    component: <EditProfile />,
   },
   {
     name: 'Profile photo',
@@ -53,7 +55,7 @@ const links: RouteLink[] = [
   {
     name: 'Settings',
     path: '/settings',
-    component: <Unavailable text={displayText} />,
+    component: <ProfileSetting />,
   },
 ];
 

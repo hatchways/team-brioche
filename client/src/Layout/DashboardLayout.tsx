@@ -1,4 +1,3 @@
-
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useState, FunctionComponent } from 'react';
@@ -14,7 +13,7 @@ const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
 
   const { loggedInUser, logout } = useAuth();
   const { pathname } = useLocation();
-  const isHomePage = pathname === '/home';
+  const isHomePage = pathname === '/';
 
   const handleLogout = () => {
     setProfileEl(null);

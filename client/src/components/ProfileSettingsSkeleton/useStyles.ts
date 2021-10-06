@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.grey[200],
-    minHeight: '100vh',
   },
   nav: {
     paddingTop: theme.spacing(8),
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
   },
   section: {
-    height: '100vh',
+    padding: '3rem 0rem',
     overflow: 'auto',
     [theme.breakpoints.up('xs')]: {
       width: '100%',
