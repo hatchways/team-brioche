@@ -10,7 +10,7 @@ module.exports.createCustomer = async (profile) => {
 
   profile.customerId = customer.id;
   await profile.save();
-  return customer;
+  return profile;
 };
 
 module.exports.createPaymentIntent = async (
