@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
   },
   heading: {
     fontWeight: theme.typography.fontWeightBold,
@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[400],
   },
   cardContainer: {
-    border: '1px solid black',
     margin: '2rem 0',
     borderRadius: theme.shape.borderRadius,
     width: '90%',
