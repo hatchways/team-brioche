@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'underline',
     textTransform: 'uppercase',
   },
+  textWhite: {
+    color: theme.palette.text.secondary,
+  },
   avatar: {
     marginRight: theme.spacing(4),
   },
@@ -40,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     fontWeight: 'bold',
     marginRight: 5,
+  },
+  HomePage: {
+    background: 'transparent',
+    boxShadow: 'none',
   },
 }));
 

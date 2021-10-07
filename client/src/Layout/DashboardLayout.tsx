@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import clsx from 'clsx';
+import { useState, FunctionComponent } from 'react';
 import { Box, AppBar, Toolbar, Button, Avatar, Badge, Menu, MenuItem, IconButton } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import useStyles from './useStyles';
-import Logo from '../assets/img/logo.png';
 import { useAuth } from '../context/useAuthContext';
+import useStyles from './useStyles';
 
-interface Props {
-  component: React.ReactNode;
-}
+import Logo from '../assets/img/logo.png';
 
-function DashboardLayout({ component }: Props): JSX.Element {
+const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
   const classes = useStyles();
   const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
 
   const { loggedInUser, logout } = useAuth();
+  const { pathname } = useLocation();
+  const isHomePage = pathname === '/home';
 
   const handleLogout = () => {
     setProfileEl(null);
@@ -22,17 +22,28 @@ function DashboardLayout({ component }: Props): JSX.Element {
 
   return (
     <Box className={classes.root}>
-      <AppBar position="relative" color="inherit" elevation={6}>
+      <AppBar position="sticky" color="inherit" elevation={6} className={clsx(isHomePage && classes.HomePage)}>
         <Toolbar>
           <Box className={classes.logo}>
             <img src={Logo} alt="Logo Image" />
           </Box>
           {!loggedInUser ? (
             <Box className={classes.wrapper}>
-              <Button component={Link} to={'#'} color="inherit" className={classes.member}>
+              <Button
+                component={Link}
+                to={'#'}
+                color="inherit"
+                className={clsx(classes.member, isHomePage && classes.textWhite)}
+              >
                 Become a sitter
               </Button>
-              <Button component={Link} to={'/login'} variant="outlined" color="primary" className={classes.link}>
+              <Button
+                component={Link}
+                to={'/login'}
+                variant="outlined"
+                color="primary"
+                className={clsx(classes.link, isHomePage && classes.textWhite)}
+              >
                 Login
               </Button>
               <Button component={Link} to={'/signup'} variant="contained" color="primary" className={classes.link}>
@@ -91,9 +102,9 @@ function DashboardLayout({ component }: Props): JSX.Element {
           )}
         </Toolbar>
       </AppBar>
-      {component}
+      {children}
     </Box>
   );
-}
+};
 
 export default DashboardLayout;
