@@ -75,6 +75,13 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     end
   );
 
+  if (!paymentIntent) {
+    res.status(500);
+    throw new Error(
+      "Could not create a payment intent. Please try again later"
+    );
+  }
+
   const request = await Request.create({
     ownerId,
     sitterId,
