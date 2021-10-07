@@ -7,6 +7,8 @@ module.exports.createCustomer = async (profile) => {
     email: profile.userId.email,
     name: `${profile.firstName} ${profile.lastName}`,
   });
+  if (!customer)
+    throw new Error("Unable to create customer please try again later");
 
   profile.customerId = customer.id;
   await profile.save();
