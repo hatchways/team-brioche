@@ -56,11 +56,11 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("This user already has a profile");
   }
-  // const phoneExists = await Profile.findOne({ phone });
-  // if (phoneExists) {
-  //   res.status(400);
-  //   throw new Error("A User with that phone number already exists");
-  // }
+  const phoneExists = await Profile.findOne({ phone });
+  if (phoneExists) {
+    res.status(400);
+    throw new Error("A User with that phone number already exists");
+  }
   const profile = await Profile.create({
     firstName,
     lastName,
@@ -146,11 +146,6 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(userId);
 
   const profile = await Profile.findOne({ userId: userId });
-  // const profileId = profile.userId.toString();
-  // if (userId !== profileId) {
-  //   res.status(403);
-  //   throw new Error("You are not Authorized to change the data");
-  // }
   const updatedData = {
     firstName,
     lastName,

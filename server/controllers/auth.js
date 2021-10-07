@@ -45,7 +45,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
         userId: user._id,
       });
       if (!profile) {
-        res.status(500);
+        res.status(404);
         throw new Error("Something went wrong");
       } else {
         profileData = profile;
