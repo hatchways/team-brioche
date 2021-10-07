@@ -9,7 +9,6 @@ import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import HomePage from './pages/HomePage/HomePage';
-import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -17,7 +16,6 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
 import './App.css';
-import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -35,7 +33,7 @@ function App(): JSX.Element {
                     <Route exact path="/booking" component={Booking} />
                     <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <ProtectedRoute exact path="/edit-profilel" component={EditProfile} />
+                    <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
                     <Route path="*" render={() => <Redirect to="/login" />} />
                   </Switch>
                 </Layout>

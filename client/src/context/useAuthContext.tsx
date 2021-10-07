@@ -29,7 +29,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   const updateLoginContext = useCallback((data: AuthApiDataSuccess) => {
     setLoggedInUser(data.user);
-    //history.push('/dashboard');
   }, []);
   const [profileData, setProfileData] = useState<Profile | null | undefined>();
 
@@ -47,6 +46,13 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       })
       .catch((error) => console.error(error));
   }, [history]);
+  useEffect(() => {
+    if (profileData?._id && !profileData?.firstName) {
+      history.push('/edit-profile');
+    } else {
+      history.push('/dashboard');
+    }
+  }, [history, profileData]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
@@ -55,11 +61,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
         if (data.success) {
           updateLoginContext(data.success);
           updateProfileContext(data.profile);
-          if (!profileData?.firstName) {
-            history.push('/edit-profile');
-          } else {
-            history.push('/dashboard');
-          }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
           setLoggedInUser(null);
@@ -70,14 +71,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       });
     };
     checkLoginWithCookies();
-  }, [
-    updateLoginContext,
-    history,
-    location.pathname,
-    updateProfileContext,
-    profileData?.firstName,
-    profileData?.availability,
-  ]);
+  }, [updateLoginContext, location.pathname, updateProfileContext, history]);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>

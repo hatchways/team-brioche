@@ -19,7 +19,7 @@ export interface Profile {
   galleryPics?: string[];
   gender?: Gender;
   phone?: number;
-  address?: string;
+  address: string;
   description: string;
   availability?: Availability;
   coverPic?: string;
