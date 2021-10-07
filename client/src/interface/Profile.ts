@@ -1,7 +1,21 @@
+type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
+
+export interface DayRange {
+  dropInDate: string | undefined;
+  dropOffDate: string | undefined;
+}
+
+type TimeRange = Array<{ startTime: string; endTime: string }>;
+
+export interface Availability {
+  dateRange: DayRange;
+  weeklyTimeRange: TimeRange;
+}
+
 export interface Profile {
   _id?: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
@@ -24,12 +38,6 @@ export interface Profiles {
 export interface ProfileCreated {
   profileData: Profile;
   profileId: string;
-}
-type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
-
-interface Availability {
-  dateRange?: { startDate: string; endDate: string };
-  weeklyTimeRange?: Array<{ startTime: string; endTime: string }>;
 }
 export interface ProfileCreateSuccess {
   error?: { message: string };
