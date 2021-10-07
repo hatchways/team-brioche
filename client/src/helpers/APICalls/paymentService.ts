@@ -20,6 +20,6 @@ export const getAllPaymentMethodsByCustomer = async (): Promise<GetPaymentMethod
   return { paymentMethods: [], defaultPaymentMethod: '' };
 };
 
-export const setDefaultPayment = async (methodId: string) => {
+export const updateDefaultMethod = async (methodId: string): Promise<void> => {
   // no error mean ok
 };
