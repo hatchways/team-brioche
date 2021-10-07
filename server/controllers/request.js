@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Request = require("../models/Request");
+const Profile = require("../models/Profile");
 
 // @route GET /request
 // @desc gets all requests for loged-in dog sitter
@@ -26,8 +27,9 @@ exports.getRequests = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.createRequest = asyncHandler(async (req, res, next) => {
   const { id: ownerId } = req.user;
-  let { sitterId, start, end } = req.body;
-
+  let { profileId, start, end } = req.body;
+  const userByProfile = await Profile.findById(profileId, "userId");
+  const sitterId = userByProfile.userId;
   start = new Date(start);
   end = new Date(end);
 
@@ -62,8 +64,11 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
       "Something went wrong with your request please try again later"
     );
   }
-
-  res.status(200).send(request);
+  const requestSuccess = {
+    message: "Your request has been sent",
+    request,
+  };
+  res.status(200).send(requestSuccess);
 });
 
 // @route PATCH /request/:id

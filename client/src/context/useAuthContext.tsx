@@ -32,7 +32,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateLoginContext = useCallback(
     (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
-      history.push('/dashboard');
+      history.push(`/profiles/615de736d5ca288688b1fe63`);
     },
     [history],
   );
@@ -41,7 +41,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateProfileContext = useCallback(
     (data: ProfileCreateSuccess) => {
       setProfileData(data?.profile);
-      history.push(`/dashboard}`);
+      history.push(`/profiles/615de736d5ca288688b1fe63`);
     },
     [history],
   );
@@ -50,26 +50,12 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
     // needed to remove token cookie
     await logoutAPI()
       .then(() => {
-        history.push('/login');
+        //history.push('/login');
         setLoggedInUser(null);
         setProfileData(null);
       })
       .catch((error) => console.error(error));
-  }, [history]);
-
-  // useEffect(() => {
-  //   const hasProfile = async () => {
-  //     await profileGetByUser().then((data: ProfileCreateSuccess) => {
-  //       if (data.profile) {
-  //         updateProfileContext(data);
-  //         history.push('/dashboard');
-  //       } else if (data.error) {
-  //         history.push('/edit-profile');
-  //       }
-  //     });
-  //   };
-  //   hasProfile();
-  // }, [history, loggedInUser, updateProfileContext]);
+  }, []);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
@@ -77,22 +63,20 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await loginWithCookies().then((data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);
-          if (profileData) {
-            history.push(`/dashboard`);
-            // } else {
-            //   history.push(`/edit-profile`);
-            // }
-          }
+          history.push(`/profiles/615de736d5ca288688b1fe63`);
+          // } else {
+          //   history.push(`/edit-profile`);
+          // }
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
-          setLoggedInUser(null);
-          if (location.pathname !== '/signup') {
-            history.push('/login');
-          }
+          //setLoggedInUser(null);
+          // if (location.pathname !== '/signup') {
+          //   history.push('/login');
+          // }
         }
       });
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, history, location.pathname, profileData]);
+  }, [history, location.pathname, profileData, updateLoginContext]);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>

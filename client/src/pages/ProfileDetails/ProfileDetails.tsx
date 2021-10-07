@@ -1,7 +1,7 @@
+import { useState, useEffect, SyntheticEvent } from 'react';
 import { Grid, Paper, Typography } from '@material-ui/core/';
 import { Rating, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState, useEffect } from 'react';
 import useStyles from './useStyles';
 import { useParams } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -12,6 +12,7 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import { profileGet } from '../../helpers/APICalls/profile';
 import { Profile } from '../../interface/Profile';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { sendRequest } from '../../helpers/APICalls/request';
 interface ProfileParams {
   id: string;
 }
@@ -27,8 +28,14 @@ export default function ProfileDetails(): JSX.Element {
     gender: 'male',
   };
   const [profile, setProfile] = useState<Profile | null | undefined>(initialData);
-  const [dropInValue, setDropInValue] = useState<Date | null>(new Date());
-  const [dropOffValue, setDropOffValue] = useState<Date | null>(new Date());
+  const [start, setDropInValue] = useState<string | null | undefined>('');
+  const [end, setDropOffValue] = useState<string | null | undefined>('');
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    sendRequest({ id, start, end }).then((data) => {
+      updateSnackBarMessage(data.message);
+    });
+  };
   useEffect(() => {
     profileGet({ id }).then((data) => {
       if (data.error) {
@@ -45,7 +52,7 @@ export default function ProfileDetails(): JSX.Element {
     },
   });
   return (
-    <Grid container>
+    <Grid container justify="center">
       <Paper className={classes.profileContainer}>
         <img className={classes.coverImage} src={profile?.coverPic} alt="Cover Photo" />
         <Grid container className={classes.basicInfoContainer} direction="column" alignItems="center">
@@ -70,7 +77,7 @@ export default function ProfileDetails(): JSX.Element {
           </Grid>
         </Grid>
       </Paper>
-      <Paper component="form" className={classes.bookingContainer}>
+      <Paper component="form" onSubmit={handleSubmit} className={classes.bookingContainer}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid container direction="column" className={classes.requestContainer}>
             <Typography variant="h5">$ {profile?.rate}</Typography>
@@ -79,7 +86,7 @@ export default function ProfileDetails(): JSX.Element {
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop In"
-                value={dropInValue}
+                value={start}
                 onChange={(newValue) => {
                   setDropInValue(newValue);
                 }}
@@ -89,7 +96,7 @@ export default function ProfileDetails(): JSX.Element {
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop Off"
-                value={dropOffValue}
+                value={end}
                 onChange={(newValue) => {
                   setDropOffValue(newValue);
                 }}
