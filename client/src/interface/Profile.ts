@@ -5,10 +5,10 @@ export interface Profile {
   dob?: string;
   profilePic?: string;
   galleryPics?: string[];
-  gender: Gender;
-  phone: number;
-  address: string;
-  description: string;
+  gender?: Gender;
+  phone?: number;
+  address?: string;
+  description?: string;
   availability?: Availability;
   coverPic?: string;
   introduction?: string;

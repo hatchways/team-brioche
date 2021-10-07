@@ -10,35 +10,23 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { profileGet } from '../../helpers/APICalls/profile';
+import { Profile } from '../../interface/Profile';
 import { useSnackBar } from '../../context/useSnackbarContext';
 interface ProfileParams {
   id: string;
 }
-interface ProfileI {
-  firstName?: string;
-  lastName?: string;
-  profilePic?: string;
-  galleryPics?: string[];
-  gender?: string;
-  description?: string;
-  introduction?: string;
-  coverPic?: string;
-  pitch?: string;
-  rate?: number;
-  error?: string;
-}
-export default function Profile(): JSX.Element {
+export default function ProfileDetails(): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
   const classes = useStyles();
   const { id } = useParams<ProfileParams>();
-  const initialData = {
+  const initialData: Profile = {
     firstName: '',
     lastName: '',
-    city: '',
+    address: '',
     description: '',
     gender: 'male',
   };
-  const [profile, setProfile] = useState<ProfileI | null | undefined>(initialData);
+  const [profile, setProfile] = useState<Profile | null | undefined>(initialData);
   const [dropInValue, setDropInValue] = useState<Date | null>(new Date());
   const [dropOffValue, setDropOffValue] = useState<Date | null>(new Date());
   useEffect(() => {
@@ -67,7 +55,7 @@ export default function Profile(): JSX.Element {
           </Typography>
           <Typography variant="subtitle1">{profile?.introduction}</Typography>
           <Typography color="primary" variant="subtitle2">
-            <LocationOnIcon fontSize="small" className={classes.locationIcon} /> Toronto,ON
+            <LocationOnIcon fontSize="small" className={classes.locationIcon} /> {profile?.address}
           </Typography>
         </Grid>
         <Grid container className={classes.aboutContainer}>
@@ -85,7 +73,7 @@ export default function Profile(): JSX.Element {
       <Paper component="form" className={classes.bookingContainer}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid container direction="column" className={classes.requestContainer}>
-            <Typography variant="h5">$14/hr</Typography>
+            <Typography variant="h5">$ {profile?.rate}</Typography>
             <Rating name="read-only" value={4} readOnly />
             <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker

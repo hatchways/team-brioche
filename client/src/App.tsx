@@ -36,7 +36,7 @@ function App(): JSX.Element {
                   <Layout component={<Booking />} />
                 </Route>
                 <Route exact path="/profile">
-                  <Layout component={<Profile />} />
+                  <Layout component={<ProfileDetails />} />
                 </Route>
                 <ProtectedRoute exact path="/dashboard">
                   <Layout component={<Dashboard />} />
