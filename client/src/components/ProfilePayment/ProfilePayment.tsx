@@ -13,9 +13,9 @@ import {
 } from '../../helpers/APICalls/paymentService';
 import withStripe from './withStripe';
 import useStyles from './useStyles';
-import visa from '../../Images/Visa.png';
-import mastercard from '../../Images/mastercard.jpg';
-import defaultCardLogo from '../../Images/default.png';
+import visa from '../../Images/cardImages/Visa.png';
+import mastercard from '../../Images/cardImages/mastercard.jpg';
+import defaultCardLogo from '../../Images/cardImages/default.png';
 
 const cardLogos = [
   { brand: 'visa', logo: visa },
