@@ -1,6 +1,6 @@
+import { generateQueryString } from '../queryStringHelpers';
 import { FetchOptions } from '../../interface/FetchOptions';
 import { Profile } from '../../interface/Profile';
-import { isValidDateString } from '../dateTimeHelper';
 import { DayRange } from './../../interface/Profile';
 
 interface ProfileResponse {
@@ -8,37 +8,36 @@ interface ProfileResponse {
   uniqueAddress: string[];
 }
 
-interface ReqBody {
-  address: string;
-  dropInDate?: string;
-  dropOffDate?: string;
-}
-
 export async function getProfileList(addressQuery: string, range: DayRange): Promise<ProfileResponse> {
-  const body = GenerateReqBody(addressQuery, range);
+  const queryString = generateQueryString({
+    address: addressQuery,
+    dropInDate: range.dropInDate,
+    dropOffDate: range.dropOffDate,
+  });
   const options: FetchOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    method: 'GET',
     credentials: 'include',
-    body: JSON.stringify(body),
   };
-  const res = await fetch('/profile/search', options);
-  const data = await res.json();
-  if (res.status !== 200) {
-    throw new Error(data.message);
+
+  const path = queryString ? `/profile?${queryString}` : '/profile';
+  try {
+    const res = await fetch(path, options);
+    const data = await res.json();
+    if (res.status !== 200) {
+      throw new Error(data.error.message);
+    }
+    return getUniqueAddress(data);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+  } catch (error: any) {
+    throw new Error(error.message);
   }
-  return data;
 }
 
-function GenerateReqBody(addressQuery: string, range: DayRange): ReqBody {
-  let body: ReqBody = { address: addressQuery || '' };
-
-  const formatDate = (date: string) => new Date(date).toLocaleDateString('en-Us', { dateStyle: 'full' });
-  const dropInDate = range.dropInDate as string;
-  const dropOffDate = range.dropOffDate as string;
-  if (isValidDateString(dropInDate)) body = { ...body, dropInDate: formatDate(dropInDate) };
-  if (isValidDateString(dropOffDate)) body = { ...body, dropOffDate: formatDate(dropOffDate) };
-  return body;
+function getUniqueAddress(profiles: Profile[]): ProfileResponse {
+  const addressList = profiles.map((profile) => profile.address);
+  return {
+    profiles,
+    uniqueAddress: Array.from(new Set(addressList)),
+  };
 }

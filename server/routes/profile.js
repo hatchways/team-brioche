@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const protect = require("../middleware/auth");
 const multer = require("multer");
-const { validateSearchParams } = require("../validate");
 const {
   loadProfiles,
   createProfile,
@@ -21,9 +20,6 @@ router.route("/").get(protect, loadProfiles); //get all the profiles
 router.route("/:id").get(protect, getProfile); //Get a profile with ID
 router.route("/").post(protect, createProfile); //create a new profile
 router.route("/get-profile").get(protect, getProfileFromUserId);
-
-router.route("/").post(protect, createProfile); //create a new profile
-router.route("/search").post(validateSearchParams, searchSitterProfiles);
 router
   .route("/save-photo")
   .post(protect, upload.fields([{ name: "photos" }]), savePhoto);
