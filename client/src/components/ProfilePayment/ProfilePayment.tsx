@@ -6,11 +6,21 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { PaymentMethod } from '../../interface/PaymentMethods';
 import { formatCardDate } from '../../helpers/dateTimeHelper';
-import { addPaymentMethodToCustomer, getAllPaymentMethodsByCustomer } from '../../helpers/APICalls/paymentService';
+import {
+  createCardSetup,
+  getAllPaymentMethodsByCustomer,
+  updateDefaultMethod,
+} from '../../helpers/APICalls/paymentService';
 import withStripe from './withStripe';
 import useStyles from './useStyles';
-import visa from '../../Images/Visa.png';
-import masterCard from '../../Images/mastercard.svg';
+import visa from '../../Images/cardImages/Visa.png';
+import mastercard from '../../Images/cardImages/mastercard.jpg';
+import defaultCardLogo from '../../Images/cardImages/default.png';
+
+const cardLogos = [
+  { brand: 'visa', logo: visa },
+  { brand: 'mastercard', logo: mastercard },
+];
 
 const ProfilePayment: FunctionComponent = (): JSX.Element => {
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
@@ -48,10 +58,9 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
       setSavingCard(false);
     };
 
-    const { clientSecret, attachedDetails } = await addPaymentMethodToCustomer();
-    console.log(clientSecret, attachedDetails);
+    const { clientSecret, attachedDetails } = await createCardSetup();
     try {
-      const { error, setupIntent } = await stripe.confirmCardSetup(clientSecret, {
+      const { error } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -62,8 +71,6 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
           },
         },
       });
-      console.log('Intent :', setupIntent);
-      console.log('error :', error);
       if (error) throw new Error();
     } catch (error) {
       updateSnackBarMessage('An error occured while processing your card. Please try a different card');
@@ -73,7 +80,14 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
     resetUI();
     updateSnackBarMessage('New card successfully added');
   };
-  console.log(paymentMethods);
+
+  const handleCardClick = (methodId: string) => {
+    if (methodId === defaultPaymentMethod) updateSnackBarMessage('This Card is already the default Payment Card');
+    updateDefaultMethod(methodId)
+      .then(() => setDefaultPaymentMethod(methodId))
+      .catch((err) => updateSnackBarMessage(err.message || 'An error occured, while processing your request'));
+  };
+
   return (
     <Box padding="3rem 6rem">
       <Grid container justifyContent="center" component={Paper} className={classes.container}>
@@ -86,9 +100,19 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
         <Grid container direction="row" alignItems="center" className={classes.cardContainer}>
           {paymentMethods.length ? (
             paymentMethods.map((method) => (
-              <Box key={method.id} display="flex" flexDirection="column" className={classes.card}>
+              <Box
+                key={method.id}
+                display="flex"
+                flexDirection="column"
+                className={classes.card}
+                onClick={() => handleCardClick(method.id)}
+              >
                 <Box display="flex" justifyContent="space-between">
-                  <img src={visa} alt={method.brand} className={classes.image} />
+                  <img
+                    src={cardLogos.find(({ brand }) => brand === method.brand)?.logo || defaultCardLogo}
+                    alt={method.brand}
+                    className={classes.image}
+                  />
                   {defaultPaymentMethod === method.id && <CheckCircle color="primary" />}
                 </Box>
                 <Typography variant="body1" className={classes.bold}>
@@ -103,19 +127,19 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
               </Box>
             ))
           ) : (
-            <p>No cards to display</p>
+            <Typography align="center" variant="h6">
+              No cards to display
+            </Typography>
           )}
         </Grid>
         <Box display="flex" alignContent="flex-start" width="100%">
           {addCard ? (
-            <Box style={{ width: '50%' }}>
-              <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                <CardElement />
-                <Button type="submit" color="primary" variant="outlined" style={{ margin: '1rem' }}>
-                  {savingCard ? <CircularProgress size="2rem" thickness={1.5} /> : 'Add card'}
-                </Button>
-              </form>
-            </Box>
+            <form onSubmit={handleSubmit} className={classes.form}>
+              <CardElement />
+              <Button type="submit" color="primary" variant="outlined" className={classes.formButton}>
+                {savingCard ? <CircularProgress size="2rem" thickness={1.5} /> : 'Add card'}
+              </Button>
+            </form>
           ) : (
             <Button
               disabled={stripe ? false : true}

@@ -8,7 +8,7 @@ interface AddPaymentResponse {
     email: string;
   };
 }
-export const addPaymentMethodToCustomer = async (): Promise<AddPaymentResponse> => {
+export const createCardSetup = async (): Promise<AddPaymentResponse> => {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     credentials: 'include',
