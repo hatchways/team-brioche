@@ -44,7 +44,7 @@ export const getAllPaymentMethodsByCustomer = async (): Promise<GetPaymentMethod
   return await res.json();
 };
 
-export const setDefaultPayment = async (methodId: string) => {
+export const updateDefaultMethod = async (methodId: string): Promise<void> => {
   const fetchOptions: FetchOptions = {
     method: 'PATCH',
     credentials: 'include',
