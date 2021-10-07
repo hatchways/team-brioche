@@ -15,14 +15,19 @@ export const createCardSetup = async (): Promise<AddPaymentResponse> => {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  const res = await fetch('/payments/add-payment-method', fetchOptions);
+  try {
+    const res = await fetch('/payments/add-payment-method', fetchOptions);
 
-  if (res.status !== 200) {
-    const { error } = await res.json();
+    if (res.status !== 200) {
+      const { error } = await res.json();
+      throw new Error(error.message);
+    }
+
+    return await res.json();
+    // eslint-disable-next-line
+  } catch (error: any) {
     throw new Error(error.message);
   }
-
-  return await res.json();
 };
 
 interface GetPaymentMethodsResponse {
@@ -36,12 +41,17 @@ export const getAllPaymentMethodsByCustomer = async (): Promise<GetPaymentMethod
     credentials: 'include',
   };
 
-  const res = await fetch('/payments/payment-methods', fetchOptions);
-  if (res.status !== 200) {
-    const { error } = await res.json();
+  try {
+    const res = await fetch('/payments/payment-methods', fetchOptions);
+    if (res.status !== 200) {
+      const { error } = await res.json();
+      throw new Error(error.message);
+    }
+    return await res.json();
+    // eslint-disable-next-line
+  } catch (error: any) {
     throw new Error(error.message);
   }
-  return await res.json();
 };
 
 export const updateDefaultMethod = async (methodId: string): Promise<void> => {
@@ -50,9 +60,14 @@ export const updateDefaultMethod = async (methodId: string): Promise<void> => {
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
   };
-  const res = await fetch('/set-default-method/:methodId', fetchOptions);
-  if (res.status !== 200) {
-    const { error } = await res.json();
+  try {
+    const res = await fetch(`/set-default-method/${methodId}`, fetchOptions);
+    if (res.status !== 200) {
+      const { error } = await res.json();
+      throw new Error(error.message);
+    }
+    // eslint-disable-next-line
+  } catch (error: any) {
     throw new Error(error.message);
   }
 };
