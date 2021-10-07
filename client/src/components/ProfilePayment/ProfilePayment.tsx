@@ -1,4 +1,4 @@
-import { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
+import { FormEventHandler, FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Button, Grid, Paper, Typography, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';
@@ -33,17 +33,18 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
   const elements = useElements();
   const { updateSnackBarMessage } = useSnackBar();
 
-  useEffect(() => {
-    async function getCards() {
-      getAllPaymentMethodsByCustomer()
-        .then((result) => {
-          setPaymentMethods(result.paymentMethods);
-          setDefaultPaymentMethod(result.defaultPaymentMethod);
-        })
-        .catch((error) => updateSnackBarMessage(error.message || 'Can not get payment methods.'));
-    }
-    getCards();
+  const getCards = useCallback(() => {
+    getAllPaymentMethodsByCustomer()
+      .then((result) => {
+        setPaymentMethods(result.paymentMethods);
+        setDefaultPaymentMethod(result.defaultPaymentMethod);
+      })
+      .catch((error) => updateSnackBarMessage(error.message || 'Can not get payment methods.'));
   }, [updateSnackBarMessage]);
+
+  useEffect(() => {
+    getCards();
+  }, [getCards]);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -77,6 +78,7 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
       resetUI();
       return;
     }
+    getCards();
     resetUI();
     updateSnackBarMessage('New card successfully added');
   };
