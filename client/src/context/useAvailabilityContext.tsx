@@ -1,5 +1,4 @@
-import { useEffect, useState, createContext, FunctionComponent, useContext } from 'react';
-import { useSnackBar } from './useSnackbarContext';
+import { createContext, useContext } from 'react';
 interface Slot {
   startTime: string;
   endTime: string;

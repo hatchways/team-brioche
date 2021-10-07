@@ -69,12 +69,12 @@ export async function profileGetByUser(): Promise<ProfileCreateSuccess> {
       error: { message: 'User does not have Profile' },
     }));
 }
-export async function updateAvailability(availability: unknown[]): Promise<any> {
+export async function updateAvailability({ weeklyTimeRange, rate }: any): Promise<any> {
   const fetchOptions: FetchOptions = {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(availability),
+    body: JSON.stringify({ weeklyTimeRange, rate }),
   };
   return await fetch(`/availability/`, fetchOptions);
 }

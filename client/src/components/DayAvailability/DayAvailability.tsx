@@ -1,9 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Grid, Typography, InputLabel, Select, MenuItem, FormControl, CircularProgress } from '@material-ui/core';
+import { useEffect } from 'react';
+import { Grid, Typography, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
 import useStyles from './useStyles';
-import { useAuth } from '../../context/useAuthContext';
-import { useAvailability } from '../../context/useAvailabilityContext';
-import { useHistory } from 'react-router-dom';
 import useInputState from '../../pages/EditProfile/EditProfileForm/useInputState';
 interface Props {
   day: string;

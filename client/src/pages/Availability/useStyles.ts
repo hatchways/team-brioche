@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { theme } from '../../themes/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,12 +8,20 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
   },
   form: {
-    display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    padding: theme.spacing(2),
   },
   list: {
     width: '100%',
+    margin: theme.spacing(2),
+  },
+  rateLabel: {
+    color: 'black',
+    margin: theme.spacing(2),
+    position: 'relative',
+    top: '16px',
+  },
+  rateField: {
     margin: theme.spacing(2),
   },
   saveBtn: {

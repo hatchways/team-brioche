@@ -5,10 +5,14 @@ const Profile = require("../models/Profile");
 
 exports.updateAvailability = asyncHandler(async (req, res, next) => {
   const { id } = req.user;
-  const { weeklyTimeRange } = req.body;
+  console.log(req.body);
+  const { weeklyTimeRange, rate } = req.body;
   const newProfile = await Profile.findOneAndUpdate(
     { userId: id },
-    { availability: { weeklyTimeRange: weeklyTimeRange } },
+    {
+      availability: { weeklyTimeRange: weeklyTimeRange },
+      rate: parseInt(rate),
+    },
     { new: true }
   );
   if (!newProfile) {

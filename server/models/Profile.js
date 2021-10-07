@@ -24,6 +24,9 @@ const profileSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  rate: {
+    type: Number,
+  },
   description: {
     type: String,
   },

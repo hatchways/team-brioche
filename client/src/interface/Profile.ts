@@ -4,6 +4,10 @@ export interface DayRange {
   dropInDate: string | undefined;
   dropOffDate: string | undefined;
 }
+export interface Slot {
+  startTime?: string;
+  endTime?: string;
+}
 
 type TimeRange = Array<{ startTime: string; endTime: string }>;
 
