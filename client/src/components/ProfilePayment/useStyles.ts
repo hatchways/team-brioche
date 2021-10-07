@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
   },
   heading: {
     fontWeight: theme.typography.fontWeightBold,
