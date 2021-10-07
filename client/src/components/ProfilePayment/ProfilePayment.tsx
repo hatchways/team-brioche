@@ -14,7 +14,7 @@ import {
 import withStripe from './withStripe';
 import useStyles from './useStyles';
 import visa from '../../Images/Visa.png';
-import mastercard from '../../Images/mastercard.svg';
+import mastercard from '../../Images/mastercard.jpg';
 import defaultCardLogo from '../../Images/default.png';
 
 const cardLogos = [
