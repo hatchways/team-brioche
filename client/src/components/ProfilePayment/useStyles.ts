@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
-    padding: '1rem',
+    padding: theme.spacing(2),
   },
   heading: {
     fontWeight: theme.typography.fontWeightBold,
@@ -24,15 +24,15 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     border: `2px solid ${theme.palette.grey[300]}`,
-    padding: '1rem',
-    margin: '1rem',
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
     width: '300px',
     minHeight: '200px',
     height: 'min-content',
     borderRadius: theme.shape.borderRadius,
   },
   bold: {
-    marginTop: '10px',
+    marginTop: theme.spacing(1),
     fontWeight: theme.typography.fontWeightBold,
   },
   light: {
@@ -42,6 +42,16 @@ const useStyles = makeStyles((theme) => ({
     height: '50px',
     width: '100px',
     objectFit: 'cover',
+  },
+  form: {
+    width: '50%',
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  formButton: {
+    marginTop: theme.spacing(2),
   },
 }));
 

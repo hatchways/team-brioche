@@ -7,7 +7,7 @@ interface AddPaymentResponse {
     email: string;
   };
 }
-export const addPaymentMethodToCustomer = async (): Promise<AddPaymentResponse> => {
+export const createCardSetup = async (): Promise<AddPaymentResponse> => {
   // create setup intent
   return { clientSecret: '', attachedDetails: { name: '', email: '' } };
 };

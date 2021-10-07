@@ -7,7 +7,7 @@ import { useSnackBar } from '../../context/useSnackbarContext';
 import { PaymentMethod } from '../../interface/PaymentMethods';
 import { formatCardDate } from '../../helpers/dateTimeHelper';
 import {
-  addPaymentMethodToCustomer,
+  createCardSetup,
   getAllPaymentMethodsByCustomer,
   updateDefaultMethod,
 } from '../../helpers/APICalls/paymentService';
@@ -58,7 +58,7 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
       setSavingCard(false);
     };
 
-    const { clientSecret, attachedDetails } = await addPaymentMethodToCustomer();
+    const { clientSecret, attachedDetails } = await createCardSetup();
     try {
       const { error } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: {
@@ -134,14 +134,12 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
         </Grid>
         <Box display="flex" alignContent="flex-start" width="100%">
           {addCard ? (
-            <Box style={{ width: '50%' }}>
-              <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                <CardElement />
-                <Button type="submit" color="primary" variant="outlined" style={{ margin: '1rem' }}>
-                  {savingCard ? <CircularProgress size="2rem" thickness={1.5} /> : 'Add card'}
-                </Button>
-              </form>
-            </Box>
+            <form onSubmit={handleSubmit} className={classes.form}>
+              <CardElement />
+              <Button type="submit" color="primary" variant="outlined" className={classes.formButton}>
+                {savingCard ? <CircularProgress size="2rem" thickness={1.5} /> : 'Add card'}
+              </Button>
+            </form>
           ) : (
             <Button
               disabled={stripe ? false : true}
