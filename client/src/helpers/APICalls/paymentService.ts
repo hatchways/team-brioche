@@ -21,5 +21,5 @@ export const getAllPaymentMethodsByCustomer = async (): Promise<GetPaymentMethod
 };
 
 export const updateDefaultMethod = async (methodId: string): Promise<void> => {
-  // no error mean ok
+  // No error means ok
 };
