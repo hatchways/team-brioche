@@ -48,14 +48,17 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
   let profile = await Profile.findOne({ userId: id }).populate("userId", {
     email: 1,
   });
+
   if (!profile) {
     res.status(404);
     throw new Error("No profile found. Please create a profile.");
   }
 
+  const { firstName, lastName, userId } = profile;
+
   if (!profile.customerId) {
     try {
-      profile = createCustomer(profile);
+      profile = await createCustomer(profile);
     } catch (error) {
       res.status(500);
       throw new Error(
@@ -68,11 +71,12 @@ module.exports.addPaymentMethod = asyncHandler(async (req, res) => {
     payment_method_types: ["card"],
     customer: profile.customerId,
   });
-  const { firstName, lastName, userId } = profile;
+
   const attachedDetails = {
     name: `${firstName} ${lastName}`,
     email: userId.email,
   };
+
   res
     .status(200)
     .json({ clientSecret: setupIntent.client_secret, attachedDetails });
