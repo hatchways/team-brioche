@@ -7,11 +7,9 @@ const {
   createProfile,
   getProfile,
   updateProfile,
-  getProfileByUser,
   savePhoto,
   deletePhoto,
   getProfileFromUserId,
-  searchSitterProfiles,
 } = require("../controllers/profile");
 
 const upload = multer({ dest: "./uploads" });
