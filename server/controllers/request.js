@@ -57,7 +57,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
     Profile.findOne({ userId: sitterId }),
   ]);
 
-  // check is added here because "rate" is not required in the profile model and may be undefined
+  // This check is added here because "rate" is not required in the profile model and may be undefined
   if (!dogSitterProfile || !dogSitterProfile.rate) {
     res.status(400);
     throw new Error("Incomplete sitter Profile");
@@ -138,5 +138,5 @@ exports.updateRequest = asyncHandler(async (req, res) => {
 
   request = await request.save();
 
-  res.status(200).json({ request });
+  res.status(200).json(request);
 });
