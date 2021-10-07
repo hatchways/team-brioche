@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { AuthContext } from '../context/useAuthContext';
-import { mockProfileCreated } from './mockProfile';
+import { mockProfile } from './mockProfile';
 import { mockLoggedInUser } from './mockUser';
 
 const MockUseAuthProvider: FunctionComponent = ({ children }) => {
@@ -8,7 +8,7 @@ const MockUseAuthProvider: FunctionComponent = ({ children }) => {
     <AuthContext.Provider
       value={{
         loggedInUser: mockLoggedInUser,
-        profileData: mockProfileCreated,
+        profileData: mockProfile,
         updateLoginContext: jest.fn(),
         logout: jest.fn(),
         updateProfileContext: jest.fn(),

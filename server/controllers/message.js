@@ -4,8 +4,10 @@ const Message = require("../models/Message");
 const Conversation = require("../models/Conversation");
 
 exports.sendMessage = asyncHandler(async (req, res, next) => {
-  const senderId = req.user.id;
+  const userId = req.user.id;
   const { conversationId, message } = req.body;
+  const { _id: senderId } = await Profile.findOne({ userId }, "_id");
+
   const messageSuccess = await Message.create({
     senderId,
     message,

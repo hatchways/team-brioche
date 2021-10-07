@@ -3,32 +3,12 @@ const Conversation = require("../models/Conversation");
 const Message = require("../models/Message");
 const Profile = require("../models/Profile");
 
-exports.createConversationViaProfile = asyncHandler(async (req, res, next) => {
-  const senderId = req.user.id;
-  const { profileId } = req.body;
-  if (!profileId) {
-    res.status(400);
-    throw new Error("Bad Request");
-  }
-  const receiver = await Profile.findById(profileId);
-  !receiver && res.status(400).json({ error });
-  const receiverId = receiver.userId;
-  const conversation = await Conversation.create({
-    members: [senderId, receiverId],
-  });
-  if (!conversation) {
-    res.status(500);
-    throw new Error("Something went wrong with the conversation");
-  }
-
-  res.status(201).json(conversation);
-});
-
 exports.createConversation = asyncHandler(async (req, res, next) => {
   const { receiverId } = req.body;
-  const senderId = req.user.id;
+  const userId = req.user.id;
   !receiverId && res.status(400).json({ error });
-
+  const getProfile = await Profile.findOne({ userId: userId }, "_id");
+  const senderId = getProfile._id;
   const existingConvo = await Conversation.findOne({
     members: { $all: [senderId, receiverId] },
   }).populate("lastMessage");
@@ -48,8 +28,10 @@ exports.createConversation = asyncHandler(async (req, res, next) => {
 
 exports.getConversations = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
+  const { _id } = await Profile.findOne({ userId }, "_id");
+  console.log(_id);
   const conversations = await Conversation.find({
-    members: { $in: [userId] },
+    members: { $in: [_id] },
   })
     .populate("lastMessage")
     .populate("members");

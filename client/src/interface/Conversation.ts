@@ -1,8 +1,8 @@
 import { Message } from './Message';
-import { User } from './User';
+import { Profile } from './Profile';
 export interface Conversation {
   _id: string;
-  members?: User[];
+  members?: Profile[];
   lastMessage?: Message;
   prevState?: null;
 }

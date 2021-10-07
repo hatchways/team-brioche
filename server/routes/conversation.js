@@ -9,6 +9,6 @@ const {
 
 router.route("/").get(protect, getConversations);
 router.route("/").post(protect, createConversation);
-router.route("/profile").post(protect, createConversationViaProfile);
+//router.route("/profile").post(protect, createConversationViaProfile);
 
 module.exports = router;

@@ -2,7 +2,7 @@ import { useState, useContext, createContext, FunctionComponent, useEffect, useC
 import { useHistory, useLocation } from 'react-router-dom';
 import { AuthApiData, AuthApiDataSuccess } from '../interface/AuthApiData';
 import { User } from '../interface/User';
-import { ProfileCreated, ProfileCreateSuccess } from '../interface/Profile';
+import { Profile, ProfileCreateSuccess } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
 import { profileGetByUser } from '../helpers/APICalls/profile';
@@ -11,8 +11,8 @@ interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
   logout: () => void;
-  profileData?: ProfileCreated | null | undefined;
-  updateProfileContext: (data: ProfileCreateSuccess) => void;
+  profileData?: Profile | null | undefined;
+  updateProfileContext: (data: Profile) => void;
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -36,11 +36,11 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
     },
     [history],
   );
-  const [profileData, setProfileData] = useState<ProfileCreated | null | undefined>();
+  const [profileData, setProfileData] = useState<Profile | null | undefined>();
 
   const updateProfileContext = useCallback(
-    (data: ProfileCreateSuccess) => {
-      setProfileData(data?.profile);
+    (data: Profile) => {
+      setProfileData(data);
       history.push(`/messages`);
     },
     [history],

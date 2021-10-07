@@ -4,9 +4,10 @@ import useStyles from './useStyles';
 import { Conversation, ConversationList } from '../../../interface/Conversation';
 import { useAuth } from '../../../context/useAuthContext';
 import { User } from '../../../interface/User';
+import { Profile } from '../../../interface/Profile';
 export default function ConvoListDrawer({ conversations, setCurrentConvo }: any): JSX.Element {
   const classes = useStyles();
-  const { loggedInUser } = useAuth();
+  const { profileData } = useAuth();
 
   return (
     <div>
@@ -24,10 +25,10 @@ export default function ConvoListDrawer({ conversations, setCurrentConvo }: any)
           >
             <Grid container>
               {conversation.members?.map(
-                (member: User) =>
-                  loggedInUser?.email !== member.email && (
-                    <Typography variant="button" key={member.email}>
-                      {member.email}
+                (member: Profile) =>
+                  profileData?.firstName !== member.firstName && (
+                    <Typography variant="button" key={member._id}>
+                      {member.firstName}
                     </Typography>
                   ),
               )}
