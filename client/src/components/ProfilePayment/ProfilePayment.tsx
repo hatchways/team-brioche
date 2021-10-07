@@ -59,8 +59,8 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
       setSavingCard(false);
     };
 
-    const { clientSecret, attachedDetails } = await createCardSetup();
     try {
+      const { clientSecret, attachedDetails } = await createCardSetup();
       const { error } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -73,8 +73,10 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
         },
       });
       if (error) throw new Error();
-    } catch (error) {
-      updateSnackBarMessage('An error occured while processing your card. Please try a different card');
+    } catch (error: any) {
+      updateSnackBarMessage(
+        error.message || 'An error occured while processing your card. Please try a different card',
+      );
       resetUI();
       return;
     }
