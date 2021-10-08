@@ -2,9 +2,11 @@ import { useState, useContext, createContext, FunctionComponent, useEffect, useC
 import { useHistory, useLocation } from 'react-router-dom';
 import { AuthApiData, AuthApiDataSuccess } from '../interface/AuthApiData';
 import { User } from '../interface/User';
-import { Profile } from '../interface/Profile';
+import { Profile, ProfileCreateSuccess } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
+import { profileGetByUser } from '../helpers/APICalls/profile';
+
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
@@ -27,32 +29,47 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const history = useHistory();
   const location = useLocation();
 
-  const updateLoginContext = useCallback((data: AuthApiDataSuccess) => {
-    setLoggedInUser(data.user);
-  }, []);
+  const updateLoginContext = useCallback(
+    (data: AuthApiDataSuccess) => {
+      setLoggedInUser(data.user);
+      history.push('/messages');
+    },
+    [history],
+  );
   const [profileData, setProfileData] = useState<Profile | null | undefined>();
 
-  const updateProfileContext = useCallback((data: Profile | undefined) => {
-    setProfileData(data);
-  }, []);
+  const updateProfileContext = useCallback(
+    (data: Profile) => {
+      setProfileData(data);
+      history.push(`/messages`);
+    },
+    [history],
+  );
 
   const logout = useCallback(async () => {
     // needed to remove token cookie
     await logoutAPI()
       .then(() => {
+        history.push('/login');
         setLoggedInUser(null);
         setProfileData(null);
-        history.push('/login');
       })
       .catch((error) => console.error(error));
   }, [history]);
-  useEffect(() => {
-    if (profileData?._id && !profileData?.firstName) {
-      history.push('/edit-profile');
-    } else {
-      history.push('/dashboard');
-    }
-  }, [history, profileData]);
+
+  // useEffect(() => {
+  //   const hasProfile = async () => {
+  //     await profileGetByUser().then((data: ProfileCreateSuccess) => {
+  //       if (data.profile) {
+  //         updateProfileContext(data);
+  //         history.push('/dashboard');
+  //       } else if (data.error) {
+  //         history.push('/edit-profile');
+  //       }
+  //     });
+  //   };
+  //   hasProfile();
+  // }, [history, loggedInUser, updateProfileContext]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
@@ -60,7 +77,11 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await loginWithCookies().then((data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);
-          updateProfileContext(data.profile);
+          history.push(`/messages`);
+          // if (profileData) {
+          //   // } else {
+          //   //   history.push(`/edit-profile`);
+          // }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
           setLoggedInUser(null);
@@ -71,7 +92,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       });
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, location.pathname, updateProfileContext, history]);
+  }, [updateLoginContext, history, location.pathname, profileData]);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>

@@ -17,7 +17,7 @@ interface Props {
 
 const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
   const classes = useStyles();
-  const { updateLoginContext, updateProfileContext } = useAuth();
+  const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleLogin = ({ email, password }: LoginInput, { setSubmitting }: FormikHelpers<LoginInput>) => {
@@ -41,7 +41,6 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
       updateSnackBarMessage(data.error.message);
     } else if (data.success) {
       updateLoginContext(data.success);
-      updateProfileContext(data.profile);
     } else {
       // should not get here from backend but this catch is for an unknown issue
       console.error({ data });

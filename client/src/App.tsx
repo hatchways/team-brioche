@@ -18,6 +18,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
 import './App.css';
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -35,10 +36,10 @@ function App(): JSX.Element {
                     <Route exact path="/booking" component={Booking} />
                     <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+                    <ProtectedRoute exact path="/edit-profilel" component={EditProfile} />
                     <ProtectedRoute exact path="/messages">
                       <Messenger />
                     </ProtectedRoute>
-                    <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
                     <Route path="*" render={() => <Redirect to="/login" />} />
                   </Switch>
                 </Layout>

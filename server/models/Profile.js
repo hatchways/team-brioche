@@ -7,13 +7,6 @@ const profileSchema = new mongoose.Schema({
   lastName: {
     type: String,
   },
-  isSitter: {
-    type: Boolean,
-  },
-  rate: {
-    type: Number,
-    default: 14,
-  },
   dob: {
     type: Date,
   },
@@ -44,7 +37,6 @@ const profileSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    index: { unique: true, sparse: true },
   },
   address: {
     type: String,

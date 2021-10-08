@@ -13,10 +13,6 @@ const useStyles = makeStyles((theme) => ({
     color: 'rgb(0,0,0)',
     paddingLeft: '5px',
   },
-  sitter: {
-    position: 'relative',
-    right: '198px',
-  },
   inputs: {
     marginTop: '.8rem',
     height: '2rem',
@@ -40,14 +36,6 @@ const useStyles = makeStyles((theme) => ({
       minHeight: '2rem',
     },
     margin: theme.spacing(2),
-    left: '3px',
-  },
-  introduction: {
-    position: 'relative',
-    left: '-6px',
-  },
-  pitch: {
-    position: 'relative',
     left: '16px',
   },
   select: {
