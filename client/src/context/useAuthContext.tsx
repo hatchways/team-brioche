@@ -52,7 +52,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
     } else if (!profileData?.availability?.weeklyTimeRange) {
       history.push('/edit-profile/availability');
     } else {
-      history.push('/profile-settings');
+      history.push('/dashboard');
     }
   }, [history, profileData]);
 
