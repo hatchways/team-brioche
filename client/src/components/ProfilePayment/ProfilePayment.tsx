@@ -73,6 +73,7 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
         },
       });
       if (error) throw new Error();
+      // eslint-disable-next-line
     } catch (error: any) {
       updateSnackBarMessage(
         error.message || 'An error occured while processing your card. Please try a different card',

@@ -27,8 +27,7 @@ export async function getProfileList(addressQuery: string, range: DayRange): Pro
       throw new Error(data.error.message);
     }
     return getUniqueAddress(data);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // eslint-disable-next-line
   } catch (error: any) {
     throw new Error(error.message);
   }

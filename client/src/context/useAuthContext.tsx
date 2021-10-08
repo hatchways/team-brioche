@@ -29,45 +29,39 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const history = useHistory();
   const location = useLocation();
 
-  const updateLoginContext = useCallback(
-    (data: AuthApiDataSuccess) => {
-      setLoggedInUser(data.user);
-      history.push('/dashboard');
-    },
-    [history],
-  );
+  const updateLoginContext = useCallback((data: AuthApiDataSuccess) => {
+    setLoggedInUser(data.user);
+    // history.push('/dashboard');
+  }, []);
   const [profileData, setProfileData] = useState<ProfileCreated | null | undefined>();
 
-  const updateProfileContext = useCallback(
-    (data: ProfileCreateSuccess) => {
-      setProfileData(data?.profile);
-      history.push(`/dashboard}`);
-    },
-    [history],
-  );
+  const updateProfileContext = useCallback((data: ProfileCreateSuccess) => {
+    setProfileData(data?.profile);
+    // history.push(`/dashboard}`);
+  }, []);
 
   const logout = useCallback(async () => {
     // needed to remove token cookie
     await logoutAPI()
       .then(() => {
-        history.push('/login');
+        // history.push('/login');
         setLoggedInUser(null);
         setProfileData(null);
       })
       .catch((error) => console.error(error));
-  }, [history]);
+  }, []);
 
-  useEffect(() => {
-    const hasProfile = async () => {
-      await profileGetByUser().then((data: ProfileCreateSuccess) => {
-        if (data.profile) {
-          updateProfileContext(data);
-          history.push('/dashboard');
-        }
-      });
-    };
-    hasProfile();
-  }, [history, loggedInUser, updateProfileContext]);
+  // useEffect(() => {
+  //   const hasProfile = async () => {
+  //     await profileGetByUser().then((data: ProfileCreateSuccess) => {
+  //       if (data.profile) {
+  //         updateProfileContext(data);
+  //         history.push('/dashboard');
+  //       }
+  //     });
+  //   };
+  //   hasProfile();
+  // }, [history, loggedInUser, updateProfileContext]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {
@@ -76,13 +70,13 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
         if (data.success) {
           updateLoginContext(data.success);
           if (profileData) {
-            history.push(`/dashboard`);
+            // history.push(`/dashboard`);
           }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
           setLoggedInUser(null);
           if (location.pathname !== '/signup') {
-            history.push('/login');
+            // history.push('/login');
           }
         }
       });
