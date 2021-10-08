@@ -3,11 +3,12 @@ const useStyles = makeStyles((theme) => ({
   profileContainer: {
     margin: theme.spacing(4),
     height: 'auto',
-    maxWidth: '760px',
+    width: '760px',
   },
   coverImage: {
     maxHeight: '260px',
     width: '100%',
+    objectFit: 'cover',
     borderRadius: theme.shape.borderRadius,
   },
   basicInfoContainer: {
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   requestContainer: {
     padding: theme.spacing(4),
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     height: '100%',
   },

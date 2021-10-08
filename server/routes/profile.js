@@ -20,7 +20,7 @@ router
   .route("/save-photo")
   .post(protect, upload.fields([{ name: "photos" }]), savePhoto);
 
-router.route("/:id").put(protect, updateProfile); //Edit a profile with a particular ID
+router.route("/:id").get(protect, getProfile);
 
 router.route("/delete-photo").delete(protect, deletePhoto);
 
