@@ -17,6 +17,7 @@ import ProfileListings from './components/ProfileListings/ProfileListings/Profil
 import Layout from './Layout/DashboardLayout';
 import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 import './App.css';
+import NotFound from './components/NotFound/NotFound';
 
 function App(): JSX.Element {
   return (
@@ -37,7 +38,8 @@ function App(): JSX.Element {
                     <ProtectedRoute exact path="/profiles/:id" component={ProfileDetails} />
                     <ProtectedRoute exact path="/booking" component={Booking} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <Route path="*" render={() => <Redirect to="/login" />} />
+                    <Route exact path="/not-found" component={NotFound} />
+                    <Redirect to="/not-found" />
                   </Switch>
                 </Layout>
               </LocalizationProvider>

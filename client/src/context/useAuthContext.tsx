@@ -49,14 +49,14 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   }, [history]);
 
   useEffect(() => {
-    if (profileData?._id && !profileData?.firstName) {
-      history.push('/edit-profile');
-    } else if (!profileData?.availability?.weeklyTimeRange) {
-      history.push('/edit-profile/availability');
-    } else {
-      history.push('/dashboard');
+    if (loggedInUser) {
+      if (profileData?._id && !profileData?.firstName) {
+        history.push('/profile-settings/edit-profile');
+      } else if (!profileData?.availability?.weeklyTimeRange) {
+        history.push('/profile-settings/availability');
+      }
     }
-  }, [history, profileData]);
+  }, [history, profileData, loggedInUser]);
 
   // use our cookies to check if we can login straight away
   useEffect(() => {

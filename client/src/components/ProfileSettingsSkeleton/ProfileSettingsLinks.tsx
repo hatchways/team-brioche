@@ -1,5 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
+import Availability from '../../pages/Availability/Availability';
 import EditProfile from '../../pages/EditProfile/EditProfile';
 import ProfileSetting from '../../pages/ProfileSetting/ProfileSetting';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
@@ -39,7 +40,7 @@ const links: RouteLink[] = [
   {
     name: 'Availability',
     path: '/availability',
-    component: <Unavailable text={displayText} />,
+    component: <Availability />,
   },
   {
     name: 'Payment',
