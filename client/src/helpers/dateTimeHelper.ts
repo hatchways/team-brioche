@@ -27,9 +27,3 @@ export const displayDateTime = (startDate: string, endDate: string): string => {
 };
 
 export const isValidDateString = (testString: string): boolean => Boolean(Date.parse(testString));
-export const formatCardDate = (value: string | number): string => {
-  const str = new String(value);
-  if (str.length > 2) return str.slice(2);
-  if (str.length === 1) return '0' + str;
-  return str + '';
-};

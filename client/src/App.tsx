@@ -13,11 +13,11 @@ import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
-import Profile from './pages/ProfileDetails/ProfileDetails';
 import Layout from './Layout/DashboardLayout';
+import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
 import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
+import Profile from './pages/ProfileDetails/ProfileDetails';
 import './App.css';
 
 function App(): JSX.Element {
