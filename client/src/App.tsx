@@ -9,21 +9,16 @@ import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import HomePage from './pages/HomePage/HomePage';
+import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
-<<<<<<< HEAD
 import './App.css';
-=======
-import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
-import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
-import Profile from './pages/ProfileDetails/ProfileDetails';
 import './App.css';
 
->>>>>>> b31c453257fe66f1cc023c70a03c1e7226e491a6
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -38,11 +33,8 @@ function App(): JSX.Element {
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
-                    <Route path="/profile-settings" component={ProfileSkeleton} />
                     <Route exact path="/booking" component={Booking} />
-                    <Route exact path="/profile" component={Profile} />
-                    <Route exact path="/profile-listings" component={ProfileListings} />
-                    <ProtectedRoute exact path="/profiles/:id" component={ProfileDetails} />
+                    <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                     <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
                     <Route path="*" render={() => <Redirect to="/login" />} />
