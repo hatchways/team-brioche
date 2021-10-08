@@ -7,6 +7,12 @@ const profileSchema = new mongoose.Schema({
   lastName: {
     type: String,
   },
+  isSitter: {
+    type: Boolean,
+  },
+  rate: {
+    type: Number,
+  },
   dob: {
     type: Date,
   },
