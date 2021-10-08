@@ -1,4 +1,4 @@
-import { Profile, ProfileCreated } from '../interface/Profile';
+import { Profile } from '../interface/Profile';
 
 const testProfile1: Profile = {
   _id: '',
@@ -73,9 +73,5 @@ const mockProfile: Profile = {
   pitch: 'Loving Pet Sitter, Excellent Dog Trainer',
   rate: 0,
 };
-const mockProfileCreated: ProfileCreated = {
-  profileData: mockProfile,
-  profileId: '123123',
-};
 
-export { mockProfile, mockProfileCreated };
+export { mockProfile };

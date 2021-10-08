@@ -39,10 +39,17 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     });
 
     const profileExists = await Profile.findOne({ userId: user._id });
+    let profileData = {};
     if (!profileExists) {
       const profile = await Profile.create({
         userId: user._id,
       });
+      if (!profile) {
+        res.status(404);
+        throw new Error("Something went wrong");
+      } else {
+        profileData = profile;
+      }
     }
 
     res.status(201).json({
@@ -53,6 +60,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
           email: user.email,
         },
       },
+      profile: profileData,
     });
   } else {
     res.status(400);
@@ -88,6 +96,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
           profilePic: profile ? profile.profilePic : "",
         },
       },
+      profile: profile,
     });
   } else {
     res.status(401);
@@ -117,6 +126,7 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
         profilePic: profile ? profile.profilePic : "",
       },
     },
+    profile: profile,
   });
 });
 

@@ -1,5 +1,3 @@
-type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
-
 export interface DayRange {
   dropInDate: string | undefined;
   dropOffDate: string | undefined;
@@ -26,8 +24,13 @@ export interface Profile {
   availability?: Availability;
   coverPic?: string;
   introduction?: string;
+  isSitter?: boolean;
   pitch?: string;
   rate?: number;
+  error?: Error;
+}
+interface Error {
+  message: string;
 }
 
 export interface Profiles {
@@ -38,7 +41,12 @@ export interface ProfileCreated {
   profileData: Profile;
   profileId: string;
 }
+export interface ProfileObject {
+  profile?: Profile | undefined;
+}
+type Gender = 'male' | 'female' | 'non-binary' | 'prefer not to say';
+
 export interface ProfileCreateSuccess {
   error?: { message: string };
-  profile?: ProfileCreated;
+  profile?: Profile | undefined;
 }

@@ -20,7 +20,6 @@ exports.getProfileFromUserId = asyncHandler(async (req, res) => {
     throw new Error("User info is not correct");
   }
 });
-const { profile } = require("console");
 
 // @route GET /profiles
 // @desc get all profiles
@@ -66,7 +65,6 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     firstName,
     lastName,
     dob,
-    phone,
     address,
     userPhotoUrl,
     description,
@@ -131,7 +129,7 @@ exports.getProfileByUser = asyncHandler(async (req, res, next) => {
 //@desc find one profile with a particular ID and update the info within
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  const { userId } = req.user;
   const {
     firstName,
     lastName,
@@ -141,16 +139,13 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
+    profileId,
+    isSitter,
   } = req.body;
 
-  const user = await User.findById(req.user.id);
-  const profile = await Profile.findById(id);
-  const userId = user._id.toString();
-  const profileId = profile.userId.toString();
-  if (userId !== profileId) {
-    res.status(403);
-    throw new Error("You are not Authorized to change the data");
-  }
+  const user = await User.findById(userId);
+
+  const profile = await Profile.findOne({ userId: userId });
   const updatedData = {
     firstName,
     lastName,
@@ -160,8 +155,9 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
+    isSitter,
   };
-  const newProfile = await Profile.findByIdAndUpdate(id, updatedData, {
+  const newProfile = await Profile.findByIdAndUpdate(profileId, updatedData, {
     new: true,
   });
   if (!newProfile) {
