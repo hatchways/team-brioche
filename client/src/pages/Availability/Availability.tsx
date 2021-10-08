@@ -11,7 +11,7 @@ export default function Availability(): JSX.Element {
   const classes = useStyles();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const { updateSnackBarMessage } = useSnackBar();
-  const [rateValue, handleChange] = useInputState('');
+  const [rateValue, handleChange] = useInputState(15);
   const history = useHistory();
   const arr: unknown[] = [];
   function addToArr(obj: Slot, index: number) {
@@ -25,7 +25,6 @@ export default function Availability(): JSX.Element {
     };
     e.preventDefault();
     updateAvailability(data).then((data) => {
-      console.log(data.status);
       if (data.status === 200) {
         updateSnackBarMessage('Availability is saved');
         history.push('/dashboard');

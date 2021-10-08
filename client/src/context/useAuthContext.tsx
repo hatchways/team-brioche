@@ -49,6 +49,8 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   useEffect(() => {
     if (profileData?._id && !profileData?.firstName) {
       history.push('/edit-profile');
+    } else if (!profileData?.availability?.weeklyTimeRange) {
+      history.push('/edit-profile/availability');
     } else {
       history.push('/dashboard');
     }
