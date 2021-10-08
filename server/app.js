@@ -10,14 +10,20 @@ const { notFound, errorHandler } = require("./middleware/error");
 const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
+const ioCookieParser = require("socket.io-cookie-parser");
 const logger = require("morgan");
-
+const jwt = require("jsonwebtoken");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
-
+const availabilityRouter = require("./routes/availability");
+const paymentsRouter = require("./routes/payments");
+const notificationRouter = require("./routes/notification");
+const messageRouter = require("./routes/message");
+const conversationRouter = require("./routes/conversation");
 const { json, urlencoded } = express;
+const { addUser, removeUser, getUser } = require("./utils/users");
 
 connectDB();
 const app = express();
@@ -29,8 +35,31 @@ const io = socketio(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("connected");
+io.use(ioCookieParser());
+io.use(function (socket, next) {
+  let token = socket.request.cookies["token"];
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      user = decoded;
+      next();
+    } catch (err) {
+      return next(new Error("Authentication Error"));
+    }
+  } else {
+    return next(new Error("Authentication Error"));
+  }
+}).on("connection", (socket) => {
+  io.emit(`welcome to the socket server ${socket.id}`);
+
+  socket.on("addUser", (email) => {
+    const users = addUser(email, socket.id);
+    io.emit("getUsers", users);
+  });
+  socket.on("disconnect", () => {
+    const users = removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
 });
 
 if (process.env.NODE_ENV === "development") {
@@ -50,6 +79,11 @@ app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/request", requestRouter);
 app.use("/profile", profileRouter);
+app.use("/availability", availabilityRouter);
+app.use("/payments", paymentsRouter);
+app.use("/notification", notificationRouter);
+app.use("/conversation", conversationRouter);
+app.use("/message", messageRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

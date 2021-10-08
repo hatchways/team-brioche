@@ -1,55 +1,50 @@
-import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Grid, FormControl, MenuItem } from '@material-ui/core/';
+import { Grid, FormControl, MenuItem, Switch } from '@material-ui/core/';
 import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useStyles from './useStyles';
+import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 import Select from '@mui/material/Select';
-import { profileCreate, profileUpdate } from '../../../helpers/APICalls/profile';
+import { profileUpdate } from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
+
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
-  const [value, setValue] = useState<Date | null>(null);
+  const history = useHistory();
+
   const handleSubmit = (
-    { firstName, lastName, gender, introduction, pitch, phone, address, description }: Profile,
+    { firstName, lastName, gender, isSitter, introduction, pitch, phone, address, description }: Profile,
     { setSubmitting }: FormikHelpers<Profile>,
   ) => {
-    !profileData
-      ? profileCreate(firstName, lastName, gender, introduction, pitch, phone, address, description).then((data) => {
-          if (data.error) {
-            setSubmitting(false);
-            updateSnackBarMessage(data.error.message);
-          } else if (data) {
-            setSubmitting(false);
-            updateSnackBarMessage('Profile Created');
-            updateProfileContext(data);
-          } else {
-            setSubmitting(false);
-          }
-        })
-      : profileUpdate(
-          { firstName, lastName, gender, introduction, pitch, phone, address, description },
-          profileData.profileId!,
-        ).then((data) => {
-          if (data.error) {
-            setSubmitting(false);
-            updateSnackBarMessage(data.error.message);
-          } else if (data) {
-            setSubmitting(false);
-            updateSnackBarMessage('Profile Updated');
-            updateProfileContext(data);
-          }
-        });
+    profileData &&
+      profileUpdate(profileData?._id, {
+        firstName,
+        lastName,
+        gender,
+        introduction,
+        pitch,
+        isSitter,
+        phone,
+        address,
+        description,
+      }).then((data) => {
+        if (data.error) {
+          setSubmitting(false);
+          updateSnackBarMessage(data.error.message);
+        } else if (data) {
+          setSubmitting(false);
+          updateSnackBarMessage('Profile Updated');
+          updateProfileContext(data);
+        }
+      });
   };
   const validateSchema = {
     firstName: Yup.string().required('First Name is required'),
@@ -57,22 +52,16 @@ const EditProfileForm = (): JSX.Element => {
     gender: Yup.string().required('Gender is required'),
     introduction: Yup.string().required('Introduction is required'),
     pitch: Yup.string().required('Pitch is required'),
-    phone: Yup.number().required('Phone number is required'),
+    phone: Yup.string().required('Phone number is required'),
     description: Yup.string().required('Description is required'),
-  };
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
+    isSitter: Yup.boolean().required('This is required'),
   };
   return (
     <Formik
       initialValues={{
         firstName: '',
         lastName: '',
+        isSitter: false,
         gender: 'male',
         address: '',
         introduction: 'Some Intro',
@@ -86,6 +75,10 @@ const EditProfileForm = (): JSX.Element => {
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
+          <Grid container className={`${classes.sitter} ${classes.container}`} spacing={2}>
+            <Label htmlFor="isSitter" cls={classes.label} labelName="Are you a Sitter" />
+            <Switch id="isSitter" onChange={handleChange} value={values.isSitter} color="primary" />
+          </Grid>
           <Grid container className={classes.container} spacing={2}>
             <Label htmlFor="firstName" cls={classes.label} labelName="First Name" />
             <Grid item>
@@ -142,7 +135,7 @@ const EditProfileForm = (): JSX.Element => {
               </Grid>
             </Grid>
           </FormControl>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.introduction} ${classes.container}`} spacing={2}>
             <Label htmlFor="introduction" cls={classes.label} labelName="Introduction" />
             <Grid item>
               <TextField
@@ -159,7 +152,7 @@ const EditProfileForm = (): JSX.Element => {
               />
             </Grid>
           </Grid>
-          <Grid container className={classes.container} spacing={2}>
+          <Grid container className={`${classes.pitch} ${classes.container}`} spacing={2}>
             <Label htmlFor="pitch" cls={classes.label} labelName="Pitch" />
             <Grid item>
               <TextField

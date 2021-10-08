@@ -1,7 +1,4 @@
 import { Grid, Typography, Box, Paper } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { useAuth } from '../../context/useAuthContext';
-import { useHistory } from 'react-router-dom';
 import useStyles from './useStyles';
 import ProfileEditForm from './EditProfileForm/EditProfileForm';
 
