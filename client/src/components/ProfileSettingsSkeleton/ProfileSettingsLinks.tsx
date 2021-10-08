@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
-import ProfilePayment from './../ProfilePayment/ProfilePayment';
+import ProfilePayment from '../ProfilePayments/ProfilePayment';
 
 // Render in place of unavailable features during development
 interface Props {
