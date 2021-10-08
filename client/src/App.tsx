@@ -34,10 +34,11 @@ function App(): JSX.Element {
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
+                    <Route path="/profile-settings" component={ProfileSetting} />
                     <Route exact path="/booking" component={Booking} />
                     <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <ProtectedRoute exact path="/edit-profilel" component={EditProfile} />
+                    <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
                     <ProtectedRoute exact path="/edit-profile/availability/">
                       <Availability />
                     </ProtectedRoute>
