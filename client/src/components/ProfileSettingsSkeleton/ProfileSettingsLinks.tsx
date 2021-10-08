@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
-import ProfilePayment from './../ProfilePayment/ProfilePayment';
 
 // Render in place of unavailable features during development
 interface Props {
@@ -44,7 +43,7 @@ const links: RouteLink[] = [
   {
     name: 'Payment',
     path: '/payment',
-    component: <ProfilePayment />,
+    component: <Unavailable text={displayText} />,
   },
   {
     name: 'Security',
