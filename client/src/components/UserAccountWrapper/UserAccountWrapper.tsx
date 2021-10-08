@@ -44,12 +44,11 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
       updateSnackBarMessage(data.error.message);
     } else if (data.success) {
       updateLoginContext(data.success);
+      updateProfileContext(data.profile);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      const { from } = location.state;
-      const path = location.state ? from.pathname : '/dashboard';
+      const path = location.state?.from.pathname || '/dashboard';
       history.push(path);
-      updateProfileContext(data.profile);
     } else {
       // should not get here from backend but this catch is for an unknown issue
       console.error({ data });

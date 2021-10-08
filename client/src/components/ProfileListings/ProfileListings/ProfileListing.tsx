@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router';
 import clsx from 'clsx';
 import { useDebounce } from 'use-debounce/lib';
@@ -21,7 +21,7 @@ interface Props {
   range?: DayRange;
 }
 
-export default function ProfileListings({ address, range }: Props): JSX.Element {
+const ProfileListings: FunctionComponent<Props> = ({ address, range }): JSX.Element => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [uniqueAddress, setUniqueAddress] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -194,4 +194,6 @@ export default function ProfileListings({ address, range }: Props): JSX.Element 
       )}
     </Grid>
   );
-}
+};
+
+export default ProfileListings;
