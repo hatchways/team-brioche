@@ -4,6 +4,8 @@ const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
 const mongoose = require("mongoose");
 const User = require("../models/User");
+const { profile } = require("console");
+const { removeWhiteSpace } = require("../utils/queryStringHelpers");
 
 exports.getProfileFromUserId = asyncHandler(async (req, res) => {
   const user = req.user;
@@ -20,12 +22,29 @@ exports.getProfileFromUserId = asyncHandler(async (req, res) => {
     throw new Error("User info is not correct");
   }
 });
-const { profile } = require("console");
 
 // @route GET /profiles
-// @desc get all profiles
+// @desc get all profiles and if query string is added, then sort according to the included parameters
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
+  let { address, dropInDate, dropOffDate } = req.query;
+  if (address || dropInDate || dropOffDate) {
+    [address, dropInDate, dropOffDate] = removeWhiteSpace([
+      address,
+      dropInDate,
+      dropOffDate,
+    ]);
+
+    let profiles = await Profile.find({
+      address: { $regex: address || "", $options: "i" },
+      isSitter: true,
+    });
+    profiles = profiles.filter((profile) =>
+      profile.dateTest(dropInDate, dropOffDate)
+    );
+    return res.status(200).send(profiles);
+  }
+
   const profiles = await Profile.find({}, "-userId");
   if (!profiles.length) {
     res.status(400);
