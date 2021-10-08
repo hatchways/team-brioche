@@ -145,13 +145,7 @@ const ProfilePayment: FunctionComponent = (): JSX.Element => {
               </Button>
             </form>
           ) : (
-            <Button
-              disabled={stripe ? false : true}
-              onClick={() => setAddCard(true)}
-              color="primary"
-              variant="outlined"
-              size="large"
-            >
+            <Button disabled={!stripe} onClick={() => setAddCard(true)} color="primary" variant="outlined" size="large">
               Add new payment profile
             </Button>
           )}
