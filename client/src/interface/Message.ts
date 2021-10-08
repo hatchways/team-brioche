@@ -8,7 +8,3 @@ export interface Message {
   updatedAt: string;
   __v: 0;
 }
-
-export interface SingleConversation {
-  messages?: Message[];
-}

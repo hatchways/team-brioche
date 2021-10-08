@@ -10,7 +10,7 @@ import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import HomePage from './pages/HomePage/HomePage';
 import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
-import Messenger from './pages/Messages/Messenger';
+import Messages from './pages/Messages/Messages';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -36,9 +36,9 @@ function App(): JSX.Element {
                     <Route exact path="/booking" component={Booking} />
                     <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <ProtectedRoute exact path="/edit-profilel" component={EditProfile} />
+                    <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
                     <ProtectedRoute exact path="/messages">
-                      <Messenger />
+                      <Messages />
                     </ProtectedRoute>
                     <Route path="*" render={() => <Redirect to="/login" />} />
                   </Switch>

@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Message = require("../models/Message");
 const Conversation = require("../models/Conversation");
-
 exports.sendMessage = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   const { conversationId, message } = req.body;
@@ -29,9 +28,7 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
 });
 exports.getMessages = asyncHandler(async (req, res, next) => {
   const { convoId } = req.params;
-  const messages = await Message.find({ conversationId: convoId }).populate(
-    "senderId"
-  );
+  const messages = await Message.find({ conversationId: convoId });
   if (!messages) {
     res.status(500).json(error);
   }

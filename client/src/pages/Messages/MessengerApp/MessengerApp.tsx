@@ -1,54 +1,24 @@
-import { useState, useEffect, SyntheticEvent } from 'react';
 import { Grid, Divider, Typography, Avatar, Box, TextField, Button } from '@mui/material';
 import useStyles from './useStyles';
-import { useAuth } from '../../../context/useAuthContext';
-import MessageList from './MessageList';
-import { getMessages, sendMessage } from '../../../helpers/APICalls/messages';
-import { User } from '../../../interface/User';
-import { Message, SingleConversation } from '../../../interface/Message';
-import { Conversation } from '../../../interface/Conversation';
-import useInputState from '../../../helpers/useInputState';
-interface Props {
-  currentConvo: Conversation | null;
-}
-export default function MessengerApp({ currentConvo }: Props): JSX.Element {
+import Conversation from './Conversation';
+export default function MessengerApp(): JSX.Element {
   const classes = useStyles();
-  const { loggedInUser } = useAuth();
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [message, handleChange, reset] = useInputState('');
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    sendMessage(currentConvo?._id, message);
-    reset();
-  };
-  useEffect(() => {
-    if (currentConvo) {
-      getMessages(currentConvo._id).then((messages: Message[]) => {
-        setMessages(messages);
-      });
-    }
-  }, [currentConvo]);
-  return currentConvo ? (
+  return (
     <Box className={classes.messengerApp} sx={{ display: 'flex' }}>
       <Grid container>
         <Avatar alt="Contact Profile Pic" />
-        {currentConvo.members?.map(
-          (member: User) =>
-            loggedInUser?.email !== member.email && <Typography variant="h6">{member.email}</Typography>,
-        )}
+        <Typography variant="h6">John Doe</Typography>
         <Divider />
       </Grid>
       <Grid>
-        <MessageList messages={messages} />
+        <Conversation />
       </Grid>
-      <Box component="form" onSubmit={handleSubmit}>
-        <TextField label="Reply" value={message} onChange={handleChange} />
+      <Box component="form">
+        <TextField label="Reply" />
         <Button type="submit" variant="contained" color="primary">
           Send
         </Button>
       </Box>
     </Box>
-  ) : (
-    <Grid container></Grid>
   );
 }

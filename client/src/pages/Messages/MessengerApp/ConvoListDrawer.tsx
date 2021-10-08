@@ -1,14 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Grid, Divider, Typography, Toolbar, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import useStyles from './useStyles';
-import { Conversation, ConversationList } from '../../../interface/Conversation';
+import { getConversations } from '../../../helpers/APICalls/conversation';
 import { useAuth } from '../../../context/useAuthContext';
 import { User } from '../../../interface/User';
 import { Profile } from '../../../interface/Profile';
+import { Conversation } from '../../../interface/Conversation';
 export default function ConvoListDrawer({ conversations, setCurrentConvo }: any): JSX.Element {
   const classes = useStyles();
   const { profileData } = useAuth();
-
+  const { loggedInUser } = useAuth();
+  useEffect(() => {
+    if (loggedInUser) {
+      getConversations().then((conversations) => {
+        console.log(conversations);
+      });
+    }
+  }, [loggedInUser]);
   return (
     <div>
       <Toolbar />
@@ -25,10 +33,10 @@ export default function ConvoListDrawer({ conversations, setCurrentConvo }: any)
           >
             <Grid container>
               {conversation.members?.map(
-                (member: Profile) =>
-                  profileData?.firstName !== member.firstName && (
+                (member: User) =>
+                  loggedInUser.?.email !== member.email && (
                     <Typography variant="button" key={member._id}>
-                      {member.firstName}
+                      {member.email}
                     </Typography>
                   ),
               )}
