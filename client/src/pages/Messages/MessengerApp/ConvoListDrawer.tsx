@@ -34,7 +34,7 @@ export default function ConvoListDrawer({ conversations, setCurrentConvo }: any)
             <Grid container>
               {conversation.members?.map(
                 (member: User) =>
-                  loggedInUser.?.email !== member.email && (
+                  loggedInUser?.email !== member.email && (
                     <Typography variant="button" key={member._id}>
                       {member.email}
                     </Typography>
