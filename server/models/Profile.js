@@ -53,6 +53,9 @@ const profileSchema = new mongoose.Schema({
   rate: {
     type: Number,
   },
+  customerId: {
+    type: String,
+  },
 });
 
 profileSchema.methods.dateTest = function (dropInDate, dropOffDate) {
