@@ -1,3 +1,4 @@
+import { Profile } from './Profile';
 import { User } from './User';
 
 export interface AuthApiDataSuccess {
@@ -9,4 +10,5 @@ export interface AuthApiDataSuccess {
 export interface AuthApiData {
   error?: { message: string };
   success?: AuthApiDataSuccess;
+  profile: Profile;
 }

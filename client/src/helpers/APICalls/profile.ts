@@ -3,19 +3,6 @@ import { Profile, ProfileCreateSuccess } from '../../interface/Profile';
 interface Props {
   id: string;
 }
-interface UpdateProfile {
-  firstName?: string;
-  lastName?: string;
-  gender?: string;
-  phone?: number;
-  introduction?: string;
-  pitch?: string;
-  address?: string;
-  dob?: string;
-  description?: string;
-  availability?: [string];
-  error?: { message: string };
-}
 export async function profileCreate(
   firstName?: string,
   lastName?: string,
@@ -79,18 +66,20 @@ export async function updateAvailability({ weeklyTimeRange, rate }: any): Promis
   return await fetch(`/availability/`, fetchOptions);
 }
 export async function profileUpdate(
-  { firstName, lastName, gender, introduction, pitch, phone, address, description, availability }: UpdateProfile,
-  id: string,
-): Promise<UpdateProfile> {
+  profileId: string | null | undefined,
+  { firstName, lastName, gender, isSitter, introduction, pitch, phone, address, description, availability }: Profile,
+): Promise<Profile> {
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+      profileId: profileId,
       firstName,
       lastName,
       gender,
       introduction,
+      isSitter,
       pitch,
       phone,
       address,
@@ -98,7 +87,7 @@ export async function profileUpdate(
       availability,
     }),
   };
-  return await fetch(`/profile/${id}`, fetchOptions)
+  return await fetch(`/profile/`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({ error: { message: 'Unable to connect.Please try again' } }));
 }

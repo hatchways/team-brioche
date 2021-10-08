@@ -31,6 +31,19 @@ exports.validateRequestUpdate = [
   handleValidation,
 ];
 
+exports.validateSearchParams = [
+  check("address", "address must be a string").optional().trim().isString(),
+  check("dropInDate", "dropInDate must be a string")
+    .optional()
+    .trim()
+    .isString(),
+  check("dropOffDate", "dropOffDate must be a string")
+    .optional()
+    .trim()
+    .isString(),
+  handleValidation,
+];
+
 function handleValidation(req, res, next) {
   const errors = validationResult(req);
 

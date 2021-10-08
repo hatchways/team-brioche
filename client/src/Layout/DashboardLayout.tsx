@@ -13,7 +13,7 @@ const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
 
   const { loggedInUser, logout } = useAuth();
   const { pathname } = useLocation();
-  const isHomePage = pathname === '/home';
+  const isHomePage = pathname === '/';
 
   const handleLogout = () => {
     setProfileEl(null);
@@ -53,13 +53,13 @@ const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
           ) : (
             <Box className={classes.wrapper}>
               <Badge variant="dot" invisible={false} className={classes.badge}>
-                <Box className={classes.tooltipButton}>Notifications</Box>
+                <Box className={clsx(classes.tooltipButton, isHomePage && classes.textWhite)}>Notifications</Box>
               </Badge>
               <Badge variant="dot" invisible={false} className={classes.badge}>
-                <Box className={classes.tooltipButton}>My Jobs</Box>
+                <Box className={clsx(classes.tooltipButton, isHomePage && classes.textWhite)}>My Jobs</Box>
               </Badge>
               <Badge variant="dot" color="primary" invisible={false} className={classes.badge}>
-                <Box className={classes.tooltipButton}>Messages</Box>
+                <Box className={clsx(classes.tooltipButton, isHomePage && classes.textWhite)}>Messages</Box>
               </Badge>
               <Box>
                 <IconButton
