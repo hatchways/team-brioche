@@ -5,7 +5,6 @@ import { theme } from './themes/theme';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Login from './pages/Accounts/Login/Login';
 import Signup from './pages/Accounts/Signup/SignUp';
-import EditProfile from './pages/EditProfile/EditProfile';
 import Booking from './pages/Booking/Booking';
 import Dashboard from './pages/Dashboard/Dashboard';
 import HomePage from './pages/HomePage/HomePage';
@@ -17,8 +16,6 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
 import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
-import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
-import Profile from './pages/ProfileDetails/ProfileDetails';
 import './App.css';
 
 function App(): JSX.Element {
@@ -35,13 +32,11 @@ function App(): JSX.Element {
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
-                    <Route path="/profile-settings" component={ProfileSkeleton} />
-                    <Route exact path="/booking" component={Booking} />
-                    <Route exact path="/profile" component={Profile} />
+                    <ProtectedRoute path="/profile-settings" component={ProfileSkeleton} />
                     <Route exact path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/profiles/:id" component={ProfileDetails} />
+                    <ProtectedRoute exact path="/booking" component={Booking} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
                     <Route path="*" render={() => <Redirect to="/login" />} />
                   </Switch>
                 </Layout>
