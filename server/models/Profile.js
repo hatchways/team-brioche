@@ -41,6 +41,14 @@ const profileSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  customerId: {
+    type: String,
+  },
+  rate: {
+    type: String,
+  },
 });
 
-module.exports = Profile = mongoose.model("Profile", profileSchema);
+const Profile = mongoose.model("Profile", profileSchema);
+
+module.exports = Profile;
