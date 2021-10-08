@@ -49,9 +49,8 @@ export default function Profile(): JSX.Element {
       </Paper>
       <Paper component="form" className={classes.bookingContainer}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Grid container direction="column" className={classes.requestContainer}>
+          <Grid container className={classes.requestContainer}>
             <Typography variant="h5">$14/hr</Typography>
-            <Rating name="read-only" value={4} readOnly />
             <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}

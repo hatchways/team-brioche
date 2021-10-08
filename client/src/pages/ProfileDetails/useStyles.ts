@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     height: '180px',
     width: '180px',
-    objectFit: 'cover',
   },
   bookingContainer: {
     margin: theme.spacing(4),
@@ -55,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
   },
   requestContainer: {
     padding: theme.spacing(4),
-    justifyContent: 'space-evenly',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
   },

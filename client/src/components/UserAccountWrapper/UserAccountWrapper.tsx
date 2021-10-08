@@ -18,7 +18,7 @@ interface Props {
 
 const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
   const classes = useStyles();
-  const { updateLoginContext } = useAuth();
+  const { updateLoginContext, updateProfileContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const location = useLocation();
   const history = useHistory();
@@ -49,6 +49,7 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
       const { from } = location.state;
       const path = location.state ? from.pathname : '/dashboard';
       history.push(path);
+      updateProfileContext(data.profile);
     } else {
       // should not get here from backend but this catch is for an unknown issue
       console.error({ data });
