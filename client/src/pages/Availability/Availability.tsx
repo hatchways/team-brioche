@@ -27,7 +27,7 @@ export default function Availability(): JSX.Element {
     updateAvailability(data).then((data) => {
       if (data.status === 200) {
         updateSnackBarMessage('Availability is saved');
-        history.push('/profile-listings');
+        history.push('/dashboard');
       }
       updateSnackBarMessage(data?.error?.message);
     });

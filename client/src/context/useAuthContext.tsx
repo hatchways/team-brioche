@@ -52,8 +52,10 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
     if (loggedInUser) {
       if (profileData?._id && !profileData?.firstName) {
         history.push('/profile-settings/edit-profile');
-      } else if (!profileData?.availability?.weeklyTimeRange) {
+      } else if (profileData?.isSitter && !profileData?.availability?.weeklyTimeRange) {
         history.push('/profile-settings/availability');
+      } else {
+        history.push('/profile-listings');
       }
     }
   }, [history, profileData, loggedInUser]);
