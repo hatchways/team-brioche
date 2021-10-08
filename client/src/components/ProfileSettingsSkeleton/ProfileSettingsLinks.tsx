@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
+import ProfilePayment from './../ProfilePayment/ProfilePayment';
 
 // Render in place of unavailable features during development
 interface Props {
@@ -15,13 +16,11 @@ const Unavailable: FunctionComponent<Props> = ({ text }): JSX.Element => {
     </Typography>
   );
 };
-
 interface RouteLink {
   name: string;
   path: string;
   component: JSX.Element;
 }
-
 const displayText = 'please modify the profileSettingsLinks.tsx file to add feature';
 // Add new features by updating this array
 const links: RouteLink[] = [
@@ -43,7 +42,7 @@ const links: RouteLink[] = [
   {
     name: 'Payment',
     path: '/payment',
-    component: <Unavailable text={displayText} />,
+    component: <ProfilePayment />,
   },
   {
     name: 'Security',
@@ -56,5 +55,4 @@ const links: RouteLink[] = [
     component: <Unavailable text={displayText} />,
   },
 ];
-
 export default links;
