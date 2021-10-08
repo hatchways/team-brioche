@@ -12,6 +12,7 @@ const profileSchema = new mongoose.Schema({
   },
   rate: {
     type: Number,
+    default: 14,
   },
   dob: {
     type: Date,
