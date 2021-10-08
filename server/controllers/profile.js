@@ -149,7 +149,7 @@ exports.getProfileByUser = asyncHandler(async (req, res, next) => {
 //@desc find one profile with a particular ID and update the info within
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { userId } = req.user;
+  const { id: userId } = req.user;
   const {
     firstName,
     lastName,
@@ -166,11 +166,6 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(userId);
 
   const profile = await Profile.findOne({ userId: userId });
-  // const profileId = profile.userId.toString();
-  // if (userId !== profileId) {
-  //   res.status(403);
-  //   throw new Error("You are not Authorized to change the data");
-  // }
   const updatedData = {
     firstName,
     lastName,
