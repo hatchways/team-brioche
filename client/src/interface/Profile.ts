@@ -24,7 +24,7 @@ export interface Profile {
   gender?: Gender;
   phone?: number;
   address: string;
-  description: string;
+  description?: string;
   availability?: Availability;
   coverPic?: string;
   introduction?: string;

@@ -1,19 +1,50 @@
+import { useState, useEffect, SyntheticEvent } from 'react';
 import { Grid, Paper, Typography } from '@material-ui/core/';
 import { Rating, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
 import useStyles from './useStyles';
+import { useParams } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
-import { mockProfile } from '../../mocks/mockProfile';
-export default function Profile(): JSX.Element {
+import { profileGet } from '../../helpers/APICalls/profile';
+import { Profile } from '../../interface/Profile';
+import { useSnackBar } from '../../context/useSnackbarContext';
+import { sendRequest } from '../../helpers/APICalls/request';
+interface ProfileParams {
+  id: string;
+}
+export default function ProfileDetails(): JSX.Element {
+  const { updateSnackBarMessage } = useSnackBar();
   const classes = useStyles();
-  const [dropInValue, setDropInValue] = useState<Date | null>(new Date());
-  const [dropOffValue, setDropOffValue] = useState<Date | null>(new Date());
-  const { firstName, lastName, introduction, address, description, galleryPics, profilePic, coverPic } = mockProfile;
+  const { id } = useParams<ProfileParams>();
+  const initialData: Profile = {
+    firstName: '',
+    lastName: '',
+    address: '',
+    description: '',
+    gender: 'male',
+  };
+  const [profile, setProfile] = useState<Profile | null | undefined>(initialData);
+  const [start, setDropInValue] = useState<string | null | undefined>('');
+  const [end, setDropOffValue] = useState<string | null | undefined>('');
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    sendRequest({ id, start, end }).then((data) => {
+      updateSnackBarMessage(data.message);
+    });
+  };
+  useEffect(() => {
+    profileGet({ id }).then((data) => {
+      if (data.error) {
+        updateSnackBarMessage('Something went wrong');
+      } else if (data) {
+        setProfile(data);
+      }
+    });
+  }, [id, updateSnackBarMessage]);
   const theme = createTheme({
     palette: {
       primary: { main: '#f04040' },
@@ -21,41 +52,41 @@ export default function Profile(): JSX.Element {
     },
   });
   return (
-    <Grid container>
+    <Grid container justify="center">
       <Paper className={classes.profileContainer}>
-        <img className={classes.coverImage} src={coverPic} alt="Cover Photo" />
+        <img className={classes.coverImage} src={profile?.coverPic} alt="Cover Photo" />
         <Grid container className={classes.basicInfoContainer} direction="column" alignItems="center">
-          <img className={classes.profilePic} src={profilePic} alt="Profile Pic" />
+          <img className={classes.profilePic} src={profile?.profilePic} alt="Profile Pic" />
           <Typography variant="h4">
-            {firstName} {lastName}
+            {profile?.firstName} {profile?.lastName}
           </Typography>
-          <Typography variant="subtitle1">{introduction}</Typography>
-
+          <Typography variant="subtitle1">{profile?.introduction}</Typography>
           <Typography color="primary" variant="subtitle2">
-            <LocationOnIcon fontSize="small" className={classes.locationIcon} /> {address}
+            <LocationOnIcon fontSize="small" className={classes.locationIcon} /> {profile?.address}
           </Typography>
         </Grid>
         <Grid container className={classes.aboutContainer}>
           <Typography variant="h5">About me</Typography>
           <Typography variant="body1" className={classes.description}>
-            {description}
+            {profile?.description}
           </Typography>
           <Grid container className={classes.galleryContainer}>
-            {galleryPics?.map((url) => (
+            {profile?.galleryPics?.map((url) => (
               <img key={url} src={url} className={classes.galleryPic} alt="Galley Pics" />
             ))}
           </Grid>
         </Grid>
       </Paper>
-      <Paper component="form" className={classes.bookingContainer}>
+      <Paper component="form" onSubmit={handleSubmit} className={classes.bookingContainer}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Grid container className={classes.requestContainer}>
-            <Typography variant="h5">$14/hr</Typography>
+          <Grid container direction="column" className={classes.requestContainer}>
+            <Typography variant="h5">$ {profile?.rate}</Typography>
+            <Rating name="read-only" value={4} readOnly />
             <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop In"
-                value={dropInValue}
+                value={start}
                 onChange={(newValue) => {
                   setDropInValue(newValue);
                 }}
@@ -65,7 +96,7 @@ export default function Profile(): JSX.Element {
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Drop Off"
-                value={dropOffValue}
+                value={end}
                 onChange={(newValue) => {
                   setDropOffValue(newValue);
                 }}
