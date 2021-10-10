@@ -19,7 +19,7 @@ exports.validateLogin = [
 ];
 
 exports.validateNewRequest = [
-  check("sitterId", "Include a valid sitter id").notEmpty(),
+  check("profileId", "Include a valid profile id").notEmpty(),
   check("start", "Please enter a valid start date and time").notEmpty(),
   check("end", "Please enter a valid end date and time").notEmpty(),
   handleValidation,
@@ -28,6 +28,19 @@ exports.validateNewRequest = [
 exports.validateRequestUpdate = [
   check("accepted", "accepted must be a Boolean").optional().isBoolean(),
   check("declined", "Declined must be a Boolean").optional().isBoolean(),
+  handleValidation,
+];
+
+exports.validateSearchParams = [
+  check("address", "address must be a string").optional().trim().isString(),
+  check("dropInDate", "dropInDate must be a string")
+    .optional()
+    .trim()
+    .isString(),
+  check("dropOffDate", "dropOffDate must be a string")
+    .optional()
+    .trim()
+    .isString(),
   handleValidation,
 ];
 

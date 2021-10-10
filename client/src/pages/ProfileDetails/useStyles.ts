@@ -2,12 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
     margin: theme.spacing(4),
-    height: '900px',
-    maxWidth: '760px',
+    height: 'auto',
+    width: '760px',
   },
   coverImage: {
     maxHeight: '260px',
     width: '100%',
+    objectFit: 'cover',
     borderRadius: theme.shape.borderRadius,
   },
   basicInfoContainer: {
@@ -30,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     position: 'relative',
     bottom: '90px',
+    display: 'flex',
+    flexDirection: 'column',
   },
   description: {
     maxWidth: '680px',
@@ -43,19 +46,20 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     height: '180px',
     width: '180px',
-    objectFit: 'cover',
   },
   bookingContainer: {
     margin: theme.spacing(4),
     width: '400px',
     height: '500px',
+    justifyContent: 'center',
   },
   dateContainer: {
-    justifyContent: 'space-between',
+    alignItems: 'space-between',
   },
   requestContainer: {
     padding: theme.spacing(4),
-    justifyContent: 'space-evenly',
+    display: 'flex',
+    justifyContent: 'space-around',
     alignItems: 'center',
     height: '100%',
   },

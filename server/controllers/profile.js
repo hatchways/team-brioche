@@ -2,8 +2,11 @@ const asyncHandler = require("express-async-handler");
 const fs = require("fs");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
+
 const mongoose = require("mongoose");
 const User = require("../models/User");
+const { profile } = require("console");
+const { removeWhiteSpace } = require("../utils/queryStringHelpers");
 
 exports.getProfileFromUserId = asyncHandler(async (req, res) => {
   const user = req.user;
@@ -20,12 +23,29 @@ exports.getProfileFromUserId = asyncHandler(async (req, res) => {
     throw new Error("User info is not correct");
   }
 });
-const { profile } = require("console");
 
 // @route GET /profiles
-// @desc get all profiles
+// @desc get all profiles and if query string is added, then sort according to the included parameters
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
+  let { address, dropInDate, dropOffDate } = req.query;
+  if (address || dropInDate || dropOffDate) {
+    [address, dropInDate, dropOffDate] = removeWhiteSpace([
+      address,
+      dropInDate,
+      dropOffDate,
+    ]);
+
+    let profiles = await Profile.find({
+      address: { $regex: address || "", $options: "i" },
+      isSitter: true,
+    });
+    profiles = profiles.filter((profile) =>
+      profile.dateTest(dropInDate, dropOffDate)
+    );
+    return res.status(200).send(profiles);
+  }
+
   const profiles = await Profile.find({}, "-userId");
   if (!profiles.length) {
     res.status(400);
@@ -57,16 +77,15 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw new Error("This user already has a profile");
   }
-  const phoneExists = await Profile.findOne({ phone });
-  if (phoneExists) {
-    res.status(400);
-    throw new Error("A User with that phone number already exists");
-  }
+  // const phoneExists = await Profile.findOne({ phone });
+  // if (phoneExists) {
+  //   res.status(400);
+  //   throw new Error("A User with that phone number already exists");
+  // }
   const profile = await Profile.create({
     firstName,
     lastName,
     dob,
-    phone,
     address,
     userPhotoUrl,
     description,
@@ -131,7 +150,7 @@ exports.getProfileByUser = asyncHandler(async (req, res, next) => {
 //@desc find one profile with a particular ID and update the info within
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  const { id: userId } = req.user;
   const {
     firstName,
     lastName,
@@ -141,16 +160,13 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
+    profileId,
+    isSitter,
   } = req.body;
 
-  const user = await User.findById(req.user.id);
-  const profile = await Profile.findById(id);
-  const userId = user._id.toString();
-  const profileId = profile.userId.toString();
-  if (userId !== profileId) {
-    res.status(403);
-    throw new Error("You are not Authorized to change the data");
-  }
+  const user = await User.findById(userId);
+
+  const profile = await Profile.findOne({ userId: userId });
   const updatedData = {
     firstName,
     lastName,
@@ -160,8 +176,9 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
+    isSitter,
   };
-  const newProfile = await Profile.findByIdAndUpdate(id, updatedData, {
+  const newProfile = await Profile.findByIdAndUpdate(profileId, updatedData, {
     new: true,
   });
   if (!newProfile) {

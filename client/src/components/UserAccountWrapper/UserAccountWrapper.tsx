@@ -1,6 +1,7 @@
 import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import { FunctionComponent } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import login from '../../helpers/APICalls/login';
@@ -17,8 +18,10 @@ interface Props {
 
 const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
   const classes = useStyles();
-  const { updateLoginContext } = useAuth();
+  const { updateLoginContext, updateProfileContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
+  const location = useLocation();
+  const history = useHistory();
 
   const handleLogin = ({ email, password }: LoginInput, { setSubmitting }: FormikHelpers<LoginInput>) => {
     login(email, password).then((data) => {
@@ -41,6 +44,11 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
       updateSnackBarMessage(data.error.message);
     } else if (data.success) {
       updateLoginContext(data.success);
+      updateProfileContext(data.profile);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const path = location.state?.from.pathname || '/dashboard';
+      history.push(path);
     } else {
       // should not get here from backend but this catch is for an unknown issue
       console.error({ data });

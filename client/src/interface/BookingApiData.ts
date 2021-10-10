@@ -5,6 +5,15 @@ export interface BookingApiData {
   current: Array<BookingRequest>;
   past: Array<BookingRequest>;
 }
+export interface RequestSuccess {
+  message: string;
+  request: BookingRequest;
+}
+export interface SendRequest {
+  id: string;
+  start: string | null | undefined;
+  end: string | null | undefined;
+}
 
 export interface BookingRequest {
   _id: string;

@@ -1,6 +1,10 @@
 import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
+import Availability from '../../pages/Availability/Availability';
+import EditProfile from '../../pages/EditProfile/EditProfile';
+import ProfileSetting from '../../pages/ProfileSetting/ProfileSetting';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
+import ProfilePayment from './../ProfilePayment/ProfilePayment';
 
 // Render in place of unavailable features during development
 interface Props {
@@ -15,20 +19,18 @@ const Unavailable: FunctionComponent<Props> = ({ text }): JSX.Element => {
     </Typography>
   );
 };
-
 interface RouteLink {
   name: string;
   path: string;
   component: JSX.Element;
 }
-
 const displayText = 'please modify the profileSettingsLinks.tsx file to add feature';
 // Add new features by updating this array
 const links: RouteLink[] = [
   {
     name: 'Edit profile',
     path: '/edit-profile',
-    component: <Unavailable text={displayText} />,
+    component: <EditProfile />,
   },
   {
     name: 'Profile photo',
@@ -38,12 +40,12 @@ const links: RouteLink[] = [
   {
     name: 'Availability',
     path: '/availability',
-    component: <Unavailable text={displayText} />,
+    component: <Availability />,
   },
   {
     name: 'Payment',
     path: '/payment',
-    component: <Unavailable text={displayText} />,
+    component: <ProfilePayment />,
   },
   {
     name: 'Security',
@@ -53,8 +55,7 @@ const links: RouteLink[] = [
   {
     name: 'Settings',
     path: '/settings',
-    component: <Unavailable text={displayText} />,
+    component: <ProfileSetting />,
   },
 ];
-
 export default links;

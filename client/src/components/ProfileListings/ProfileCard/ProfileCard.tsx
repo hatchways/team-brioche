@@ -14,7 +14,7 @@ export default function ProfileCard({ profile }: Props): JSX.Element {
   const { address, _id: id, profilePic, introduction, pitch, rate, firstName, lastName } = profile;
   return (
     <Card component="article" className={classes.paper} raised>
-      <CardActionArea component={Link} to={`/profile/${id}`}>
+      <CardActionArea component={Link} to={`/profiles/${id}`}>
         <Box display="flex" justifyContent="center">
           <CardMedia
             component="img"

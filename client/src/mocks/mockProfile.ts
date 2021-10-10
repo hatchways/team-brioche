@@ -1,4 +1,5 @@
 import { Profile, ProfileCreated } from '../interface/Profile';
+import { mockLoggedInUser } from './mockUser';
 
 const testProfile1: Profile = {
   _id: '',
@@ -12,6 +13,7 @@ const testProfile1: Profile = {
   pitch: 'I would love to work with your dog',
   address: 'Toronto Ontario',
   rate: 10,
+  phone: 0,
 };
 const testProfile2: Profile = {
   _id: '',
@@ -22,10 +24,10 @@ const testProfile2: Profile = {
   dob: 'dob',
   gender: 'male',
   introduction: 'professional dog trainer',
-  pitch:
-    'This is here to test what happens with a really long string, This is here to test what happens with a really long stringThis is here to test what happens with a really long string',
+  pitch: 'This is here to test what happens with a really long string',
   address: 'Brandon Manitoba',
   rate: 30,
+  phone: 0,
 };
 
 const testProfile3: Profile = {
@@ -40,6 +42,7 @@ const testProfile3: Profile = {
   pitch: 'I Have had dogs as pets for most of my life',
   address: 'Alma Quebec',
   rate: 15,
+  phone: 0,
 };
 
 export default function getMock(): Array<Profile> {
@@ -73,9 +76,5 @@ const mockProfile: Profile = {
   pitch: 'Loving Pet Sitter, Excellent Dog Trainer',
   rate: 0,
 };
-const mockProfileCreated: ProfileCreated = {
-  profileData: mockProfile,
-  profileId: '123123',
-};
 
-export { mockProfile, mockProfileCreated };
+export { mockProfile };
