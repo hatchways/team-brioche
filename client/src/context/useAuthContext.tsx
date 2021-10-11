@@ -55,7 +55,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       } else if (profileData?.isSitter && !profileData?.availability?.weeklyTimeRange) {
         history.push('/profile-settings/availability');
       } else {
-        history.push('/profile-listings');
+        history.push('/messages');
       }
     }
   }, [history, profileData, loggedInUser]);

@@ -1,29 +1,21 @@
-import { useEffect } from 'react';
-import { Grid, Divider, Typography, Toolbar, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Grid, Divider, Typography, Toolbar, List, ListItem } from '@mui/material';
 import useStyles from './useStyles';
-import { getConversations } from '../../../helpers/APICalls/conversation';
 import { useAuth } from '../../../context/useAuthContext';
-import { User } from '../../../interface/User';
 import { Profile } from '../../../interface/Profile';
-import { Conversation } from '../../../interface/Conversation';
-export default function ConvoListDrawer({ conversations, setCurrentConvo }: any): JSX.Element {
-  const classes = useStyles();
+import { Conversation, ConversationList } from '../../../interface/Conversation';
+interface Props {
+  conversations?: Conversation[];
+  setCurrentConvo?: any;
+}
+export default function ConvoListDrawer({ conversations, setCurrentConvo }: Props): JSX.Element {
   const { profileData } = useAuth();
-  const { loggedInUser } = useAuth();
-  useEffect(() => {
-    if (loggedInUser) {
-      getConversations().then((conversations) => {
-        console.log(conversations);
-      });
-    }
-  }, [loggedInUser]);
   return (
     <div>
       <Toolbar />
       <Typography variant="h5">Inbox Messages</Typography>
       <Divider />
       <List>
-        {conversations?.map((conversation: Conversation, index: number) => (
+        {conversations?.map((conversation: Conversation) => (
           <ListItem
             button
             onClick={() => {
@@ -33,10 +25,10 @@ export default function ConvoListDrawer({ conversations, setCurrentConvo }: any)
           >
             <Grid container>
               {conversation.members?.map(
-                (member: User) =>
-                  loggedInUser?.email !== member.email && (
+                (member: Profile) =>
+                  profileData?.firstName !== member.firstName && (
                     <Typography variant="button" key={member._id}>
-                      {member.email}
+                      {member.firstName}
                     </Typography>
                   ),
               )}

@@ -150,7 +150,7 @@ exports.getProfileByUser = asyncHandler(async (req, res, next) => {
 //@desc find one profile with a particular ID and update the info within
 //access private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { id: userId } = req.user;
+  const { id } = req.user;
   const {
     firstName,
     lastName,
@@ -160,13 +160,11 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     description,
     availability,
     gender,
-    profileId,
     isSitter,
   } = req.body;
+  const userId = mongoose.Types.ObjectId(id);
 
-  const user = await User.findById(userId);
-
-  const profile = await Profile.findOne({ userId: userId });
+  const profile = await Profile.findOne({ userId: id }, "_id");
   const updatedData = {
     firstName,
     lastName,
@@ -178,7 +176,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     gender,
     isSitter,
   };
-  const newProfile = await Profile.findByIdAndUpdate(profileId, updatedData, {
+  const newProfile = await Profile.findByIdAndUpdate(profile._id, updatedData, {
     new: true,
   });
   if (!newProfile) {

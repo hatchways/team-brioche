@@ -1,35 +1,37 @@
-import { Toolbar, Divider, Typography, List, Box, Drawer, ListItem, ListItemText } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { Box, Drawer } from '@mui/material';
+import { useState, useEffect } from 'react';
 import useStyles from './useStyles';
+import { useAuth } from '../../context/useAuthContext';
 import { theme } from '../../themes/theme';
 import MessengerApp from './MessengerApp/MessengerApp';
 import ConvoListDrawer from './MessengerApp/ConvoListDrawer';
+import { getConversations } from '../../helpers/APICalls/conversation';
+import { Conversation } from '../../interface/Conversation';
 const drawerWidth = 320;
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-export default function Messages(props: Props): JSX.Element {
+export default function Messages(props: any): JSX.Element {
   const classes = useStyles();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const [convoList, setConvoList] = useState<Conversation[]>();
+  const [currentConvo, setCurrentConvo] = useState<Conversation>();
+  const { profileData } = useAuth();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  useEffect(() => {
+    if (profileData) {
+      getConversations().then((conversations) => {
+        return setConvoList(conversations);
+      });
+    }
+  }, [profileData]);
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
       <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="conversations">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -43,7 +45,7 @@ export default function Messages(props: Props): JSX.Element {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          <ConvoListDrawer />
+          <ConvoListDrawer conversations={convoList} setCurrentConvo={setCurrentConvo} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -54,11 +56,11 @@ export default function Messages(props: Props): JSX.Element {
           }}
           open
         >
-          <ConvoListDrawer />
+          <ConvoListDrawer conversations={convoList} setCurrentConvo={setCurrentConvo} />
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <MessengerApp />
+        <MessengerApp currentConvo={currentConvo} />
       </Box>
     </Box>
   );
