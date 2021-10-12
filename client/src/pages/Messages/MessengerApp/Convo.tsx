@@ -9,6 +9,7 @@ export default function Convo({ conversation, setCurrentConvo }: any): JSX.Eleme
     sameDay: 'hh:mmA',
     lastDay: '[Yesterday]',
     lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY',
   };
   const { profileData } = useAuth();
   const [otherUser, setOtherUser] = useState<Profile | undefined>();
