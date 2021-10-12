@@ -1,41 +1,23 @@
-import { Grid, Divider, Typography, Toolbar, List, ListItem } from '@mui/material';
+import { Divider, Typography, Toolbar, List } from '@mui/material';
 import useStyles from './useStyles';
-import { useAuth } from '../../../context/useAuthContext';
-import { Profile } from '../../../interface/Profile';
-import { Conversation, ConversationList } from '../../../interface/Conversation';
+import { Conversation } from '../../../interface/Conversation';
+import Convo from './Convo';
+import { theme } from '../../../themes/newTheme';
 interface Props {
   conversations?: Conversation[];
   setCurrentConvo?: any;
 }
 export default function ConvoListDrawer({ conversations, setCurrentConvo }: Props): JSX.Element {
-  const { profileData } = useAuth();
   return (
     <div>
       <Toolbar />
-      <Typography variant="h5">Inbox Messages</Typography>
+      <Typography variant="h5" sx={{ marginLeft: theme.spacing(3), marginBottom: theme.spacing(3) }}>
+        Inbox Messages
+      </Typography>
       <Divider />
       <List>
         {conversations?.map((conversation: Conversation) => (
-          <ListItem
-            button
-            onClick={() => {
-              setCurrentConvo(conversation);
-            }}
-            key={conversation._id}
-          >
-            <Grid container>
-              {conversation.members?.map(
-                (member: Profile) =>
-                  profileData?.firstName !== member.firstName && (
-                    <Typography variant="button" key={member._id}>
-                      {member.firstName}
-                    </Typography>
-                  ),
-              )}
-              {conversation.lastMessage && <Typography>{conversation.lastMessage.message}</Typography>}
-              {conversation.lastMessage && <Typography>{conversation.lastMessage.updatedAt}</Typography>}
-            </Grid>
-          </ListItem>
+          <Convo key={conversation._id} setCurrentConvo={setCurrentConvo} conversation={conversation} />
         ))}
       </List>
     </div>

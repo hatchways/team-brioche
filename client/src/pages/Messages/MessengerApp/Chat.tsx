@@ -13,7 +13,7 @@ import {
 import useStyles from './useStyles';
 import { Message } from '../../../interface/Message';
 import { Profile } from '../../../interface/Profile';
-
+import { theme } from '../../../themes/newTheme';
 interface Props {
   messages: Message[] | undefined;
   otherUser?: Profile;
@@ -22,22 +22,14 @@ export default function Chat({ messages, otherUser }: Props): JSX.Element {
   const classes = useStyles();
 
   return (
-    <List className={classes.chatBox}>
+    <List sx={{ paddingBottom: '10%' }} className={classes.chatBox}>
       {messages?.map((message: Message) =>
         message.senderId?._id !== otherUser?._id ? (
-          <ListItem
-            sx={{ textAlign: 'right', alignSelf: 'flex-end', maxWidth: '540px' }}
-            className={classes.textContainer}
-            key={message._id}
-          >
+          <ListItem sx={{ textAlign: 'right', alignSelf: 'flex-end', maxWidth: '540px' }} key={message._id}>
             <ListItemText className={`${classes.rightText} ${classes.text}`}>{message.message}</ListItemText>
           </ListItem>
         ) : (
-          <ListItem
-            sx={{ textAlign: 'left', alignSelf: 'flex-start', maxWidth: '540px' }}
-            className={classes.textContainer}
-            key={message._id}
-          >
+          <ListItem sx={{ textAlign: 'left', alignSelf: 'flex-start', maxWidth: '540px' }} key={message._id}>
             <ListItemAvatar>
               <Avatar src={otherUser?.profilePic} />
             </ListItemAvatar>

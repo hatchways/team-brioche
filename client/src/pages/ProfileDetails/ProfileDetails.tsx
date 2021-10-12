@@ -13,6 +13,7 @@ import { profileGet } from '../../helpers/APICalls/profile';
 import { Profile } from '../../interface/Profile';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { sendRequest } from '../../helpers/APICalls/request';
+import { theme } from '../../themes/newTheme';
 interface ProfileParams {
   id: string;
 }
@@ -45,12 +46,7 @@ export default function ProfileDetails(): JSX.Element {
       }
     });
   }, [id, updateSnackBarMessage]);
-  const theme = createTheme({
-    palette: {
-      primary: { main: '#f04040' },
-      secondary: { main: '#8c8c8c' },
-    },
-  });
+
   return (
     <Grid container justify="center">
       <Paper className={classes.profileContainer}>

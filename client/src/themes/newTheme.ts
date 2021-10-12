@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core';
+import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
   typography: {
@@ -16,15 +16,5 @@ export const theme = createTheme({
   },
   shape: {
     borderRadius: 5,
-  },
-  overrides: {
-    MuiSelect: {
-      select: {
-        '&:focus': {
-          backgroundColor: 'inherit',
-        },
-        backgroundColor: 'inherit',
-      },
-    },
   },
 });

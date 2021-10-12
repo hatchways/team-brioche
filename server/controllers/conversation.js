@@ -6,6 +6,7 @@ const Profile = require("../models/Profile");
 
 exports.createConversation = asyncHandler(async (req, res, next) => {
   const { profileId } = req.body;
+  !profileId && res.status(400).json({ error: "Bad Request" });
   const receiverId = mongoose.Types.ObjectId(profileId);
   const userId = mongoose.Types.ObjectId(req.user.id);
   !receiverId && res.status(400).json({ error });
