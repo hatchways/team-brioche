@@ -26,6 +26,11 @@ A website that makes it easier for dog owners to find a dog sitter. We created a
 1. Go into the server directory `cd server`
 2. Run `npm install` to install packages
 3. Create your environment variable (.env) file
+- Add the following to your .env file
+    - JWT_SECRET="Any valid string: used for hashing passwords"
+    - MONGO_URI="Path to your MongoDB database"
+    - STRIPE_SECRET_KEY="Secret key obtained from Stripe: used for processing payments"
+    - STRIPE_PUBLIC_KEY="Public key obtained from Stripe"
 4. Run `npm run dev` to start the server
 
 ---
@@ -34,7 +39,10 @@ A website that makes it easier for dog owners to find a dog sitter. We created a
 
 1. Go into the client directory `cd client`
 2. Run `npm install` to install packages
-3. Run `npm start` to start the client side
+3. Create your environment variable (.env) file
+- Add the following to your .env file
+    - REACT_APP_STRIPE_PUBLIC_KEY="Public key obtained from Stripe"
+4. Run `npm start` to start the client side
 
 ---
 
