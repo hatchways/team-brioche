@@ -48,3 +48,15 @@ A website that makes it easier for dog owners to find a dog sitter. We created a
 
 ![dashboard](https://user-images.githubusercontent.com/53505772/137092587-9c92148c-fa06-4786-9260-8370d9d7154f.PNG)
 
+3. HomePage. Dog owners will be able to quickly search for dog sitters
+
+![homepage](https://user-images.githubusercontent.com/53505772/135550767-8a3a8e98-e6fd-4262-bba4-7651174b0435.PNG)
+
+4. Profile Payment Page. Dog owners can add their payment cards to their profile which will be charged when their request for a dog sitter is accepted
+
+https://user-images.githubusercontent.com/53505772/136446113-b602aae0-5c41-4343-b66a-847b4bdf8371.mp4
+
+5. Bookings Page. Dog sitters can see the list of dog owners requesting their services and accept or decline requests.
+
+![booking_init](https://user-images.githubusercontent.com/53505772/134063583-94ef9721-a7f4-421a-a94e-c0d0f22bcf3f.PNG)
+
