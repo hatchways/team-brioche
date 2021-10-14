@@ -32,7 +32,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateLoginContext = useCallback(
     (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
-      history.push('/dashboard');
+      history.push(`/profiles/615de736d5ca288688b1fe63`);
     },
     [history],
   );
@@ -41,7 +41,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateProfileContext = useCallback(
     (data: ProfileCreateSuccess) => {
       setProfileData(data?.profile);
-      history.push(`/dashboard}`);
+      history.push(`/profiles/615de736d5ca288688b1fe63`);
     },
     [history],
   );
@@ -50,7 +50,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
     // needed to remove token cookie
     await logoutAPI()
       .then(() => {
-        history.push('/login');
+        //history.push('/login');
         setLoggedInUser(null);
         setProfileData(null);
       })
@@ -75,20 +75,23 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await loginWithCookies().then((data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);
+          // } else {
+          //   history.push(`/edit-profile`);
+          // }
           if (profileData) {
             history.push(`/dashboard`);
           }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
-          setLoggedInUser(null);
-          if (location.pathname !== '/signup') {
-            history.push('/login');
-          }
+          //setLoggedInUser(null);
+          // if (location.pathname !== '/signup') {
+          //   history.push('/login');
+          // }
         }
       });
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, history, location.pathname, profileData]);
+  }, [history, location.pathname, profileData, updateLoginContext]);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>

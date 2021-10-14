@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
     margin: theme.spacing(4),
-    height: '900px',
+    height: 'auto',
     maxWidth: '760px',
   },
   coverImage: {
@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     position: 'relative',
     bottom: '90px',
+    display: 'flex',
+    flexDirection: 'column',
   },
   description: {
     maxWidth: '680px',
@@ -49,9 +51,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     width: '400px',
     height: '500px',
+    justifyContent: 'center',
   },
   dateContainer: {
-    justifyContent: 'space-between',
+    alignItems: 'space-between',
   },
   requestContainer: {
     padding: theme.spacing(4),
