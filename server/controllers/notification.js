@@ -14,7 +14,7 @@ exports.allNotifications = asyncHandler(async (req, res) => {
   }
   const userId = user._id;
 
-  const notifications = await Notification.find({userId});
+  const notifications = await Notification.find({ userId });
   res.status(200).send(notifications);
 });
 
@@ -29,7 +29,7 @@ exports.unreadNotifications = asyncHandler(async (req, res) => {
   }
   const userId = user._id;
 
-  const notifications = await Notification.find({userId, read: false});
+  const notifications = await Notification.find({ userId, read: false });
   res.status(200).send(notifications);
 });
 
@@ -43,17 +43,13 @@ exports.createNotification = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
   const userId = user._id;
-  const {
-    type,
-    title,
-    description
-  } = req.body;
+  const { type, title, description } = req.body;
   const notification = await Notification.create({
     type,
     title,
     description,
     userId,
-    date: Date.now()
+    date: Date.now(),
   });
   if (!notification) {
     res.status(500);

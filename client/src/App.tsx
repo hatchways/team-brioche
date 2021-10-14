@@ -16,11 +16,10 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfileListings from './components/ProfileListings/ProfileListings/ProfileListing';
 import Layout from './Layout/DashboardLayout';
-import ProfileSkeleton from './components/ProfileSettingsSkeleton/ProfileSettingsSkeleton';
-import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
-import Profile from './pages/ProfileDetails/ProfileDetails';
 import './App.css';
+import Availability from './pages/Availability/Availability';
 
+import ProfileSetting from './pages/ProfileSetting/ProfileSetting';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
@@ -35,13 +34,13 @@ function App(): JSX.Element {
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
-                    <Route path="/profile-settings" component={ProfileSkeleton} />
                     <Route exact path="/booking" component={Booking} />
-                    <Route exact path="/profile" component={Profile} />
-                    <Route exact path="/profile-listings" component={ProfileListings} />
-                    <ProtectedRoute exact path="/profiles/:id" component={ProfileDetails} />
+                    <Route path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <ProtectedRoute exact path="/edit-profile" component={EditProfile} />
+                    <ProtectedRoute exact path="/edit-profilel" component={EditProfile} />
+                    <ProtectedRoute exact path="/edit-profile/availability/">
+                      <Availability />
+                    </ProtectedRoute>
                     <Route path="*" render={() => <Redirect to="/login" />} />
                   </Switch>
                 </Layout>
