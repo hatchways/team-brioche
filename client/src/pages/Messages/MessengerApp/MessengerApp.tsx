@@ -10,7 +10,6 @@ import { Conversation } from '../../../interface/Conversation';
 import { Message } from '../../../interface/Message';
 import { Profile } from '../../../interface/Profile';
 import { getMessages, sendMessage } from '../../../helpers/APICalls/message';
-import { margin, padding } from '@mui/system';
 import { theme } from '../../../themes/newTheme';
 interface Props {
   currentConvo?: Conversation;

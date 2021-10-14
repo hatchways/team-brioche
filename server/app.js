@@ -24,6 +24,7 @@ const messageRouter = require("./routes/message");
 const conversationRouter = require("./routes/conversation");
 const { json, urlencoded } = express;
 const { addUser, removeUser, getUser } = require("./utils/users");
+const { addProfile, removeProfile, getProfile } = require("./utils/profiles");
 
 connectDB();
 const app = express();
@@ -52,13 +53,22 @@ io.use(function (socket, next) {
 }).on("connection", (socket) => {
   io.emit(`welcome to the socket server ${socket.id}`);
 
-  socket.on("addUser", (email) => {
-    const users = addUser(email, socket.id);
-    io.emit("getUsers", users);
+  // socket.on("addUser", (email) => {
+  //   const users = addUser(email, socket.id);
+  //   io.emit("getUsers", users);
+  // });
+  // socket.on("disconnect", () => {
+  //   const users = removeUser(socket.id);
+  //   io.emit("getUsers", users);
+  // });
+
+  socket.on("addProfile", (id) => {
+    const profiles = addProfile(id, socket.id);
+    io.emit("getProfiles", profiles);
   });
   socket.on("disconnect", () => {
-    const users = removeUser(socket.id);
-    io.emit("getUsers", users);
+    const profiles = removeUser(socket.id);
+    io.emit("getProfiles", profiles);
   });
 });
 

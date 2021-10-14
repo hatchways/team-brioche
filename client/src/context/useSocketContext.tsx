@@ -14,7 +14,7 @@ export const SocketContext = createContext<ISocketContext>({
 
 export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, profileData } = useAuth();
 
   const initSocket = useCallback(() => {
     console.log('trying to connect');
@@ -25,12 +25,15 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
     );
   }, []);
   useEffect(() => {
-    socket && loggedInUser && socket.emit('addUser', loggedInUser.email);
-
+    profileData && initSocket();
+  }, [initSocket, profileData]);
+  useEffect(() => {
+    socket && profileData && socket.emit('addProfile', profileData._id);
+    console.log(socket);
     if (!loggedInUser) {
       socket?.disconnect();
     }
-  }, [socket, loggedInUser]);
+  }, [socket, loggedInUser, profileData]);
   return <SocketContext.Provider value={{ socket, initSocket }}>{children}</SocketContext.Provider>;
 };
 
