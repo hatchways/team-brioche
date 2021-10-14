@@ -5,7 +5,7 @@ const {
   allNotifications,
   unreadNotifications,
   createNotification,
-  notificationRead
+  notificationRead,
 } = require("../controllers/notification");
 
 router.route("/").get(protect, allNotifications);
