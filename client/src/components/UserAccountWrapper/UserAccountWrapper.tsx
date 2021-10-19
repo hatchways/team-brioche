@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import { FunctionComponent } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import login from '../../helpers/APICalls/login';
@@ -18,10 +18,12 @@ interface Props {
 
 const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
   const classes = useStyles();
-  const { updateLoginContext, updateProfileContext } = useAuth();
+  const { updateLoginContext, updateProfileContext, loggedInUser } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const location = useLocation();
   const history = useHistory();
+
+  if (loggedInUser) return <Redirect to="/dashboard" />;
 
   const handleLogin = ({ email, password }: LoginInput, { setSubmitting }: FormikHelpers<LoginInput>) => {
     login(email, password).then((data) => {
@@ -59,7 +61,7 @@ const AccountWrapper: FunctionComponent<Props> = ({ children, title }) => {
   }
 
   return (
-    <Grid container justify="center" component="main" className={classes.root}>
+    <Grid container justifyContent="center" component="main" className={classes.root}>
       <Grid item elevation={6} className={classes.paper} component={Paper} square>
         <Box display="flex" alignItems="flex-start" flexDirection="column" justifyContent="space-between">
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">

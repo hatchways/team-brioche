@@ -32,7 +32,7 @@ export default function DemoUser(): JSX.Element {
     });
   };
   return (
-    <Grid container justify="center" alignItems="center" className={classes.addMargin}>
+    <Grid container justifyContent="center" alignItems="center" className={classes.addMargin}>
       <Typography className={classes.demoText}>Want to try it out first?</Typography>
       <Button
         onClick={() => handleLogin(EMAIL, PASSWORD)}
