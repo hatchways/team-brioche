@@ -33,10 +33,10 @@ function App(): JSX.Element {
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
+                    <ProtectedRoute exact path="/booking" component={Booking} />
                     <ProtectedRoute path="/profile-settings" component={ProfileSkeleton} />
                     <ProtectedRoute exact path="/profile-listings" component={ProfileListings} />
                     <ProtectedRoute exact path="/profiles/:id" component={ProfileDetails} />
-                    <ProtectedRoute exact path="/booking" component={Booking} />
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/not-found" component={NotFound} />
                     <Redirect to="/not-found" />

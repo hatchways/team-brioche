@@ -61,7 +61,7 @@ export const updateDefaultMethod = async (methodId: string): Promise<void> => {
     headers: { 'Content-Type': 'application/json' },
   };
   try {
-    const res = await fetch(`/set-default-method/${methodId}`, fetchOptions);
+    const res = await fetch(`/payments/set-default-method/${methodId}`, fetchOptions);
     if (res.status !== 200) {
       const { error } = await res.json();
       throw new Error(error.message);
