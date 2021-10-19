@@ -1,5 +1,5 @@
 import { Grid, Paper, Typography } from '@material-ui/core/';
-import { Rating, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import useStyles from './useStyles';

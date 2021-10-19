@@ -56,6 +56,8 @@ export async function profileGetByUser(): Promise<ProfileCreateSuccess> {
       error: { message: 'User does not have Profile' },
     }));
 }
+
+// eslint-disable-next-line
 export async function updateAvailability({ weeklyTimeRange, rate }: any): Promise<any> {
   const fetchOptions: FetchOptions = {
     method: 'PATCH',

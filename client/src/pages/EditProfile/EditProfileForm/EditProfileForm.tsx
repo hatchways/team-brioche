@@ -1,24 +1,19 @@
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Grid, FormControl, MenuItem, Switch } from '@material-ui/core/';
-import Box from '@material-ui/core/Box';
+import { Button, TextField, CircularProgress, Box } from '@material-ui/core';
+import { Grid, FormControl, MenuItem, Switch } from '@material-ui/core';
+import Select from '@mui/material/Select';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import useStyles from './useStyles';
-import { useHistory } from 'react-router-dom';
-import { CircularProgress } from '@material-ui/core';
-import Select from '@mui/material/Select';
 import { profileUpdate } from '../../../helpers/APICalls/profile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { Profile } from '../../../interface/Profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Label from './Label';
+import useStyles from './useStyles';
 
 const EditProfileForm = (): JSX.Element => {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
   const { updateProfileContext, profileData } = useAuth();
-  const history = useHistory();
 
   const handleSubmit = (
     { firstName, lastName, gender, isSitter, introduction, pitch, phone, address, description }: Profile,

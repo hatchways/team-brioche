@@ -5,6 +5,7 @@ import useInputState from '../../pages/EditProfile/EditProfileForm/useInputState
 interface Props {
   day: string;
   index: number;
+  // eslint-disable-next-line
   addToArr: any;
 }
 export default function DayAvailability({ day, index, addToArr }: Props): JSX.Element {

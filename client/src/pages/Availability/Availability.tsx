@@ -19,6 +19,7 @@ export default function Availability(): JSX.Element {
   }
 
   const handleSubmit = (e: SyntheticEvent) => {
+    // eslint-disable-next-line
     const data: any = {
       weeklyTimeRange: arr,
       rate: rateValue,
