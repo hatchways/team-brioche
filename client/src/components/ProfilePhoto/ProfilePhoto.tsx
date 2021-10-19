@@ -79,7 +79,7 @@ const ProfilePhoto = ({ loggedInUser, profile, setProfile }: Props): JSX.Element
 
   return (
     <Paper elevation={5} className={classes.root}>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item container lg={4} md={6} xs={11} direction="column" alignItems="center">
           <Typography variant="h4" className={classes.title}>
             Profile Photo
