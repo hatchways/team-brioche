@@ -17,7 +17,6 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
   const { loggedInUser } = useAuth();
 
   const initSocket = useCallback(() => {
-    console.log('trying to connect');
     setSocket(
       io('/', {
         withCredentials: true,
