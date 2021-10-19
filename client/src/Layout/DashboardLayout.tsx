@@ -25,7 +25,9 @@ const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
       <AppBar position="sticky" color="inherit" elevation={6} className={clsx(isHomePage && classes.HomePage)}>
         <Toolbar>
           <Box className={classes.logo}>
-            <img src={Logo} alt="Logo Image" />
+            <Link to="/">
+              <img src={Logo} alt="Logo Image" />
+            </Link>
           </Box>
           {!loggedInUser ? (
             <Box className={classes.wrapper}>
@@ -92,8 +94,14 @@ const DashboardLayout: FunctionComponent = ({ children }): JSX.Element => {
                   }}
                   getContentAnchorEl={null}
                 >
-                  <MenuItem component={Link} to={'/profile'}>
+                  <MenuItem component={Link} to={'/dashboard'}>
+                    Dashboard
+                  </MenuItem>
+                  <MenuItem component={Link} to={'/profile-settings'}>
                     My Profile
+                  </MenuItem>
+                  <MenuItem component={Link} to={'/booking'}>
+                    My Requests
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>

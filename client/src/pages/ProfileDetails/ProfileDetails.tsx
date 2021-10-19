@@ -72,7 +72,7 @@ export default function Profile(): JSX.Element {
               />
             </Grid>
             <ThemeProvider theme={theme}>
-              <Button type="submit" variant="contained" color="primary" size="large">
+              <Button onClick={() => console.log()} variant="contained" color="primary" size="large">
                 Send Request
               </Button>
             </ThemeProvider>
