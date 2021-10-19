@@ -2,7 +2,6 @@ import { Typography } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import Availability from '../../pages/Availability/Availability';
 import EditProfile from '../../pages/EditProfile/EditProfile';
-import ProfileSetting from '../../pages/ProfileSetting/ProfileSetting';
 import ProfilePhoto from '../../pages/ProfileSetting/ProfileSetting';
 import ProfilePayment from './../ProfilePayment/ProfilePayment';
 
@@ -55,7 +54,7 @@ const links: RouteLink[] = [
   {
     name: 'Settings',
     path: '/settings',
-    component: <ProfileSetting />,
+    component: <Unavailable text={displayText} />,
   },
 ];
 export default links;

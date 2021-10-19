@@ -1,10 +1,12 @@
 import { useState, useContext, createContext, FunctionComponent, useEffect, useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { AuthApiData, AuthApiDataSuccess } from '../interface/AuthApiData';
+import { useHistory } from 'react-router-dom';
+import { CircularProgress, Grid } from '@material-ui/core';
+import { AuthApiDataSuccess } from '../interface/AuthApiData';
 import { User } from '../interface/User';
 import { Profile } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
+
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
@@ -22,10 +24,10 @@ export const AuthContext = createContext<IAuthContext>({
 });
 
 export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
-  // default undefined before loading, once loaded provide user or null if logged out
   const [loggedInUser, setLoggedInUser] = useState<User | null | undefined>();
+  const [isFetchingUser, setIsFetchingUser] = useState(true);
+
   const history = useHistory();
-  const location = useLocation();
 
   const updateLoginContext = useCallback((data: AuthApiDataSuccess) => {
     setLoggedInUser(data.user);
@@ -38,7 +40,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   }, []);
 
   const logout = useCallback(async () => {
-    // needed to remove token cookie
     await logoutAPI()
       .then(() => {
         setLoggedInUser(null);
@@ -49,30 +50,30 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   }, [history]);
 
   useEffect(() => {
-    if (loggedInUser) {
-      if (profileData?._id && !profileData?.firstName) {
-        history.push('/profile-settings/edit-profile');
-      } else if (!profileData?.availability?.weeklyTimeRange) {
-        history.push('/profile-settings/availability');
-      }
-    }
-  }, [history, profileData, loggedInUser]);
-
-  // use our cookies to check if we can login straight away
-  useEffect(() => {
+    setIsFetchingUser(true);
     const checkLoginWithCookies = async () => {
-      await loginWithCookies().then((data: AuthApiData) => {
-        if (data.success) {
-          updateLoginContext(data.success);
-          updateProfileContext(data.profile);
-        } else {
-          // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
-          setLoggedInUser(null);
-        }
-      });
+      await loginWithCookies()
+        .then((data) => {
+          if (data.success) {
+            updateLoginContext(data.success);
+            updateProfileContext(data.profile);
+          } else {
+            setLoggedInUser(null);
+          }
+          setIsFetchingUser(false);
+        })
+        .catch(() => setIsFetchingUser(false));
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, location.pathname, updateProfileContext, history]);
+  }, [updateLoginContext, updateProfileContext]);
+
+  if (isFetchingUser) {
+    return (
+      <Grid justifyContent="center" alignItems="center">
+        <CircularProgress size="10rem" />
+      </Grid>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>
