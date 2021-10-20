@@ -37,6 +37,6 @@ function getUniqueAddress(profiles: Profile[]): ProfileResponse {
   const addressList = profiles.map((profile) => profile.address);
   return {
     profiles,
-    uniqueAddress: Array.from(new Set(addressList)),
+    uniqueAddress: Array.from(new Set(addressList)) as string[],
   };
 }

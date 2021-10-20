@@ -16,7 +16,7 @@ export default function SelectBooking({ id, isUpcoming, booking }: Props): JSX.E
   const classes = useStyles();
   const { modifyBooking } = useRequest();
   const { profileData } = useAuth();
-  const canAcceptRequest = profileData?._id === booking?.sitterId;
+  const canAcceptRequest = profileData?._id === booking?.sitterId._id;
   return (
     <Box className={clsx(classes.selectBox, isUpcoming && classes.addFont)}>
       {canAcceptRequest && (
