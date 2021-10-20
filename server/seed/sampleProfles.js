@@ -61,7 +61,7 @@ const profile1 = {
   gender: "male",
   address: "Toronto Ontario",
   availability: {
-    dateRange: { startDate: "9-1-2021", endDate: "12-1-2021" },
+    dateRange: { startDate: "9-1-2021", endDate: "12-1-2022" },
     weeklyTimeRange: [],
   },
   introduction: "Loving pet sitter",
@@ -79,7 +79,7 @@ const profile2 = {
   gender: "male",
   address: "Toronto Ontario",
   availability: {
-    dateRange: { startDate: "9-1-2021", endDate: "10-15-2021" },
+    dateRange: { startDate: "9-1-2021", endDate: "10-15-2022" },
     weeklyTimeRange: [],
   },
   introduction: "professional dog trainer",
@@ -115,7 +115,7 @@ const profile4 = {
   gender: "male",
   address: "Brandon Manitoba",
   availability: {
-    dateRange: { startDate: "6-1-2021", endDate: "11-20-2021" },
+    dateRange: { startDate: "6-1-2021", endDate: "11-20-2022" },
     weeklyTimeRange: [],
   },
   introduction: "professional dog trainer",
@@ -133,7 +133,7 @@ const profile5 = {
   gender: "male",
   address: "Alma Quebec",
   availability: {
-    dateRange: { startDate: "7-1-2021", endDate: "10-20-2021" },
+    dateRange: { startDate: "7-1-2021", endDate: "10-20-2022" },
     weeklyTimeRange: [],
   },
   introduction: "professional dog trainer",
@@ -152,7 +152,7 @@ const profile6 = {
   gender: "male",
   address: "Brandon Manitoba",
   availability: {
-    dateRange: { startDate: "10-15-2021", endDate: "11-15-2021" },
+    dateRange: { startDate: "10-15-2021", endDate: "11-15-2022" },
     weeklyTimeRange: [],
   },
   introduction: "professional dog trainer",

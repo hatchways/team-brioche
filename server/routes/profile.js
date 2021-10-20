@@ -14,7 +14,8 @@ const {
 
 const upload = multer({ dest: "./uploads" });
 
-router.route("/").get(protect, loadProfiles); //get all the profiles
+router.route("/").get(protect, loadProfiles);
+router.route("/:id").get(protect, getProfile);
 router.route("/get-profile").get(protect, getProfileFromUserId);
 router
   .route("/save-photo")

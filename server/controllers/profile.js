@@ -1,11 +1,9 @@
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
 const fs = require("fs");
 const Profile = require("../models/Profile");
 const cloudinary = require("../utils/cloudinaryHelper");
-
-const mongoose = require("mongoose");
 const User = require("../models/User");
-const { profile } = require("console");
 const { removeWhiteSpace } = require("../utils/queryStringHelpers");
 
 exports.getProfileFromUserId = asyncHandler(async (req, res) => {
@@ -28,8 +26,8 @@ exports.getProfileFromUserId = asyncHandler(async (req, res) => {
 // @desc get all profiles and if query string is added, then sort according to the included parameters
 // @access Public
 exports.loadProfiles = asyncHandler(async (req, res, next) => {
-  let { address, dropInDate, dropOffDate } = req.query;
-  if (address || dropInDate || dropOffDate) {
+  let { address, dropInDate, dropOffDate, search } = req.query;
+  if (address || dropInDate || dropOffDate || search) {
     [address, dropInDate, dropOffDate] = removeWhiteSpace([
       address,
       dropInDate,
@@ -39,6 +37,7 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
     let profiles = await Profile.find({
       address: { $regex: address || "", $options: "i" },
       isSitter: true,
+      userId: { $ne: req.user.id },
     });
     profiles = profiles.filter((profile) =>
       profile.dateTest(dropInDate, dropOffDate)

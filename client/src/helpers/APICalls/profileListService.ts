@@ -19,7 +19,7 @@ export async function getProfileList(addressQuery: string, range: DayRange): Pro
     credentials: 'include',
   };
 
-  const path = queryString ? `/profile?${queryString}` : '/profile';
+  const path = queryString ? `/profile?${queryString}` : '/profile?search=true';
   try {
     const res = await fetch(path, options);
     const data = await res.json();

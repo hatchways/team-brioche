@@ -9,6 +9,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { mockProfile } from '../../mocks/mockProfile';
+
 export default function Profile(): JSX.Element {
   const classes = useStyles();
   const [dropInValue, setDropInValue] = useState<Date | null>(new Date());

@@ -7,6 +7,7 @@ import { User } from '../../interface/User';
 import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
 import Search from '../Search/Search';
 import AuthMenu from '../AuthMenu/AuthMenu';
+import { useAuth } from '../../context/useAuthContext';
 
 interface Props {
   loggedInUser: User;
@@ -17,6 +18,7 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   const [search, setSearch] = useState<string>('test');
   const [newChatUser, setNewChatUser] = useState<User | null>(null);
   const classes = useStyles();
+  const { profileData } = useAuth();
 
   // React.FormEvent<FormControl & FormControlProps>)
   const handleChange = (e: ChangeEvent<HTMLInputElement>, newInputValue: string) => {
@@ -31,7 +33,7 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
       <Box className={classes.userPanel}>
         <AvatarDisplay loggedIn user={loggedInUser} />
         <Typography className={classes.userText} variant="h5">
-          {loggedInUser.username}
+          {`${profileData?.firstName} ${profileData?.lastName}`}
         </Typography>
         <AuthMenu />
       </Box>
