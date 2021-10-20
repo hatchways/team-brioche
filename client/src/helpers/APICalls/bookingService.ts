@@ -57,7 +57,6 @@ export const createBooking = async (body: CreateBooking): Promise<BookingRequest
   try {
     const res = await fetch(`/request`, fetchOptions);
     const data = await res.json();
-    console.log('request: ', data);
     if (res.status !== 200) {
       const { error } = data;
       throw new Error(error.message);
@@ -77,7 +76,8 @@ export function sortBookings(bookings: Array<BookingRequest>): BookingApiData {
     return startB.getTime() - startA.getTime();
   });
 
-  const today = Date.now();
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).getTime();
   const past: BookingRequest[] = [];
 
   const current = bookings.filter((booking) => {

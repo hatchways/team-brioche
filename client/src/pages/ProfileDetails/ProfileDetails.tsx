@@ -13,10 +13,11 @@ import { mockProfile } from '../../mocks/mockProfile';
 import { useAuth } from './../../context/useAuthContext';
 import { useSnackBar } from './../../context/useSnackbarContext';
 import { createBooking } from '../../helpers/APICalls/bookingService';
+
 interface Params {
   id: string;
 }
-export default function Profile(): JSX.Element {
+export default function ProfileDetails(): JSX.Element {
   const [dropInDate, setDropInDate] = useState<Date | null>(new Date());
   const [pickUpDate, setPickUpDate] = useState<Date | null>(new Date());
   const [processing, setProcessing] = useState(false);
@@ -26,7 +27,8 @@ export default function Profile(): JSX.Element {
   const { profileData } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
-  const { firstName, lastName, introduction, address, description, galleryPics, profilePic, coverPic } = mockProfile;
+  const { description, galleryPics, profilePic, coverPic } = mockProfile;
+
   const theme = createTheme({
     palette: {
       primary: { main: '#f04040' },
@@ -73,12 +75,12 @@ export default function Profile(): JSX.Element {
         <Grid container className={classes.basicInfoContainer} direction="column" alignItems="center">
           <img className={classes.profilePic} src={profilePic} alt="Profile Pic" />
           <Typography variant="h4">
-            {firstName} {lastName}
+            {profileData?.firstName} {profileData?.lastName}
           </Typography>
-          <Typography variant="subtitle1">{introduction}</Typography>
+          <Typography variant="subtitle1">{profileData?.introduction}</Typography>
 
           <Typography color="primary" variant="subtitle2">
-            <LocationOnIcon fontSize="small" className={classes.locationIcon} /> {address}
+            <LocationOnIcon fontSize="small" className={classes.locationIcon} /> {profileData?.address}
           </Typography>
         </Grid>
         <Grid container className={classes.aboutContainer}>

@@ -18,10 +18,11 @@ export default function BookingCard(props: Props): JSX.Element {
   const getLabel = () => {
     if (accepted) return 'Accepted';
     if (declined) return 'Declined';
+    return 'Pending';
   };
   return (
     <Box className={clsx(classes.bookingCardContainer, props.isUpcoming && classes.removeBorder)}>
-      <Grid container direction="row" justify="space-between">
+      <Grid container direction="row" justifyContent="space-between">
         <Box>
           <Box>
             <Typography
@@ -46,7 +47,7 @@ export default function BookingCard(props: Props): JSX.Element {
           </Box>
         </Box>
         <Box display="flex" flexDirection="column" alignItems="end">
-          {!props.isUpcoming && <SelectBooking id={id} />}
+          {!props.isUpcoming && <SelectBooking id={id} booking={props.booking} />}
           <Typography variant="h6" className={clsx(classes.label, classes.labelStatus)}>
             {getLabel()}
           </Typography>

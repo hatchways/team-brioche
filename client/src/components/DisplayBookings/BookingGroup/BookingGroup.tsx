@@ -20,7 +20,7 @@ export default function BookingGroup(props: Props): JSX.Element {
             <Typography variant="h6" className={classes.label}>
               Your next booking:
             </Typography>
-            <SelectBooking isUpcoming={true} id={upcoming?._id} />
+            <SelectBooking isUpcoming={true} id={upcoming?._id} booking={bookings.upcoming} />
           </Box>
           {bookings.upcoming ? (
             <BookingCard isUpcoming={true} booking={bookings.upcoming} />
