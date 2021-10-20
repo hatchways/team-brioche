@@ -6,7 +6,7 @@ import './calendar.css';
 export default function CalendarView(): JSX.Element {
   const classes = useStyles();
   return (
-    <Grid item className={classes.calendarContainer} container justify="center">
+    <Grid item className={classes.calendarContainer} container justifyContent="center">
       <Paper elevation={5}>
         <Calendar value={new Date()} />
       </Paper>

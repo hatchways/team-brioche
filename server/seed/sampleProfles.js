@@ -161,7 +161,7 @@ const profile6 = {
   isSitter: true,
 };
 const profile7 = {
-  firstName: "Mike",
+  firstName: "Abraham",
   lastName: "Tyson",
   dob: "2-2-2000",
   userId: "",
@@ -171,7 +171,7 @@ const profile7 = {
   address: "Brandon Manitoba",
 };
 const profile8 = {
-  firstName: "Jessica",
+  firstName: "lincon",
   lastName: "Pearson",
   dob: "2-2-2000",
   userId: "",
@@ -181,7 +181,7 @@ const profile8 = {
   address: "Alma Quebec",
 };
 const profile9 = {
-  firstName: "Charlse",
+  firstName: "Drogba",
   lastName: "Compton",
   dob: "2-2-2000",
   userId: "",

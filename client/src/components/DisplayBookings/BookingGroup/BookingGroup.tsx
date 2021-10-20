@@ -14,7 +14,7 @@ export default function BookingGroup(props: Props): JSX.Element {
   const { upcoming, current, past } = bookings;
   return (
     <Grid item className={classes.bookingGroupContainer} container justify="center">
-      <Grid container direction="column" justify="space-evenly" alignItems="center">
+      <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
         <Grid item className={classes.upcoming} component={Paper} elevation={5}>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="h6" className={classes.label}>
