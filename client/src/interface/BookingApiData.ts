@@ -15,4 +15,5 @@ export interface BookingRequest {
   sitterId: User;
   start: string;
   end: string;
+  paymentIntentId?: string;
 }

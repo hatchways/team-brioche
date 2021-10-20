@@ -10,8 +10,9 @@ const { createPaymentIntent } = require("../utils/paymentHelper");
 // @access Private
 exports.getRequests = asyncHandler(async (req, res, next) => {
   const { id } = req.user;
+  const profile = await Profile.findOne({ userId: id });
   const requests = await Request.find({
-    $or: [{ ownerId: id }, { sitterId: id }],
+    $or: [{ ownerId: profile._id }, { sitterId: profile._id }],
   })
     .populate("ownerId", { username: 1, email: 1 })
     .populate("sitterId", { username: 1, email: 1 });
@@ -28,33 +29,37 @@ exports.getRequests = asyncHandler(async (req, res, next) => {
 // @desc dog-owner Create request for dog-sitters
 // @access Private
 exports.createRequest = asyncHandler(async (req, res, next) => {
-  const { id: ownerId } = req.user;
-  let { sitterId, start, end } = req.body;
+  let { sitterProfileId, ownerProfileId, dropInDate, pickUpDate } = req.body;
 
-  start = new Date(start);
-  end = new Date(end);
+  dropInDate = new Date(dropInDate);
+  pickUpDate = new Date(pickUpDate);
 
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+  if (isNaN(dropInDate.getTime()) || isNaN(pickUpDate.getTime())) {
     res.status(400);
     throw new Error("Invalid start or end date");
   }
 
   // make sure the end date is always ahead of the start date
-  if (end.getTime() <= start.getTime()) {
+  if (dropInDate.getTime() > pickUpDate.getTime()) {
     res.status(400);
     throw new Error("End time must be ahead of the start time");
   }
 
   // make sure not to save the same request more than once
-  const checkRequest = await Request.findOne({ ownerId, sitterId, start, end });
+  const checkRequest = await Request.findOne({
+    ownerId: ownerProfileId,
+    sitterId: sitterProfileId,
+    start: dropInDate,
+    end: pickUpDate,
+  });
   if (checkRequest) {
     res.status(400);
     throw new Error("this Request has already been saved");
   }
 
   const [dogOwnerProfile, dogSitterProfile] = await Promise.all([
-    Profile.findOne({ userId: ownerId }),
-    Profile.findOne({ userId: sitterId }),
+    Profile.findOne({ _id: ownerProfileId }),
+    Profile.findOne({ _id: sitterProfileId }),
   ]);
 
   // This check is added here because "rate" is not required in the profile model and may be undefined
@@ -65,14 +70,16 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 
   if (!dogOwnerProfile.customerId) {
     res.status(400);
-    throw new Error("Please add a payment method before making a request");
+    throw new Error(
+      "Please add a payment method to your profile before making a request"
+    );
   }
 
   const paymentIntent = await createPaymentIntent(
     dogSitterProfile,
     dogOwnerProfile,
-    start,
-    end
+    dropInDate,
+    pickUpDate
   );
 
   if (!paymentIntent) {
@@ -83,10 +90,10 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
   }
 
   const request = await Request.create({
-    ownerId,
-    sitterId,
-    start,
-    end,
+    ownerId: ownerProfileId,
+    sitterId: sitterProfileId,
+    start: dropInDate,
+    end: pickUpDate,
     paymentIntentId: paymentIntent.id,
   });
 

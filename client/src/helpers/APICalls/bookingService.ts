@@ -7,6 +7,13 @@ interface UpdateBooking {
   declined?: boolean;
 }
 
+interface CreateBooking {
+  dropInDate: string;
+  pickUpDate: string;
+  sitterProfileId: string;
+  ownerProfileId: string;
+}
+
 export const getBookings = async (): Promise<Array<BookingRequest>> => {
   const fetchOptions: FetchOptions = {
     method: 'GET',
@@ -38,6 +45,28 @@ export const updateBooking = async (value: BookingStatusType, id: string): Promi
     throw new Error();
   }
   return await res.json();
+};
+
+export const createBooking = async (body: CreateBooking): Promise<BookingRequest> => {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(body),
+  };
+  try {
+    const res = await fetch(`/request`, fetchOptions);
+    const data = await res.json();
+    console.log('request: ', data);
+    if (res.status !== 200) {
+      const { error } = data;
+      throw new Error(error.message);
+    }
+    return data;
+    // eslint-disable-next-line
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };
 
 export function sortBookings(bookings: Array<BookingRequest>): BookingApiData {

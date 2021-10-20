@@ -19,9 +19,10 @@ exports.validateLogin = [
 ];
 
 exports.validateNewRequest = [
-  check("sitterId", "Include a valid sitter id").notEmpty(),
-  check("start", "Please enter a valid start date and time").notEmpty(),
-  check("end", "Please enter a valid end date and time").notEmpty(),
+  check("sitterProfileId", "Include a valid sitter id").notEmpty(),
+  check("ownerProfileId", "Include a valid sitter id").notEmpty(),
+  check("dropInDate", "Please enter a valid start date and time").notEmpty(),
+  check("pickUpDate", "Please enter a valid end date and time").notEmpty(),
   handleValidation,
 ];
 

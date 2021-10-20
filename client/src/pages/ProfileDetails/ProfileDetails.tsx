@@ -1,4 +1,5 @@
-import { Grid, Paper, Typography } from '@material-ui/core/';
+import { useParams } from 'react-router-dom';
+import { CircularProgress, Grid, Paper, Typography } from '@material-ui/core/';
 import { Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
@@ -9,11 +10,22 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { mockProfile } from '../../mocks/mockProfile';
-
+import { useAuth } from './../../context/useAuthContext';
+import { useSnackBar } from './../../context/useSnackbarContext';
+import { createBooking } from '../../helpers/APICalls/bookingService';
+interface Params {
+  id: string;
+}
 export default function Profile(): JSX.Element {
+  const [dropInDate, setDropInDate] = useState<Date | null>(new Date());
+  const [pickUpDate, setPickUpDate] = useState<Date | null>(new Date());
+  const [processing, setProcessing] = useState(false);
+
   const classes = useStyles();
-  const [dropInValue, setDropInValue] = useState<Date | null>(new Date());
-  const [dropOffValue, setDropOffValue] = useState<Date | null>(new Date());
+  const params: Params = useParams();
+  const { profileData } = useAuth();
+  const { updateSnackBarMessage } = useSnackBar();
+
   const { firstName, lastName, introduction, address, description, galleryPics, profilePic, coverPic } = mockProfile;
   const theme = createTheme({
     palette: {
@@ -21,6 +33,39 @@ export default function Profile(): JSX.Element {
       secondary: { main: '#8c8c8c' },
     },
   });
+
+  const createRequest = async () => {
+    if (!dropInDate || !pickUpDate) return;
+    const start = new Date(dropInDate?.toString() as string).getTime();
+    const end = new Date(pickUpDate?.toString() as string).getTime();
+
+    if (start > end) {
+      updateSnackBarMessage('Pick up time must be ahead of drop in time');
+      return;
+    }
+    if (!dropInDate?.toString() || !pickUpDate?.toString()) {
+      updateSnackBarMessage('Please select a time slot');
+      return;
+    }
+    setProcessing(true);
+    if (profileData && dropInDate && pickUpDate) {
+      await createBooking({
+        dropInDate: dropInDate.toString() as string,
+        pickUpDate: pickUpDate.toString() as string,
+        sitterProfileId: params.id,
+        ownerProfileId: profileData._id as string,
+      })
+        .then(() => {
+          updateSnackBarMessage('Reqeust created successfully');
+          setProcessing(false);
+        })
+        .catch((err) => {
+          updateSnackBarMessage(err.message || 'An error occured and the request could not be completed');
+          setProcessing(false);
+        });
+    } else updateSnackBarMessage('Please update your profile before you can send a request');
+  };
+
   return (
     <Grid container>
       <Paper className={classes.profileContainer}>
@@ -55,27 +100,31 @@ export default function Profile(): JSX.Element {
             <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
-                label="Drop In"
-                value={dropInValue}
+                label="Drop in"
+                value={dropInDate}
                 onChange={(newValue) => {
-                  setDropInValue(newValue);
+                  setDropInDate(newValue);
                 }}
               />
             </Grid>
             <Grid container direction="column" className={classes.dateContainer}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
-                label="Drop Off"
-                value={dropOffValue}
+                label="Pick up"
+                value={pickUpDate}
                 onChange={(newValue) => {
-                  setDropOffValue(newValue);
+                  setPickUpDate(newValue);
                 }}
               />
             </Grid>
             <ThemeProvider theme={theme}>
-              <Button onClick={() => console.log()} variant="contained" color="primary" size="large">
-                Send Request
-              </Button>
+              {processing ? (
+                <CircularProgress />
+              ) : (
+                <Button onClick={createRequest} variant="contained" color="primary" size="large">
+                  Send Request
+                </Button>
+              )}
             </ThemeProvider>
           </Grid>
         </LocalizationProvider>

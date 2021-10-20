@@ -22,7 +22,6 @@ module.exports.createPaymentIntent = async (
   end
 ) => {
   const amount = dogsitterProfile.rate * differenceInHours(start, end);
-
   const { invoice_settings: invoice } = await stripe.customers.retrieve(
     dogOwnerProfile.customerId
   );
