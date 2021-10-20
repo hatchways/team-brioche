@@ -12,8 +12,9 @@ interface ProfileQuery {
 const recoverWhiteSpace = (str: string): string => str.split('-').join(' ');
 
 export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuery => {
-  const dropInDate = recoverWhiteSpace(queryString.dropInDate as string);
-  const dropOffDate = recoverWhiteSpace(queryString.dropOffDate as string);
+  const dropInDate = queryString.dropInDate ? recoverWhiteSpace(queryString.dropInDate as string) : '';
+  const dropOffDate = queryString.dropOffDate ? recoverWhiteSpace(queryString.dropOffDate as string) : '';
+
   return {
     address: {
       test: queryString.address && queryString.address.length < maxLengthPermitted ? true : false,

@@ -5,15 +5,14 @@ import useStyles from './useStyles';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { useAuth } from '../../context/useAuthContext';
 
-// Login credentials for a demo user
-const EMAIL = 'd9@g.com';
-const PASSWORD = '123456';
-
+// login credentials
+const email = 'demoUser@g.com';
+const password = '123456';
 export default function DemoUser(): JSX.Element {
   const classes = useStyles();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { updateSnackBarMessage } = useSnackBar();
-  const { updateLoginContext } = useAuth();
+  const { updateLoginContext, updateProfileContext } = useAuth();
 
   const handleLogin = (email: string, password: string) => {
     setIsSubmitting(true);
@@ -23,6 +22,7 @@ export default function DemoUser(): JSX.Element {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
         updateLoginContext(data.success);
+        updateProfileContext(data.profile);
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
@@ -35,7 +35,7 @@ export default function DemoUser(): JSX.Element {
     <Grid container justifyContent="center" alignItems="center" className={classes.addMargin}>
       <Typography className={classes.demoText}>Want to try it out first?</Typography>
       <Button
-        onClick={() => handleLogin(EMAIL, PASSWORD)}
+        onClick={() => handleLogin(email, password)}
         variant="contained"
         color="primary"
         className={classes.demoButton}

@@ -24,7 +24,8 @@ export const getBookings = async (): Promise<Array<BookingRequest>> => {
     handleError(res);
     throw new Error();
   }
-  return await res.json();
+  const data = await res.json();
+  return data;
 };
 
 export const updateBooking = async (value: BookingStatusType, id: string): Promise<BookingRequest> => {

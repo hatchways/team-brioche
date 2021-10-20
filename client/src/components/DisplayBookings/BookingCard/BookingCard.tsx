@@ -13,7 +13,7 @@ interface Props {
 export default function BookingCard(props: Props): JSX.Element {
   const classes = useStyles();
   const { _id: id, accepted, declined, start, end, ownerId } = props.booking;
-  const { username } = ownerId;
+  const { firstName, lastName } = ownerId;
 
   const getLabel = () => {
     if (accepted) return 'Accepted';
@@ -41,7 +41,7 @@ export default function BookingCard(props: Props): JSX.Element {
                 variant="h6"
                 className={clsx(classes.label, classes.padLeft, props.isUpcoming && classes.upComingDateLabel)}
               >
-                {username}
+                {`${firstName} ${lastName}`}
               </Typography>
             </Grid>
           </Box>

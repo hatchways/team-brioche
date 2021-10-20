@@ -81,7 +81,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       </Grid>
     );
   }
-
   return (
     <AuthContext.Provider value={{ loggedInUser, updateLoginContext, profileData, updateProfileContext, logout }}>
       {children}

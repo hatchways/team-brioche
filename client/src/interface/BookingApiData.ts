@@ -1,3 +1,4 @@
+import { Profile } from './Profile';
 import { User } from './User';
 
 export interface BookingApiData {
@@ -11,8 +12,8 @@ export interface BookingRequest {
   accepted: boolean;
   declined: boolean;
   paid: boolean;
-  ownerId: User;
-  sitterId: User;
+  ownerId: Profile;
+  sitterId: Profile;
   start: string;
   end: string;
   paymentIntentId?: string;

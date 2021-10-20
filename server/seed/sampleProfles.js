@@ -50,6 +50,11 @@ const user9 = {
   email: "d9@g.com",
   password: "123456",
 };
+const user10 = {
+  username: "demoUser",
+  email: "demoUser@g.com",
+  password: "123456",
+};
 
 const profile1 = {
   firstName: "Charlotte",
@@ -191,6 +196,17 @@ const profile9 = {
   address: "Brandon Manitoba",
 };
 
+const profile10 = {
+  firstName: "demo",
+  lastName: "User",
+  dob: "2-2-2000",
+  userId: "",
+  description: "array",
+  profilePic: "https://source.unsplash.com/random/100x100",
+  gender: "male",
+  address: "Brandon Manitoba",
+};
+
 module.exports.userArray = [
   user1,
   user2,
@@ -201,6 +217,7 @@ module.exports.userArray = [
   user7,
   user8,
   user9,
+  user10,
 ];
 module.exports.profileArray = [
   profile1,
@@ -212,4 +229,5 @@ module.exports.profileArray = [
   profile7,
   profile8,
   profile9,
+  profile10,
 ];
