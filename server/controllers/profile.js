@@ -34,6 +34,13 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
       dropOffDate,
     ]);
 
+    try {
+      dropInDate = new Date(dropInDate);
+      dropOffDate = new Date(dropOffDate);
+    } catch (error) {
+      throw new Error("Invalid date strings");
+    }
+
     let profiles = await Profile.find({
       address: { $regex: address || "", $options: "i" },
       isSitter: true,

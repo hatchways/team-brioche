@@ -11,20 +11,24 @@ interface ProfileQuery {
 
 const recoverWhiteSpace = (str: string): string => str.split('-').join(' ');
 
-export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuery => ({
-  address: {
-    test: queryString.address && queryString.address.length < maxLengthPermitted ? true : false,
-    value: queryString.address ? recoverWhiteSpace(queryString.address as string) : '',
-  },
-  dropInDate: {
-    test: queryString.dropInDate && isValidDateString(queryString.dropInDate as string) ? true : false,
-    value: new Date(recoverWhiteSpace(queryString.dropInDate as string)).toString(),
-  },
-  dropOffDate: {
-    test: queryString.dropOffDate && isValidDateString(queryString.dropOffDate as string) ? true : false,
-    value: new Date(recoverWhiteSpace(queryString.dropOffDate as string)).toString(),
-  },
-});
+export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuery => {
+  const dropInDate = recoverWhiteSpace(queryString.dropInDate as string);
+  const dropOffDate = recoverWhiteSpace(queryString.dropOffDate as string);
+  return {
+    address: {
+      test: queryString.address && queryString.address.length < maxLengthPermitted ? true : false,
+      value: queryString.address ? recoverWhiteSpace(queryString.address as string) : '',
+    },
+    dropInDate: {
+      test: queryString.dropInDate && isValidDateString(dropInDate) ? true : false,
+      value: dropInDate,
+    },
+    dropOffDate: {
+      test: queryString.dropOffDate && isValidDateString(dropOffDate) ? true : false,
+      value: dropOffDate,
+    },
+  };
+};
 
 interface GenerateProfileQuery {
   address: string;
