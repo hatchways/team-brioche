@@ -18,11 +18,11 @@ export const verfyProfileQuery = (queryString: ParsedQuery<string>): ProfileQuer
   },
   dropInDate: {
     test: queryString.dropInDate && isValidDateString(queryString.dropInDate as string) ? true : false,
-    value: new Date(queryString.dropInDate as string).toString(),
+    value: new Date(recoverWhiteSpace(queryString.dropInDate as string)).toString(),
   },
   dropOffDate: {
     test: queryString.dropOffDate && isValidDateString(queryString.dropOffDate as string) ? true : false,
-    value: new Date(queryString.dropOffDate as string).toString(),
+    value: new Date(recoverWhiteSpace(queryString.dropOffDate as string)).toString(),
   },
 });
 
