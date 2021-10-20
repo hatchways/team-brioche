@@ -1,6 +1,5 @@
 import { useState, SyntheticEvent } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { Link, Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Box, Grid, Typography, Button, Menu, MenuItem } from '@material-ui/core';
@@ -9,22 +8,26 @@ import links from './ProfileSettingsLinks';
 import useStyles from './useStyles';
 
 export default function ProfileSkeleton(): JSX.Element {
+  const baseUrl = '/profile-settings';
+
   const classes = useStyles();
   const { location } = useHistory();
   const [element, setElement] = useState<(EventTarget & Element) | null>(null);
   const isMenuOpen = Boolean(element);
+
   const handleMenuClick = (event: SyntheticEvent) => {
     setElement(event.currentTarget);
   };
   const handleMenuClose = () => {
     setElement(null);
   };
-  const baseUrl = '/profile-settings';
+
   const isLinkActive = (path: string): boolean => {
     if (location.pathname === `${baseUrl}${path}`) return true;
     return false;
   };
 
+  if (location.pathname === baseUrl) return <Redirect to={`${baseUrl}${links[0].path}`} />;
   return (
     <Grid container className={classes.root}>
       <Box component="nav" className={classes.nav}>

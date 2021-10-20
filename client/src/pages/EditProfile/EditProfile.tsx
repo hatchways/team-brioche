@@ -19,7 +19,6 @@ export default function EditProfile(): JSX.Element {
             </Grid>
             <ProfileEditForm />
           </Box>
-          <Box p={1} alignSelf="center" />
         </Box>
       </Grid>
     </Grid>

@@ -6,7 +6,7 @@ import { useSnackBar } from '../../context/useSnackbarContext';
 import { useAuth } from '../../context/useAuthContext';
 
 // Login credentials for a demo user
-const EMAIL = 'd1@g.com';
+const EMAIL = 'd9@g.com';
 const PASSWORD = '123456';
 
 export default function DemoUser(): JSX.Element {

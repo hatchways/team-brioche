@@ -12,7 +12,7 @@ const testProfile1: Profile = {
   pitch: 'I would love to work with your dog',
   address: 'Toronto Ontario',
   rate: 10,
-  phone: 0,
+  phone: '0',
 };
 const testProfile2: Profile = {
   _id: '',
@@ -26,7 +26,7 @@ const testProfile2: Profile = {
   pitch: 'This is here to test what happens with a really long string',
   address: 'Brandon Manitoba',
   rate: 30,
-  phone: 0,
+  phone: '0',
 };
 
 const testProfile3: Profile = {
@@ -41,7 +41,7 @@ const testProfile3: Profile = {
   pitch: 'I Have had dogs as pets for most of my life',
   address: 'Alma Quebec',
   rate: 15,
-  phone: 0,
+  phone: '0',
 };
 
 export default function getMock(): Array<Profile> {
@@ -62,7 +62,7 @@ const mockProfile: Profile = {
   firstName: 'Norma',
   lastName: 'Byers',
   gender: 'female',
-  phone: 1234567890,
+  phone: '1234567890',
   introduction: 'Loving Pet Sitter',
   address: 'Toronto',
   description:

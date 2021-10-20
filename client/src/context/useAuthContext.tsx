@@ -25,6 +25,7 @@ export const AuthContext = createContext<IAuthContext>({
 
 export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [loggedInUser, setLoggedInUser] = useState<User | null | undefined>();
+  const [profileData, setProfileData] = useState<Profile | null | undefined>();
   const [isFetchingUser, setIsFetchingUser] = useState(true);
 
   const history = useHistory();
@@ -32,8 +33,6 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const updateLoginContext = useCallback((data: AuthApiDataSuccess) => {
     setLoggedInUser(data.user);
   }, []);
-
-  const [profileData, setProfileData] = useState<Profile | null | undefined>();
 
   const updateProfileContext = useCallback((data: Profile | undefined) => {
     setProfileData(data);
@@ -48,6 +47,14 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       })
       .catch((error) => console.error(error));
   }, [history]);
+
+  useEffect(() => {
+    if (loggedInUser) {
+      if (!profileData?.firstName) history.push('/profile-settings/edit-profile');
+      else if (profileData?.isSitter && !profileData?.availability?.weeklyTimeRange)
+        history.push('/profile-settings/availability');
+    }
+  }, [history, profileData, loggedInUser]);
 
   useEffect(() => {
     setIsFetchingUser(true);
@@ -69,7 +76,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   if (isFetchingUser) {
     return (
-      <Grid justifyContent="center" alignItems="center">
+      <Grid container justifyContent="center" alignItems="center">
         <CircularProgress size="10rem" />
       </Grid>
     );

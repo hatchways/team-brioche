@@ -54,15 +54,15 @@ const EditProfileForm = (): JSX.Element => {
   return (
     <Formik
       initialValues={{
-        firstName: '',
-        lastName: '',
-        isSitter: false,
-        gender: 'male',
-        address: '',
-        introduction: 'Some Intro',
-        pitch: '',
-        phone: 1234567890,
-        description: '',
+        firstName: profileData?.firstName || '',
+        lastName: profileData?.lastName || '',
+        isSitter: profileData?.isSitter || false,
+        gender: profileData?.gender || 'male',
+        address: profileData?.address || '',
+        introduction: profileData?.introduction || '',
+        pitch: profileData?.pitch || '',
+        phone: profileData?.phone || '',
+        description: profileData?.description || '',
       }}
       validationSchema={Yup.object().shape(validateSchema)}
       validateOnChange
@@ -126,6 +126,8 @@ const EditProfileForm = (): JSX.Element => {
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
+                  <MenuItem value="non-binary">None Binary</MenuItem>
+                  <MenuItem value="prefer not to say">Prefer not to say</MenuItem>
                 </Select>
               </Grid>
             </Grid>
@@ -140,7 +142,7 @@ const EditProfileForm = (): JSX.Element => {
                 value={values.introduction}
                 variant="outlined"
                 fullWidth
-                placeholder="Doe"
+                placeholder="I love taking care of pets"
                 InputProps={{
                   classes: { input: classes.inputs },
                 }}
@@ -174,7 +176,7 @@ const EditProfileForm = (): JSX.Element => {
                 value={values.phone}
                 variant="outlined"
                 fullWidth
-                placeholder=""
+                placeholder="+234888565656"
               />
             </Grid>
           </Grid>
@@ -190,7 +192,7 @@ const EditProfileForm = (): JSX.Element => {
                 InputProps={{
                   classes: { input: classes.inputs },
                 }}
-                placeholder="Enter your Address"
+                placeholder="Toronto Canada"
               />
             </Grid>
           </Grid>

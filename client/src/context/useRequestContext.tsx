@@ -1,6 +1,9 @@
+import { Typography } from '@material-ui/core';
 import { useEffect, useState, createContext, FunctionComponent, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { getBookings, sortBookings, updateBooking } from '../helpers/APICalls/bookingService';
 import { BookingApiData, BookingRequest } from '../interface/BookingApiData';
+import { useAuth } from './useAuthContext';
 import { useSnackBar } from './useSnackbarContext';
 
 export type BookingStatusType = 'Accept' | 'Decline';
@@ -33,6 +36,7 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
   });
   const [fetching, setFetching] = useState(true);
   const { updateSnackBarMessage } = useSnackBar();
+  const { profileData } = useAuth();
 
   const modifyBooking: ModifyBooking = (value, _id) => {
     updateBooking(value, _id)
@@ -47,12 +51,31 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
   useEffect(() => {
     getBookings()
       .then((result) => {
+        setFetching(false);
         bookingList = result;
         setBookings(sortBookings(bookingList));
-        setFetching(false);
       })
-      .catch(() => updateSnackBarMessage('An error occured'));
+      .catch(() => {
+        setFetching(false);
+        updateSnackBarMessage('An error occured');
+      });
   }, [updateSnackBarMessage]);
+
+  const incompleteSitterProfile = profileData && profileData.isSitter && !profileData.availability;
+  if (!profileData || incompleteSitterProfile) {
+    return (
+      <>
+        {}
+        <Typography align="center" variant="h4">
+          Please complete your profile {incompleteSitterProfile ? 'and availability ' : ' '}
+          <span>
+            <Link to="/profile-settings">here</Link>
+          </span>{' '}
+          before you can view your bookings
+        </Typography>
+      </>
+    );
+  }
   return <RequestContext.Provider value={{ bookings, fetching, modifyBooking }}>{children}</RequestContext.Provider>;
 };
 

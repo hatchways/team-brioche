@@ -22,7 +22,7 @@ export interface Profile {
   profilePic?: string;
   galleryPics?: string[];
   gender?: Gender;
-  phone?: number;
+  phone?: string;
   address: string;
   description: string;
   availability?: Availability;
