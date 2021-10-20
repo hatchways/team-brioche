@@ -62,8 +62,8 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await loginWithCookies()
         .then((data) => {
           if (data.success) {
-            updateLoginContext(data.success);
             updateProfileContext(data.profile);
+            updateLoginContext(data.success);
           } else {
             setLoggedInUser(null);
           }
