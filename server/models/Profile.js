@@ -72,10 +72,12 @@ const profileSchema = new mongoose.Schema({
 profileSchema.methods.dateTest = function (dropInDate, dropOffDate) {
   const { startDate, endDate } = this.availability.dateRange;
 
+  if (!startDate || !endDate) return false;
+
   let dropInDateTest = true;
   let dropOffDateTest = true;
-
   const sanityCheck = endDate.getTime() > Date.now();
+
   if (dropInDate) dropInDateTest = startDate.getTime() <= dropInDate.getTime();
   if (dropOffDate) dropOffDateTest = endDate.getTime() >= dropOffDate.getTime();
 

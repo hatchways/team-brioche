@@ -33,10 +33,10 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
       dropInDate,
       dropOffDate,
     ]);
-
+    const isValidDateString = (testString) => Boolean(Date.parse(testString));
     try {
-      dropInDate = new Date(dropInDate);
-      dropOffDate = new Date(dropOffDate);
+      dropInDate = isValidDateString(dropInDate) ? new Date(dropInDate) : "";
+      dropOffDate = isValidDateString(dropOffDate) ? new Date(dropOffDate) : "";
     } catch (error) {
       throw new Error("Invalid date strings");
     }
