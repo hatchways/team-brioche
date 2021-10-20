@@ -46,9 +46,11 @@ exports.loadProfiles = asyncHandler(async (req, res, next) => {
       isSitter: true,
       userId: { $ne: req.user.id },
     });
+
     profiles = profiles.filter((profile) =>
       profile.dateTest(dropInDate, dropOffDate)
     );
+
     return res.status(200).send(profiles);
   }
 

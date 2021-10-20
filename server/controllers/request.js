@@ -14,8 +14,8 @@ exports.getRequests = asyncHandler(async (req, res, next) => {
   const requests = await Request.find({
     $or: [{ ownerId: profile._id }, { sitterId: profile._id }],
   })
-    .populate("ownerId", { username: 1, email: 1 })
-    .populate("sitterId", { username: 1, email: 1 });
+    .populate("ownerId", { firstName: 1, lastName: 1 })
+    .populate("sitterId", { firstName: 1, lastName: 1 });
 
   if (!requests.length) {
     res.status(404);
@@ -120,8 +120,8 @@ exports.updateRequest = asyncHandler(async (req, res) => {
   }
 
   let request = await Request.findById(requestId)
-    .populate("ownerId", { username: 1, email: 1 })
-    .populate("sitterId", { username: 1, email: 1 });
+    .populate("ownerId", { firstName: 1, lastName: 1 })
+    .populate("sitterId", { firstName: 1, lastName: 1 });
 
   if (!request) {
     res.status(404);

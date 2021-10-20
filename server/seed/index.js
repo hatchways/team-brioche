@@ -52,4 +52,4 @@ const createProfile = async () => {
 
 setTimeout(() => {
   createProfile();
-}, 3000);
+}, 10000);
