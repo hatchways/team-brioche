@@ -15,7 +15,8 @@ exports.getRequests = asyncHandler(async (req, res, next) => {
     $or: [{ ownerId: profile._id }, { sitterId: profile._id }],
   })
     .populate("ownerId", { firstName: 1, lastName: 1 })
-    .populate("sitterId", { firstName: 1, lastName: 1 });
+    .populate("sitterId", { firstName: 1, lastName: 1 })
+    .populate("reviewId");
 
   if (!requests.length) {
     res.status(404);

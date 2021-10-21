@@ -45,6 +45,18 @@ exports.validateSearchParams = [
   handleValidation,
 ];
 
+exports.validateReviewBody = [
+  check("reviewee", "reviewee must be a string").isString().notEmpty(),
+  check("comment", "cpmment must be a string").isString().optional(),
+  check(
+    "starRating",
+    "Star rating must be a number between 1 and 5, both inclusive"
+  )
+    .notEmpty()
+    .isNumeric(),
+  handleValidation,
+];
+
 function handleValidation(req, res, next) {
   const errors = validationResult(req);
 

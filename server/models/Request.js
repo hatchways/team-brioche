@@ -11,6 +11,10 @@ const requestSchema = new mongoose.Schema({
     ref: "Profile",
     required: true,
   },
+  reviewId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Review",
+  },
   start: {
     type: Date,
     required: true,
