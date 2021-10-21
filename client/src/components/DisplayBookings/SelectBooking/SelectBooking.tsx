@@ -17,19 +17,19 @@ export default function SelectBooking({ id, isUpcoming, booking }: Props): JSX.E
   const { modifyBooking } = useRequest();
   const { profileData } = useAuth();
   const canAcceptRequest = profileData?._id === booking?.sitterId._id;
+
+  if (!canAcceptRequest) return <></>;
   return (
     <Box className={clsx(classes.selectBox, isUpcoming && classes.addFont)}>
-      {canAcceptRequest && (
-        <Select
-          IconComponent={SettingsIcon}
-          value={''}
-          onChange={(e) => modifyBooking(e.target.value as BookingStatusType, id as string)}
-          disableUnderline
-        >
-          <MenuItem value="Accept">Accept</MenuItem>
-          <MenuItem value="Decline">Decline</MenuItem>
-        </Select>
-      )}
+      <Select
+        IconComponent={SettingsIcon}
+        value={''}
+        onChange={(e) => modifyBooking(e.target.value as BookingStatusType, id as string)}
+        disableUnderline
+      >
+        <MenuItem value="Accept">Accept</MenuItem>
+        <MenuItem value="Decline">Decline</MenuItem>
+      </Select>
     </Box>
   );
 }

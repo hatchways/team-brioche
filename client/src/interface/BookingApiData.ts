@@ -1,5 +1,5 @@
 import { Profile } from './Profile';
-import { User } from './User';
+import { Review } from './Review';
 
 export interface BookingApiData {
   upcoming: BookingRequest | undefined | null;
@@ -17,4 +17,5 @@ export interface BookingRequest {
   start: string;
   end: string;
   paymentIntentId?: string;
+  reviewId?: Review;
 }

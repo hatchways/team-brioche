@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
+import { CircularProgress } from '@mui/material';
 import { useRequest, withRequest } from '../../context/useRequestContext';
 import CalendarView from '../../components/DisplayBookings/CalendarView/CalendarView';
 import BookingGroup from '../../components/DisplayBookings/BookingGroup/BookingGroup';
@@ -11,9 +12,9 @@ const Booking: FunctionComponent = (): JSX.Element => {
 
   if (fetching)
     return (
-      <Typography variant="h5" align="center">
-        Loading...
-      </Typography>
+      <Grid container justifyContent="center" alignItems="center" className={classes.circularProgress}>
+        <CircularProgress size="10rem" color="error" />
+      </Grid>
     );
   return (
     <Box component="main" className={classes.root}>

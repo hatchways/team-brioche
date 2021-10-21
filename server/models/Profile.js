@@ -61,11 +61,18 @@ const profileSchema = new mongoose.Schema({
   pitch: {
     type: String,
   },
-  rate: {
-    type: Number,
-  },
   customerId: {
     type: String,
+  },
+  reviews: {
+    aggregate: {
+      type: Number,
+      default: 0,
+    },
+    totalReviews: {
+      type: Number,
+      default: 0,
+    },
   },
 });
 
