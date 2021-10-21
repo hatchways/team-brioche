@@ -14,6 +14,11 @@ export interface Availability {
   weeklyTimeRange: TimeRange;
 }
 
+export interface Review {
+  aggregate: number;
+  totalReviews: number;
+}
+
 export interface Profile {
   _id?: string;
   firstName?: string;
@@ -23,8 +28,8 @@ export interface Profile {
   galleryPics?: string[];
   gender?: Gender;
   phone?: string;
-  address: string;
-  description: string;
+  address?: string;
+  description?: string;
   availability?: Availability;
   coverPic?: string;
   introduction?: string;
@@ -32,6 +37,7 @@ export interface Profile {
   pitch?: string;
   rate?: number;
   error?: Error;
+  reviews?: Review;
 }
 interface Error {
   message: string;

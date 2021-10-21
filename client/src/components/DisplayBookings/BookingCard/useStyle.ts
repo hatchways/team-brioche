@@ -48,6 +48,13 @@ const useStyles = makeStyles((theme) => ({
   padbottom: {
     paddingBottom: theme.spacing(1),
   },
+  linkText: {
+    textDecoration: 'none',
+    color: theme.palette.grey[500],
+    '&:hover': {
+      color: 'black',
+    },
+  },
 }));
 
 export default useStyles;

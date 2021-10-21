@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
+// 1250px
+const custombreakPoint = 1250;
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
     margin: theme.spacing(4),
@@ -44,20 +46,38 @@ const useStyles = makeStyles((theme) => ({
     height: '180px',
     width: '180px',
   },
-  bookingContainer: {
-    margin: theme.spacing(4),
-    width: '400px',
-    height: '500px',
-  },
-  dateContainer: {
-    justifyContent: 'space-between',
-  },
-  requestContainer: {
-    padding: theme.spacing(4),
+  bookingAndReview: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    padding: '0 6rem',
+    width: '40%',
+    flexWrap: 'wrap',
+    [theme.breakpoints.down(custombreakPoint)]: {
+      width: '100%',
+      justifyContent: 'space-around',
+      padding: '0 1rem',
+    },
+  },
+  bookingContainer: {
+    margin: `${theme.spacing(4)}px 0`,
+    padding: '2rem 3rem',
+    height: '400px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    height: '100%',
+  },
+  reviewContainer: {
+    margin: `${theme.spacing(4)}px 0`,
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: theme.palette.text.secondary,
+    height: 'min-content',
+    width: '400px',
+    maxHeight: '20rem',
+    overflow: 'auto',
+    [theme.breakpoints.down('md')]: {
+      width: '300px',
+    },
   },
 }));
 

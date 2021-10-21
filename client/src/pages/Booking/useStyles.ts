@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100vh',
     minWidth: theme.spacing(370 / 8),
   },
+  circularProgress: {
+    marginTop: '5rem',
+  },
 }));
 
 export default useStyles;

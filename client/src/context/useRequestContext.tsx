@@ -39,13 +39,18 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
   const { profileData } = useAuth();
 
   const modifyBooking: ModifyBooking = (value, _id) => {
+    setFetching(true);
     updateBooking(value, _id)
       .then((updatedBooking) => {
+        setFetching(false);
         const idx = bookingList.findIndex((b) => b._id === updatedBooking._id);
         bookingList[idx] = updatedBooking;
         setBookings(sortBookings(bookingList));
       })
-      .catch(() => updateSnackBarMessage('An error occured while processing your Request'));
+      .catch(() => {
+        setFetching(false);
+        updateSnackBarMessage('An error occured while processing your Request');
+      });
   };
 
   useEffect(() => {
@@ -61,13 +66,12 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
       });
   }, [updateSnackBarMessage]);
 
-  const incompleteSitterProfile = profileData && profileData.isSitter && !profileData.availability;
-  if (!profileData || incompleteSitterProfile) {
+  if (!profileData) {
     return (
       <>
         {}
         <Typography align="center" variant="h4">
-          Please complete your profile {incompleteSitterProfile ? 'and availability ' : ' '}
+          Please complete your profile
           <span>
             <Link to="/profile-settings">here</Link>
           </span>{' '}
