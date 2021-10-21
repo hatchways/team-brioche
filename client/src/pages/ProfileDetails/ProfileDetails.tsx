@@ -32,19 +32,15 @@ export default function ProfileDetails(): JSX.Element {
   const { profileData: loggedInUserProfile } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const { reviews } = profileFromDb;
-  console.log(profileFromDb.isSitter);
 
   useEffect(() => {
     profileGet({ id: sitterProfileId })
       .then((profile) => setProfileFromDb(profile))
       .catch(() => updateSnackBarMessage('An error occured while trying to process your request'));
-  }, [sitterProfileId, updateSnackBarMessage]);
-
-  useEffect(() => {
     getReviews(sitterProfileId)
       .then((data) => setReviewList(data))
       .catch((error) => updateSnackBarMessage(error.message || 'An error occurred while processing your request'));
-  }, [updateSnackBarMessage, sitterProfileId]);
+  }, [sitterProfileId, updateSnackBarMessage]);
 
   const { description, galleryPics, profilePic, coverPic } = mockProfile;
 

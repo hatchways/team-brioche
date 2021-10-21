@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-// 1250px
+
 const custombreakPoint = 1250;
 const useStyles = makeStyles((theme) => ({
   profileContainer: {

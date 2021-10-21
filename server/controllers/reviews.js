@@ -39,9 +39,6 @@ exports.createUpdateReviews = asyncHandler(async (req, res) => {
     throw new Error("Invalid request ID");
   }
 
-  // const reviewerProfile = await Profile.findOne({ userId: id });
-  // let revieweeProfile = await Profile.findById(reviewee);
-
   let [reviewerProfile, revieweeProfile, review] = await Promise.all([
     Profile.findOne({ userId: reviewerUserId }),
     Profile.findById(reviewee),
@@ -57,7 +54,6 @@ exports.createUpdateReviews = asyncHandler(async (req, res) => {
     const hasNewRating = starRating !== review.starRating;
     const previousStarRating = review.starRating;
 
-    // comment or starRating may not be defined
     review.set({
       comment: comment || review.comment,
       starRating: starRating || review.starRating,
@@ -66,7 +62,6 @@ exports.createUpdateReviews = asyncHandler(async (req, res) => {
     review = await review.save();
 
     if (hasNewRating) {
-      // recalculate aggregate only when the rating changes
       let { aggregate, totalReviews } = revieweeProfile.reviews;
 
       aggregate = Math.round(
@@ -117,7 +112,6 @@ exports.createUpdateReviews = asyncHandler(async (req, res) => {
     throw new Error(
       "Your review could not be linked properly. Please try again later"
     );
-    // TODO: Add logic to periodically remove unlinked reviews
   }
 
   if (!review) {
